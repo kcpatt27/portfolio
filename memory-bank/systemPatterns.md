@@ -1,36 +1,41 @@
 # System Patterns: Portfolio Website Architecture
 
 ## Overall Architecture
-Single-page application (SPA) built with vanilla HTML/CSS/JavaScript for simplicity and performance. The architecture prioritizes maintainability and fast loading times.
+Single-page application (SPA) built with vanilla HTML/CSS/JavaScript + Three.js for 3D elements. The architecture prioritizes maintainability, performance, and memorable user experiences.
 
 ## Key Technical Decisions
-- **Vanilla Stack**: HTML5, CSS3, JavaScript (no frameworks) for maximum compatibility and performance
-- **CSS Custom Properties**: CSS variables for consistent theming and easy customization
-- **Mobile-First Design**: Responsive design starting from mobile and scaling up
+- **Hybrid Stack**: HTML5, CSS3, JavaScript + Three.js for 3D elements
+- **CSS Custom Properties**: CSS variables for cosmic color theming and easy customization
+- **Mobile-First Performance**: Responsive design optimized for mobile with desktop wow factor
 - **Semantic HTML**: Proper HTML5 semantic elements for accessibility and SEO
+- **Progressive Enhancement**: Base functionality works without JavaScript, enhanced with 3D
 
 ## Design Patterns
-- **Component-Based CSS**: Modular CSS classes that can be easily modified
-- **Progressive Enhancement**: Core functionality works without JavaScript
-- **Graceful Degradation**: Fallbacks for older browsers
-- **Performance Optimization**: Minimal external dependencies, optimized images
+- **Component-Based CSS**: Modular CSS classes with cosmic theming
+- **Progressive Enhancement**: Core functionality works without JavaScript, enhanced with 3D
+- **Graceful Degradation**: Fallbacks for older browsers and mobile devices
+- **Performance Optimization**: Mobile-first approach with desktop enhancements
+- **3D Layering**: CSS transforms for performance, Three.js for wow factor
 
 ## Component Structure
 ```
-Portfolio Website
-├── Header (Navigation + Branding)
-├── Hero Section (Value Proposition + CTA)
-├── Portfolio Showcase (Work Examples)
-├── Services Section (Pricing Tiers)
+Cosmic Cyberpunk Portfolio
+├── Header (Navigation + Space Branding)
+├── Hero Section (Space Environment + Value Proposition)
+├── Current Reality (Real Development Work)
+├── Future Vision (Space/Robot Dreams)
+├── Services Section (Cosmic Pricing Tiers)
 └── Footer (Contact + Secondary CTA)
 ```
 
 ## Key Technical Patterns
 - **CSS Grid/Flexbox**: Modern layout techniques for responsive design
-- **CSS Custom Properties**: Centralized theming system
-- **Form Integration**: Google Forms embedding for order collection
+- **CSS Custom Properties**: Centralized cosmic theming system
+- **3D Transforms**: CSS-based 3D effects for performance
+- **Three.js Integration**: Selective 3D elements for wow factor
+- **Form Integration**: Google Forms embedding with cyberpunk styling
 - **Image Optimization**: Responsive images with proper alt text
-- **Progressive Loading**: Critical CSS inlined, non-critical resources loaded asynchronously
+- **Progressive Loading**: Critical CSS inlined, 3D elements loaded asynchronously
 
 ## Integration Points
 - **Google Forms**: Primary order collection mechanism
