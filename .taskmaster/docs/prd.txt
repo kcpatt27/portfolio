@@ -1,45 +1,47 @@
-# Portfolio Website with Web Dev Pricing Form - Product Requirements Document
+# Cyberpunk Portfolio Website with Web Dev Pricing Form - Product Requirements Document
 
 ## Project Overview
-Build a professional portfolio website that serves as both a showcase of web development work and a lead generation tool for potential clients. The site includes a pricing form that allows visitors to place orders for website development services.
+Build a 3D cyberpunk/space-themed portfolio website that serves as both a showcase of web development work and a lead generation tool for potential clients. The site combines futuristic aesthetics with professional functionality, featuring a pricing form that allows visitors to place orders for website development services.
 
 ## Target Audience
-- Small business owners, particularly in the catering/food service industry
-- Local service providers needing professional online presence
+- Tech-forward business owners who appreciate innovative design
+- Fellow developers who understand technical creativity
+- Creative entrepreneurs who value unique branding
+- Space/tech enthusiasts who connect with cosmic themes
 - Budget-conscious businesses looking for clear pricing
-- Non-technical users who need professional websites
 
 ## Core Features
 
-### 1. Professional Portfolio Showcase
-- Display examples of past web development work
-- High-quality images with responsive loading
+### 1. Cyberpunk Portfolio Showcase
+- Display examples of past web development work with 3D presentation
+- High-quality images with responsive loading and space-themed imagery
 - Clear project descriptions and technologies used
-- Easy-to-scan grid layout
+- 3D floating cards with cosmic styling
+- Dual portfolio: real work + space/robot dreams
 
-### 2. Service Pricing Tiers
-- Three clear pricing options:
+### 2. Cosmic Service Pricing Tiers
+- Three clear pricing options with futuristic presentation:
   - Basic Site ($2,000): 5-page template, contact form, basic SEO
   - Professional Site ($3,500): Custom layout, CMS, gallery, quote form
   - Premium Site ($5,000+): Everything plus booking engine, advanced features
-- Clear value propositions for each tier
+- Clear value propositions for each tier with cyberpunk styling
 - Transparent pricing with no hidden costs
 
-### 3. Order Inquiry System
-- Google Forms integration for order placement
-- Clear call-to-action buttons throughout the site
+### 3. Cyberpunk Order Inquiry System
+- Google Forms integration with cyberpunk styling
+- Clear call-to-action buttons with neon effects
 - Form fields for:
   - Business information
   - Project requirements
   - Budget and timeline
   - Contact details
 
-### 4. Professional Presentation
-- Clean, modern design that builds trust
-- Mobile-first responsive design
-- Fast loading times (< 3 seconds)
-- Professional color scheme and typography
-- Clear navigation and user flow
+### 4. Immersive Cyberpunk Presentation
+- 3D cyberpunk/space design that builds trust while showcasing creativity
+- Mobile-first responsive design with desktop wow factor
+- Fast loading times (< 3 seconds mobile, < 3 seconds desktop)
+- Cosmic color scheme (moonshadow purple, sunset colors) and space typography
+- Clear navigation with futuristic styling
 
 ### 5. Contact and Communication
 - Multiple contact methods (email, form)

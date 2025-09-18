@@ -1,11 +1,12 @@
 # Technical Context: Portfolio Website
 
 ## Technology Stack
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: Vanilla CSS with custom properties
-- **Icons**: None (text-based design)
-- **Images**: External (Unsplash) with responsive loading
-- **Forms**: Google Forms integration
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+) + Three.js
+- **Styling**: Vanilla CSS with cosmic custom properties
+- **3D Graphics**: Three.js for selective 3D elements
+- **Icons**: Space/cyberpunk themed icons
+- **Images**: External (Unsplash) with responsive loading + space imagery
+- **Forms**: Google Forms integration with cyberpunk styling
 - **Hosting**: GitHub Pages (planned)
 
 ## Development Setup
@@ -15,8 +16,9 @@
 - **Testing**: Manual testing across browsers and devices
 
 ## Dependencies
-- **External Fonts**: Google Fonts (Inter font family)
-- **External Images**: Unsplash API for portfolio images
+- **External Fonts**: Google Fonts (Inter font family + space-themed fonts)
+- **3D Library**: Three.js for 3D elements
+- **External Images**: Unsplash API for portfolio images + space imagery
 - **Form Service**: Google Forms (no additional dependencies)
 - **Analytics**: None currently (ready for Google Analytics)
 
@@ -30,8 +32,9 @@
 - **Critical CSS**: Inlined for fast initial render
 - **Font Loading**: Preconnected to Google Fonts
 - **Image Optimization**: Responsive images with proper sizing
-- **Minimal JavaScript**: Only essential functionality
-- **No Build Process**: Direct deployment for simplicity
+- **3D Optimization**: CSS transforms for performance, Three.js for selective elements
+- **Mobile-First**: Performance optimized for mobile devices
+- **Progressive Enhancement**: Base functionality without JavaScript
 
 ## Security Considerations
 - **Form Security**: Google Forms handles form submission security
