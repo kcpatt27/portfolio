@@ -1,0 +1,75 @@
+# Portfolio Website Project Intelligence
+
+## Project Overview
+This is a portfolio website project that serves as both a showcase of web development work and a lead generation tool for potential clients. The site includes a pricing form that allows visitors to place orders for website development services.
+
+## Key Project Patterns
+
+### File Organization
+- **Separated Assets**: Monolithic `website_project_assets_and_templates.md` was split into focused files:
+  - `pitch-email.md` - Client pitch template
+  - `contract-skeleton.md` - Legal contract template  
+  - `quote-breakdown.md` - Pricing justification
+  - `intake-questionnaire.md` - Client intake questions
+  - `google-form-fields.md` - Google Forms setup
+  - `ai-prompts.md` - AI generation prompts
+
+### Memory Bank Structure
+- **Core Files**: projectbrief.md, productContext.md, systemPatterns.md, techContext.md, activeContext.md, progress.md
+- **Documentation Hierarchy**: Files build upon each other in clear hierarchy
+- **Project Intelligence**: .cursorrules captures learned patterns and preferences
+
+### Task Management
+- **Taskmaster Integration**: 15 comprehensive tasks covering full development lifecycle
+- **Task Dependencies**: Clear dependency chain from setup through deployment
+- **Status Tracking**: Tasks marked as done/pending with clear next steps
+
+## Technical Patterns
+
+### HTML Structure
+- **Single File**: `portfolio_website_index.html` contains all code in one file
+- **CSS Custom Properties**: Centralized theming with CSS variables
+- **Mobile-First**: Responsive design starting from mobile
+- **Semantic HTML**: Proper HTML5 semantic elements
+
+### Integration Points
+- **Google Forms**: Primary order collection mechanism
+- **External Images**: Unsplash integration for portfolio examples
+- **Email Integration**: Contact form routing to business email
+
+## Development Workflow
+
+### Current Phase
+- **Setup Complete**: File organization, memory bank, and taskmaster initialized
+- **Next Priority**: Code review and content audit (Tasks #4-5)
+- **Focus Areas**: Mobile optimization, form integration, performance
+
+### Key Decisions
+- **Vanilla Stack**: HTML/CSS/JS for simplicity and performance
+- **GitHub Pages**: Planned hosting solution
+- **Progressive Enhancement**: Core functionality works without JavaScript
+
+## User Preferences
+- **reishi**: User prefers lowercase name and addresses assistant as "Gee"
+- **Memory Reset**: Assistant memory resets each session, relies on memory bank
+- **Documentation**: Comprehensive documentation is critical for project continuity
+- **Clean Code**: Emphasis on clean, correct code with proper types and whitespace
+
+## Project Intelligence
+- **Target Market**: Small businesses, particularly catering/food service
+- **Pricing Tiers**: Basic ($2K), Professional ($3.5K), Premium ($5K+)
+- **Conversion Focus**: Every element should guide toward order placement
+- **Professional Appearance**: Trust-building design is critical for success
+
+## Next Steps Pattern
+1. Review current HTML code (Task #4)
+2. Replace placeholder content (Task #5)  
+3. Set up Google Forms integration (Task #6)
+4. Optimize mobile experience (Task #8)
+5. Performance optimization (Task #9)
+
+## Maintenance Patterns
+- **Single File Updates**: Direct HTML editing for content changes
+- **Version Control**: Git integration for change tracking
+- **Documentation Updates**: Memory bank updates after significant changes
+- **Task Status**: Regular task status updates in activeContext.md

@@ -1,0 +1,151 @@
+<!--
+Simple portfolio landing page (single file) for offering website builds.
+Instructions:
+  1) Replace the GOOGLE_FORM_URL placeholder with your actual Google Form link.
+  2) Replace image URLs or the hero background as desired.
+  3) Edit text (business name, services, portfolio items) directly in the file.
+  4) To host on GitHub Pages: create a new repo, add this file as index.html to the root of main branch and enable Pages (branch: main, folder: /root).
+
+Designed to be copy-paste ready as index.html.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Web Developer & Designer</title>
+  <meta name="description" content="Simple portfolio for website development services. Click the button to place an order inquiry." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#ffcc33;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04);}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#081027 0%, #071021 100%);}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1000px;margin:0 auto;padding:28px}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#ff9f1c);display:flex;align-items:center;justify-content:center;color:#082032;font-weight:700}
+    nav a{margin-left:18px;color:var(--muted);font-weight:600;font-size:14px}
+    nav a.cta{background:var(--accent);color:#071021;padding:8px 12px;border-radius:8px}
+
+    .hero{display:grid;grid-template-columns:1fr;gap:22px;align-items:center;padding:36px 0}
+    .hero-inner{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));padding:28px;border-radius:14px;box-shadow:0 4px 24px rgba(2,6,23,0.6)}
+    .eyebrow{color:var(--accent);font-weight:700;font-size:13px}
+    h1{margin:8px 0 6px;font-size:28px}
+    p.lead{color:var(--muted);margin:0 0 16px}
+    .buttons{display:flex;gap:12px}
+    .btn{padding:12px 18px;border-radius:10px;font-weight:700;border:none;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#071021}
+    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:inset 0 -1px 0 rgba(255,255,255,0.02)}
+    .card h3{margin:0 0 8px;font-size:16px}
+    .muted{color:var(--muted);font-size:14px}
+
+    .portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+    .portfolio img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+
+    footer{margin-top:40px;padding:20px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    /* responsive */
+    @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} .portfolio{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
+    @media (max-width:560px){.container{padding:18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .portfolio{grid-template-columns:1fr} .hero{padding:0}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">WB</div>
+        <div>
+          <div style="font-weight:700">[Your Name]</div>
+          <div style="font-size:13px;color:var(--muted)">Web Developer • Small Business Sites</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a class="cta" href="GOOGLE_FORM_URL" id="order-link">Place an Order</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="eyebrow">Websites for local businesses</div>
+          <h1>Beautiful, fast, and easy-to-manage websites for caterers & small food businesses</h1>
+          <p class="lead">I build simple, maintainable websites with clear menus, image galleries, and inquiry forms so you can win more clients. Click below to place an order inquiry and I’ll follow up with next steps.</p>
+
+          <div class="buttons">
+            <a class="btn btn-primary" href="GOOGLE_FORM_URL">Place an Order</a>
+            <a class="btn btn-outline" href="#work">See examples</a>
+          </div>
+
+          <div class="grid" style="margin-top:20px">
+            <div class="card">
+              <h3>Fast turnaround</h3>
+              <div class="muted">Launch a basic site in 1–2 weeks depending on content.</div>
+            </div>
+            <div class="card">
+              <h3>CMS or Template</h3>
+              <div class="muted">Choose a template speed approach or a CMS for easy updates.</div>
+            </div>
+            <div class="card">
+              <h3>Training & Handoff</h3>
+              <div class="muted">I include a recorded walkthrough and simple docs so you can edit menus and images.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" style="margin-top:28px">
+        <h2 style="margin:0 0 12px">Selected Work</h2>
+        <p class="muted" style="margin:0 0 12px">Examples — replace these with real screenshots or links.</p>
+        <div class="portfolio">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60" alt="Portfolio 1">
+          <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60" alt="Portfolio 2">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=60" alt="Portfolio 3">
+        </div>
+      </section>
+
+      <section id="services" style="margin-top:28px">
+        <h2 style="margin:0 0 12px">Services</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Starter site</h3>
+            <div class="muted">5-page template setup, contact form, basic SEO & hosting guidance.</div>
+          </div>
+          <div class="card">
+            <h3>Professional site</h3>
+            <div class="muted">Custom layout, CMS, gallery, quote form, and training.</div>
+          </div>
+          <div class="card">
+            <h3>Ongoing support</h3>
+            <div class="muted">Monthly updates, backups, and priority fixes.</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> [Your Name] — Web Developer</div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="mailto:you@example.com" class="muted">you@example.com</a>
+        <a href="GOOGLE_FORM_URL" id="footer-order" class="muted">Place an Order</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Small helpers: replace GOOGLE_FORM_URL placeholder in multiple spots if you prefer to set it via JS
+    const FORM_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'; // <-- REPLACE THIS with your form link
+    document.querySelectorAll('a[href="GOOGLE_FORM_URL"]').forEach(a => a.href = FORM_URL);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
