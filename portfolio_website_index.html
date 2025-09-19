@@ -14,8 +14,8 @@ Designed to be copy-paste ready as index.html.
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name — Web Developer & Designer</title>
-  <meta name="description" content="Simple portfolio for website development services. Click the button to place an order inquiry." />
+  <title>reishi — Space Dreamer & Code Architect</title>
+  <meta name="description" content="Cyberpunk portfolio for web development services. Building the future, one app at a time. Ready to start your mission?" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -388,7 +388,64 @@ Designed to be copy-paste ready as index.html.
       text-shadow: 0 0 10px rgba(0, 212, 170, 0.8);
     }
 
-    footer{margin-top:40px;padding:20px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+    /* Footer - Cyberpunk/Space Theme */
+    footer{
+      margin-top:40px;
+      padding:20px 0;
+      color: var(--starlight-pink);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      /* Glassmorphism Space: Subtle footer effect */
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255, 107, 157, 0.1);
+      position: relative;
+    }
+    
+    footer::before {
+      /* Cyberpunk Matrix: Subtle grid line */
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--cosmic-pink) 50%, 
+        transparent 100%);
+      opacity: 0.5;
+    }
+    
+    footer a {
+      color: var(--cosmic-pink);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    footer a:hover {
+      /* Cyberpunk Matrix: Glow effect */
+      text-shadow: 0 0 10px rgba(255, 107, 157, 0.6);
+      color: var(--starlight-pink);
+    }
+    
+    footer a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--cosmic-pink);
+      transition: width 0.3s ease;
+    }
+    
+    footer a:hover::after {
+      width: 100%;
+    }
 
     /* responsive */
     @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} .portfolio{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
@@ -401,14 +458,14 @@ Designed to be copy-paste ready as index.html.
       <div class="brand">
         <div class="logo">WB</div>
         <div>
-          <div style="font-weight:700">[Your Name]</div>
-          <div style="font-size:13px;color:var(--muted)">Web Developer • Small Business Sites</div>
+          <div style="font-weight:700; color: var(--cosmic-pink); text-shadow: 0 0 10px rgba(255, 107, 157, 0.4);">reishi</div>
+          <div style="font-size:13px;color:var(--starlight-pink)">Space Dreamer • Code Architect • Future Builder</div>
         </div>
       </div>
       <nav>
         <a href="#work">Work</a>
         <a href="#services">Services</a>
-        <a class="cta" href="GOOGLE_FORM_URL" id="order-link">Place an Order</a>
+        <a class="cta" href="GOOGLE_FORM_URL" id="order-link">Start a Mission</a>
       </nav>
     </header>
 
@@ -500,10 +557,10 @@ Designed to be copy-paste ready as index.html.
     </main>
 
     <footer>
-      <div>© <span id="year"></span> [Your Name] — Web Developer</div>
+      <div>© <span id="year"></span> reishi — Space Dreamer & Code Architect</div>
       <div style="display:flex;gap:12px;align-items:center">
-        <a href="mailto:you@example.com" class="muted">you@example.com</a>
-        <a href="GOOGLE_FORM_URL" id="footer-order" class="muted">Place an Order</a>
+        <a href="mailto:reishi@example.com">reishi@example.com</a>
+        <a href="GOOGLE_FORM_URL" id="footer-order">Start a Mission</a>
       </div>
     </footer>
   </div>
