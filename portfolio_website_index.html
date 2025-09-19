@@ -294,6 +294,100 @@ Designed to be copy-paste ready as index.html.
       opacity: 1;
     }
 
+    /* Pricing Cards - Cyberpunk/Space Theme */
+    .pricing-card {
+      position: relative;
+      /* Enhanced glassmorphism for pricing */
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 107, 157, 0.2);
+      /* Cosmic Explorer: Enhanced depth */
+      transform-style: preserve-3d;
+    }
+    
+    .pricing-card.featured {
+      /* Cyberpunk Matrix: Enhanced glow for featured */
+      border: 2px solid var(--cosmic-pink);
+      box-shadow: 
+        0 8px 32px rgba(45, 27, 105, 0.4),
+        0 0 60px rgba(255, 107, 157, 0.3),
+        inset 0 0 20px rgba(255, 107, 157, 0.1);
+      transform: scale(1.05);
+    }
+    
+    .pricing-card.featured:hover {
+      transform: scale(1.08) perspective(1000px) rotateY(3deg) rotateX(-2deg) translateZ(15px);
+    }
+    
+    .pricing-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: var(--sunset-gradient);
+      color: var(--void-black);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      /* Cyberpunk Matrix: Glow effect */
+      box-shadow: 0 0 20px rgba(255, 107, 157, 0.6);
+      z-index: 2;
+    }
+    
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 107, 157, 0.2);
+    }
+    
+    .pricing-header h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--cosmic-pink);
+      text-shadow: 0 0 10px rgba(255, 107, 157, 0.4);
+    }
+    
+    .price {
+      font-size: 32px;
+      font-weight: 700;
+      background: var(--sunset-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* Memory Work Future: Ethereal text */
+      text-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+    }
+    
+    .pricing-features {
+      margin-top: 16px;
+    }
+    
+    .feature {
+      color: var(--starlight-pink);
+      font-size: 14px;
+      margin: 8px 0;
+      padding-left: 8px;
+      position: relative;
+    }
+    
+    .feature::before {
+      content: '✓';
+      color: var(--aurora-green);
+      font-weight: bold;
+      position: absolute;
+      left: -8px;
+      /* Cyberpunk Matrix: Subtle glow */
+      text-shadow: 0 0 5px rgba(0, 212, 170, 0.5);
+    }
+    
+    .pricing-card:hover .feature::before {
+      /* Cyberpunk Matrix: Enhanced glow on hover */
+      text-shadow: 0 0 10px rgba(0, 212, 170, 0.8);
+    }
+
     footer{margin-top:40px;padding:20px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
 
     /* responsive */
@@ -358,19 +452,47 @@ Designed to be copy-paste ready as index.html.
       </section>
 
       <section id="services" style="margin-top:28px">
-        <h2 style="margin:0 0 12px">Services</h2>
+        <h2 style="margin:0 0 12px; color: var(--cosmic-pink); text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);">Mission Packages</h2>
+        <p class="muted" style="margin:0 0 20px; text-align: center;">Choose your launch trajectory — from basic orbit to deep space exploration.</p>
         <div class="grid">
-          <div class="card">
-            <h3>Starter site</h3>
-            <div class="muted">5-page template setup, contact form, basic SEO & hosting guidance.</div>
+          <div class="card pricing-card">
+            <div class="pricing-header">
+              <h3>Basic Orbit</h3>
+              <div class="price">$2,000</div>
+            </div>
+            <div class="muted">5-page template setup, contact form, basic SEO & hosting guidance. Perfect for getting your business off the ground.</div>
+            <div class="pricing-features">
+              <div class="feature">✓ Responsive Design</div>
+              <div class="feature">✓ Contact Forms</div>
+              <div class="feature">✓ Basic SEO</div>
+            </div>
           </div>
-          <div class="card">
-            <h3>Professional site</h3>
-            <div class="muted">Custom layout, CMS, gallery, quote form, and training.</div>
+          <div class="card pricing-card featured">
+            <div class="pricing-badge">Most Popular</div>
+            <div class="pricing-header">
+              <h3>Professional Launch</h3>
+              <div class="price">$3,500</div>
+            </div>
+            <div class="muted">Custom layout, CMS, gallery, quote form, and training. For businesses ready to reach for the stars.</div>
+            <div class="pricing-features">
+              <div class="feature">✓ Everything in Basic</div>
+              <div class="feature">✓ Custom Design</div>
+              <div class="feature">✓ CMS Integration</div>
+              <div class="feature">✓ Advanced SEO</div>
+            </div>
           </div>
-          <div class="card">
-            <h3>Ongoing support</h3>
-            <div class="muted">Monthly updates, backups, and priority fixes.</div>
+          <div class="card pricing-card">
+            <div class="pricing-header">
+              <h3>Deep Space</h3>
+              <div class="price">$5,000+</div>
+            </div>
+            <div class="muted">Full custom development, advanced features, and ongoing mission support. For the ultimate digital universe.</div>
+            <div class="pricing-features">
+              <div class="feature">✓ Everything in Professional</div>
+              <div class="feature">✓ Advanced Features</div>
+              <div class="feature">✓ Ongoing Support</div>
+              <div class="feature">✓ Priority Mission Control</div>
+            </div>
           </div>
         </div>
       </section>
