@@ -1,12 +1,6 @@
 <!--
-Simple portfolio landing page (single file) for offering website builds.
-Instructions:
-  1) Replace the GOOGLE_FORM_URL placeholder with your actual Google Form link.
-  2) Replace image URLs or the hero background as desired.
-  3) Edit text (business name, services, portfolio items) directly in the file.
-  4) To host on GitHub Pages: create a new repo, add this file as index.html to the root of main branch and enable Pages (branch: main, folder: /root).
-
-Designed to be copy-paste ready as index.html.
+Cyberpunk Web Development Services Page
+This page focuses specifically on web development services with cyberpunk/space theming.
 -->
 
 <!doctype html>
@@ -14,8 +8,8 @@ Designed to be copy-paste ready as index.html.
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>reishi — Space Dreamer & Code Architect</title>
-  <meta name="description" content="Personal portfolio of a space dreamer and code architect. Building the future, one app at a time. Exploring the intersection of technology and imagination." />
+  <title>Web Development Services — reishi</title>
+  <meta name="description" content="Professional web development services with cyberpunk aesthetics. Building the future, one website at a time." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -62,22 +56,19 @@ Designed to be copy-paste ready as index.html.
     nav a{margin-left:18px;color:var(--muted);font-weight:600;font-size:14px}
     nav a.cta{background:var(--accent);color:#071021;padding:8px 12px;border-radius:8px}
 
-    /* Hero Section - Cyberpunk/Space Control Test */
+    /* Hero Section - Services Focus */
     .hero{
       display:grid;
       grid-template-columns:1fr;
       gap:22px;
       align-items:center;
       padding:36px 0;
-      /* Cosmic Explorer: Floating depth */
       perspective: 1000px;
-      /* Memory Work Future: Ethereal background */
       background: var(--space-gradient);
       position: relative;
     }
     
     .hero::before {
-      /* Cyberpunk Matrix: Advanced grid overlay with terminal aesthetics */
       content: '';
       position: absolute;
       top: 0;
@@ -99,27 +90,7 @@ Designed to be copy-paste ready as index.html.
       50% { opacity: 0.6; }
     }
     
-    .hero::after {
-      /* Terminal scan line effect */
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--terminal-green), transparent);
-      animation: scanLine 3s linear infinite;
-      pointer-events: none;
-    }
-    
-    @keyframes scanLine {
-      0% { transform: translateY(0); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-    
     .hero-inner{
-      /* Glassmorphism Space: Frosted glass effect */
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 107, 157, 0.2);
@@ -128,29 +99,25 @@ Designed to be copy-paste ready as index.html.
       box-shadow: 
         0 4px 24px rgba(45, 27, 105, 0.4),
         0 0 40px rgba(255, 107, 157, 0.1);
-      /* Neo Tokyo Terminal: Clean structure */
       position: relative;
       z-index: 1;
       transition: all 0.3s ease;
     }
     
     .hero-inner:hover {
-      /* Cosmic Explorer: 3D tilt effect */
       transform: perspective(1000px) rotateY(2deg) rotateX(-1deg) translateZ(10px);
-      /* Cyberpunk Matrix: Glitch effect */
       filter: hue-rotate(5deg) saturate(1.1);
       box-shadow: 
         0 8px 32px rgba(45, 27, 105, 0.6),
         0 0 60px rgba(255, 107, 157, 0.2);
     }
-    /* Hero Content Styling */
+    
     .eyebrow{
       color: var(--cosmic-pink);
       font-weight:700;
       font-size:13px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      /* Cyberpunk Matrix: Subtle glow */
       text-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
     }
     
@@ -163,7 +130,6 @@ Designed to be copy-paste ready as index.html.
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      /* Advanced glitch effect */
       position: relative;
       animation: glitch 2s infinite;
     }
@@ -219,6 +185,7 @@ Designed to be copy-paste ready as index.html.
       margin:0 0 16px;
       line-height: 1.6;
     }
+
     /* Button Styling - Cyberpunk Theme */
     .buttons{display:flex;gap:12px}
     .btn{
@@ -235,7 +202,6 @@ Designed to be copy-paste ready as index.html.
     .btn-primary{
       background: var(--sunset-gradient);
       color: var(--void-black);
-      /* Cyberpunk Matrix: Glow effect */
       box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
     }
     
@@ -248,118 +214,12 @@ Designed to be copy-paste ready as index.html.
       background: transparent;
       border: 1px solid var(--cosmic-pink);
       color: var(--cosmic-pink);
-      /* Glassmorphism Space: Subtle glow */
       backdrop-filter: blur(5px);
     }
     
     .btn-outline:hover {
       background: rgba(255, 107, 157, 0.1);
       box-shadow: 0 0 15px rgba(255, 107, 157, 0.3);
-    }
-    
-    /* Terminal UI Elements */
-    .terminal-line {
-      font-family: var(--font-terminal);
-      font-size: 14px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .terminal-prompt {
-      color: var(--terminal-green);
-      font-weight: 500;
-    }
-    
-    .terminal-command {
-      color: var(--neon-cyan);
-      animation: blink 1s infinite;
-    }
-    
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-    
-    .hologram-terminal {
-      margin: 24px 0;
-      perspective: 1000px;
-    }
-    
-    .terminal-window {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--terminal-green);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 
-        0 0 20px rgba(0, 255, 65, 0.3),
-        inset 0 0 20px rgba(0, 255, 65, 0.1);
-      transform: rotateX(5deg) rotateY(-2deg);
-      transition: transform 0.3s ease;
-    }
-    
-    .terminal-window:hover {
-      transform: rotateX(0deg) rotateY(0deg) translateZ(10px);
-      box-shadow: 
-        0 0 30px rgba(0, 255, 65, 0.5),
-        inset 0 0 30px rgba(0, 255, 65, 0.2);
-    }
-    
-    .terminal-header {
-      background: linear-gradient(90deg, var(--void-black), var(--moonshadow));
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--terminal-green);
-    }
-    
-    .terminal-buttons {
-      display: flex;
-      gap: 6px;
-    }
-    
-    .terminal-buttons span {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      display: block;
-    }
-    
-    .btn-close { background: #ff5f56; }
-    .btn-minimize { background: #ffbd2e; }
-    .btn-maximize { background: #27ca3f; }
-    
-    .terminal-title {
-      color: var(--terminal-green);
-      font-family: var(--font-terminal);
-      font-size: 12px;
-    }
-    
-    .terminal-body {
-      padding: 16px;
-      font-family: var(--font-terminal);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    
-    .terminal-output {
-      margin-top: 8px;
-    }
-    
-    .skill-item {
-      color: var(--neon-cyan);
-      margin: 4px 0;
-      padding-left: 8px;
-      position: relative;
-    }
-    
-    .skill-item::before {
-      content: '>';
-      color: var(--terminal-green);
-      position: absolute;
-      left: 0;
     }
 
     /* Portfolio Grid - Cyberpunk/Space Theme */
@@ -368,12 +228,10 @@ Designed to be copy-paste ready as index.html.
       grid-template-columns:repeat(3,1fr);
       gap:16px;
       margin-top:22px;
-      /* Cosmic Explorer: Floating depth layers */
       perspective: 1000px;
     }
     
     .card{
-      /* Glassmorphism Space: Frosted glass effect */
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 107, 157, 0.1);
@@ -382,14 +240,12 @@ Designed to be copy-paste ready as index.html.
       box-shadow: 
         0 4px 16px rgba(45, 27, 105, 0.2),
         inset 0 -1px 0 rgba(255, 107, 157, 0.1);
-      /* Neo Tokyo Terminal: Clean structure */
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
     
     .card::before {
-      /* Cyberpunk Matrix: Subtle scan line effect */
       content: '';
       position: absolute;
       top: 0;
@@ -406,9 +262,7 @@ Designed to be copy-paste ready as index.html.
     }
     
     .card:hover {
-      /* Cosmic Explorer: 3D tilt and lift */
       transform: perspective(1000px) rotateY(5deg) rotateX(-2deg) translateZ(20px);
-      /* Cyberpunk Matrix: Glitch effect */
       filter: hue-rotate(10deg) saturate(1.2);
       box-shadow: 
         0 8px 32px rgba(45, 27, 105, 0.4),
@@ -420,7 +274,6 @@ Designed to be copy-paste ready as index.html.
       margin:0 0 8px;
       font-size:16px;
       color: var(--cosmic-pink);
-      /* Memory Work Future: Ethereal text */
       text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
     }
     
@@ -430,75 +283,16 @@ Designed to be copy-paste ready as index.html.
       line-height: 1.5;
     }
 
-    /* Portfolio Images - Cyberpunk/Space Theme */
-    .portfolio{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-      margin-top:20px;
-      /* Cosmic Explorer: Floating depth */
-      perspective: 1000px;
-    }
-    
-    .portfolio img{
-      width:100%;
-      height:140px;
-      object-fit:cover;
-      border-radius:8px;
-      /* Glassmorphism Space: Frosted glass effect */
-      border: 1px solid rgba(255, 107, 157, 0.2);
-      box-shadow: 
-        0 4px 16px rgba(45, 27, 105, 0.3),
-        0 0 20px rgba(255, 107, 157, 0.1);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .portfolio img::before {
-      /* Cyberpunk Matrix: Subtle overlay */
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(255, 107, 157, 0.1) 50%, 
-        transparent 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .portfolio img:hover {
-      /* Cosmic Explorer: 3D tilt effect */
-      transform: perspective(1000px) rotateY(3deg) rotateX(-1deg) translateZ(10px);
-      /* Cyberpunk Matrix: Glitch effect */
-      filter: hue-rotate(15deg) saturate(1.3) brightness(1.1);
-      box-shadow: 
-        0 8px 32px rgba(45, 27, 105, 0.5),
-        0 0 40px rgba(255, 107, 157, 0.3);
-      border-color: rgba(255, 107, 157, 0.4);
-    }
-    
-    .portfolio img:hover::before {
-      opacity: 1;
-    }
-
     /* Pricing Cards - Cyberpunk/Space Theme */
     .pricing-card {
       position: relative;
-      /* Enhanced glassmorphism for pricing */
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 107, 157, 0.2);
-      /* Cosmic Explorer: Enhanced depth */
       transform-style: preserve-3d;
     }
     
     .pricing-card.featured {
-      /* Cyberpunk Matrix: Enhanced glow for featured */
       border: 2px solid var(--cosmic-pink);
       box-shadow: 
         0 8px 32px rgba(45, 27, 105, 0.4),
@@ -523,7 +317,6 @@ Designed to be copy-paste ready as index.html.
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      /* Cyberpunk Matrix: Glow effect */
       box-shadow: 0 0 20px rgba(255, 107, 157, 0.6);
       z-index: 2;
     }
@@ -549,7 +342,6 @@ Designed to be copy-paste ready as index.html.
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      /* Memory Work Future: Ethereal text */
       text-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
     }
     
@@ -571,77 +363,18 @@ Designed to be copy-paste ready as index.html.
       font-weight: bold;
       position: absolute;
       left: -8px;
-      /* Cyberpunk Matrix: Subtle glow */
       text-shadow: 0 0 5px rgba(0, 212, 170, 0.5);
     }
     
     .pricing-card:hover .feature::before {
-      /* Cyberpunk Matrix: Enhanced glow on hover */
       text-shadow: 0 0 10px rgba(0, 212, 170, 0.8);
     }
 
-    /* Footer - Cyberpunk/Space Theme */
-    footer{
-      margin-top:40px;
-      padding:20px 0;
-      color: var(--starlight-pink);
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      /* Glassmorphism Space: Subtle footer effect */
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(5px);
-      border-top: 1px solid rgba(255, 107, 157, 0.1);
-      position: relative;
-    }
-    
-    footer::before {
-      /* Cyberpunk Matrix: Subtle grid line */
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        var(--cosmic-pink) 50%, 
-        transparent 100%);
-      opacity: 0.5;
-    }
-    
-    footer a {
-      color: var(--cosmic-pink);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    footer a:hover {
-      /* Cyberpunk Matrix: Glow effect */
-      text-shadow: 0 0 10px rgba(255, 107, 157, 0.6);
-      color: var(--starlight-pink);
-    }
-    
-    footer a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--cosmic-pink);
-      transition: width 0.3s ease;
-    }
-    
-    footer a:hover::after {
-      width: 100%;
-    }
+    footer{margin-top:40px;padding:20px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
 
     /* responsive */
-    @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} .portfolio{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
-    @media (max-width:560px){.container{padding:18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .portfolio{grid-template-columns:1fr} .hero{padding:0}}
+    @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
+    @media (max-width:560px){.container{padding:18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .hero{padding:0}}
   </style>
 </head>
 <body>
@@ -655,50 +388,22 @@ Designed to be copy-paste ready as index.html.
         </div>
       </div>
       <nav>
-        <a href="#work">Work</a>
-        <a href="/services">Services</a>
-        <a class="cta" href="/services" id="order-link">Hire Me</a>
+        <a href="/">Portfolio</a>
+        <a href="#services">Services</a>
+        <a class="cta" href="GOOGLE_FORM_URL" id="order-link">Start a Mission</a>
       </nav>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-inner">
-          <div class="terminal-line">
-            <span class="terminal-prompt">reishi@cyberspace:~$</span>
-            <span class="terminal-command">whoami</span>
-          </div>
-          <div class="eyebrow">Building the Future, One App at a Time</div>
-          <h1 data-text="App Developer • Space Dreamer • Future Builder">App Developer • Space Dreamer • Future Builder</h1>
-          <p class="lead">I code apps that solve real problems today, while dreaming of robots and space suits tomorrow. Currently growing a solo lifestyle business and interviewing for cofounder roles. Ready to build something amazing together?</p>
-          
-          <div class="hologram-terminal">
-            <div class="terminal-window">
-              <div class="terminal-header">
-                <div class="terminal-buttons">
-                  <span class="btn-close"></span>
-                  <span class="btn-minimize"></span>
-                  <span class="btn-maximize"></span>
-                </div>
-                <div class="terminal-title">reishi@portfolio:~$</div>
-              </div>
-              <div class="terminal-body">
-                <div class="terminal-line">
-                  <span class="terminal-prompt">$</span>
-                  <span class="terminal-command">cat skills.txt</span>
-                </div>
-                <div class="terminal-output">
-                  <div class="skill-item">> React • Vue • Node.js</div>
-                  <div class="skill-item">> Three.js • WebGL • CSS3D</div>
-                  <div class="skill-item">> Space Dreams • Robot Visions</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="eyebrow">Professional Web Development Services</div>
+          <h1 data-text="Building Digital Futures">Building Digital Futures</h1>
+          <p class="lead">I create stunning, functional websites that solve real business problems. From concept to launch, I handle everything with cyberpunk precision and space-age innovation.</p>
 
           <div class="buttons">
-            <a class="btn btn-primary" href="/services">Hire Me</a>
-            <a class="btn btn-outline" href="#work">Explore My Work</a>
+            <a class="btn btn-primary" href="GOOGLE_FORM_URL">Start a Project</a>
+            <a class="btn btn-outline" href="#services">View Packages</a>
           </div>
 
           <div class="grid" style="margin-top:20px">
@@ -718,31 +423,48 @@ Designed to be copy-paste ready as index.html.
         </div>
       </section>
 
-      <section id="work" style="margin-top:28px">
-        <h2 style="margin:0 0 12px; color: var(--cosmic-pink); text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);">Current Reality</h2>
-        <p class="muted" style="margin:0 0 12px">Real apps and websites I've built — solving problems today while dreaming of tomorrow.</p>
-        <div class="portfolio">
-          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60" alt="Portfolio 1">
-          <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60" alt="Portfolio 2">
-          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=60" alt="Portfolio 3">
-        </div>
-      </section>
-
-      <section id="vision" style="margin-top:28px">
-        <h2 style="margin:0 0 12px; color: var(--cosmic-pink); text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);">Future Vision</h2>
-        <p class="muted" style="margin:0 0 20px; text-align: center;">Where technology meets imagination — my dreams of space, robots, and the future.</p>
+      <section id="services" style="margin-top:28px">
+        <h2 style="margin:0 0 12px; color: var(--cosmic-pink); text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);">Mission Packages</h2>
+        <p class="muted" style="margin:0 0 20px; text-align: center;">Choose your launch trajectory — from basic orbit to deep space exploration.</p>
         <div class="grid">
-          <div class="card">
-            <h3>Space Dreams</h3>
-            <div class="muted">Building apps for space exploration, Mars colonies, and interplanetary communication systems.</div>
+          <div class="card pricing-card">
+            <div class="pricing-header">
+              <h3>Basic Orbit</h3>
+              <div class="price">$2,000</div>
+            </div>
+            <div class="muted">5-page template setup, contact form, basic SEO & hosting guidance. Perfect for getting your business off the ground.</div>
+            <div class="pricing-features">
+              <div class="feature">✓ Responsive Design</div>
+              <div class="feature">✓ Contact Forms</div>
+              <div class="feature">✓ Basic SEO</div>
+            </div>
           </div>
-          <div class="card">
-            <h3>Robot Visions</h3>
-            <div class="muted">Creating AI interfaces, robotic control systems, and human-machine collaboration tools.</div>
+          <div class="card pricing-card featured">
+            <div class="pricing-badge">Most Popular</div>
+            <div class="pricing-header">
+              <h3>Professional Launch</h3>
+              <div class="price">$3,500</div>
+            </div>
+            <div class="muted">Custom layout, CMS, gallery, quote form, and training. For businesses ready to reach for the stars.</div>
+            <div class="pricing-features">
+              <div class="feature">✓ Everything in Basic</div>
+              <div class="feature">✓ Custom Design</div>
+              <div class="feature">✓ CMS Integration</div>
+              <div class="feature">✓ Advanced SEO</div>
+            </div>
           </div>
-          <div class="card">
-            <h3>Future Tech</h3>
-            <div class="muted">Exploring quantum computing, neural interfaces, and technologies that don't exist yet.</div>
+          <div class="card pricing-card">
+            <div class="pricing-header">
+              <h3>Deep Space</h3>
+              <div class="price">$5,000+</div>
+            </div>
+            <div class="muted">Full custom development, advanced features, and ongoing mission support. For the ultimate digital universe.</div>
+            <div class="pricing-features">
+              <div class="feature">✓ Everything in Professional</div>
+              <div class="feature">✓ Advanced Features</div>
+              <div class="feature">✓ Ongoing Support</div>
+              <div class="feature">✓ Priority Mission Control</div>
+            </div>
           </div>
         </div>
       </section>
@@ -753,7 +475,7 @@ Designed to be copy-paste ready as index.html.
       <div>© <span id="year"></span> reishi — Space Dreamer & Code Architect</div>
       <div style="display:flex;gap:12px;align-items:center">
         <a href="mailto:reishi@example.com">reishi@example.com</a>
-        <a href="/services" id="footer-order">Hire Me</a>
+        <a href="GOOGLE_FORM_URL" id="footer-order">Start a Mission</a>
       </div>
     </footer>
   </div>
