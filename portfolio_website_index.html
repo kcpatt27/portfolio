@@ -19,7 +19,26 @@ Designed to be copy-paste ready as index.html.
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#ffcc33;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04);}
+    :root{
+      /* Original colors for fallback */
+      --bg:#0f1724;--card:#0b1220;--accent:#ffcc33;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04);
+      
+      /* Cyberpunk/Space Theme Colors */
+      --moonshadow: #2D1B69;        /* Deep purple */
+      --cosmic-pink: #FF6B9D;        /* Hot pink */
+      --sunset-orange: #FF8C42;      /* Warm orange */
+      --space-blue: #4A90E2;         /* Electric blue */
+      --nebula-purple: #8B5FBF;      /* Lighter purple */
+      --starlight-pink: #FFB6C1;     /* Soft pink */
+      --aurora-green: #00D4AA;       /* Cyber green */
+      --void-black: #0A0A0F;         /* Deep space */
+      --cloud-white: #F8F9FA;        /* Pure white */
+      
+      /* Gradient Combinations */
+      --sunset-gradient: linear-gradient(135deg, var(--moonshadow), var(--cosmic-pink), var(--sunset-orange));
+      --space-gradient: linear-gradient(180deg, var(--void-black), var(--moonshadow));
+      --cosmic-glow: radial-gradient(circle, var(--cosmic-pink), transparent);
+    }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#081027 0%, #071021 100%);}
     a{color:inherit;text-decoration:none}
@@ -31,15 +50,125 @@ Designed to be copy-paste ready as index.html.
     nav a{margin-left:18px;color:var(--muted);font-weight:600;font-size:14px}
     nav a.cta{background:var(--accent);color:#071021;padding:8px 12px;border-radius:8px}
 
-    .hero{display:grid;grid-template-columns:1fr;gap:22px;align-items:center;padding:36px 0}
-    .hero-inner{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));padding:28px;border-radius:14px;box-shadow:0 4px 24px rgba(2,6,23,0.6)}
-    .eyebrow{color:var(--accent);font-weight:700;font-size:13px}
-    h1{margin:8px 0 6px;font-size:28px}
-    p.lead{color:var(--muted);margin:0 0 16px}
+    /* Hero Section - Cyberpunk/Space Control Test */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:22px;
+      align-items:center;
+      padding:36px 0;
+      /* Cosmic Explorer: Floating depth */
+      perspective: 1000px;
+      /* Memory Work Future: Ethereal background */
+      background: var(--space-gradient);
+      position: relative;
+    }
+    
+    .hero::before {
+      /* Cyberpunk Matrix: Subtle grid overlay */
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(255, 107, 157, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 107, 157, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    .hero-inner{
+      /* Glassmorphism Space: Frosted glass effect */
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 107, 157, 0.2);
+      padding:28px;
+      border-radius:14px;
+      box-shadow: 
+        0 4px 24px rgba(45, 27, 105, 0.4),
+        0 0 40px rgba(255, 107, 157, 0.1);
+      /* Neo Tokyo Terminal: Clean structure */
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+    
+    .hero-inner:hover {
+      /* Cosmic Explorer: 3D tilt effect */
+      transform: perspective(1000px) rotateY(2deg) rotateX(-1deg) translateZ(10px);
+      /* Cyberpunk Matrix: Glitch effect */
+      filter: hue-rotate(5deg) saturate(1.1);
+      box-shadow: 
+        0 8px 32px rgba(45, 27, 105, 0.6),
+        0 0 60px rgba(255, 107, 157, 0.2);
+    }
+    /* Hero Content Styling */
+    .eyebrow{
+      color: var(--cosmic-pink);
+      font-weight:700;
+      font-size:13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      /* Cyberpunk Matrix: Subtle glow */
+      text-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+    }
+    
+    h1{
+      margin:8px 0 6px;
+      font-size:28px;
+      background: var(--sunset-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* Memory Work Future: Ethereal text */
+      text-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+    }
+    
+    p.lead{
+      color: var(--starlight-pink);
+      margin:0 0 16px;
+      line-height: 1.6;
+    }
+    /* Button Styling - Cyberpunk Theme */
     .buttons{display:flex;gap:12px}
-    .btn{padding:12px 18px;border-radius:10px;font-weight:700;border:none;cursor:pointer}
-    .btn-primary{background:var(--accent);color:#071021}
-    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn{
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary{
+      background: var(--sunset-gradient);
+      color: var(--void-black);
+      /* Cyberpunk Matrix: Glow effect */
+      box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 25px rgba(255, 107, 157, 0.6);
+    }
+    
+    .btn-outline{
+      background: transparent;
+      border: 1px solid var(--cosmic-pink);
+      color: var(--cosmic-pink);
+      /* Glassmorphism Space: Subtle glow */
+      backdrop-filter: blur(5px);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(255, 107, 157, 0.1);
+      box-shadow: 0 0 15px rgba(255, 107, 157, 0.3);
+    }
 
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
     .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:inset 0 -1px 0 rgba(255,255,255,0.02)}
@@ -76,13 +205,13 @@ Designed to be copy-paste ready as index.html.
     <main>
       <section class="hero">
         <div class="hero-inner">
-          <div class="eyebrow">Websites for local businesses</div>
-          <h1>Beautiful, fast, and easy-to-manage websites for caterers & small food businesses</h1>
-          <p class="lead">I build simple, maintainable websites with clear menus, image galleries, and inquiry forms so you can win more clients. Click below to place an order inquiry and I’ll follow up with next steps.</p>
+          <div class="eyebrow">Building the Future, One App at a Time</div>
+          <h1>App Developer • Space Dreamer • Future Builder</h1>
+          <p class="lead">I code apps that solve real problems today, while dreaming of robots and space suits tomorrow. Currently growing a solo lifestyle business and interviewing for cofounder roles. Ready to build something amazing together?</p>
 
           <div class="buttons">
-            <a class="btn btn-primary" href="GOOGLE_FORM_URL">Place an Order</a>
-            <a class="btn btn-outline" href="#work">See examples</a>
+            <a class="btn btn-primary" href="GOOGLE_FORM_URL">Start a Project</a>
+            <a class="btn btn-outline" href="#work">Explore My Work</a>
           </div>
 
           <div class="grid" style="margin-top:20px">
