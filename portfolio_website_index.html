@@ -19,6 +19,7 @@ Designed to be copy-paste ready as index.html.
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root{
       /* Original colors for fallback */
@@ -62,304 +63,167 @@ Designed to be copy-paste ready as index.html.
     nav a{margin-left:18px;color:var(--muted);font-weight:600;font-size:14px}
     nav a.cta{background:var(--accent);color:#071021;padding:8px 12px;border-radius:8px}
 
-    /* Hero Section - Cyberpunk/Space Control Test */
+    /* Hero Section - Minimal Space Geometry */
     .hero{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:22px;
-      align-items:center;
-      padding:36px 0;
-      /* Cosmic Explorer: Floating depth */
-      perspective: 1000px;
-      /* Memory Work Future: Ethereal background */
-      background: var(--space-gradient);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
+      background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f23 50%, #000000 100%);
+      overflow: hidden;
     }
     
-    .hero::before {
-      /* Cyberpunk Matrix: Advanced grid overlay with terminal aesthetics */
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-        linear-gradient(45deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-      background-size: 20px 20px, 20px 20px, 40px 40px;
-      opacity: 0.4;
-      pointer-events: none;
-      animation: matrixPulse 4s ease-in-out infinite;
-    }
-    
-    @keyframes matrixPulse {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.6; }
-    }
-    
-    .hero::after {
-      /* Terminal scan line effect */
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--terminal-green), transparent);
-      animation: scanLine 3s linear infinite;
-      pointer-events: none;
-    }
-    
-    @keyframes scanLine {
-      0% { transform: translateY(0); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-    
-    .hero-inner{
-      /* Glassmorphism Space: Frosted glass effect */
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 107, 157, 0.2);
-      padding:28px;
-      border-radius:14px;
-      box-shadow: 
-        0 4px 24px rgba(45, 27, 105, 0.4),
-        0 0 40px rgba(255, 107, 157, 0.1);
-      /* Neo Tokyo Terminal: Clean structure */
-      position: relative;
-      z-index: 1;
-      transition: all 0.3s ease;
-    }
-    
-    .hero-inner:hover {
-      /* Cosmic Explorer: 3D tilt effect */
-      transform: perspective(1000px) rotateY(2deg) rotateX(-1deg) translateZ(10px);
-      /* Cyberpunk Matrix: Glitch effect */
-      filter: hue-rotate(5deg) saturate(1.1);
-      box-shadow: 
-        0 8px 32px rgba(45, 27, 105, 0.6),
-        0 0 60px rgba(255, 107, 157, 0.2);
-    }
-    /* Hero Content Styling */
-    .eyebrow{
-      color: var(--cosmic-pink);
-      font-weight:700;
-      font-size:13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      /* Cyberpunk Matrix: Subtle glow */
-      text-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
-    }
-    
-    h1{
-      margin:8px 0 6px;
-      font-size:28px;
-      font-family: var(--font-futuristic);
-      font-weight: 900;
-      background: var(--sunset-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      /* Advanced glitch effect */
-      position: relative;
-      animation: glitch 2s infinite;
-    }
-    
-    h1::before,
-    h1::after {
-      content: attr(data-text);
+    .space-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      z-index: 1;
     }
     
-    h1::before {
-      animation: glitch-1 0.5s infinite;
-      color: var(--glitch-red);
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+      margin-top: 40vh; /* Push content down to make room for the Möbius strip above */
+    }
+    
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      right: -50px;
+      bottom: -50px;
+      background: radial-gradient(circle at center, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
       z-index: -1;
     }
-    
-    h1::after {
-      animation: glitch-2 0.5s infinite;
-      color: var(--hologram-blue);
-      z-index: -2;
+    /* Hero Content Styling - Minimal Space */
+    .eyebrow{
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 400;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
     }
     
-    @keyframes glitch {
-      0%, 100% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(-2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(2px, -2px); }
-    }
-    
-    @keyframes glitch-1 {
-      0%, 100% { transform: translate(0); }
-      20% { transform: translate(2px, -2px); }
-      40% { transform: translate(-2px, 2px); }
-      60% { transform: translate(-2px, -2px); }
-      80% { transform: translate(2px, 2px); }
-    }
-    
-    @keyframes glitch-2 {
-      0%, 100% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(-2px, -2px); }
+    h1{
+      margin: 0 0 24px;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-family: var(--font-futuristic);
+      font-weight: 300;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
     
     p.lead{
-      color: var(--starlight-pink);
-      margin:0 0 16px;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0 0 40px;
       line-height: 1.6;
+      font-size: 18px;
+      font-weight: 300;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    /* Button Styling - Cyberpunk Theme */
-    .buttons{display:flex;gap:12px}
+    /* Button Styling - Minimal Space */
+    .buttons{
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
     .btn{
-      padding:12px 18px;
-      border-radius:10px;
-      font-weight:700;
-      border:none;
-      cursor:pointer;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .btn-primary{
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+    
+    .btn-outline{
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.6);
+      color: #ffffff;
+    }
+    
+    /* Business-Friendly Skills Showcase */
+    .skills-showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    
+    .skill-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 107, 157, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
     
-    .btn-primary{
-      background: var(--sunset-gradient);
-      color: var(--void-black);
-      /* Cyberpunk Matrix: Glow effect */
-      box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 25px rgba(255, 107, 157, 0.6);
-    }
-    
-    .btn-outline{
-      background: transparent;
-      border: 1px solid var(--cosmic-pink);
-      color: var(--cosmic-pink);
-      /* Glassmorphism Space: Subtle glow */
-      backdrop-filter: blur(5px);
-    }
-    
-    .btn-outline:hover {
-      background: rgba(255, 107, 157, 0.1);
-      box-shadow: 0 0 15px rgba(255, 107, 157, 0.3);
-    }
-    
-    /* Terminal UI Elements */
-    .terminal-line {
-      font-family: var(--font-terminal);
-      font-size: 14px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .terminal-prompt {
-      color: var(--terminal-green);
-      font-weight: 500;
-    }
-    
-    .terminal-command {
-      color: var(--neon-cyan);
-      animation: blink 1s infinite;
-    }
-    
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-    
-    .hologram-terminal {
-      margin: 24px 0;
-      perspective: 1000px;
-    }
-    
-    .terminal-window {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--terminal-green);
-      border-radius: 8px;
-      overflow: hidden;
+    .skill-card:hover {
+      transform: translateY(-4px);
       box-shadow: 
-        0 0 20px rgba(0, 255, 65, 0.3),
-        inset 0 0 20px rgba(0, 255, 65, 0.1);
-      transform: rotateX(5deg) rotateY(-2deg);
-      transition: transform 0.3s ease;
+        0 8px 32px rgba(45, 27, 105, 0.3),
+        0 0 30px rgba(255, 107, 157, 0.15);
+      border-color: rgba(255, 107, 157, 0.2);
     }
     
-    .terminal-window:hover {
-      transform: rotateX(0deg) rotateY(0deg) translateZ(10px);
-      box-shadow: 
-        0 0 30px rgba(0, 255, 65, 0.5),
-        inset 0 0 30px rgba(0, 255, 65, 0.2);
-    }
-    
-    .terminal-header {
-      background: linear-gradient(90deg, var(--void-black), var(--moonshadow));
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--terminal-green);
-    }
-    
-    .terminal-buttons {
-      display: flex;
-      gap: 6px;
-    }
-    
-    .terminal-buttons span {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
+    .skill-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
       display: block;
     }
     
-    .btn-close { background: #ff5f56; }
-    .btn-minimize { background: #ffbd2e; }
-    .btn-maximize { background: #27ca3f; }
-    
-    .terminal-title {
-      color: var(--terminal-green);
-      font-family: var(--font-terminal);
-      font-size: 12px;
+    .skill-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: var(--cosmic-pink);
+      text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
     }
     
-    .terminal-body {
-      padding: 16px;
-      font-family: var(--font-terminal);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    
-    .terminal-output {
-      margin-top: 8px;
-    }
-    
-    .skill-item {
-      color: var(--neon-cyan);
-      margin: 4px 0;
-      padding-left: 8px;
-      position: relative;
-    }
-    
-    .skill-item::before {
-      content: '>';
-      color: var(--terminal-green);
-      position: absolute;
-      left: 0;
+    .skill-card p {
+      margin: 0;
+      color: var(--starlight-pink);
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     /* Portfolio Grid - Cyberpunk/Space Theme */
@@ -388,32 +252,14 @@ Designed to be copy-paste ready as index.html.
       overflow: hidden;
     }
     
-    .card::before {
-      /* Cyberpunk Matrix: Subtle scan line effect */
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--cosmic-pink), transparent);
-      animation: scan 3s infinite;
-    }
-    
-    @keyframes scan {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
     
     .card:hover {
-      /* Cosmic Explorer: 3D tilt and lift */
-      transform: perspective(1000px) rotateY(5deg) rotateX(-2deg) translateZ(20px);
-      /* Cyberpunk Matrix: Glitch effect */
-      filter: hue-rotate(10deg) saturate(1.2);
+      /* Simple hover lift effect */
+      transform: translateY(-4px);
       box-shadow: 
-        0 8px 32px rgba(45, 27, 105, 0.4),
-        0 0 40px rgba(255, 107, 157, 0.2);
-      border-color: rgba(255, 107, 157, 0.3);
+        0 8px 32px rgba(45, 27, 105, 0.3),
+        0 0 30px rgba(255, 107, 157, 0.15);
+      border-color: rgba(255, 107, 157, 0.2);
     }
     
     .card h3{
@@ -472,14 +318,12 @@ Designed to be copy-paste ready as index.html.
     }
     
     .portfolio img:hover {
-      /* Cosmic Explorer: 3D tilt effect */
-      transform: perspective(1000px) rotateY(3deg) rotateX(-1deg) translateZ(10px);
-      /* Cyberpunk Matrix: Glitch effect */
-      filter: hue-rotate(15deg) saturate(1.3) brightness(1.1);
+      /* Simple hover effect */
+      transform: translateY(-2px) scale(1.02);
       box-shadow: 
-        0 8px 32px rgba(45, 27, 105, 0.5),
-        0 0 40px rgba(255, 107, 157, 0.3);
-      border-color: rgba(255, 107, 157, 0.4);
+        0 8px 32px rgba(45, 27, 105, 0.4),
+        0 0 30px rgba(255, 107, 157, 0.2);
+      border-color: rgba(255, 107, 157, 0.3);
     }
     
     .portfolio img:hover::before {
@@ -508,7 +352,7 @@ Designed to be copy-paste ready as index.html.
     }
     
     .pricing-card.featured:hover {
-      transform: scale(1.08) perspective(1000px) rotateY(3deg) rotateX(-2deg) translateZ(15px);
+      transform: scale(1.05) translateY(-2px);
     }
     
     .pricing-badge {
@@ -640,8 +484,8 @@ Designed to be copy-paste ready as index.html.
     }
 
     /* responsive */
-    @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} .portfolio{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
-    @media (max-width:560px){.container{padding:18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .portfolio{grid-template-columns:1fr} .hero{padding:0}}
+    @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} .portfolio{grid-template-columns:repeat(2,1fr)} .skills-showcase{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
+    @media (max-width:560px){.container{padding:18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .portfolio{grid-template-columns:1fr} .skills-showcase{grid-template-columns:1fr} .hero{padding:0}}
   </style>
 </head>
 <body>
@@ -651,7 +495,7 @@ Designed to be copy-paste ready as index.html.
         <div class="logo">WB</div>
         <div>
           <div style="font-weight:700; color: var(--cosmic-pink); text-shadow: 0 0 10px rgba(255, 107, 157, 0.4);">reishi</div>
-          <div style="font-size:13px;color:var(--starlight-pink)">Space Dreamer • Code Architect • Future Builder</div>
+          <div style="font-size:13px;color:var(--starlight-pink)">Web Developer • Business Solutions • Creative Vision</div>
         </div>
       </div>
       <nav>
@@ -663,102 +507,323 @@ Designed to be copy-paste ready as index.html.
 
     <main>
       <section class="hero">
-        <div class="hero-inner">
-          <div class="terminal-line">
-            <span class="terminal-prompt">reishi@cyberspace:~$</span>
-            <span class="terminal-command">whoami</span>
-          </div>
-          <div class="eyebrow">Building the Future, One App at a Time</div>
-          <h1 data-text="App Developer • Space Dreamer • Future Builder">App Developer • Space Dreamer • Future Builder</h1>
-          <p class="lead">I code apps that solve real problems today, while dreaming of robots and space suits tomorrow. Currently growing a solo lifestyle business and interviewing for cofounder roles. Ready to build something amazing together?</p>
+        <canvas class="space-canvas" id="spaceCanvas"></canvas>
+        <div class="hero-content">
+          <div class="eyebrow">Web Developer</div>
+          <h1>reishi</h1>
+          <p class="lead">Building digital experiences that bridge the gap between imagination and reality. Where creativity meets code, and dreams become functional websites.</p>
           
-          <div class="hologram-terminal">
-            <div class="terminal-window">
-              <div class="terminal-header">
-                <div class="terminal-buttons">
-                  <span class="btn-close"></span>
-                  <span class="btn-minimize"></span>
-                  <span class="btn-maximize"></span>
-                </div>
-                <div class="terminal-title">reishi@portfolio:~$</div>
-              </div>
-              <div class="terminal-body">
-                <div class="terminal-line">
-                  <span class="terminal-prompt">$</span>
-                  <span class="terminal-command">cat skills.txt</span>
-                </div>
-                <div class="terminal-output">
-                  <div class="skill-item">> React • Vue • Node.js</div>
-                  <div class="skill-item">> Three.js • WebGL • CSS3D</div>
-                  <div class="skill-item">> Space Dreams • Robot Visions</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="buttons">
-            <a class="btn btn-primary" href="/services">Hire Me</a>
-            <a class="btn btn-outline" href="#work">Explore My Work</a>
+            <a class="btn btn-primary" href="/services">View My Work</a>
+            <a class="btn btn-outline" href="#about">About Me</a>
           </div>
+        </div>
+      </section>
 
-          <div class="grid" style="margin-top:20px">
-            <div class="card">
-              <h3>Rapid Development</h3>
-              <div class="muted">From concept to launch in 1–2 weeks, with clean code that scales.</div>
-            </div>
-            <div class="card">
-              <h3>Future-Ready Tech</h3>
-              <div class="muted">Modern frameworks and patterns that won't become legacy code tomorrow.</div>
-            </div>
-            <div class="card">
-              <h3>Space Dreamer Support</h3>
-              <div class="muted">Full documentation and training so you can maintain your digital universe.</div>
+      <section id="about" style="padding: 80px 0; background: rgba(0,0,0,0.3);">
+        <div class="container">
+          <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="margin:0 0 24px; color: #ffffff; font-size: 2.5rem; font-weight: 300;">About</h2>
+            <p style="color: rgba(255,255,255,0.8); font-size: 18px; line-height: 1.6; margin-bottom: 40px;">
+              I'm a web developer who believes in the power of clean code and creative vision. 
+              Every project is an opportunity to bridge the gap between what's possible and what's practical.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-top: 60px;">
+              <div>
+                <h3 style="color: #ffffff; margin-bottom: 16px; font-weight: 400;">Skills</h3>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+                  React • Vue • Node.js<br>
+                  Three.js • WebGL<br>
+                  Modern CSS • TypeScript
+                </p>
+                </div>
+              <div>
+                <h3 style="color: #ffffff; margin-bottom: 16px; font-weight: 400;">Approach</h3>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+                  Mobile-first design<br>
+                  Performance optimized<br>
+                  User-centered development
+                </p>
+              </div>
+              <div>
+                <h3 style="color: #ffffff; margin-bottom: 16px; font-weight: 400;">Vision</h3>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+                  Building tomorrow's web<br>
+                  Today's technology<br>
+                  Yesterday's reliability
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="work" style="margin-top:28px">
-        <h2 style="margin:0 0 12px; color: var(--cosmic-pink); text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);">Current Reality</h2>
-        <p class="muted" style="margin:0 0 12px">Real apps and websites I've built — solving problems today while dreaming of tomorrow.</p>
-        <div class="portfolio">
-          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60" alt="Portfolio 1">
-          <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60" alt="Portfolio 2">
-          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=60" alt="Portfolio 3">
-        </div>
-      </section>
-
-      <section id="vision" style="margin-top:28px">
-        <h2 style="margin:0 0 12px; color: var(--cosmic-pink); text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);">Future Vision</h2>
-        <p class="muted" style="margin:0 0 20px; text-align: center;">Where technology meets imagination — my dreams of space, robots, and the future.</p>
-        <div class="grid">
-          <div class="card">
-            <h3>Space Dreams</h3>
-            <div class="muted">Building apps for space exploration, Mars colonies, and interplanetary communication systems.</div>
+      <section id="work" style="padding: 80px 0;">
+        <div class="container">
+          <h2 style="margin:0 0 24px; color: #ffffff; font-size: 2.5rem; font-weight: 300; text-align: center;">Work</h2>
+          <p style="color: rgba(255,255,255,0.8); font-size: 18px; text-align: center; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Selected projects that showcase the intersection of creativity and functionality.
+          </p>
+          <div class="portfolio" style="max-width: 1000px; margin: 0 auto;">
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60" alt="Portfolio 1" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
+                <h3 style="margin: 0 0 8px; font-size: 18px;">E-commerce Platform</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Modern online store with custom checkout flow</p>
           </div>
-          <div class="card">
-            <h3>Robot Visions</h3>
-            <div class="muted">Creating AI interfaces, robotic control systems, and human-machine collaboration tools.</div>
-          </div>
-          <div class="card">
-            <h3>Future Tech</h3>
-            <div class="muted">Exploring quantum computing, neural interfaces, and technologies that don't exist yet.</div>
+            </div>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+              <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60" alt="Portfolio 2" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
+                <h3 style="margin: 0 0 8px; font-size: 18px;">Portfolio Website</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Creative agency showcase with 3D elements</p>
+              </div>
+            </div>
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+              <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=60" alt="Portfolio 3" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
+                <h3 style="margin: 0 0 8px; font-size: 18px;">SaaS Dashboard</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Data visualization and user management system</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
     </main>
 
-    <footer>
-      <div>© <span id="year"></span> reishi — Space Dreamer & Code Architect</div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <a href="mailto:reishi@example.com">reishi@example.com</a>
-        <a href="/services" id="footer-order">Hire Me</a>
+    <footer style="padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+      <div style="color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 20px;">
+        © <span id="year"></span> reishi — Web Developer
+      </div>
+      <div style="display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap">
+        <a href="mailto:reishi@example.com" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s ease;">reishi@example.com</a>
+        <a href="/services" id="footer-order" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s ease;">Hire Me</a>
       </div>
     </footer>
   </div>
 
   <script>
+    // Three.js Space Geometry Scene
+    let scene, camera, renderer, geometry, material, mesh, stars;
+    const SHAPE_MODE = 'layered'; // 'layered' | 'mobius' | 'manifold'
+
+    function buildMobiusGeometry(R, W, segU, segV) {
+      const geometry = new THREE.BufferGeometry();
+      const positions = [];
+      const indices = [];
+      for (let iu = 0; iu <= segU; iu++) {
+        const u = (iu / segU) * Math.PI * 2;
+        for (let iv = 0; iv <= segV; iv++) {
+          const v = (iv / segV) * 2 - 1; // -1..1
+          const x = (R + (W * v / 2) * Math.cos(u / 2)) * Math.cos(u);
+          const y = (W * v / 2) * Math.sin(u / 2);
+          const z = (R + (W * v / 2) * Math.cos(u / 2)) * Math.sin(u);
+          positions.push(x, y, z);
+        }
+      }
+      for (let iu = 0; iu < segU; iu++) {
+        for (let iv = 0; iv < segV; iv++) {
+          const a = iu * (segV + 1) + iv;
+          const b = a + 1;
+          const c = (iu + 1) * (segV + 1) + iv;
+          const d = c + 1;
+          indices.push(a, b, c);
+          indices.push(b, d, c);
+        }
+      }
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setIndex(indices);
+      geometry.computeVertexNormals();
+      return geometry;
+    }
+
+    function buildSwissRollGeometry(turns, width, height, segU, segV, scale) {
+      const geometry = new THREE.BufferGeometry();
+      const positions = [];
+      const indices = [];
+      const maxU = Math.PI * turns; // total radians
+      for (let iu = 0; iu <= segU; iu++) {
+        const u = (iu / segU) * maxU; // 0..maxU
+        const r = scale * (1 + u); // radius grows with u
+        for (let iv = 0; iv <= segV; iv++) {
+          const v = (iv / segV) * 2 - 1; // -1..1
+          const x = r * Math.cos(u);
+          const y = (width * v) * height; // thickness band
+          const z = r * Math.sin(u);
+          positions.push(x, y, z);
+        }
+      }
+      for (let iu = 0; iu < segU; iu++) {
+        for (let iv = 0; iv < segV; iv++) {
+          const a = iu * (segV + 1) + iv;
+          const b = a + 1;
+          const c = (iu + 1) * (segV + 1) + iv;
+          const d = c + 1;
+          indices.push(a, b, c);
+          indices.push(b, d, c);
+        }
+      }
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setIndex(indices);
+      geometry.computeVertexNormals();
+      return geometry;
+    }
+
+    function buildLayeredObject(layerCount, baseRadius, totalHeight, layerThickness, layerGap, radialSegments) {
+      const group = new THREE.Group();
+      const halfH = totalHeight / 2;
+      // Read theme colors from CSS variables and build a multi-hue palette
+      const css = getComputedStyle(document.documentElement);
+      const readVar = (name, fallback) => (css.getPropertyValue(name).trim() || fallback);
+      const palette = [
+        new THREE.Color(readVar('--moonshadow', '#2D1B69')),
+        new THREE.Color(readVar('--nebula-purple', '#8B5FBF')),
+        new THREE.Color(readVar('--space-blue', '#4A90E2')),
+        new THREE.Color(readVar('--aurora-green', '#00D4AA')),
+        new THREE.Color(readVar('--sunset-orange', '#FF8C42')),
+        new THREE.Color(readVar('--cosmic-pink', '#FF6B9D')),
+        new THREE.Color(readVar('--starlight-pink', '#FFB6C1'))
+      ];
+      
+      for (let layer = 0; layer < layerCount; layer++) {
+        const t = layer / (layerCount - 1);
+        const yCenter = -halfH + t * totalHeight;
+        const yNorm = yCenter / halfH; // -1..1
+        const baseR = baseRadius * Math.sqrt(Math.max(0, 1 - yNorm * yNorm)); // sphere-like profile
+        const shape = new THREE.Shape();
+        for (let i = 0; i <= radialSegments; i++) {
+          const theta = (i / radialSegments) * Math.PI * 2;
+          const wobble = 0.12 * Math.sin(3 * theta + yNorm * 2.5) + 0.05 * Math.sin(7 * theta + yNorm * 5.0);
+          const r = Math.max(0.01, baseR * (1 + wobble));
+          const x = r * Math.cos(theta);
+          const z = r * Math.sin(theta);
+          if (i === 0) shape.moveTo(x, z); else shape.lineTo(x, z);
+        }
+        const extrude = new THREE.ExtrudeGeometry(shape, { depth: layerThickness, bevelEnabled: true, bevelThickness: Math.max(0.01, layerThickness * 0.4), bevelSize: Math.max(0.01, layerThickness * 0.35), bevelSegments: 2, steps: 1 });
+        extrude.computeVertexNormals();
+        extrude.rotateX(Math.PI / 2); // extrude along Y
+        extrude.translate(0, yCenter - layerThickness / 2 + (layer - (layerCount - 1) / 2) * 0.0, 0);
+        // Interpolate across the palette so every layer receives a distinct color
+        const seg = t * (palette.length - 1);
+        const idx = Math.floor(seg);
+        const frac = seg - idx;
+        const c0 = palette[idx];
+        const c1 = palette[Math.min(idx + 1, palette.length - 1)];
+        const layerColor = c0.clone().lerp(c1, frac);
+        const mat = new THREE.MeshStandardMaterial({ color: layerColor, roughness: 0.55, metalness: 0.05, side: THREE.DoubleSide });
+        const mesh = new THREE.Mesh(extrude, mat);
+        group.add(mesh);
+      }
+      return group;
+    }
+    
+    function initSpaceScene() {
+      const canvas = document.getElementById('spaceCanvas');
+      if (!canvas) return;
+      
+      // Scene setup
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+      
+      // Choose shape
+      let geometryObj = null;
+      if (SHAPE_MODE === 'layered') {
+        mesh = buildLayeredObject(26, 4.0, 5.5, 0.08, 0.06, 160);
+      } else if (SHAPE_MODE === 'mobius') {
+        geometryObj = buildMobiusGeometry(3.8, 2.0, 120, 28);
+      } else {
+        geometryObj = buildSwissRollGeometry(3.5, 2.0, 1.2, 140, 30, 0.6);
+      }
+      
+      // Material with subtle glow
+      if (SHAPE_MODE !== 'layered') {
+        material = new THREE.MeshLambertMaterial({
+          color: 0xffffff,
+          transparent: true,
+          opacity: 0.8,
+          side: THREE.DoubleSide
+        });
+        mesh = new THREE.Mesh(geometryObj, material);
+      }
+      scene.add(mesh);
+      
+      // Add stars - much farther away
+      const starGeometry = new THREE.BufferGeometry();
+      const starVertices = [];
+      for (let i = 0; i < 2000; i++) {
+        starVertices.push(
+          (Math.random() - 0.5) * 1000,
+          (Math.random() - 0.5) * 1000,
+          (Math.random() - 0.5) * 1000
+        );
+      }
+      starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+      
+      const starMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.3,
+        transparent: true,
+        opacity: 0.6
+      });
+      
+      stars = new THREE.Points(starGeometry, starMaterial);
+      scene.add(stars);
+      
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
+      scene.add(ambientLight);
+      
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
+      directionalLight.position.set(10, 10, 5);
+      scene.add(directionalLight);
+      
+      // Position camera - looking up at the Möbius strip
+      camera.position.z = 12;
+      camera.position.y = -2;
+      camera.position.x = 0;
+      camera.lookAt(0, 3, 0); // Look at the top center where the strip will be
+      
+      // Position the Möbius strip at the top center
+      mesh.position.y = 3;
+      mesh.position.x = 0;
+      mesh.position.z = 0;
+      mesh.scale.set(1.5, 1.5, 1.5); // Make it larger
+      
+      // Animation
+      function animate() {
+        requestAnimationFrame(animate);
+        
+        // Much slower rotation
+        mesh.rotation.y += 0.0004;
+        mesh.rotation.x += 0.0002;
+        mesh.rotation.z += 0.00015;
+        
+        // Very gentle floating motion
+        mesh.position.y = 3 + Math.sin(Date.now() * 0.0005) * 0.1;
+        
+        // Stars slowly twinkle
+        stars.rotation.y += 0.0002;
+        
+        renderer.render(scene, camera);
+      }
+      
+      animate();
+      
+      // Handle resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+    
+    // Initialize when page loads
+    window.addEventListener('load', initSpaceScene);
+    
     // Small helpers: replace GOOGLE_FORM_URL placeholder in multiple spots if you prefer to set it via JS
     const FORM_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'; // <-- REPLACE THIS with your form link
     document.querySelectorAll('a[href="GOOGLE_FORM_URL"]').forEach(a => a.href = FORM_URL);
