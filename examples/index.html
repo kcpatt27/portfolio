@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Package Examples - reishi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --secondary: #8B5CF6;
+            --accent: #EC4899;
+            --text: #1F2937;
+            --light: #F8FAFC;
+            --white: #FFFFFF;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+        
+        main {
+            padding: 4rem 0;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .package-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .package-image {
+            height: 200px;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .package-card:hover .package-image img {
+            transform: scale(1.05);
+        }
+        
+        .package-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .package-content {
+            padding: 2rem;
+        }
+        
+        .package-title {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .package-description {
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .package-features li {
+            padding: 0.5rem 0;
+            color: var(--text);
+            opacity: 0.8;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .package-features li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .package-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .package-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .cta-section {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--white);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background: var(--text);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">reishi</div>
+            <div class="tagline">Web Developer • Business Solutions • Creative Vision</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Website Package Examples</h1>
+            <p class="subtitle">See what each package delivers with these live examples. Click through to experience the quality and features firsthand.</p>
+            
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60" alt="Template Package Example">
+                        <div class="package-badge">Template</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Template Package</h3>
+                        <div class="package-price">$2,000</div>
+                        <p class="package-description">Clean, professional website perfect for small businesses. Simple design with essential features and mobile responsiveness.</p>
+                        <ul class="package-features">
+                            <li>5-page website</li>
+                            <li>Mobile responsive design</li>
+                            <li>Contact form</li>
+                            <li>Basic SEO optimization</li>
+                            <li>Content management</li>
+                            <li>2 weeks delivery</li>
+                        </ul>
+                        <a href="template-package.html" class="package-btn" target="_blank">View Example</a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60" alt="Professional Package Example">
+                        <div class="package-badge">Professional</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Professional Package</h3>
+                        <div class="package-price">$3,500</div>
+                        <p class="package-description">Enhanced features with custom design elements, advanced functionality, and professional presentation for growing businesses.</p>
+                        <ul class="package-features">
+                            <li>8-page website</li>
+                            <li>Custom design elements</li>
+                            <li>Advanced forms & integrations</li>
+                            <li>Analytics setup</li>
+                            <li>Performance optimization</li>
+                            <li>3 weeks delivery</li>
+                        </ul>
+                        <a href="professional-package.html" class="package-btn" target="_blank">View Example</a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=60" alt="Premium Package Example">
+                        <div class="package-badge">Premium</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">Premium Package</h3>
+                        <div class="package-price">$6,000</div>
+                        <p class="package-description">Full-featured website with advanced animations, custom functionality, and premium design elements for established businesses.</p>
+                        <ul class="package-features">
+                            <li>Unlimited pages</li>
+                            <li>3D animations & effects</li>
+                            <li>Custom functionality</li>
+                            <li>Advanced integrations</li>
+                            <li>Premium design elements</li>
+                            <li>4 weeks delivery</li>
+                        </ul>
+                        <a href="premium-package.html" class="package-btn" target="_blank">View Example</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <div class="container">
+                <h2>Ready to Get Started?</h2>
+                <p>Choose the package that fits your needs, or let's discuss a custom solution for your business.</p>
+                <a href="https://forms.gle/YOUR_GOOGLE_FORM_LINK" class="cta-btn">Start Your Project</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 reishi — Web Developer. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
