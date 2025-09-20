@@ -1,23 +1,12 @@
-<!--
-Simple portfolio landing page (single file) for offering website builds.
-Instructions:
-  1) Replace the GOOGLE_FORM_URL placeholder with your actual Google Form link.
-  2) Replace image URLs or the hero background as desired.
-  3) Edit text (business name, services, portfolio items) directly in the file.
-  4) To host on GitHub Pages: create a new repo, add this file as index.html to the root of main branch and enable Pages (branch: main, folder: /root).
-
-Designed to be copy-paste ready as index.html.
--->
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kalen Patterson — Space Dreamer & Code Architect</title>
-  <meta name="description" content="Personal portfolio of a space dreamer and code architect. Building the future, one app at a time. Exploring the intersection of technology and imagination." />
+  <title>Kalen Patterson — Visionary, Builder, Engineer</title>
+  <meta name="description" content="Personal portfolio of a visionary builder and engineer. Building the future, one idea at a time. Exploring the intersection of technology and imagination." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
@@ -49,13 +38,15 @@ Designed to be copy-paste ready as index.html.
       --neon-cyan: #00ffff;
       
       /* Typography */
+      --font-primary: 'Space Grotesk', 'Inter', sans-serif;
+      --font-heading: 'Space Grotesk', 'Inter', sans-serif;
       --font-terminal: 'JetBrains Mono', monospace;
       --font-futuristic: 'Orbitron', sans-serif;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#081027 0%, #071021 100%);}
+    html,body{height:100%;margin:0;padding:0;font-family:var(--font-primary),system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#081027 0%, #071021 100%);}
     a{color:inherit;text-decoration:none}
-    .container{max-width:1000px;margin:0 auto;padding:28px}
+    .container{max-width:1000px;margin:0 auto;padding:0 28px}
 
     header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;align-items:center;gap:12px}
@@ -72,6 +63,10 @@ Designed to be copy-paste ready as index.html.
       position: relative;
       background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f23 50%, #000000 100%);
       overflow: hidden;
+      width: 100vw;
+      margin: 0;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
     }
     
     .space-canvas {
@@ -84,12 +79,14 @@ Designed to be copy-paste ready as index.html.
     }
     
     .hero-content {
-      position: relative;
+      position: absolute;
       z-index: 10;
-      text-align: center;
-      max-width: 800px;
+      text-align: right;
+      max-width: 640px;
       padding: 0 20px;
-      margin-top: 40vh; /* Push content down to make room for the Möbius strip above */
+      top: 8vh;
+      right: 6vw;
+      margin: 0;
     }
     
     .hero-content::before {
@@ -116,7 +113,7 @@ Designed to be copy-paste ready as index.html.
     h1{
       margin: 0 0 24px;
       font-size: clamp(2.5rem, 8vw, 4rem);
-      font-family: var(--font-futuristic);
+      font-family: var(--font-heading);
       font-weight: 300;
       color: #ffffff;
       line-height: 1.1;
@@ -137,7 +134,7 @@ Designed to be copy-paste ready as index.html.
     .buttons{
       display: flex;
       gap: 20px;
-      justify-content: center;
+      justify-content: flex-end;
       flex-wrap: wrap;
     }
     
@@ -266,6 +263,7 @@ Designed to be copy-paste ready as index.html.
       margin:0 0 8px;
       font-size:16px;
       color: var(--cosmic-pink);
+      font-family: var(--font-heading);
       /* Memory Work Future: Ethereal text */
       text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
     }
@@ -426,18 +424,58 @@ Designed to be copy-paste ready as index.html.
 
     /* Footer - Cyberpunk/Space Theme */
     footer{
-      margin-top:40px;
-      padding:20px 0;
+      margin-top: 0;
+      padding: 36px 0;
       color: var(--starlight-pink);
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       /* Glassmorphism Space: Subtle footer effect */
       background: rgba(255, 255, 255, 0.02);
       backdrop-filter: blur(5px);
       border-top: 1px solid rgba(255, 107, 157, 0.1);
       position: relative;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      margin-bottom: 0;
+    }
+    
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 28px;
+      width: 100%;
+    }
+    
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .footer-copyright {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
     }
     
     footer::before {
@@ -456,10 +494,12 @@ Designed to be copy-paste ready as index.html.
     }
     
     footer a {
-      color: var(--cosmic-pink);
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
       transition: all 0.3s ease;
       position: relative;
+      font-size: 16px;
+      font-weight: 500;
     }
     
     footer a:hover {
@@ -483,26 +523,124 @@ Designed to be copy-paste ready as index.html.
       width: 100%;
     }
 
+    /* About Section Cards */
+    .about-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    
+    .about-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 107, 157, 0.1);
+      padding: 24px;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 8px 32px rgba(45, 27, 105, 0.3),
+        0 0 30px rgba(255, 107, 157, 0.15);
+      border-color: rgba(255, 107, 157, 0.2);
+    }
+    
+    .about-card h3 {
+      margin: 0 0 16px;
+      font-size: 18px;
+      color: var(--cosmic-pink);
+      text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
+    }
+    
+    .about-card p {
+      margin: 0;
+      color: var(--starlight-pink);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Mobile Hero Optimization */
+    @media (max-width: 768px) {
+      header {
+        display: none;
+      }
+      
+      .hero {
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+      }
+      
+      .hero-content {
+        position: static;
+        margin-top: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        min-height: 100vh;
+        max-width: 800px;
+      }
+      
+      .container {
+        padding: 0;
+      }
+      
+      main {
+        margin: 0;
+      }
+      
+      #about {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+      }
+    }
+
     /* responsive */
     @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} .portfolio{grid-template-columns:repeat(2,1fr)} .skills-showcase{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
-    @media (max-width:560px){.container{padding:18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .portfolio{grid-template-columns:1fr} .skills-showcase{grid-template-columns:1fr} .hero{padding:0}}
+    @media (max-width:560px){.container{padding:0 18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .portfolio{grid-template-columns:1fr} .skills-showcase{grid-template-columns:1fr} .hero{padding:0}}
+    
+    /* Footer Mobile Responsive */
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .footer-left, .footer-right {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
+    <!-- <header>
       <div class="brand">
-        <div class="logo">KP</div>
         <div>
           <div style="font-weight:700; color: var(--cosmic-pink); text-shadow: 0 0 10px rgba(255, 107, 157, 0.4);">Kalen Patterson</div>
           <div style="font-size:13px;color:var(--starlight-pink)">Creative Director • Engineer • Designer</div>
         </div>
       </div>
       <nav>
-        <a href="#work">Work</a>
         <a class="cta" href="https://forms.gle/WjXqhaN7kVYZ6PRQ7" id="order-link">Get Started</a>
+        <a href="#work">Work</a>
       </nav>
-    </header>
+    </header> -->
 
     <main>
       <section class="hero">
@@ -519,34 +657,34 @@ Designed to be copy-paste ready as index.html.
         </div>
       </section>
 
-      <section id="about" style="padding: 80px 0; background: rgba(0,0,0,0.3);">
+      <section id="about" style="padding: 64px 0 12px 0; background: rgba(0,0,0,0.3); width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
         <div class="container">
-          <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <h2 style="margin:0 0 24px; color: #ffffff; font-size: 2.5rem; font-weight: 300;">About</h2>
-            <p style="color: rgba(255,255,255,0.8); font-size: 18px; line-height: 1.6; margin-bottom: 40px;">
+          <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+            <h2 style="margin:0 0 16px; color: #ffffff; font-size: 2.5rem; font-weight: 300; font-family: var(--font-heading);">About</h2>
+            <p style="color: rgba(255,255,255,0.8); font-size: 18px; line-height: 1.6; margin-bottom: 28px; max-width: 700px; margin-left: auto; margin-right: auto;">
               I'm a web developer who believes in the power of clean code and creative vision. 
               Every project is an opportunity to bridge the gap between what's possible and what's practical.
             </p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-top: 60px;">
-              <div>
-                <h3 style="color: #ffffff; margin-bottom: 16px; font-weight: 400;">Skills</h3>
-                <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+            <div class="about-cards">
+              <div class="about-card">
+                <h3>Skills</h3>
+                <p>
                   React • Vue • Node.js<br>
                   Three.js • WebGL<br>
                   Modern CSS • TypeScript
                 </p>
-                </div>
-              <div>
-                <h3 style="color: #ffffff; margin-bottom: 16px; font-weight: 400;">Approach</h3>
-                <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+              </div>
+              <div class="about-card">
+                <h3>Approach</h3>
+                <p>
                   Mobile-first design<br>
                   Performance optimized<br>
                   User-centered development
                 </p>
               </div>
-              <div>
-                <h3 style="color: #ffffff; margin-bottom: 16px; font-weight: 400;">Vision</h3>
-                <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+              <div class="about-card">
+                <h3>Vision</h3>
+                <p>
                   Building tomorrow's web<br>
                   Today's technology<br>
                   Yesterday's reliability
@@ -557,7 +695,7 @@ Designed to be copy-paste ready as index.html.
         </div>
       </section>
 
-      <section id="work" style="padding: 80px 0;">
+      <!-- <section id="work" style="padding: 80px 0;">
         <div class="container">
           <h2 style="margin:0 0 24px; color: #ffffff; font-size: 2.5rem; font-weight: 300; text-align: center;">Work</h2>
           <p style="color: rgba(255,255,255,0.8); font-size: 18px; text-align: center; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
@@ -565,45 +703,51 @@ Designed to be copy-paste ready as index.html.
           </p>
           <div class="portfolio" style="max-width: 1000px; margin: 0 auto;">
             <div style="position: relative; overflow: hidden; border-radius: 12px;">
-              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60" alt="Template Package Example" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+              <img src="https://htmlcsstoimage.com/demo?url=https://nextdish.app&width=800&height=600" alt="NextDish App" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60'">
               <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
-                <h3 style="margin: 0 0 8px; font-size: 18px;">Template Package - $2,000</h3>
-                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Clean, professional website for small businesses</p>
-                <a href="examples/template-package.html" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; margin-top: 8px; display: inline-block;">View Example →</a>
+                <h3 style="margin: 0 0 8px; font-size: 18px;">NextDish App</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Food delivery and restaurant management platform</p>
+                <a href="https://nextdish.app" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; margin-top: 8px; display: inline-block;">View Live Site →</a>
               </div>
             </div>
             <div style="position: relative; overflow: hidden; border-radius: 12px;">
-              <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60" alt="Professional Package Example" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+              <img src="https://htmlcsstoimage.com/demo?url=https://painfreemiles.com&width=800&height=600" alt="Pain Free Miles" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;" onerror="this.src='https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=60'">
               <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
-                <h3 style="margin: 0 0 8px; font-size: 18px;">Professional Package - $3,500</h3>
-                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Enhanced features with custom design elements</p>
-                <a href="examples/professional-package.html" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; margin-top: 8px; display: inline-block;">View Example →</a>
+                <h3 style="margin: 0 0 8px; font-size: 18px;">Pain Free Miles</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Health and wellness tracking application</p>
+                <a href="https://painfreemiles.com" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; margin-top: 8px; display: inline-block;">View Live Site →</a>
               </div>
             </div>
             <div style="position: relative; overflow: hidden; border-radius: 12px;">
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=60" alt="Premium Package Example" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+              <img src="https://htmlcsstoimage.com/demo?url=https://kcpatt27.github.io/global-information-portal&width=800&height=600" alt="Global Information Portal" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=60'">
               <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
-                <h3 style="margin: 0 0 8px; font-size: 18px;">Premium Package - $6,000</h3>
-                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Full-featured with 3D animations and custom functionality</p>
-                <a href="examples/premium-package.html" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; margin-top: 8px; display: inline-block;">View Example →</a>
+                <h3 style="margin: 0 0 8px; font-size: 18px;">Global Information Portal</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 14px;">Data visualization and information dashboard</p>
+                <a href="https://kcpatt27.github.io/global-information-portal" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; margin-top: 8px; display: inline-block;">View Live Site →</a>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
-    </main>
+      </main>
+   </div>
 
-    <footer style="padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
-      <div style="color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 20px;">
-        © <span id="year"></span> Kalen Patterson — Creative Director
-      </div>
-      <div style="display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap">
-        <a href="mailto:kcpatterson27@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s ease;">kcpatterson27@gmail.com</a>
-        <a href="https://forms.gle/WjXqhaN7kVYZ6PRQ7" id="footer-order" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s ease;">Get Started</a>
-      </div>
-    </footer>
-  </div>
+   <footer>
+     <div class="footer-content">
+       <div class="footer-left">
+         <div class="footer-copyright">
+           © <span id="year"></span> Kalen Patterson — Creative Director
+         </div>
+       </div>
+       <div class="footer-right">
+         <div class="footer-links">
+           <a href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a>
+           <a href="https://forms.gle/WjXqhaN7kVYZ6PRQ7" id="footer-order">Get Started</a>
+         </div>
+       </div>
+     </div>
+   </footer>
 
   <script>
     // Three.js Space Geometry Scene
@@ -734,7 +878,7 @@ Designed to be copy-paste ready as index.html.
       // Choose shape
       let geometryObj = null;
       if (SHAPE_MODE === 'layered') {
-        mesh = buildLayeredObject(26, 4.0, 5.5, 0.08, 0.06, 160);
+        mesh = buildLayeredObject(27, 4.2, 5.7, 0.09, 0.06, 170);
       } else if (SHAPE_MODE === 'mobius') {
         geometryObj = buildMobiusGeometry(3.8, 2.0, 120, 28);
       } else {
@@ -783,26 +927,26 @@ Designed to be copy-paste ready as index.html.
       directionalLight.position.set(10, 10, 5);
       scene.add(directionalLight);
       
-      // Position camera - looking up at the Möbius strip
-      camera.position.z = 12;
-      camera.position.y = -2;
-      camera.position.x = 0;
-      camera.lookAt(0, 3, 0); // Look at the top center where the strip will be
-      
-      // Position the Möbius strip at the top center
-      mesh.position.y = 3;
-      mesh.position.x = 0;
-      mesh.position.z = 0;
-      mesh.scale.set(1.5, 1.5, 1.5); // Make it larger
+      // Position camera and object for bottom-left emphasis
+      camera.position.z = 6;
+      camera.position.y = 10;
+      camera.position.x = -1.0;
+      camera.lookAt(-2.5, -1.0, 0);
+
+      // Move layered object down-left so it's partially cropped
+      mesh.position.y = -20;  // Moved further down
+      mesh.position.x = -8;  // Slightly less extreme left position
+      mesh.position.z = 0;   // Centered on Z axis
+      mesh.scale.set(1.5, 1.8, 1.5);  // Adjusted scale for better proportions
       
       // Animation
       function animate() {
         requestAnimationFrame(animate);
         
         // Much slower rotation
-        mesh.rotation.y += 0.0004;
+        mesh.rotation.y += 0.0001;
         mesh.rotation.x += 0.0002;
-        mesh.rotation.z += 0.00015;
+        mesh.rotation.z += 0.00011;
         
         // Very gentle floating motion
         mesh.position.y = 3 + Math.sin(Date.now() * 0.0005) * 0.1;
