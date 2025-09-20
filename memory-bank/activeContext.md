@@ -8,9 +8,9 @@
 - Establishing clear project structure and documentation
 
 **Phase 2: Collaborative Theme Development** 🎨 IN PROGRESS
-- Working together with reishi to create and refine the cyberpunk/space theme
+- Working together with Kalen to create and refine the cyberpunk/space theme
 - Iterative design process with real-time feedback
-- Personalized theme that truly represents reishi's vision
+- Personalized theme that truly represents Kalen's vision
 
 ## Recent Changes
 - ✅ Separated `website_project_assets_and_templates.md` into individual files:
