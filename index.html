@@ -651,8 +651,9 @@
           <p class="lead">Building digital experiences that bridge the gap between imagination and reality. Where creativity meets code, and dreams become functional websites.</p>
           
           <div class="buttons">
-            <a class="btn btn-primary" href="https://forms.gle/WjXqhaN7kVYZ6PRQ7">Start Your Project</a>
-            <a class="btn btn-outline" href="#work">View My Work</a>
+            <!-- <a class="btn btn-primary" href="https://forms.gle/WjXqhaN7kVYZ6PRQ7">Start Your Project</a> -->
+            <!-- <a class="btn btn-outline" href="#work">View My Work</a> -->
+            <a class="btn btn-primary" href="#work">View My Work</a>
           </div>
         </div>
       </section>
@@ -928,14 +929,14 @@
       scene.add(directionalLight);
       
       // Position camera and object for bottom-left emphasis
-      camera.position.z = 6;
-      camera.position.y = 10;
-      camera.position.x = -1.0;
-      camera.lookAt(-2.5, -1.0, 0);
+      camera.position.z = 6.93;
+      camera.position.y = 9.36;
+      camera.position.x = 10
+      camera.lookAt(-2.4, 6.93, 0);
 
       // Move layered object down-left so it's partially cropped
-      mesh.position.y = -20;  // Moved further down
-      mesh.position.x = -8;  // Slightly less extreme left position
+      mesh.position.y = -10;  // Moved further down
+      mesh.position.x = -6.93;  // Slightly less extreme left position
       mesh.position.z = 0;   // Centered on Z axis
       mesh.scale.set(1.5, 1.8, 1.5);  // Adjusted scale for better proportions
       
