@@ -13,22 +13,22 @@ Verify all placeholder content has been replaced with cosmic theme. Check that 3
 # Subtasks:
 ## 1. Collaborative Theme Development [in-progress]
 ### Dependencies: None
-### Description: Work together with reishi to create and refine the cyberpunk/space theme through iterative collaboration
+### Description: Work together with Kalen to create and refine the cyberpunk/space theme through iterative collaboration
 ### Details:
 **COLLABORATIVE THEME DEVELOPMENT APPROACH**
 
-Instead of implementing a pre-defined cyberpunk/space theme, we'll work together to create and refine the design through iterative collaboration. This ensures the final theme truly represents reishi's unique vision and personality.
+Instead of implementing a pre-defined cyberpunk/space theme, we'll work together to create and refine the design through iterative collaboration. This ensures the final theme truly represents Kalen's unique vision and personality.
 
 **Process:**
 1. Start with basic HTML structure and current content
 2. Collaborate on color palette and visual elements
 3. Iteratively refine the design together
 4. Test and adjust based on feedback
-5. Finalize theme that feels authentic to reishi's brand
+5. Finalize theme that feels authentic to Kalen's brand
 
 **Benefits:**
 - More personalized and authentic design
 - Real-time feedback and adjustments
-- Better alignment with reishi's vision
+- Better alignment with Kalen's vision
 - Collaborative creative process
 

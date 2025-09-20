@@ -4,7 +4,7 @@
 **"Website Project Intake Form"**
 
 ## Form Description
-"Thanks for choosing reishi for your website project! Please answer all questions clearly — this ensures we can build a website that reflects your business and avoids delays."
+"Thanks for choosing me to build your website! Please answer all questions clearly — this ensures we can build a website that reflects your business and avoids delays."
 
 ## Section 1 — Business Info
 
