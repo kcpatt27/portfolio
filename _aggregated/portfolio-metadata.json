@@ -1,0 +1,212 @@
+[
+  {
+    "id": "global-info-portal",
+    "name": "Global Information Portal",
+    "description": "Interactive 2D map of the world, featuring CIA data visualization",
+    "status": "completed",
+    "completionPercent": 90,
+    "featured": true,
+    "localPath": "../2D Global Info Portal",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "D3.js",
+      "TopoJSON"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.152Z"
+  },
+  {
+    "id": "nextdish",
+    "name": "nextdish.app",
+    "description": "Social media platform for recipes, featuring an AI to help create recipes, from an image or text",
+    "status": "beta",
+    "completionPercent": 70,
+    "featured": true,
+    "localPath": "../Cookbook",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "Next.js",
+      "React",
+      "Supabase",
+      "OpenRouter API"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.302Z"
+  },
+  {
+    "id": "card-game",
+    "name": "Mobile Card Game",
+    "description": "A browser and mobile card game about the creation of reality and the universe, where players battle each other using raw elements to create their ideal reality",
+    "status": "in-progress",
+    "completionPercent": 20,
+    "featured": true,
+    "localPath": "../mobile-card-game",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "React Native"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.315Z"
+  },
+  {
+    "id": "voice-control",
+    "name": "Meridian Whisper",
+    "description": "Cross-platform voice control software for hands-free operation, especially when typing",
+    "status": "in-progress",
+    "completionPercent": 60,
+    "featured": true,
+    "localPath": "../meridian-whisper",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "OpenAI Whisper"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.458Z"
+  },
+  {
+    "id": "memvid-mcp",
+    "name": "Memvid MCP Server",
+    "description": "A MCP server that utilizes the Memvid technology to condense text into QR codes that are then condensed into video or a single image, allowing for quick and easy context management for AI",
+    "status": "beta",
+    "completionPercent": 75,
+    "featured": true,
+    "localPath": "../memvid-mcp",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "Model Context Protocol",
+      "Memvid"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.461Z"
+  },
+  {
+    "id": "automated-finance-newsletter",
+    "name": "Savant Insights",
+    "description": "Automated newsletter sending daily updates on the stock market; All research, writing, editing and management is done via AI",
+    "status": "in-progress",
+    "completionPercent": 55,
+    "featured": true,
+    "localPath": "../../business-projects/personal-finance-newsletter/savant-insights",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "n8n",
+      "OpenRouter API",
+      "Astro"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.465Z"
+  },
+  {
+    "id": "iq-trainer",
+    "name": "IQ Up!",
+    "description": "Practice tests for Mensa IQ assessment preparation, designed to improve IQ by atleast 10 points",
+    "status": "in-progress",
+    "completionPercent": 30,
+    "featured": true,
+    "localPath": "../10-up-IQ-booster",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "Ravens Progressive Matrices"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.574Z"
+  },
+  {
+    "id": "3d-open-world-mech-game",
+    "name": "3D Open World Mech Game",
+    "description": "A 3D open world mech game set after the events of the book 'When Neptune Wakes', where the player explores an alien world, fights enemies, completes quests, and decides the fate of the planet while grappling with their own identity and purpose. The intention is to see if an AI can code an entire AAA game with guidance.",
+    "status": "in-progress",
+    "completionPercent": 20,
+    "featured": false,
+    "localPath": "../3d-open-world-mech-game/game-hollow-orbit-dev-docs",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "Unity",
+      "C#"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.589Z"
+  },
+  {
+    "id": "scifi-novel",
+    "name": "When Neptune Wakes",
+    "description": "Speculative fiction exploring extreme AI specialization across planetary systems in 7200~AD",
+    "status": "in-progress",
+    "completionPercent": 45,
+    "featured": true,
+    "localPath": "../3d-open-world-mech-game/book-when-neptune-wakes",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "Writing",
+      "Narrative Design",
+      "World-building"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.591Z"
+  },
+  {
+    "id": "language-learning-app",
+    "name": "Language Learning App",
+    "description": "A language learning app that combines comprehensive input, spaced repetition and minimum effective dose learning to help people learn languages and maybe make the world a bit closer",
+    "status": "in-progress",
+    "completionPercent": 20,
+    "featured": true,
+    "localPath": "../language-learning-app",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "React Native"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-01-11T19:31:59.595Z"
+  }
+]
