@@ -1,0 +1,11 @@
+{
+    "scripts": {
+      "prebuild": "tsx scripts/aggregate-projects.ts",
+      "build": "npm run prebuild && [your-build-command]",
+      "dev": "npm run prebuild && [your-dev-command]"
+    },
+    "devDependencies": {
+      "tsx": "^4.x",
+      "js-yaml": "^4.x"
+    }
+  }
