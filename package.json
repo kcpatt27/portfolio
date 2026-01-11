@@ -5,7 +5,7 @@
       "dev": "npm run prebuild && [your-dev-command]"
     },
     "devDependencies": {
-      "tsx": "^4.x",
-      "js-yaml": "^4.x"
+      "tsx": "^4.7.0",
+      "js-yaml": "^4.1.0"
     }
   }
