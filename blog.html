@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Kalen Patterson</title>
+  <meta name="description" content="Technical insights, development lessons, and DevOps advocacy from real projects." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Cyberpunk/Space Theme Colors */
+      --moonshadow: #2D1B69;        /* Deep purple */
+      --cosmic-pink: #FF6B9D;        /* Hot pink */
+      --sunset-orange: #FF8C42;      /* Warm orange */
+      --space-blue: #4A90E2;         /* Electric blue */
+      --nebula-purple: #8B5FBF;      /* Lighter purple */
+      --starlight-pink: #FFB6C1;     /* Soft pink */
+      --aurora-green: #00D4AA;       /* Cyber green */
+      --void-black: #0A0A0F;         /* Deep space */
+      --cloud-white: #F8F9FA;        /* Pure white */
+      --terminal-green: #00ff41;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#081027 0%, #071021 100%);scroll-behavior:smooth;}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1000px;margin:0 auto;padding:0 28px}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2);}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{font-size:24px;color:var(--cosmic-pink);font-weight:700}
+    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;}
+    nav a:hover{color:var(--cosmic-pink);}
+
+    .back-link{margin:40px 0;display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:500;}
+    .back-link:hover{color:var(--cosmic-pink);}
+
+    .hero-section{text-align:center;margin:60px 0;}
+    .hero-section h1{color:#ffffff;font-size:2.5rem;margin:0 0 16px;}
+    .hero-section p{color:var(--starlight-pink);font-size:18px;margin:0;max-width:600px;margin:0 auto;}
+
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:32px;margin:60px 0;}
+
+    .blog-post{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;transition:all 0.3s ease;cursor:pointer;}
+    .blog-post:hover{transform:translateY(-4px);border-color:rgba(255,107,157,0.2);box-shadow:0 8px 32px rgba(45,27,105,0.3),0 0 30px rgba(255,107,157,0.15);}
+    .blog-post.featured{border:2px solid var(--cosmic-pink);box-shadow:0 8px 32px rgba(45,27,105,0.4),0 0 60px rgba(255,107,157,0.3);}
+
+    .post-meta{margin-bottom:16px;font-size:12px;color:var(--aurora-green);text-transform:uppercase;letter-spacing:1px;}
+    .post-title{margin:0 0 16px;color:var(--cosmic-pink);font-size:20px;line-height:1.3;}
+    .post-excerpt{margin:0 0 20px;color:var(--starlight-pink);line-height:1.6;font-size:15px;}
+    .post-tags{display:flex;gap:8px;flex-wrap:wrap;}
+    .post-tag{background:rgba(255,107,157,0.1);color:var(--sunset-orange);padding:4px 8px;border-radius:12px;font-size:11px;font-weight:500;}
+
+    .post-modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9);backdrop-filter:blur(10px);}
+    .post-modal-content{background-color:rgba(15,23,42,0.95);backdrop-filter:blur(20px);border:1px solid rgba(255,107,157,0.2);margin:5% auto;padding:0;border-radius:16px;width:90%;max-width:800px;max-height:80vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+
+    .modal-header{padding:24px 32px;border-bottom:1px solid rgba(255,107,157,0.2);display:flex;justify-content:space-between;align-items:center;}
+    .modal-header h2{margin:0;color:var(--cosmic-pink);font-size:24px;}
+    .modal-close{color:var(--starlight-pink);font-size:28px;font-weight:bold;cursor:pointer;transition:color 0.3s ease;}
+    .modal-close:hover{color:var(--cosmic-pink);}
+
+    .modal-body{padding:32px;max-height:60vh;overflow-y:auto;color:var(--starlight-pink);line-height:1.7;}
+    .modal-body h3{margin:24px 0 16px;color:var(--sunset-orange);font-size:18px;}
+    .modal-body p{margin:0 0 16px;}
+    .modal-body blockquote{background:rgba(255,107,157,0.05);border-left:4px solid var(--cosmic-pink);padding:16px;margin:24px 0;font-style:italic;}
+    .modal-body code{background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:14px;}
+
+    .coming-soon{text-align:center;padding:80px 20px;color:var(--starlight-pink);opacity:0.7;}
+    .coming-soon h2{margin:0 0 16px;color:var(--cosmic-pink);}
+    .coming-soon p{margin:0;font-size:18px;}
+
+    @media (max-width:768px){
+      .blog-grid{grid-template-columns:1fr;}
+      header{flex-direction:column;text-align:center;}
+      nav{margin-top:16px;}
+      .modal-body{padding:20px;}
+      .modal-header{padding:20px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">K</div>
+        <div>Kalen Patterson</div>
+      </div>
+    </header>
+
+    <main>
+      <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+      <section class="hero-section">
+        <h1>What I Learned Today</h1>
+        <p>Technical insights, development lessons, and DevOps advocacy from real projects. Exploring the intersection of code, creativity, and strategic thinking.</p>
+      </section>
+
+      <div class="blog-grid">
+        <div class="blog-post featured" onclick="openPost('cursor-authors')">
+          <div class="post-meta">FEATURED • COMING SOON</div>
+          <h2 class="post-title">Cursor for Authors: How an IDE Made Me A Better Writer</h2>
+          <p class="post-excerpt">Cursor transformed the process of writing my first novel, When Neptune Wakes, demonstrating the value of AI tools and when to leverage them vs. when to apply human judgment.</p>
+          <div class="post-tags">
+            <span class="post-tag">AI Tools</span>
+            <span class="post-tag">Writing</span>
+            <span class="post-tag">Creative Process</span>
+            <span class="post-tag">Cursor</span>
+          </div>
+        </div>
+
+        <div class="blog-post" onclick="openPost('documenting-in-progress')">
+          <div class="post-meta">COMING SOON</div>
+          <h2 class="post-title">Documenting In-Progress Work: A Strategic Advantage</h2>
+          <p class="post-excerpt">Why public roadmaps and transparent development processes signal maturity and strategic thinking to hiring managers.</p>
+          <div class="post-tags">
+            <span class="post-tag">Career Strategy</span>
+            <span class="post-tag">DevOps</span>
+            <span class="post-tag">Project Management</span>
+          </div>
+        </div>
+
+        <div class="blog-post" onclick="openPost('112-hour-workweek')">
+          <div class="post-meta">COMING SOON</div>
+          <h2 class="post-title">The 112-Hour Workweek: What It Was Like To Work Myself (Almost) To Death</h2>
+          <p class="post-excerpt">Min-maxing the balance between my ambitions, personal life, overall health and well-being. Lessons learned from pushing creative and technical limits.</p>
+          <div class="post-tags">
+            <span class="post-tag">Health</span>
+            <span class="post-tag">Performance</span>
+            <span class="post-tag">Motivation</span>
+            <span class="post-tag">Work-Life Balance</span>
+          </div>
+        </div>
+
+        <div class="blog-post" onclick="openPost('ai-assisted-dev')">
+          <div class="post-meta">PUBLISHED</div>
+          <h2 class="post-title">AI-Assisted Development: Strategic Implementation</h2>
+          <p class="post-excerpt">How Cursor AI transformed my 40k-word technical book project, demonstrating when to leverage AI tools and when to apply human judgment.</p>
+          <div class="post-tags">
+            <span class="post-tag">AI Tools</span>
+            <span class="post-tag">DevOps Advocacy</span>
+            <span class="post-tag">Technical Writing</span>
+          </div>
+        </div>
+
+        <div class="blog-post" onclick="openPost('voice-control-architecture')">
+          <div class="post-meta">PUBLISHED</div>
+          <h2 class="post-title">Cross-Platform Voice Control: Architecture Decisions</h2>
+          <p class="post-excerpt">Balancing performance, user experience, and technical debt in PC/Mac voice control software development.</p>
+          <div class="post-tags">
+            <span class="post-tag">System Architecture</span>
+            <span class="post-tag">Performance</span>
+            <span class="post-tag">UX Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Modal -->
+      <div id="postModal" class="post-modal">
+        <div class="post-modal-content">
+          <div class="modal-header">
+            <h2 id="postTitle">Post Title</h2>
+            <span class="modal-close" onclick="closePost()">&times;</span>
+          </div>
+          <div class="modal-body" id="postContent">
+            <!-- Content will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const posts = {
+      'cursor-authors': {
+        title: 'Cursor for Authors: How an IDE Made Me A Better Writer',
+        content: `
+          <p><em>This post is coming soon. I'm currently writing about how Cursor AI transformed my writing process for "When Neptune Wakes," my first novel.</em></p>
+
+          <h3>What to Expect</h3>
+          <p>This will be a deep dive into:</p>
+          <ul>
+            <li>How AI tools can enhance creative writing without replacing the human element</li>
+            <li>World-building techniques amplified by AI assistance</li>
+            <li>Character development and narrative structure improvements</li>
+            <li>When to trust AI suggestions vs. following your creative instincts</li>
+          </ul>
+
+          <blockquote>
+            "Writing a novel with AI assistance taught me that technology doesn't replace creativity—it amplifies it."
+          </blockquote>
+        `
+      },
+      'documenting-in-progress': {
+        title: 'Documenting In-Progress Work: A Strategic Advantage',
+        content: `
+          <p><em>This post is coming soon. I'll be exploring why transparent development processes and public roadmaps are actually competitive advantages.</em></p>
+
+          <h3>Key Topics</h3>
+          <ul>
+            <li>The psychology of transparency in software development</li>
+            <li>How public roadmaps build trust with potential employers</li>
+            <li>Strategic documentation vs. exhaustive documentation</li>
+            <li>Using in-progress work as portfolio assets</li>
+          </ul>
+        `
+      },
+      '112-hour-workweek': {
+        title: 'The 112-Hour Workweek: What It Was Like To Work Myself (Almost) To Death',
+        content: `
+          <p><em>This personal essay is coming soon. It's been a challenging piece to write, but an important one about finding balance in creative and technical pursuits.</em></p>
+
+          <h3>The Story</h3>
+          <p>This will cover:</p>
+          <ul>
+            <li>The unsustainable pace of trying to do everything at once</li>
+            <li>How creative projects and technical projects feed different parts of my motivation</li>
+            <li>The health impacts of overworking and how I recovered</li>
+            <li>Lessons learned about sustainable productivity and creativity</li>
+          </ul>
+
+          <blockquote>
+            "Sometimes the most important code you write is the code that tells you to stop coding."
+          </blockquote>
+        `
+      },
+      'ai-assisted-dev': {
+        title: 'AI-Assisted Development: Strategic Implementation',
+        content: `
+          <h3>The Context</h3>
+          <p>Writing a 40k-word technical book about AI applications while using AI tools to assist with the writing process created some fascinating meta-experiences. Here's what I learned about when AI tools enhance development vs. when they become crutches.</p>
+
+          <h3>When AI Excels</h3>
+          <ul>
+            <li><strong>Repetitive Tasks:</strong> AI tools are incredible for generating boilerplate, API documentation, and consistent formatting</li>
+            <li><strong>Research Synthesis:</strong> Pulling together information from multiple sources and presenting it coherently</li>
+            <li><strong>Code Examples:</strong> Generating initial implementations that can then be refined</li>
+            <li><strong>Grammar and Style:</strong> Consistent tone and readability improvements</li>
+          </ul>
+
+          <h3>When Human Judgment Matters</h3>
+          <ul>
+            <li><strong>Architectural Decisions:</strong> AI can suggest patterns, but human experience determines what's right for your specific use case</li>
+            <li><strong>Business Logic:</strong> Understanding the "why" behind requirements and edge cases</li>
+            <li><strong>Creative Direction:</strong> The vision and unique perspective that makes your work distinctive</li>
+            <li><strong>Quality Assurance:</strong> Testing assumptions and validating that suggestions make sense</li>
+          </ul>
+
+          <h3>The Strategic Approach</h3>
+          <p>The key is treating AI as a collaborative partner rather than an automation tool. Use AI for the parts of development that are mechanical, and reserve your human judgment for the parts that require context, creativity, and critical thinking.</p>
+
+          <blockquote>
+            "AI tools don't replace developers—they amplify the best parts of what makes us human in our work."
+          </blockquote>
+        `
+      },
+      'voice-control-architecture': {
+        title: 'Cross-Platform Voice Control: Architecture Decisions',
+        content: `
+          <h3>The Challenge</h3>
+          <p>Building Meridian Whisper, a cross-platform voice control system, required balancing performance, user experience, and technical debt. The goal was to create a system that could run on both Windows and macOS while maintaining low latency and high accuracy.</p>
+
+          <h3>Technical Decisions</h3>
+          <h4>OpenAI Whisper Integration</h4>
+          <p>Chose Whisper over other speech recognition APIs for its:</p>
+          <ul>
+            <li>Superior accuracy on technical and specialized vocabulary</li>
+            <li>Local processing capability (privacy-focused)</li>
+            <li>Active development and community support</li>
+            <li>Multi-language support for future expansion</li>
+          </ul>
+
+          <h4>Cross-Platform Architecture</h4>
+          <p>Rather than building separate applications for each platform, implemented a shared core with platform-specific wrappers:</p>
+          <ul>
+            <li><strong>Core Engine:</strong> Python-based processing pipeline</li>
+            <li><strong>Windows Wrapper:</strong> PyInstaller + Windows API hooks</li>
+            <li><strong>macOS Wrapper:</strong> PyInstaller + macOS accessibility APIs</li>
+            <li><strong>Configuration:</strong> Platform-agnostic settings with OS-specific overrides</li>
+          </ul>
+
+          <h3>Performance Trade-offs</h3>
+          <p>The biggest challenge was balancing processing speed with accuracy. Whisper's larger models provide better accuracy but require more computational resources. The solution was implementing model switching based on context:</p>
+          <ul>
+            <li><strong>Base Model:</strong> Fast processing for simple commands</li>
+            <li><strong>Large Model:</strong> High accuracy for complex or technical commands</li>
+            <li><strong>Context Awareness:</strong> Automatic model selection based on command complexity</li>
+          </ul>
+
+          <h3>Lessons Learned</h3>
+          <p>This project taught me that cross-platform development isn't just about code compatibility—it's about understanding how different operating systems handle system-level features like audio capture and global keyboard shortcuts.</p>
+
+          <blockquote>
+            "The best architecture isn't the one that works on all platforms—it's the one that works well on each platform it supports."
+          </blockquote>
+        `
+      }
+    };
+
+    function openPost(postId) {
+      const post = posts[postId];
+      if (!post) return;
+
+      document.getElementById('postTitle').textContent = post.title;
+      document.getElementById('postContent').innerHTML = post.content;
+      document.getElementById('postModal').style.display = 'block';
+    }
+
+    function closePost() {
+      document.getElementById('postModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('postModal');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
