@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Roadmaps — Kalen Patterson</title>
+  <meta name="description" content="Project roadmaps and development progress tracking for Kalen Patterson's development projects." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Cyberpunk/Space Theme Colors */
+      --moonshadow: #2D1B69;        /* Deep purple */
+      --cosmic-pink: #FF6B9D;        /* Hot pink */
+      --sunset-orange: #FF8C42;      /* Warm orange */
+      --space-blue: #4A90E2;         /* Electric blue */
+      --nebula-purple: #8B5FBF;      /* Lighter purple */
+      --starlight-pink: #FFB6C1;     /* Soft pink */
+      --aurora-green: #00D4AA;       /* Cyber green */
+      --void-black: #0A0A0F;         /* Deep space */
+      --cloud-white: #F8F9FA;        /* Pure white */
+      --terminal-green: #00ff41;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#081027 0%, #071021 100%);scroll-behavior:smooth;}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 28px}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2);}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{font-size:24px;color:var(--cosmic-pink);font-weight:700}
+    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;}
+    nav a:hover{color:var(--cosmic-pink);}
+
+    .back-link{margin:40px 0;display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:500;}
+    .back-link:hover{color:var(--cosmic-pink);}
+
+    .roadmap-grid{display:grid;grid-template-columns:300px 1fr;gap:40px;margin-top:40px;}
+
+    .projects-sidebar{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:24px;}
+    .projects-sidebar h3{margin:0 0 20px;color:var(--cosmic-pink);font-size:18px;}
+    .project-item{margin-bottom:12px;padding:12px;border-radius:8px;cursor:pointer;transition:all 0.3s ease;border:1px solid transparent;}
+    .project-item:hover{background:rgba(255,107,157,0.05);border-color:rgba(255,107,157,0.2);}
+    .project-item.active{background:rgba(255,107,157,0.1);border-color:var(--cosmic-pink);}
+    .project-item h4{margin:0 0 4px;font-size:14px;color:var(--cosmic-pink);}
+    .project-item p{margin:0;font-size:12px;color:var(--starlight-pink);opacity:0.8;}
+    .project-status{margin-top:8px;font-size:11px;padding:2px 6px;border-radius:10px;display:inline-block;}
+    .status-completed{background:var(--aurora-green);color:var(--void-black);}
+    .status-beta{background:var(--sunset-orange);color:var(--void-black);}
+    .status-in-progress{background:var(--nebula-purple);color:white;}
+
+    .roadmap-content{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;}
+    .roadmap-content h1{margin:0 0 16px;color:#ffffff;font-size:2rem;}
+    .roadmap-content h2{margin:32px 0 16px;color:var(--cosmic-pink);font-size:1.5rem;}
+
+    .roadmap-visual{position:relative;padding-left:40px;}
+    .roadmap-phase{margin-bottom:32px;position:relative;}
+    .roadmap-phase::before{content:'';position:absolute;left:-35px;top:8px;width:16px;height:16px;border-radius:50%;border:3px solid var(--cosmic-pink);background:var(--void-black);}
+    .roadmap-phase::after{content:'';position:absolute;left:-23px;top:24px;width:2px;height:calc(100% - 16px);background:linear-gradient(to bottom, var(--cosmic-pink), transparent);}
+    .roadmap-phase.completed::before{background:var(--aurora-green);border-color:var(--aurora-green);}
+    .roadmap-phase.in-progress::before{background:var(--sunset-orange);border-color:var(--sunset-orange);box-shadow:0 0 20px rgba(255, 140, 66, 0.5);}
+    .roadmap-phase.planned::before{background:var(--nebula-purple);border-color:var(--nebula-purple);}
+
+    .phase-header{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+    .phase-title{margin:0;color:var(--cosmic-pink);font-size:18px;}
+    .phase-status{padding:4px 8px;border-radius:12px;font-size:12px;font-weight:600;}
+    .status-completed{background:var(--aurora-green);color:var(--void-black);}
+    .status-in-progress{background:var(--sunset-orange);color:var(--void-black);}
+    .status-planned{background:var(--nebula-purple);color:white;}
+
+    .phase-description{margin:0 0 12px;color:var(--starlight-pink);line-height:1.6;}
+    .phase-details{margin:0;color:var(--starlight-pink);opacity:0.8;font-size:14px;}
+
+    .progress-bar{width:100%;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;margin:16px 0;overflow:hidden;}
+    .progress-fill{height:100%;background:linear-gradient(90deg, var(--aurora-green), var(--sunset-orange), var(--cosmic-pink));border-radius:4px;transition:width 0.3s ease;}
+
+    @media (max-width:768px){
+      .roadmap-grid{grid-template-columns:1fr;}
+      .projects-sidebar{margin-bottom:20px;}
+      header{flex-direction:column;text-align:center;}
+      nav{margin-top:16px;}
+      .roadmap-visual{padding-left:20px;}
+      .roadmap-phase::before{left:-25px;}
+      .roadmap-phase::after{left:-13px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">K</div>
+        <div>Kalen Patterson</div>
+      </div>
+    </header>
+
+    <main>
+      <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+      <h1 style="color:#ffffff;font-size:2.5rem;text-align:center;margin:40px 0;">Project Roadmaps</h1>
+
+      <div class="roadmap-grid">
+        <div class="projects-sidebar">
+          <h3>Projects</h3>
+          <div class="project-item active" onclick="loadProject('nextdish')">
+            <h4>NextDish</h4>
+            <p>AI recipe platform</p>
+            <div class="project-status status-beta">BETA</div>
+          </div>
+          <div class="project-item" onclick="loadProject('global-info-portal')">
+            <h4>Global Information Portal</h4>
+            <p>Interactive world map</p>
+            <div class="project-status status-completed">LIVE</div>
+          </div>
+          <div class="project-item" onclick="loadProject('memvid-mcp')">
+            <h4>Memvid MCP Server</h4>
+            <p>AI context management</p>
+            <div class="project-status status-beta">BETA</div>
+          </div>
+          <div class="project-item" onclick="loadProject('meridian-whisper')">
+            <h4>Meridian Whisper</h4>
+            <p>Voice control software</p>
+            <div class="project-status status-in-progress">60% Complete</div>
+          </div>
+          <div class="project-item" onclick="loadProject('when-neptune-wakes')">
+            <h4>When Neptune Wakes</h4>
+            <p>Sci-fi novel</p>
+            <div class="project-status status-in-progress">45% Complete</div>
+          </div>
+          <div class="project-item" onclick="loadProject('savant-insights')">
+            <h4>Savant Insights</h4>
+            <p>AI newsletter</p>
+            <div class="project-status status-in-progress">55% Complete</div>
+          </div>
+          <div class="project-item" onclick="loadProject('iq-trainer')">
+            <h4>IQ Up!</h4>
+            <p>Cognitive training</p>
+            <div class="project-status status-in-progress">30% Complete</div>
+          </div>
+        </div>
+
+        <div class="roadmap-content">
+          <h1 id="project-title">NextDish Roadmap</h1>
+
+          <div class="progress-bar">
+            <div class="progress-fill" id="overall-progress" style="width:70%"></div>
+          </div>
+
+          <div class="roadmap-visual" id="roadmap-visual">
+            <div class="roadmap-phase completed">
+              <div class="phase-header">
+                <h2 class="phase-title">Foundation</h2>
+                <div class="phase-status status-completed">Completed</div>
+              </div>
+              <p class="phase-description">Core platform setup with Next.js, Supabase, and OpenRouter integration.</p>
+              <p class="phase-details">✓ Authentication system<br>✓ Database schema<br>✓ Basic UI framework<br>✓ AI API integration</p>
+            </div>
+
+            <div class="roadmap-phase completed">
+              <div class="phase-header">
+                <h2 class="phase-title">MVP Features</h2>
+                <div class="phase-status status-completed">Completed</div>
+              </div>
+              <p class="phase-description">Essential recipe generation and social features for initial user testing.</p>
+              <p class="phase-details">✓ AI recipe generation<br>✓ User profiles<br>✓ Basic recipe sharing<br>✓ Search functionality</p>
+            </div>
+
+            <div class="roadmap-phase in-progress">
+              <div class="phase-header">
+                <h2 class="phase-title">Enhanced AI Features</h2>
+                <div class="phase-status status-in-progress">In Progress</div>
+              </div>
+              <p class="phase-description">Advanced AI capabilities including image-to-recipe and personalized recommendations.</p>
+              <p class="phase-details">○ Image analysis for recipes<br>○ Personalized AI suggestions<br>○ Recipe variations<br>○ Nutritional analysis</p>
+            </div>
+
+            <div class="roadmap-phase planned">
+              <div class="phase-header">
+                <h2 class="phase-title">Community Features</h2>
+                <div class="phase-status status-planned">Planned</div>
+              </div>
+              <p class="phase-description">Social features, competitions, and advanced community engagement tools.</p>
+              <p class="phase-details">○ Recipe competitions<br>○ User following system<br>○ Advanced social features<br>○ Community challenges</p>
+            </div>
+
+            <div class="roadmap-phase planned">
+              <div class="phase-header">
+                <h2 class="phase-title">Enterprise Features</h2>
+                <div class="phase-status status-planned">Planned</div>
+              </div>
+              <p class="phase-description">Professional features for restaurants, meal planning services, and content creators.</p>
+              <p class="phase-details">○ Bulk recipe management<br>○ API access<br>○ White-label solutions<br>○ Advanced analytics</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let currentProject = 'nextdish';
+
+    const projectData = {
+      'nextdish': {
+        title: 'NextDish Roadmap',
+        progress: '70%',
+        phases: [
+          { title: 'Foundation', status: 'completed', description: 'Core platform setup with Next.js, Supabase, and OpenRouter integration.', details: '✓ Authentication system<br>✓ Database schema<br>✓ Basic UI framework<br>✓ AI API integration' },
+          { title: 'MVP Features', status: 'completed', description: 'Essential recipe generation and social features for initial user testing.', details: '✓ AI recipe generation<br>✓ User profiles<br>✓ Basic recipe sharing<br>✓ Search functionality' },
+          { title: 'Enhanced AI Features', status: 'in-progress', description: 'Advanced AI capabilities including image-to-recipe and personalized recommendations.', details: '○ Image analysis for recipes<br>○ Personalized AI suggestions<br>○ Recipe variations<br>○ Nutritional analysis' },
+          { title: 'Community Features', status: 'planned', description: 'Social features, competitions, and advanced community engagement tools.', details: '○ Recipe competitions<br>○ User following system<br>○ Advanced social features<br>○ Community challenges' },
+          { title: 'Enterprise Features', status: 'planned', description: 'Professional features for restaurants, meal planning services, and content creators.', details: '○ Bulk recipe management<br>○ API access<br>○ White-label solutions<br>○ Advanced analytics' }
+        ]
+      },
+      'global-info-portal': {
+        title: 'Global Information Portal Roadmap',
+        progress: '90%',
+        phases: [
+          { title: 'Data Integration', status: 'completed', description: 'CIA World Factbook data integration with D3.js visualization.', details: '✓ Data parsing and cleaning<br>✓ D3.js map rendering<br>✓ Interactive tooltips<br>✓ GitHub API integration' },
+          { title: 'UI/UX Enhancement', status: 'completed', description: 'Improved user interface and mobile responsiveness.', details: '✓ Responsive design<br>✓ Search functionality<br>✓ Country comparison<br>✓ Performance optimization' },
+          { title: 'Advanced Features', status: 'in-progress', description: 'Additional data sources and visualization options.', details: '○ Real-time data updates<br>○ Multiple data sources<br>○ Advanced filtering<br>○ Export functionality' }
+        ]
+      },
+      'meridian-whisper': {
+        title: 'Meridian Whisper Roadmap',
+        progress: '60%',
+        phases: [
+          { title: 'Core Engine', status: 'completed', description: 'OpenAI Whisper integration and basic voice recognition.', details: '✓ Audio capture<br>✓ Whisper API integration<br>✓ Basic command parsing<br>✓ Cross-platform support' },
+          { title: 'Advanced Features', status: 'in-progress', description: 'Enhanced voice control capabilities and natural language processing.', details: '○ Context awareness<br>○ Custom voice commands<br>○ Multi-language support<br>○ Background processing' },
+          { title: 'Integration Layer', status: 'planned', description: 'System integration for seamless voice control across applications.', details: '○ OS-level integration<br>○ Plugin system<br>○ Security features<br>○ Performance optimization' }
+        ]
+      },
+      'when-neptune-wakes': {
+        title: 'When Neptune Wakes Roadmap',
+        progress: '45%',
+        phases: [
+          { title: 'World Building', status: 'completed', description: 'Comprehensive universe and character development.', details: '✓ Planetary systems<br>✓ AI specialization concepts<br>✓ Character arcs<br>✓ Plot structure' },
+          { title: 'Draft Completion', status: 'in-progress', description: 'Writing the full novel manuscript.', details: '○ Chapter development<br>○ Scene writing<br>○ Character development<br>○ Thematic exploration' },
+          { title: 'Editing & Publishing', status: 'planned', description: 'Professional editing, cover design, and publication.', details: '○ Professional editing<br>○ Cover design<br>○ Formatting<br>○ Publishing strategy' }
+        ]
+      },
+      'savant-insights': {
+        title: 'Savant Insights Roadmap',
+        progress: '55%',
+        phases: [
+          { title: 'Content Pipeline', status: 'completed', description: 'AI-driven content generation and newsletter system.', details: '✓ Research automation<br>✓ Content generation<br>✓ Email formatting<br>✓ Basic scheduling' },
+          { title: 'Enhanced Features', status: 'in-progress', description: 'Advanced content quality and delivery improvements.', details: '○ Content quality checks<br>○ Subscriber analytics<br>○ A/B testing<br>○ Advanced scheduling' },
+          { title: 'Monetization', status: 'planned', description: 'Premium features and revenue generation.', details: '○ Premium newsletters<br>○ Custom research<br>○ API access<br>○ White-label options' }
+        ]
+      },
+      'iq-trainer': {
+        title: 'IQ Up! Roadmap',
+        progress: '30%',
+        phases: [
+          { title: 'Assessment Framework', status: 'in-progress', description: 'Ravens Progressive Matrices implementation and testing system.', details: '○ Question database<br>○ Adaptive difficulty<br>○ Progress tracking<br>○ Performance analytics' },
+          { title: 'Training Features', status: 'planned', description: 'Cognitive training exercises and improvement tracking.', details: '○ Daily exercises<br>○ Progress visualization<br>○ Personalized training<br>○ Scientific validation' },
+          { title: 'Advanced Analytics', status: 'planned', description: 'Detailed performance analysis and improvement insights.', details: '○ Cognitive profiling<br>○ Improvement tracking<br>○ Comparative analysis<br>○ Research integration' }
+        ]
+      }
+    };
+
+    function loadProject(projectId) {
+      currentProject = projectId;
+
+      // Update active project item
+      document.querySelectorAll('.project-item').forEach(item => item.classList.remove('active'));
+      event.target.closest('.project-item').classList.add('active');
+
+      // Update project title and progress
+      const data = projectData[projectId];
+      document.getElementById('project-title').textContent = data.title;
+      document.getElementById('overall-progress').style.width = data.progress;
+
+      // Update roadmap phases
+      const roadmapVisual = document.getElementById('roadmap-visual');
+      roadmapVisual.innerHTML = data.phases.map(phase => `
+        <div class="roadmap-phase ${phase.status}">
+          <div class="phase-header">
+            <h2 class="phase-title">${phase.title}</h2>
+            <div class="phase-status status-${phase.status}">${phase.status === 'completed' ? 'Completed' : phase.status === 'in-progress' ? 'In Progress' : 'Planned'}</div>
+          </div>
+          <p class="phase-description">${phase.description}</p>
+          <p class="phase-details">${phase.details}</p>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

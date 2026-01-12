@@ -612,6 +612,129 @@
     @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)} .portfolio{grid-template-columns:repeat(2,1fr)} .skills-showcase{grid-template-columns:repeat(2,1fr)} h1{font-size:24px}}
     @media (max-width:560px){.container{padding:0 18px}header{flex-direction:column;align-items:flex-start}nav{margin-top:12px} .grid{grid-template-columns:1fr} .portfolio{grid-template-columns:1fr} .skills-showcase{grid-template-columns:1fr} .hero{padding:0}}
     
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      background-color: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 107, 157, 0.2);
+      margin: 5% auto;
+      padding: 0;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 1200px;
+      max-height: 80vh;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid rgba(255, 107, 157, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: var(--cosmic-pink);
+      font-size: 24px;
+    }
+
+    .close {
+      color: var(--starlight-pink);
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close:hover {
+      color: var(--cosmic-pink);
+    }
+
+    .modal-body {
+      padding: 32px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .project-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 107, 157, 0.1);
+    }
+
+    .tab-btn {
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 107, 157, 0.1);
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      color: var(--starlight-pink);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .tab-btn.active {
+      background: rgba(255, 107, 157, 0.1);
+      border-color: var(--cosmic-pink);
+      color: var(--cosmic-pink);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .readme-content, .roadmap-content {
+      color: var(--starlight-pink);
+      line-height: 1.6;
+    }
+
+    .readme-content h1, .readme-content h2, .readme-content h3,
+    .roadmap-content h1, .roadmap-content h2, .roadmap-content h3 {
+      color: var(--cosmic-pink);
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+
+    .readme-content pre, .roadmap-content pre {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 107, 157, 0.1);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: var(--font-terminal);
+      font-size: 13px;
+    }
+
+    .readme-content code, .roadmap-content code {
+      background: rgba(255, 107, 157, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font-terminal);
+      font-size: 12px;
+    }
+    
     /* Footer Mobile Responsive */
     @media (max-width: 768px) {
       .footer-content {
@@ -623,6 +746,29 @@
       .footer-left, .footer-right {
         flex-direction: column;
         gap: 12px;
+      }
+
+      .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        max-height: 80vh;
+      }
+
+      .modal-header {
+        padding: 20px;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      .project-tabs {
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        padding: 10px 16px;
+        font-size: 13px;
       }
     }
   </style>
@@ -672,8 +818,8 @@
                   <h3 style="color: var(--aurora-green); margin-bottom: 12px;">Strengths</h3>
                   <p style="margin: 0; line-height: 1.7;">
                     Strategic thinking with execution focus • Technical writing & documentation • DevOps advocacy • AI tool fluency • Multi-domain problem solving • Project architecture & planning
-                  </p>
-                </div>
+                </p>
+              </div>
               </div>
 
               <div class="about-cards" style="grid-template-columns: 1fr;">
@@ -681,29 +827,29 @@
                   <h3 style="color: var(--sunset-orange); margin-bottom: 12px;">Current Focus</h3>
                   <p style="margin: 0; line-height: 1.7;">
                     Documenting completed projects with production-level guides • Building strategic roadmaps for in-progress work • Evangelizing AI-assisted development practices • Creating technical content that bridges gaps between vision and implementation
-                  </p>
-                </div>
+                </p>
+              </div>
               </div>
             </div>
 
             <!-- Project Portfolio Overview -->
             <h3 style="color: var(--cosmic-pink); margin: 40px 0 20px; font-size: 1.8rem;">Project Portfolio</h3>
             <div class="about-cards" style="margin-bottom: 40px;">
-              <div class="about-card">
+              <div class="about-card" style="cursor: pointer;" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'});">
                 <h3>Shipped & Live</h3>
                 <p style="margin-bottom: 12px;">
                   NextDish (AI recipe platform) • Global Information Portal • Memvid MCP Server
                 </p>
                 <small style="color: var(--aurora-green);">Production systems with real users</small>
               </div>
-              <div class="about-card">
+              <div class="about-card" style="cursor: pointer;" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'});">
                 <h3>In Progress</h3>
                 <p style="margin-bottom: 12px;">
                   Meridian Whisper (voice control) • When Neptune Wakes (sci-fi novel) • Savant Insights (AI newsletter)
                 </p>
                 <small style="color: var(--sunset-orange);">Public roadmaps & transparent development</small>
               </div>
-              <div class="about-card">
+              <div class="about-card" style="cursor: pointer;" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'});">
                 <h3>Technical Writing</h3>
                 <p style="margin-bottom: 12px;">
                   Project documentation • Architecture decisions • Development roadmaps • AI workflow strategies
@@ -745,11 +891,11 @@
           <!-- Completed Projects -->
           <div style="margin-bottom: 60px;">
             <h3 style="color: var(--aurora-green); text-align: center; margin-bottom: 30px; font-size: 1.8rem;">Completed Projects</h3>
-            <div class="portfolio" style="max-width: 1000px; margin: 0 auto;">
+          <div class="portfolio" style="max-width: 1000px; margin: 0 auto;">
               <!-- NextDish - Origin Story Project -->
-              <div style="position: relative; overflow: hidden; border-radius: 12px;">
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
                 <div style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, var(--cosmic-pink), var(--sunset-orange)); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; z-index: 10; box-shadow: 0 2px 10px rgba(255, 107, 157, 0.4);">Origin Story</div>
-                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=60" alt="NextDish" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+                <img src="project-images/nextdish-front-page.png" alt="NextDish" style="width:100%; height:300px; object-fit:contain; object-position: top; background: linear-gradient(135deg, #1a1a2e, #0f0f23); transition: transform 0.3s ease;">
                 <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 20px; color: white;">
                   <h3 style="margin: 0 0 8px; font-size: 18px;">nextdish.app</h3>
                   <p style="margin: 0; opacity: 0.9; font-size: 14px;">AI-powered recipe platform born from a baking session—the idea that started my dev journey</p>
@@ -757,12 +903,12 @@
                     <span style="color: var(--aurora-green); font-weight: 600; font-size: 12px;">BETA</span>
                     <a href="https://nextdish.app/register" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
                     <span style="color: rgba(255,255,255,0.5); font-size: 11px;">Next.js • Supabase • OpenRouter</span>
-                  </div>
-                </div>
+              </div>
+            </div>
               </div>
               <!-- Global Information Portal -->
-              <div style="position: relative; overflow: hidden; border-radius: 12px;">
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=60" alt="Global Information Portal" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="project-images/us-gip.png" alt="Global Information Portal" style="width:100%; height:300px; object-fit:contain; object-position: top; background: linear-gradient(135deg, #1a1a2e, #0f0f23); transition: transform 0.3s ease;">
                 <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 20px; color: white;">
                   <h3 style="margin: 0 0 8px; font-size: 18px;">Global Information Portal</h3>
                   <p style="margin: 0; opacity: 0.9; font-size: 14px;">Interactive 2D world map featuring CIA data visualization with D3.js and TopoJSON</p>
@@ -770,11 +916,11 @@
                     <span style="color: var(--aurora-green); font-weight: 600; font-size: 12px;">LIVE</span>
                     <a href="https://kcpatt27.github.io/global-information-portal" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
                     <a href="https://github.com/kcpatt27/global-information-portal" target="_blank" style="color: var(--aurora-green); text-decoration: none; font-weight: 600; font-size: 12px;">GitHub →</a>
-                  </div>
-                </div>
+              </div>
+            </div>
               </div>
               <!-- Memvid MCP Server -->
-              <div style="position: relative; overflow: hidden; border-radius: 12px;">
+            <div style="position: relative; overflow: hidden; border-radius: 12px;">
                 <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=60" alt="Memvid MCP Server" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
                 <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 20px; color: white;">
                   <h3 style="margin: 0 0 8px; font-size: 18px;">Memvid MCP Server</h3>
@@ -782,10 +928,10 @@
                   <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
                     <span style="color: var(--aurora-green); font-weight: 600; font-size: 12px;">BETA</span>
                     <span style="color: rgba(255,255,255,0.5); font-size: 11px;">Model Context Protocol • Memvid</span>
-                  </div>
-                </div>
               </div>
             </div>
+          </div>
+        </div>
           </div>
 
           <!-- In-Progress Projects -->
@@ -813,7 +959,7 @@
               </div>
               <!-- When Neptune Wakes - Sci-Fi Novel -->
               <div style="position: relative; overflow: hidden; border-radius: 12px;">
-                <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=800&q=60" alt="When Neptune Wakes" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+                <img src="project-images/neptune-and-sun.png" alt="When Neptune Wakes" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
                 <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 20px; color: white;">
                   <h3 style="margin: 0 0 8px; font-size: 18px;">When Neptune Wakes</h3>
                   <p style="margin: 0; opacity: 0.9; font-size: 14px;">Speculative fiction exploring extreme AI specialization across planetary systems in 7200 AD</p>
@@ -835,6 +981,18 @@
                   </div>
                 </div>
               </div>
+              <!-- IQ Up! - Cognitive Training -->
+              <div style="position: relative; overflow: hidden; border-radius: 12px;">
+                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=800&q=60" alt="IQ Up!" style="width:100%; height:300px; object-fit:cover; transition: transform 0.3s ease;">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 20px; color: white;">
+                  <h3 style="margin: 0 0 8px; font-size: 18px;">IQ Up!</h3>
+                  <p style="margin: 0; opacity: 0.9; font-size: 14px;">Practice tests for Mensa IQ assessment preparation, designed to improve IQ by at least 10 points</p>
+                  <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <span style="color: var(--sunset-orange); font-weight: 600; font-size: 12px;">30% COMPLETE</span>
+                    <span style="color: rgba(255,255,255,0.5); font-size: 11px;">Ravens Progressive Matrices</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -845,8 +1003,8 @@
               Each project includes comprehensive documentation: API guides, architectural decisions, performance analysis, and lessons learned. I believe in treating documentation as seriously as code.
             </p>
             <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-              <a href="#" style="color: var(--aurora-green); text-decoration: none; font-weight: 600; padding: 12px 24px; border: 1px solid var(--aurora-green); border-radius: 25px; transition: all 0.3s ease;">View Documentation →</a>
-              <a href="#" style="color: var(--hologram-blue); text-decoration: none; font-weight: 600; padding: 12px 24px; border: 1px solid var(--hologram-blue); border-radius: 25px; transition: all 0.3s ease;">Project Roadmaps →</a>
+              <a href="docs.html" style="color: var(--aurora-green); text-decoration: none; font-weight: 600; padding: 12px 24px; border: 1px solid var(--aurora-green); border-radius: 25px; transition: all 0.3s ease;">View Documentation →</a>
+              <a href="roadmaps.html" style="color: var(--hologram-blue); text-decoration: none; font-weight: 600; padding: 12px 24px; border: 1px solid var(--hologram-blue); border-radius: 25px; transition: all 0.3s ease;">Project Roadmaps →</a>
             </div>
           </div>
         </div>
@@ -887,7 +1045,7 @@
           </div>
 
           <div style="text-align: center; margin-top: 40px;">
-            <a href="#" style="color: var(--hologram-blue); text-decoration: none; font-weight: 600; padding: 12px 24px; border: 1px solid var(--hologram-blue); border-radius: 25px; transition: all 0.3s ease;">Read More Insights →</a>
+            <a href="blog.html" style="color: var(--hologram-blue); text-decoration: none; font-weight: 600; padding: 12px 24px; border: 1px solid var(--hologram-blue); border-radius: 25px; transition: all 0.3s ease;">Read More Insights →</a>
           </div>
         </div>
       </section>
@@ -895,11 +1053,37 @@
       </main>
    </div>
 
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Project Details</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="project-tabs">
+            <button class="tab-btn active" onclick="openTab('readme')">README</button>
+            <button class="tab-btn" onclick="openTab('roadmap')">Roadmap</button>
+          </div>
+          <div id="readmeTab" class="tab-content active">
+            <div class="readme-content" id="readmeContent">
+              Loading README...
+            </div>
+          </div>
+          <div id="roadmapTab" class="tab-content">
+            <div class="roadmap-content" id="roadmapContent">
+              Loading Roadmap...
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+
    <footer>
      <div class="footer-content">
        <div class="footer-left">
          <div class="footer-copyright">
-           © <span id="year"></span> Kalen Patterson — DevOps Advocate & Technical Writer
+            © <span id="year"></span> Kalen Patterson — DevOps Advocate & Technical Writer
          </div>
        </div>
        <div class="footer-right">
@@ -1258,6 +1442,86 @@
     
     // Update copyright year dynamically - prevents manual updates each year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Modal functionality
+    let modal = document.getElementById('projectModal');
+    let modalTitle = document.getElementById('modalTitle');
+    let readmeContent = document.getElementById('readmeContent');
+    let roadmapContent = document.getElementById('roadmapContent');
+    let currentProjectData = null;
+
+    // Close modal when clicking X or outside modal
+    document.querySelector('.close').onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Tab switching functionality
+    function openTab(tabName) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+
+      // Remove active class from all tab buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Show selected tab and mark button as active
+      document.getElementById(tabName + 'Tab').classList.add('active');
+      event.target.classList.add('active');
+
+      // Load content for the selected tab
+      if (tabName === 'readme') {
+        loadReadmeContent();
+      } else if (tabName === 'roadmap') {
+        loadRoadmapContent();
+      }
+    }
+
+    // Make project cards clickable
+    function setupProjectCards() {
+      // Get all project cards (both completed and in-progress)
+      const projectCards = document.querySelectorAll('.portfolio > div');
+
+      projectCards.forEach((card, index) => {
+        card.style.cursor = 'pointer';
+        card.onclick = function() {
+          openProjectModal(index);
+        };
+      });
+    }
+
+    function openProjectModal(cardIndex) {
+      // This would need to be mapped to actual project data
+      // For now, just show a placeholder
+      modalTitle.textContent = "Project Details";
+      readmeContent.innerHTML = "<p>Loading project documentation...</p>";
+      roadmapContent.innerHTML = "<p>Loading project roadmap...</p>";
+      modal.style.display = "block";
+    }
+
+    function loadReadmeContent() {
+      // This would load actual README content from project files
+      readmeContent.innerHTML = "<p>README content would be loaded here from the project's documentation.</p>";
+    }
+
+    function loadRoadmapContent() {
+      // This would load actual roadmap content from project files
+      roadmapContent.innerHTML = "<p>Roadmap content would be loaded here from the project's roadmap file.</p>";
+    }
+
+    // Initialize project cards when page loads
+    window.addEventListener('load', function() {
+      initSpaceScene();
+      setupProjectCards();
+    });
   </script>
 </body>
 </html>
