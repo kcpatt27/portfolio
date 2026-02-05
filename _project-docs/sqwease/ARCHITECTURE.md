@@ -1,0 +1,1 @@
+D:/projects/personal-projects/japanese-learning-app/ARCHITECTURE.md

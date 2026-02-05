@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Blog — Kalen Patterson</title>
-  <meta name="description" content="Technical insights, development lessons, and DevOps advocacy from real projects." />
+  <meta name="description" content="Technical insights and development lessons from real projects." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -28,13 +28,11 @@
     .container{max-width:1000px;margin:0 auto;padding:0 28px}
 
     header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2);}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{font-size:24px;color:var(--cosmic-pink);font-weight:700}
-    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;}
+    .back-to-portfolio{display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:600;font-size:16px;}
+    .back-to-portfolio:hover{color:var(--cosmic-pink);}
+    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;display:inline-block;padding-bottom:6px;border-bottom:2px solid transparent;margin-bottom:-8px;}
     nav a:hover{color:var(--cosmic-pink);}
-
-    .back-link{margin:40px 0;display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:500;}
-    .back-link:hover{color:var(--cosmic-pink);}
+    body.page-docs nav a[href="docs.html"],body.page-roadmaps nav a[href="roadmaps.html"],body.page-blog nav a[href="blog.html"]{border-bottom-color:var(--cosmic-pink);color:var(--cosmic-pink);}
 
     .hero-section{text-align:center;margin:60px 0;}
     .hero-section h1{color:#ffffff;font-size:2.5rem;margin:0 0 16px;}
@@ -45,6 +43,8 @@
     .blog-post{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;transition:all 0.3s ease;cursor:pointer;}
     .blog-post:hover{transform:translateY(-4px);border-color:rgba(255,107,157,0.2);box-shadow:0 8px 32px rgba(45,27,105,0.3),0 0 30px rgba(255,107,157,0.15);}
     .blog-post.featured{border:2px solid var(--cosmic-pink);box-shadow:0 8px 32px rgba(45,27,105,0.4),0 0 60px rgba(255,107,157,0.3);}
+    .blog-post.coming-soon{cursor:default;pointer-events:none;}
+    .blog-post.coming-soon:hover{transform:none;}
 
     .post-meta{margin-bottom:16px;font-size:12px;color:var(--aurora-green);text-transform:uppercase;letter-spacing:1px;}
     .post-title{margin:0 0 16px;color:var(--cosmic-pink);font-size:20px;line-height:1.3;}
@@ -79,17 +79,18 @@
     }
   </style>
 </head>
-<body>
+<body class="page-blog">
   <div class="container">
     <header>
-      <div class="brand">
-        <div class="logo">K</div>
-        <div>Kalen Patterson</div>
-      </div>
+      <a href="index.html" class="back-to-portfolio">← Back to Home</a>
+      <nav>
+        <a href="docs.html">Documentation</a>
+        <a href="roadmaps.html">Roadmaps</a>
+        <a href="blog.html">Blog</a>
+      </nav>
     </header>
 
     <main>
-      <a href="index.html" class="back-link">← Back to Portfolio</a>
 
       <section class="hero-section">
         <h1>What I Learned Today</h1>
@@ -97,7 +98,7 @@
       </section>
 
       <div class="blog-grid">
-        <div class="blog-post featured" onclick="openPost('cursor-authors')">
+        <div class="blog-post featured coming-soon" aria-label="Coming soon">
           <div class="post-meta">FEATURED • COMING SOON</div>
           <h2 class="post-title">Cursor for Authors: How an IDE Made Me A Better Writer</h2>
           <p class="post-excerpt">Cursor transformed the process of writing my first novel, When Neptune Wakes, demonstrating the value of AI tools and when to leverage them vs. when to apply human judgment.</p>
@@ -109,7 +110,7 @@
           </div>
         </div>
 
-        <div class="blog-post" onclick="openPost('documenting-in-progress')">
+        <div class="blog-post coming-soon" aria-label="Coming soon">
           <div class="post-meta">COMING SOON</div>
           <h2 class="post-title">Documenting In-Progress Work: A Strategic Advantage</h2>
           <p class="post-excerpt">Why public roadmaps and transparent development processes signal maturity and strategic thinking to hiring managers.</p>
@@ -120,7 +121,7 @@
           </div>
         </div>
 
-        <div class="blog-post" onclick="openPost('112-hour-workweek')">
+        <div class="blog-post coming-soon" aria-label="Coming soon">
           <div class="post-meta">COMING SOON</div>
           <h2 class="post-title">The 112-Hour Workweek: What It Was Like To Work Myself (Almost) To Death</h2>
           <p class="post-excerpt">Min-maxing the balance between my ambitions, personal life, overall health and well-being. Lessons learned from pushing creative and technical limits.</p>
@@ -133,9 +134,9 @@
         </div>
 
         <div class="blog-post" onclick="openPost('ai-assisted-dev')">
-          <div class="post-meta">PUBLISHED</div>
+          <div class="post-meta">ON GITHUB</div>
           <h2 class="post-title">AI-Assisted Development: Strategic Implementation</h2>
-          <p class="post-excerpt">How Cursor AI transformed my 40k-word technical book project, demonstrating when to leverage AI tools and when to apply human judgment.</p>
+          <p class="post-excerpt">How Cursor AI transformed my 40k-word technical book project, demonstrating when to leverage AI tools and when to apply human judgment. Tutorial on GitHub; not yet on dev.to, Medium, or shared with Cursor.</p>
           <div class="post-tags">
             <span class="post-tag">AI Tools</span>
             <span class="post-tag">DevOps Advocacy</span>
@@ -156,11 +157,11 @@
       </div>
 
       <!-- Post Modal -->
-      <div id="postModal" class="post-modal">
+      <div id="postModal" class="post-modal" role="dialog" aria-modal="true" aria-labelledby="postTitle" aria-hidden="true" tabindex="-1">
         <div class="post-modal-content">
           <div class="modal-header">
             <h2 id="postTitle">Post Title</h2>
-            <span class="modal-close" onclick="closePost()">&times;</span>
+            <button type="button" class="modal-close" onclick="closePost()" aria-label="Close">&times;</button>
           </div>
           <div class="modal-body" id="postContent">
             <!-- Content will be loaded here -->
@@ -297,25 +298,63 @@
       }
     };
 
+    let postModalPreviousFocus = null;
+
+    function postModalFocusable() {
+      const modal = document.getElementById('postModal');
+      const sel = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+      return Array.from(modal.querySelectorAll(sel)).filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    }
+
+    function postModalTrapFocus(e) {
+      const modal = document.getElementById('postModal');
+      if (e.key !== 'Tab' || modal.style.display !== 'block') return;
+      const focusable = postModalFocusable();
+      if (focusable.length === 0) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+
+    function handlePostModalKeydown(e) {
+      if (e.key === 'Escape') { e.preventDefault(); closePost(); }
+    }
+
     function openPost(postId) {
       const post = posts[postId];
       if (!post) return;
 
+      postModalPreviousFocus = document.activeElement;
       document.getElementById('postTitle').textContent = post.title;
       document.getElementById('postContent').innerHTML = post.content;
-      document.getElementById('postModal').style.display = 'block';
+      const modal = document.getElementById('postModal');
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden', 'false');
+      document.addEventListener('keydown', handlePostModalKeydown);
+      document.addEventListener('keydown', postModalTrapFocus);
+      setTimeout(function() {
+        const focusable = postModalFocusable();
+        if (focusable.length) focusable[0].focus();
+      }, 0);
     }
 
     function closePost() {
-      document.getElementById('postModal').style.display = 'none';
+      const modal = document.getElementById('postModal');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', handlePostModalKeydown);
+      document.removeEventListener('keydown', postModalTrapFocus);
+      if (postModalPreviousFocus && typeof postModalPreviousFocus.focus === 'function') postModalPreviousFocus.focus();
+      postModalPreviousFocus = null;
     }
 
     // Close modal when clicking outside
     window.onclick = function(event) {
       const modal = document.getElementById('postModal');
-      if (event.target == modal) {
-        modal.style.display = 'none';
-      }
+      if (event.target === modal) closePost();
     }
   </script>
 </body>
