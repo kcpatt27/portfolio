@@ -107,7 +107,7 @@ This portfolio website addresses the need for a memorable, artistic online prese
    ```
 
 2. **Open the project**
-   - The main file is `src/index.html`
+   - The main file is `index.html` (at the repo root)
    - You can open it directly in a browser, or use a local server
 
 3. **Local Development Server (Optional)**
@@ -129,41 +129,49 @@ This portfolio website addresses the need for a memorable, artistic online prese
    
    Using VS Code:
    - Install the "Live Server" extension
-   - Right-click on `src/index.html` and select "Open with Live Server"
+   - Right-click on `index.html` and select "Open with Live Server"
 
 4. **View the site**
-   - Navigate to `http://localhost:8000/src/index.html` (or the port you specified)
-   - Or simply open `src/index.html` directly in your browser
+   - Navigate to `http://localhost:8000/` or `http://localhost:8000/index.html` (or the port you specified)
+   - Or simply open `index.html` directly in your browser
 
 5. **Environment Setup**
    - No environment variables required
    - Google Forms URLs need to be configured in the HTML file
    - External image URLs (Unsplash) are already configured
 
+6. **Link other projects' docs (optional)**
+   - Clicking a project card loads that project's README and Roadmap from `_project-docs/<id>/`.
+   - From the repo root, run: `npm run symlink-docs` to create symlinks from each project's `localPath` (see `metadata/projects.config.json`) into `_project-docs/<id>/README.md` and `ROADMAP.md`.
+   - Ensure sibling project folders (e.g. `../Cookbook`, `../2D Global Info Portal`) exist so symlinks can be created.
+
 ## Usage/Getting Started
 
 ### Basic Example
 
-The portfolio website is a single-page application. Simply open `src/index.html` in a browser to view the site.
+The portfolio website is a single-page application. Simply open `index.html` in a browser to view the site.
 
 **File Structure:**
 ```
 portfolio-page/
-├── src/
-│   ├── index.html          # Main portfolio page
-│   └── web-dev/
-│       └── index.html       # Web development services page
-├── examples/                # Example package pages
-├── example-images/          # Design references
-├── memory-bank/             # Project documentation
-├── metadata/                # Project configuration
-└── scripts/                 # Build scripts
+├── index.html              # Main portfolio page
+├── docs.html               # Project documentation viewer
+├── roadmaps.html           # Project roadmaps viewer
+├── blog.html               # Blog / insights
+├── web-dev/
+│   └── index.html          # Web development services page
+├── examples/               # Example package pages
+├── example-images/         # Design references
+├── memory-bank/            # Project documentation
+├── metadata/               # Project configuration (projects.config.json)
+├── scripts/                # Build scripts (aggregate-projects.ts)
+└── project-images/         # Portfolio project images
 ```
 
 ### Customization
 
 1. **Update Personal Information**
-   - Edit the `<title>` and meta description in `src/index.html`
+   - Edit the `<title>` and meta description in `index.html`
    - Update the About section with your information
    - Replace contact email and social media links
 
@@ -346,10 +354,10 @@ This project is private/personal. All rights reserved.
 ## FAQ
 
 **Q: Do I need to install anything to run this locally?**  
-A: No, you can simply open `src/index.html` in a browser. A local server is optional but recommended for development.
+A: No, you can simply open `index.html` in a browser. A local server is optional but recommended for development.
 
 **Q: How do I customize the 3D objects?**  
-A: Edit the Three.js scene setup in the JavaScript section of `src/index.html`. Modify camera position, object geometry, lighting, and materials.
+A: Edit the Three.js scene setup in the JavaScript section of `index.html`. Modify camera position, object geometry, lighting, and materials.
 
 **Q: Can I replace the external images with my own?**  
 A: Yes, replace the Unsplash URLs with your own image URLs or use local images. Update the image paths in the HTML.

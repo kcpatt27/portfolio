@@ -1,0 +1,1 @@
+D:/projects/personal-projects/memvid-mcp/README.md

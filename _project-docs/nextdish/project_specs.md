@@ -1,0 +1,1 @@
+D:/projects/personal-projects/Cookbook/project_specs.md

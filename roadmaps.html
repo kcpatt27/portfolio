@@ -28,13 +28,11 @@
     .container{max-width:1200px;margin:0 auto;padding:0 28px}
 
     header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2);}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{font-size:24px;color:var(--cosmic-pink);font-weight:700}
-    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;}
+    .back-to-portfolio{display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:600;font-size:16px;}
+    .back-to-portfolio:hover{color:var(--cosmic-pink);}
+    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;display:inline-block;padding-bottom:6px;border-bottom:2px solid transparent;margin-bottom:-8px;}
     nav a:hover{color:var(--cosmic-pink);}
-
-    .back-link{margin:40px 0;display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:500;}
-    .back-link:hover{color:var(--cosmic-pink);}
+    body.page-docs nav a[href="docs.html"],body.page-roadmaps nav a[href="roadmaps.html"],body.page-blog nav a[href="blog.html"]{border-bottom-color:var(--cosmic-pink);color:var(--cosmic-pink);}
 
     .roadmap-grid{display:grid;grid-template-columns:300px 1fr;gap:40px;margin-top:40px;}
 
@@ -44,14 +42,18 @@
     .project-item:hover{background:rgba(255,107,157,0.05);border-color:rgba(255,107,157,0.2);}
     .project-item.active{background:rgba(255,107,157,0.1);border-color:var(--cosmic-pink);}
     .project-item h4{margin:0 0 4px;font-size:14px;color:var(--cosmic-pink);}
+    .project-item h4{margin:0 0 4px;font-size:14px;color:var(--cosmic-pink);}
+    .project-item.mvp h4{color:var(--aurora-green);}
+    .project-item.in-dev h4{color:var(--sunset-orange);}
     .project-item p{margin:0;font-size:12px;color:var(--starlight-pink);opacity:0.8;}
     .project-status{margin-top:8px;font-size:11px;padding:2px 6px;border-radius:10px;display:inline-block;}
     .status-completed{background:var(--aurora-green);color:var(--void-black);}
     .status-beta{background:var(--sunset-orange);color:var(--void-black);}
     .status-in-progress{background:var(--nebula-purple);color:white;}
 
-    .roadmap-content{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;}
-    .roadmap-content h1{margin:0 0 16px;color:#ffffff;font-size:2rem;}
+    .roadmap-content{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;min-width:0;overflow-x:hidden;}
+    .roadmap-title-row{display:flex;justify-content:space-between;align-items:center;margin:0 0 16px;gap:16px;flex-wrap:wrap;}
+.roadmap-title-row h1{margin:0;color:#ffffff;font-size:2rem;}
     .roadmap-content h2{margin:32px 0 16px;color:var(--cosmic-pink);font-size:1.5rem;}
 
     .roadmap-visual{position:relative;padding-left:40px;}
@@ -75,6 +77,10 @@
     .progress-bar{width:100%;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;margin:16px 0;overflow:hidden;}
     .progress-fill{height:100%;background:linear-gradient(90deg, var(--aurora-green), var(--sunset-orange), var(--cosmic-pink));border-radius:4px;transition:width 0.3s ease;}
 
+    .roadmap-title-image{margin:0 0 20px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#0f0f23);height:200px;max-height:200px;width:100%;min-width:0;}
+    .roadmap-title-image img{width:100%;max-width:100%;height:200px;object-fit:cover;object-position:top;display:block;}
+    .roadmap-title-image .card-placeholder{height:200px;display:flex;align-items:center;justify-content:center;color:var(--cosmic-pink);font-size:14px;}
+
     @media (max-width:768px){
       .roadmap-grid{grid-template-columns:1fr;}
       .projects-sidebar{margin-bottom:20px;}
@@ -86,62 +92,34 @@
     }
   </style>
 </head>
-<body>
+<body class="page-roadmaps">
   <div class="container">
     <header>
-      <div class="brand">
-        <div class="logo">K</div>
-        <div>Kalen Patterson</div>
-      </div>
+      <a href="index.html" class="back-to-portfolio">← Back to Home</a>
+      <nav>
+        <a href="docs.html">Documentation</a>
+        <a href="roadmaps.html">Roadmaps</a>
+        <a href="blog.html">Blog</a>
+      </nav>
     </header>
 
     <main>
-      <a href="index.html" class="back-link">← Back to Portfolio</a>
-
       <h1 style="color:#ffffff;font-size:2.5rem;text-align:center;margin:40px 0;">Project Roadmaps</h1>
 
       <div class="roadmap-grid">
         <div class="projects-sidebar">
           <h3>Projects</h3>
-          <div class="project-item active" onclick="loadProject('nextdish')">
-            <h4>NextDish</h4>
-            <p>AI recipe platform</p>
-            <div class="project-status status-beta">BETA</div>
-          </div>
-          <div class="project-item" onclick="loadProject('global-info-portal')">
-            <h4>Global Information Portal</h4>
-            <p>Interactive world map</p>
-            <div class="project-status status-completed">LIVE</div>
-          </div>
-          <div class="project-item" onclick="loadProject('memvid-mcp')">
-            <h4>Memvid MCP Server</h4>
-            <p>AI context management</p>
-            <div class="project-status status-beta">BETA</div>
-          </div>
-          <div class="project-item" onclick="loadProject('meridian-whisper')">
-            <h4>Meridian Whisper</h4>
-            <p>Voice control software</p>
-            <div class="project-status status-in-progress">60% Complete</div>
-          </div>
-          <div class="project-item" onclick="loadProject('when-neptune-wakes')">
-            <h4>When Neptune Wakes</h4>
-            <p>Sci-fi novel</p>
-            <div class="project-status status-in-progress">45% Complete</div>
-          </div>
-          <div class="project-item" onclick="loadProject('savant-insights')">
-            <h4>Savant Insights</h4>
-            <p>AI newsletter</p>
-            <div class="project-status status-in-progress">55% Complete</div>
-          </div>
-          <div class="project-item" onclick="loadProject('iq-trainer')">
-            <h4>IQ Up!</h4>
-            <p>Cognitive training</p>
-            <div class="project-status status-in-progress">30% Complete</div>
+          <div id="roadmap-project-list">
+            <p style="color:var(--starlight-pink);">Loading projects…</p>
           </div>
         </div>
 
         <div class="roadmap-content">
-          <h1 id="project-title">NextDish Roadmap</h1>
+          <div class="roadmap-title-row">
+            <h1 id="project-title">nextdish.app</h1>
+            <div id="project-status-banner" class="project-status status-beta" aria-hidden="true">BETA</div>
+          </div>
+          <div class="roadmap-title-image" id="roadmap-title-image" aria-hidden="true"></div>
 
           <div class="progress-bar">
             <div class="progress-fill" id="overall-progress" style="width:70%"></div>
@@ -203,7 +181,7 @@
 
     const projectData = {
       'nextdish': {
-        title: 'NextDish Roadmap',
+        title: 'nextDish.app',
         progress: '70%',
         phases: [
           { title: 'Foundation', status: 'completed', description: 'Core platform setup with Next.js, Supabase, and OpenRouter integration.', details: '✓ Authentication system<br>✓ Database schema<br>✓ Basic UI framework<br>✓ AI API integration' },
@@ -214,7 +192,7 @@
         ]
       },
       'global-info-portal': {
-        title: 'Global Information Portal Roadmap',
+        title: 'Global Information Portal',
         progress: '90%',
         phases: [
           { title: 'Data Integration', status: 'completed', description: 'CIA World Factbook data integration with D3.js visualization.', details: '✓ Data parsing and cleaning<br>✓ D3.js map rendering<br>✓ Interactive tooltips<br>✓ GitHub API integration' },
@@ -222,54 +200,125 @@
           { title: 'Advanced Features', status: 'in-progress', description: 'Additional data sources and visualization options.', details: '○ Real-time data updates<br>○ Multiple data sources<br>○ Advanced filtering<br>○ Export functionality' }
         ]
       },
-      'meridian-whisper': {
-        title: 'Meridian Whisper Roadmap',
-        progress: '60%',
+      'memvid-mcp': {
+        title: 'Memvid MCP',
+        progress: '75%',
         phases: [
-          { title: 'Core Engine', status: 'completed', description: 'OpenAI Whisper integration and basic voice recognition.', details: '✓ Audio capture<br>✓ Whisper API integration<br>✓ Basic command parsing<br>✓ Cross-platform support' },
-          { title: 'Advanced Features', status: 'in-progress', description: 'Enhanced voice control capabilities and natural language processing.', details: '○ Context awareness<br>○ Custom voice commands<br>○ Multi-language support<br>○ Background processing' },
-          { title: 'Integration Layer', status: 'planned', description: 'System integration for seamless voice control across applications.', details: '○ OS-level integration<br>○ Plugin system<br>○ Security features<br>○ Performance optimization' }
+          { title: 'Core Protocol', status: 'completed', description: 'MCP server setup and Memvid integration for text-to-QR encoding.', details: '✓ MCP server implementation<br>✓ Memvid encoding pipeline<br>✓ QR code generation<br>✓ Video/image output' },
+          { title: 'Context Management', status: 'in-progress', description: 'AI context compression and retrieval workflows.', details: '✓ Context condensation<br>○ Multi-format export<br>○ Decode and restore flow<br>○ Documentation' },
+          { title: 'Ecosystem Integration', status: 'planned', description: 'Tooling and editor integrations for AI workflows.', details: '○ Cursor/IDE integration<br>○ CLI tools<br>○ Batch processing<br>○ API stability' }
         ]
       },
-      'when-neptune-wakes': {
-        title: 'When Neptune Wakes Roadmap',
-        progress: '45%',
-        phases: [
-          { title: 'World Building', status: 'completed', description: 'Comprehensive universe and character development.', details: '✓ Planetary systems<br>✓ AI specialization concepts<br>✓ Character arcs<br>✓ Plot structure' },
-          { title: 'Draft Completion', status: 'in-progress', description: 'Writing the full novel manuscript.', details: '○ Chapter development<br>○ Scene writing<br>○ Character development<br>○ Thematic exploration' },
-          { title: 'Editing & Publishing', status: 'planned', description: 'Professional editing, cover design, and publication.', details: '○ Professional editing<br>○ Cover design<br>○ Formatting<br>○ Publishing strategy' }
-        ]
-      },
-      'savant-insights': {
-        title: 'Savant Insights Roadmap',
-        progress: '55%',
-        phases: [
-          { title: 'Content Pipeline', status: 'completed', description: 'AI-driven content generation and newsletter system.', details: '✓ Research automation<br>✓ Content generation<br>✓ Email formatting<br>✓ Basic scheduling' },
-          { title: 'Enhanced Features', status: 'in-progress', description: 'Advanced content quality and delivery improvements.', details: '○ Content quality checks<br>○ Subscriber analytics<br>○ A/B testing<br>○ Advanced scheduling' },
-          { title: 'Monetization', status: 'planned', description: 'Premium features and revenue generation.', details: '○ Premium newsletters<br>○ Custom research<br>○ API access<br>○ White-label options' }
-        ]
-      },
-      'iq-trainer': {
-        title: 'IQ Up! Roadmap',
-        progress: '30%',
-        phases: [
-          { title: 'Assessment Framework', status: 'in-progress', description: 'Ravens Progressive Matrices implementation and testing system.', details: '○ Question database<br>○ Adaptive difficulty<br>○ Progress tracking<br>○ Performance analytics' },
-          { title: 'Training Features', status: 'planned', description: 'Cognitive training exercises and improvement tracking.', details: '○ Daily exercises<br>○ Progress visualization<br>○ Personalized training<br>○ Scientific validation' },
-          { title: 'Advanced Analytics', status: 'planned', description: 'Detailed performance analysis and improvement insights.', details: '○ Cognitive profiling<br>○ Improvement tracking<br>○ Comparative analysis<br>○ Research integration' }
-        ]
-      }
+      'card-game': { title: 'Mobile Card Game', progress: '20%', phases: [
+        { title: 'Core Gameplay', status: 'in-progress', description: 'Core mechanics and element system.', details: '○ Game loop<br>○ Element system<br>○ Basic UI<br>○ Multiplayer foundation' }
+      ]},
+      'hollow-orbit': { title: 'Hollow Orbit', progress: '20%', phases: [
+        { title: 'Foundation', status: 'in-progress', description: 'Unity project and core systems.', details: '○ Project setup<br>○ Movement and combat<br>○ World building' }
+      ]},
+      'meridian-whisper': { title: 'Meridian-Whisper', progress: '60%', phases: [
+        { title: 'Core Engine', status: 'completed', description: 'OpenAI Whisper integration and basic voice recognition.', details: '✓ Audio capture<br>✓ Whisper API integration<br>✓ Basic command parsing<br>✓ Cross-platform support' },
+        { title: 'Advanced Features', status: 'in-progress', description: 'Enhanced voice control capabilities and natural language processing.', details: '○ Context awareness<br>○ Custom voice commands<br>○ Multi-language support<br>○ Background processing' },
+        { title: 'Integration Layer', status: 'planned', description: 'System integration for seamless voice control across applications.', details: '○ OS-level integration<br>○ Plugin system<br>○ Security features<br>○ Performance optimization' }
+      ]},
+      'when-neptune-wakes': { title: 'When Neptune Wakes', progress: '45%', phases: [
+        { title: 'World Building', status: 'completed', description: 'Comprehensive universe and character development.', details: '✓ Planetary systems<br>✓ AI specialization concepts<br>✓ Character arcs<br>✓ Plot structure' },
+        { title: 'Draft Completion', status: 'in-progress', description: 'Writing the full novel manuscript.', details: '○ Chapter development<br>○ Scene writing<br>○ Character development<br>○ Thematic exploration' },
+        { title: 'Editing & Publishing', status: 'planned', description: 'Professional editing, cover design, and publication.', details: '○ Professional editing<br>○ Cover design<br>○ Formatting<br>○ Publishing strategy' }
+      ]},
+      'savant-insights': { title: 'Savant Insights', progress: '55%', phases: [
+        { title: 'Content Pipeline', status: 'completed', description: 'AI-driven content generation and newsletter system.', details: '✓ Research automation<br>✓ Content generation<br>✓ Email formatting<br>✓ Basic scheduling' },
+        { title: 'Enhanced Features', status: 'in-progress', description: 'Advanced content quality and delivery improvements.', details: '○ Content quality checks<br>○ Subscriber analytics<br>○ A/B testing<br>○ Advanced scheduling' },
+        { title: 'Monetization', status: 'planned', description: 'Premium features and revenue generation.', details: '○ Premium newsletters<br>○ Custom research<br>○ API access<br>○ White-label options' }
+      ]},
+      'iq-up': { title: 'IQ Up!', progress: '30%', phases: [
+        { title: 'Assessment Framework', status: 'in-progress', description: 'Ravens Progressive Matrices implementation and testing system.', details: '○ Question database<br>○ Adaptive difficulty<br>○ Progress tracking<br>○ Performance analytics' },
+        { title: 'Training Features', status: 'planned', description: 'Cognitive training exercises and improvement tracking.', details: '○ Daily exercises<br>○ Progress visualization<br>○ Personalized training<br>○ Scientific validation' },
+        { title: 'Advanced Analytics', status: 'planned', description: 'Detailed performance analysis and improvement insights.', details: '○ Cognitive profiling<br>○ Improvement tracking<br>○ Comparative analysis<br>○ Research integration' }
+      ]},
+      'sqwease': { title: 'SQWease', progress: '100%', phases: [
+        { title: 'Launch', status: 'completed', description: 'Live product.', details: '✓ Live' }
+      ]}
     };
+
+    let roadmapProjectsConfig = [];
+    var projectImages = {
+      'nextdish': 'project-images/nextdish-front-page.png',
+      'global-info-portal': 'project-images/us-gip.png',
+      'sqwease': 'project-images/sqwease-mainMenu-darkMode.png',
+      'when-neptune-wakes': 'project-images/neptune-and-sun.png',
+      'iq-up': 'project-images/moonshadow-brain.png',
+      'savant-insights': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=60',
+      'meridian-whisper': '',
+      'memvid-mcp': '',
+      'hollow-orbit': 'project-images/blue-jewel-neptune.png'
+    };
+    function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    fetch('metadata/projects.config.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        roadmapProjectsConfig = data.projects || [];
+        var list = document.getElementById('roadmap-project-list');
+        var firstId = roadmapProjectsConfig.length ? roadmapProjectsConfig[0].id : '';
+        var hashId = location.hash ? location.hash.slice(1) : '';
+        if (hashId && roadmapProjectsConfig.some(function(p) { return p.id === hashId; })) firstId = hashId;
+        currentProject = firstId;
+        function esc(s) {
+          var d = document.createElement('div');
+          d.textContent = s;
+          return d.innerHTML;
+        }
+        list.innerHTML = roadmapProjectsConfig.map(function(p, i) {
+          var active = p.id === firstId ? ' active' : '';
+          var phase = (p.status === 'completed' || p.status === 'beta') ? ' mvp' : ' in-dev';
+          return '<div class="project-item' + active + phase + '" onclick="loadProject(\'' + p.id.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + '\')" data-project-id="' + esc(p.id) + '">' +
+            '<h4>' + esc(p.name) + '</h4><p>' + esc(p.description) + '</p></div>';
+        }).join('');
+        if (firstId) loadProject(firstId);
+      })
+      .catch(function() {
+        document.getElementById('roadmap-project-list').innerHTML = '<p style="color:var(--starlight-pink);">Could not load projects.</p>';
+      });
 
     function loadProject(projectId) {
       currentProject = projectId;
+      document.querySelectorAll('.project-item').forEach(function(item) {
+        item.classList.toggle('active', item.getAttribute('data-project-id') === projectId);
+      });
 
-      // Update active project item
-      document.querySelectorAll('.project-item').forEach(item => item.classList.remove('active'));
-      event.target.closest('.project-item').classList.add('active');
+      var proj = roadmapProjectsConfig.find(function(p) { return p.id === projectId; });
+      var titleEl = document.getElementById('project-title');
+      var bannerEl = document.getElementById('project-status-banner');
+      if (titleEl) titleEl.textContent = (proj && proj.name) || 'Roadmap';
+      if (bannerEl) {
+        if (!proj) {
+          bannerEl.style.display = 'none';
+        } else {
+          bannerEl.style.display = '';
+          if (proj.status === 'completed') { bannerEl.textContent = 'LIVE'; bannerEl.className = 'project-status status-completed'; }
+          else if (proj.status === 'beta') { bannerEl.textContent = 'BETA'; bannerEl.className = 'project-status status-beta'; }
+          else { bannerEl.textContent = (proj.completionPercent || 0) + '% Complete'; bannerEl.className = 'project-status status-in-progress'; }
+        }
+      }
 
-      // Update project title and progress
+      var titleImgEl = document.getElementById('roadmap-title-image');
+      if (titleImgEl) {
+        var imgSrc = projectImages[projectId];
+        var projName = (proj && proj.name) || '';
+        if (imgSrc) {
+          titleImgEl.innerHTML = '<img src="' + escAttr(imgSrc) + '" alt="">';
+        } else {
+          titleImgEl.innerHTML = '<div class="card-placeholder">' + escHtml(projName) + '</div>';
+        }
+      }
+
+      // Update progress and phases (fallback if project has no roadmap data yet)
       const data = projectData[projectId];
-      document.getElementById('project-title').textContent = data.title;
+      if (!data) {
+        document.getElementById('overall-progress').style.width = '0%';
+        document.getElementById('roadmap-visual').innerHTML = '<p class="phase-description">Roadmap content for this project is not yet available.</p>';
+        return;
+      }
       document.getElementById('overall-progress').style.width = data.progress;
 
       // Update roadmap phases

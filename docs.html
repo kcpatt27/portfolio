@@ -28,13 +28,11 @@
     .container{max-width:1200px;margin:0 auto;padding:0 28px}
 
     header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2);}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{font-size:24px;color:var(--cosmic-pink);font-weight:700}
-    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;}
+    .back-to-portfolio{display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:600;font-size:16px;}
+    .back-to-portfolio:hover{color:var(--cosmic-pink);}
+    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;display:inline-block;padding-bottom:6px;border-bottom:2px solid transparent;margin-bottom:-8px;}
     nav a:hover{color:var(--cosmic-pink);}
-
-    .back-link{margin:40px 0;display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:500;}
-    .back-link:hover{color:var(--cosmic-pink);}
+    body.page-docs nav a[href="docs.html"],body.page-roadmaps nav a[href="roadmaps.html"],body.page-blog nav a[href="blog.html"]{border-bottom-color:var(--cosmic-pink);color:var(--cosmic-pink);}
 
     .docs-grid{display:grid;grid-template-columns:300px 1fr;gap:40px;margin-top:40px;}
 
@@ -45,8 +43,10 @@
     .project-item.active{background:rgba(255,107,157,0.1);border-color:var(--cosmic-pink);}
     .project-item h4{margin:0 0 4px;font-size:14px;color:var(--cosmic-pink);}
     .project-item p{margin:0;font-size:12px;color:var(--starlight-pink);opacity:0.8;}
+    .project-item.mvp h4{color:var(--aurora-green);}
+    .project-item.in-dev h4{color:var(--sunset-orange);}
 
-    .docs-content{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;}
+    .docs-content{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;min-width:0;overflow-x:hidden;}
     .docs-content h1{margin:0 0 16px;color:#ffffff;font-size:2rem;}
     .docs-content h2{margin:32px 0 16px;color:var(--cosmic-pink);font-size:1.5rem;border-bottom:1px solid rgba(255,107,157,0.2);padding-bottom:8px;}
     .docs-content h3{margin:24px 0 12px;color:var(--sunset-orange);font-size:1.2rem;}
@@ -64,6 +64,10 @@
     .doc-content{display:none;}
     .doc-content.active{display:block;}
 
+    .docs-title-image{margin:0 0 20px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#0f0f23);height:200px;max-height:200px;width:100%;min-width:0;}
+    .docs-title-image img{width:100%;max-width:100%;height:200px;object-fit:cover;object-position:top;display:block;}
+    .docs-title-image .card-placeholder{height:200px;display:flex;align-items:center;justify-content:center;color:var(--cosmic-pink);font-size:14px;}
+
     @media (max-width:768px){
       .docs-grid{grid-template-columns:1fr;}
       .projects-sidebar{margin-bottom:20px;}
@@ -71,56 +75,35 @@
       nav{margin-top:16px;}
     }
   </style>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
 </head>
-<body>
+<body class="page-docs">
   <div class="container">
     <header>
-      <div class="brand">
-        <div class="logo">K</div>
-        <div>Kalen Patterson</div>
-      </div>
+      <a href="index.html" class="back-to-portfolio">← Back to Home</a>
+      <nav>
+        <a href="docs.html">Documentation</a>
+        <a href="roadmaps.html">Roadmaps</a>
+        <a href="blog.html">Blog</a>
+      </nav>
     </header>
 
     <main>
-      <a href="index.html" class="back-link">← Back to Portfolio</a>
 
       <h1 style="color:#ffffff;font-size:2.5rem;text-align:center;margin:40px 0;">Project Documentation</h1>
 
       <div class="docs-grid">
         <div class="projects-sidebar">
           <h3>Projects</h3>
-          <div class="project-item active" onclick="loadProject('nextdish')">
-            <h4>NextDish</h4>
-            <p>AI recipe platform</p>
-          </div>
-          <div class="project-item" onclick="loadProject('global-info-portal')">
-            <h4>Global Information Portal</h4>
-            <p>Interactive world map</p>
-          </div>
-          <div class="project-item" onclick="loadProject('memvid-mcp')">
-            <h4>Memvid MCP Server</h4>
-            <p>AI context management</p>
-          </div>
-          <div class="project-item" onclick="loadProject('meridian-whisper')">
-            <h4>Meridian Whisper</h4>
-            <p>Voice control software</p>
-          </div>
-          <div class="project-item" onclick="loadProject('when-neptune-wakes')">
-            <h4>When Neptune Wakes</h4>
-            <p>Sci-fi novel</p>
-          </div>
-          <div class="project-item" onclick="loadProject('savant-insights')">
-            <h4>Savant Insights</h4>
-            <p>AI newsletter</p>
-          </div>
-          <div class="project-item" onclick="loadProject('iq-trainer')">
-            <h4>IQ Up!</h4>
-            <p>Cognitive training</p>
+          <div id="docs-project-list">
+            <p style="color:var(--starlight-pink);">Loading projects…</p>
           </div>
         </div>
 
         <div class="docs-content">
           <h1 id="project-title">NextDish</h1>
+          <div class="docs-title-image" id="docs-title-image" aria-hidden="true"></div>
 
           <div class="doc-sections">
             <div class="doc-tab active" onclick="showDoc('overview')">Overview</div>
@@ -128,105 +111,147 @@
             <div class="doc-tab" onclick="showDoc('architecture')">Architecture</div>
           </div>
 
-          <div id="overview" class="doc-content active">
-            <h2>Project Overview</h2>
-            <p>NextDish is an AI-powered recipe platform born from a baking session—the idea that started my dev journey. Using ChatGPT to brainstorm flavor combinations while baking cakes led to the realization that this process could be systematized.</p>
-
-            <h3>Core Features</h3>
-            <ul>
-              <li>AI-powered recipe generation from text or images</li>
-              <li>Social features for recipe sharing</li>
-              <li>Advanced search and filtering</li>
-              <li>User-generated content platform</li>
-            </ul>
-
-            <h3>Technology Stack</h3>
-            <ul>
-              <li><strong>Frontend:</strong> Next.js, React</li>
-              <li><strong>Backend:</strong> Supabase</li>
-              <li><strong>AI:</strong> OpenRouter API</li>
-              <li><strong>Database:</strong> PostgreSQL</li>
-            </ul>
-          </div>
-
-          <div id="specs" class="doc-content">
-            <h2>Technical Specifications</h2>
-            <p>Detailed technical requirements and implementation details.</p>
-
-            <h3>API Endpoints</h3>
-            <pre><code>/api/recipes/generate - POST
-/api/recipes/search - GET
-/api/users/profile - GET
-/api/social/share - POST</code></pre>
-
-            <h3>Data Models</h3>
-            <ul>
-              <li>Recipe: title, ingredients[], instructions[], metadata</li>
-              <li>User: profile, preferences, social connections</li>
-              <li>AI Request: prompt, response, model used</li>
-            </ul>
-          </div>
-
-          <div id="architecture" class="doc-content">
-            <h2>System Architecture</h2>
-            <p>High-level system design and component relationships.</p>
-
-            <h3>Frontend Architecture</h3>
-            <ul>
-              <li>Next.js App Router for routing</li>
-              <li>React components with TypeScript</li>
-              <li>Tailwind CSS for styling</li>
-              <li>React Query for data fetching</li>
-            </ul>
-
-            <h3>Backend Architecture</h3>
-            <ul>
-              <li>Supabase for database and auth</li>
-              <li>Edge functions for API logic</li>
-              <li>OpenRouter for AI model access</li>
-              <li>PostgreSQL for data storage</li>
-            </ul>
-          </div>
+          <div id="overview" class="doc-content active"></div>
+          <div id="specs" class="doc-content"></div>
+          <div id="architecture" class="doc-content"></div>
         </div>
       </div>
     </main>
   </div>
 
   <script>
-    let currentProject = 'nextdish';
+    let projectsConfig = [];
+    let currentProject = '';
+
+    var docContent = {
+      'nextdish': {
+        overview: '<h2>Project Overview</h2><p>NextDish is an AI-powered recipe platform born from a baking session—the idea that started my dev journey. Using ChatGPT to brainstorm flavor combinations while baking cakes led to the realization that this process could be systematized.</p><h3>Core Features</h3><ul><li>AI-powered recipe generation from text or images</li><li>Social features for recipe sharing</li><li>Advanced search and filtering</li><li>User-generated content platform</li></ul><h3>Technology Stack</h3><ul><li><strong>Frontend:</strong> Next.js, React</li><li><strong>Backend:</strong> Supabase</li><li><strong>AI:</strong> OpenRouter API</li><li><strong>Database:</strong> PostgreSQL</li></ul>',
+        specs: '<h2>Technical Specifications</h2><p>Detailed technical requirements and implementation details.</p><h3>API Endpoints</h3><pre><code>/api/recipes/generate - POST\n/api/recipes/search - GET\n/api/users/profile - GET\n/api/social/share - POST</code></pre><h3>Data Models</h3><ul><li>Recipe: title, ingredients[], instructions[], metadata</li><li>User: profile, preferences, social connections</li><li>AI Request: prompt, response, model used</li></ul>',
+        architecture: '<h2>System Architecture</h2><p>High-level system design and component relationships.</p><h3>Frontend Architecture</h3><ul><li>Next.js App Router for routing</li><li>React components with TypeScript</li><li>Tailwind CSS for styling</li><li>React Query for data fetching</li></ul><h3>Backend Architecture</h3><ul><li>Supabase for database and auth</li><li>Edge functions for API logic</li><li>OpenRouter for AI model access</li><li>PostgreSQL for data storage</li></ul>'
+      }
+    };
+    var docPlaceholder = '<p>Documentation for this project is being prepared.</p>';
+
+    var projectImages = {
+        'nextdish': 'project-images/nextdish-front-page.png',
+        'global-info-portal': 'project-images/us-gip.png',
+        'sqwease': 'project-images/sqwease-mainMenu-darkMode.png',
+        'when-neptune-wakes': 'project-images/neptune-and-sun.png',
+        'iq-up': 'project-images/moonshadow-brain.png',
+        'savant-insights': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=60',
+        'meridian-whisper': '',
+        'memvid-mcp': '',
+        'hollow-orbit': 'project-images/blue-jewel-neptune.png'
+      };
+    fetch('metadata/projects.config.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        projectsConfig = data.projects || [];
+        var list = document.getElementById('docs-project-list');
+        var firstId = projectsConfig.length ? projectsConfig[0].id : '';
+        var hashId = location.hash ? location.hash.slice(1) : '';
+        if (hashId && projectsConfig.some(function(p) { return p.id === hashId; })) firstId = hashId;
+        currentProject = firstId;
+        list.innerHTML = projectsConfig.map(function(p, i) {
+          var active = p.id === firstId ? ' active' : '';
+          var phase = (p.status === 'completed' || p.status === 'beta') ? ' mvp' : ' in-dev';
+          return '<div class="project-item' + active + phase + '" onclick="loadProject(\'' + p.id.replace(/'/g, "\\'") + '\')" data-project-id="' + escapeAttr(p.id) + '">' +
+            '<h4>' + escapeHtml(p.name) + '</h4><p>' + escapeHtml(p.description) + '</p></div>';
+        }).join('');
+        if (firstId) loadProject(firstId);
+      })
+      .catch(function() {
+        document.getElementById('docs-project-list').innerHTML = '<p style="color:var(--starlight-pink);">Could not load projects.</p>';
+      });
+
+    function escapeHtml(s) {
+      var div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+    function escapeAttr(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
 
     function loadProject(projectId) {
       currentProject = projectId;
-
-      // Update active project item
-      document.querySelectorAll('.project-item').forEach(item => item.classList.remove('active'));
-      event.target.closest('.project-item').classList.add('active');
-
-      // Update project title
-      const titles = {
-        'nextdish': 'NextDish',
-        'global-info-portal': 'Global Information Portal',
-        'memvid-mcp': 'Memvid MCP Server',
-        'meridian-whisper': 'Meridian Whisper',
-        'when-neptune-wakes': 'When Neptune Wakes',
-        'savant-insights': 'Savant Insights',
-        'iq-trainer': 'IQ Up!'
-      };
-
-      document.getElementById('project-title').textContent = titles[projectId] || 'Project Documentation';
-
-      // Reset to overview tab
+      document.querySelectorAll('.project-item').forEach(function(item) {
+        item.classList.toggle('active', item.getAttribute('data-project-id') === projectId);
+      });
+      var proj = projectsConfig.find(function(p) { return p.id === projectId; });
+      document.getElementById('project-title').textContent = (proj && proj.name) || 'Project Documentation';
+      var titleImgEl = document.getElementById('docs-title-image');
+      if (titleImgEl) {
+        var imgSrc = projectImages[projectId];
+        var projName = (proj && proj.name) || '';
+        if (imgSrc) {
+          titleImgEl.innerHTML = '<img src="' + escapeAttr(imgSrc) + '" alt="">';
+        } else {
+          titleImgEl.innerHTML = '<div class="card-placeholder">' + escapeHtml(projName) + '</div>';
+        }
+      }
+      var content = docContent[projectId];
+      var docsFolder = (proj && proj.docsFolder) ? proj.docsFolder : projectId;
+      var overviewEl = document.getElementById('overview');
+      var specsEl = document.getElementById('specs');
+      var archEl = document.getElementById('architecture');
+      if (content && content.overview) {
+        overviewEl.innerHTML = content.overview;
+      } else {
+        overviewEl.innerHTML = '<p style="color:var(--starlight-pink);">Loading README…</p>';
+        fetch('_project-docs/' + encodeURIComponent(docsFolder) + '/README.md')
+          .then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+          .then(function(md) {
+            var html = typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined'
+              ? DOMPurify.sanitize(marked.parse(md))
+              : '<pre style="white-space:pre-wrap;color:var(--starlight-pink);">' + escapeHtml(md) + '</pre>';
+            overviewEl.innerHTML = html;
+          })
+          .catch(function() { overviewEl.innerHTML = docPlaceholder; });
+      }
+      if (content && content.specs) {
+        specsEl.innerHTML = content.specs;
+      } else if (proj && proj.specsFile) {
+        specsEl.innerHTML = '<p style="color:var(--starlight-pink);">Loading specs…</p>';
+        fetch('_project-docs/' + encodeURIComponent(docsFolder) + '/' + encodeURIComponent(proj.specsFile))
+          .then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+          .then(function(md) {
+            var html = typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined'
+              ? DOMPurify.sanitize(marked.parse(md))
+              : '<pre style="white-space:pre-wrap;color:var(--starlight-pink);">' + escapeHtml(md) + '</pre>';
+            specsEl.innerHTML = html;
+          })
+          .catch(function() { specsEl.innerHTML = docPlaceholder; });
+      } else {
+        specsEl.innerHTML = docPlaceholder;
+      }
+      if (content && content.architecture) {
+        archEl.innerHTML = content.architecture;
+      } else if (proj && proj.architectureFile) {
+        archEl.innerHTML = '<p style="color:var(--starlight-pink);">Loading architecture…</p>';
+        fetch('_project-docs/' + encodeURIComponent(docsFolder) + '/' + encodeURIComponent(proj.architectureFile))
+          .then(function(r) { return r.ok ? r.text() : Promise.reject(); })
+          .then(function(md) {
+            var html = typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined'
+              ? DOMPurify.sanitize(marked.parse(md))
+              : '<pre style="white-space:pre-wrap;color:var(--starlight-pink);">' + escapeHtml(md) + '</pre>';
+            archEl.innerHTML = html;
+          })
+          .catch(function() { archEl.innerHTML = docPlaceholder; });
+      } else {
+        archEl.innerHTML = docPlaceholder;
+      }
       showDoc('overview');
     }
 
     function showDoc(docType) {
-      // Update active tab
-      document.querySelectorAll('.doc-tab').forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
-
-      // Show selected content
-      document.querySelectorAll('.doc-content').forEach(content => content.classList.remove('active'));
-      document.getElementById(docType).classList.add('active');
+      document.querySelectorAll('.doc-tab').forEach(function(tab) {
+        var isActive = (tab.getAttribute('onclick') || '').indexOf("'" + docType + "'") !== -1;
+        tab.classList.toggle('active', isActive);
+      });
+      document.querySelectorAll('.doc-content').forEach(function(content) {
+        content.classList.toggle('active', content.id === docType);
+      });
     }
   </script>
 </body>

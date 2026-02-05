@@ -1,4 +1,8 @@
 temp-docs/
+.cursor/
+.taskmaster/
+_old/
+example-ui-images/
 
 # Logs
 logs
