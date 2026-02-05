@@ -1,0 +1,1 @@
+D:/projects/personal-projects/2D Global Info Portal/ARCHITECTURE.md
