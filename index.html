@@ -91,17 +91,6 @@
       margin: 0;
     }
     
-    .hero-content::before {
-      content: '';
-      position: absolute;
-      top: -50px;
-      left: -50px;
-      right: -50px;
-      bottom: -50px;
-      background: radial-gradient(circle at center, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
-      border-radius: 50%;
-      z-index: -1;
-    }
     /* Hero Content Styling - Minimal Space */
     .eyebrow{
       color: rgba(255, 255, 255, 0.7);
@@ -166,15 +155,17 @@
     }
     
     .btn-outline{
-      background: transparent;
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.3);
       color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
     }
     
     .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
       color: #ffffff;
+      transform: translateY(-2px);
     }
     
     /* Business-Friendly Skills Showcase */
@@ -301,22 +292,6 @@
       overflow: hidden;
     }
     
-    .portfolio img::before {
-      /* Cyberpunk Matrix: Subtle overlay */
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(255, 107, 157, 0.1) 50%, 
-        transparent 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
     .portfolio img:hover {
       /* Simple hover effect */
       transform: translateY(-2px) scale(1.02);
@@ -324,10 +299,6 @@
         0 8px 32px rgba(45, 27, 105, 0.4),
         0 0 30px rgba(255, 107, 157, 0.2);
       border-color: rgba(255, 107, 157, 0.3);
-    }
-    
-    .portfolio img:hover::before {
-      opacity: 1;
     }
 
     /* Pricing Cards - Cyberpunk/Space Theme */
@@ -567,6 +538,13 @@
       line-height: 1.6;
     }
 
+    .about-card:focus-visible,
+    .portfolio-card:focus-visible,
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--aurora-green);
+      outline-offset: 4px;
+    }
+
     /* Mobile Hero Optimization */
     @media (max-width: 768px) {
       header {
@@ -585,7 +563,7 @@
       .hero-content {
         position: static;
         margin-top: 0;
-        padding: 20px;
+        padding: 32px 24px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -593,6 +571,12 @@
         justify-content: center;
         min-height: 100vh;
         max-width: 800px;
+      }
+
+      .hero-text {
+        background: radial-gradient(ellipse 70% 60% at center, rgba(10, 10, 30, 0.7) 0%, rgba(10, 10, 30, 0.35) 25%, rgba(10, 10, 30, 0.12) 50%, rgba(10, 10, 30, 0.03) 75%, transparent 100%);
+        padding: 100px 90px;
+        margin: -60px -40px 24px;
       }
       
       .container {
@@ -831,13 +815,14 @@
       <section class="hero">
         <canvas class="space-canvas" id="spaceCanvas"></canvas>
         <div class="hero-content">
-          <div class="eyebrow">Software Engineer • Technical Writer</div>
-          <h1>Kalen Patterson</h1>
-          <p class="lead">Bridging the gap between strategic vision and technical execution. From AI-powered applications to comprehensive documentation, I build what matters and communicate how it works.</p>
-          
+          <div class="hero-text">
+            <div class="eyebrow">Software Engineer • Technical Writer</div>
+            <h1>Kalen Patterson</h1>
+            <p class="lead">Bridging the gap between strategic vision and technical execution. From AI-powered applications to comprehensive documentation, I build what matters and communicate how it works.</p>
+          </div>
+
           <div class="buttons">
             <a class="btn btn-primary" href="docs.html">View My Work</a>
-            <a class="btn btn-outline" href="blog.html">Learn My Approach</a>
           </div>
         </div>
       </section>
@@ -874,27 +859,27 @@
             <!-- Project Portfolio Overview -->
             <!-- <h3 style="color: var(--cosmic-pink); margin: 40px 0 20px; font-size: 1.8rem;">Project Portfolio</h3> -->
             <div class="about-cards" style="margin-bottom: 40px;">
-              <div class="about-card" style="cursor: pointer;" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'});">
+              <a class="about-card" href="#work" aria-label="Jump to project portfolio">
                 <h3>Shipped & Live</h3>
                 <p style="margin-bottom: 12px;">
                   NextDish (AI recipe platform) • Global Information Portal • SQWease (language learning tool)
                 </p>
                 <small style="color: var(--aurora-green);">Production systems with real impact</small>
-              </div>
-              <div class="about-card" style="cursor: pointer;" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'});">
+              </a>
+              <a class="about-card" href="#work" aria-label="Jump to project portfolio">
                 <h3>In Progress</h3>
                 <p style="margin-bottom: 12px;">
                   Meridian Whisper (voice control) • When Neptune Wakes (sci-fi novel) • Savant Insights (AI newsletter)
                 </p>
                 <small style="color: var(--sunset-orange);">Public roadmaps & transparent development</small>
-              </div>
-              <div class="about-card" style="cursor: pointer;" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'});">
+              </a>
+              <a class="about-card" href="#work" aria-label="Jump to project portfolio">
                 <h3>Technical Writing</h3>
                 <p style="margin-bottom: 12px;">
                   Project documentation • Architecture decisions • Development roadmaps • AI workflow strategies
                 </p>
                 <small style="color: var(--nebula-purple);">Every project includes comprehensive docs</small>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -925,7 +910,7 @@
                   <p style="margin: 0; opacity: 0.9; font-size: 14px;">AI-powered recipe platform born from a baking session—the idea that started my dev journey</p>
                   <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
                     <span style="color: var(--aurora-green); font-weight: 600; font-size: 12px;">BETA</span>
-                    <a href="https://nextdish.app/register" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
+                    <a href="https://nextdish.app/register" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
                     <span style="color: rgba(255,255,255,0.5); font-size: 11px;">Next.js • Supabase • OpenRouter</span>
               </div>
             </div>
@@ -938,8 +923,8 @@
                   <p style="margin: 0; opacity: 0.9; font-size: 14px;">Interactive 2D world map featuring CIA data visualization with D3.js and TopoJSON</p>
                   <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
                     <span style="color: var(--aurora-green); font-weight: 600; font-size: 12px;">LIVE</span>
-                    <a href="https://kcpatt27.github.io/global-information-portal" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
-                    <a href="https://github.com/kcpatt27/global-information-portal" target="_blank" style="color: var(--aurora-green); text-decoration: none; font-weight: 600; font-size: 12px;">GitHub →</a>
+                    <a href="https://kcpatt27.github.io/global-information-portal" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
+                    <a href="https://github.com/kcpatt27/global-information-portal" target="_blank" rel="noopener noreferrer" style="color: var(--aurora-green); text-decoration: none; font-weight: 600; font-size: 12px;">GitHub →</a>
                     <span style="color: rgba(255,255,255,0.5); font-size: 11px;">D3.js • TopoJSON</span>
               </div>
             </div>
@@ -952,8 +937,8 @@
                   <p style="margin: 0; opacity: 0.9; font-size: 14px;">Language learning tool—squeeze more out of your study sessions</p>
                   <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
                     <span style="color: var(--aurora-green); font-weight: 600; font-size: 12px;">LIVE</span>
-                    <a href="https://kcpatt27.github.io/sqwease" target="_blank" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
-                    <a href="https://github.com/kcpatt27/sqwease" target="_blank" style="color: var(--aurora-green); text-decoration: none; font-weight: 600; font-size: 12px;">GitHub →</a>
+                    <a href="https://kcpatt27.github.io/sqwease" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: none; font-weight: 600; font-size: 12px;">View Live →</a>
+                    <a href="https://github.com/kcpatt27/sqwease" target="_blank" rel="noopener noreferrer" style="color: var(--aurora-green); text-decoration: none; font-weight: 600; font-size: 12px;">GitHub →</a>
                     <span style="color: rgba(255,255,255,0.5); font-size: 11px;">JavaScript • HTML • CSS</span>
               </div>
             </div>
@@ -1064,9 +1049,6 @@
             </div>
           </div>
 
-          <div style="text-align: center; margin-top: 60px;">
-            <a href="blog.html" style="color: var(--hologram-blue); text-decoration: none; font-weight: 600; padding: 12px 24px; border: 1px solid var(--hologram-blue); border-radius: 25px; transition: all 0.3s ease;">Read More Insights →</a>
-          </div>
         </div>
       </section>
 
@@ -1077,11 +1059,11 @@
     <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true" tabindex="-1">
       <div class="modal-content" id="projectModalContent">
         <div class="modal-header">
-          <h2 id="modalTitle" aria-hidden="true">Project Details</h2>
+          <h2 id="modalTitle">Project Details</h2>
           <button type="button" class="close" aria-label="Back to portfolio"><svg viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9H6M6 9L12 3M6 9L12 15"/></svg></button>
           <div class="project-tabs">
-            <button class="tab-btn active" onclick="openTab('readme')">README</button>
-            <button class="tab-btn" onclick="openTab('roadmap')">Roadmap</button>
+            <button class="tab-btn active" type="button" onclick="openTab(this, 'readme')">README</button>
+            <button class="tab-btn" type="button" onclick="openTab(this, 'roadmap')">Roadmap</button>
           </div>
         </div>
         <div class="modal-body">
@@ -1118,6 +1100,7 @@
     // Three.js Space Geometry Scene
     // Global variables for scene components - kept at module scope for animation loop access
     let scene, camera, renderer, geometry, material, mesh, stars;
+    let isSpaceSceneInitialized = false;
     
     // Shape mode selector - allows switching between different 3D geometries without code changes
     // 'layered' is the default for the cyberpunk aesthetic with color gradients
@@ -1336,7 +1319,8 @@
     function initSpaceScene() {
       const canvas = document.getElementById('spaceCanvas');
       // Early return prevents errors if canvas element doesn't exist (e.g., JavaScript disabled)
-      if (!canvas) return;
+      if (!canvas || isSpaceSceneInitialized) return;
+      isSpaceSceneInitialized = true;
       
       // Scene setup - create the 3D world
       scene = new THREE.Scene();
@@ -1420,13 +1404,29 @@
       camera.position.x = 10;
       camera.lookAt(-2.4, 6.93, 0); // Look at point creates the viewing angle
 
-      // Object positioning - places object in bottom-left with partial cropping
-      // Partial cropping creates visual interest and suggests object extends beyond view
-      // These values work with camera position to create the desired composition
-      mesh.position.y = -10;  // Moved down to bottom of view
-      mesh.position.x = -6.93;  // Positioned left for asymmetric composition
-      mesh.position.z = 0;   // Centered on Z axis
-      mesh.scale.set(1.5, 1.8, 1.5);  // Slightly taller scale emphasizes verticality
+      // Viewport-responsive positioning: the object stays in the same visual region
+      // across wide desktops, normal laptops, and narrow/mobile viewports.
+      // Reference: 16:9 (~1.78) is the "tuned" ratio from your second screenshot.
+      const REF_ASPECT = 1.78;
+      function getResponsiveParams() {
+        var aspect = window.innerWidth / window.innerHeight;
+        var ratio = aspect / REF_ASPECT;
+        // Scale up slightly on ultrawide so object doesn't shrink into corner;
+        // scale down on portrait so it doesn't overwhelm the text.
+        var s = Math.max(0.7, Math.min(1.25, 0.75 + ratio * 0.25));
+        var baseScale = 2.15 * s;
+        var tallScale = 3.0 * s;
+        // Shift left on wide screens, toward center on narrow ones
+        var x = -7.45 + (1 - ratio) * 2.5;
+        // Shift down on wide screens so it stays in lower-left
+        var y = -2 + (1 - ratio) * -1.5;
+        return { x: x, y: y, z: 0.3, sx: baseScale, sy: tallScale, sz: baseScale };
+      }
+
+      var rp = getResponsiveParams();
+      const meshBasePosition = { x: rp.x, y: rp.y, z: rp.z };
+      mesh.position.set(rp.x, rp.y, rp.z);
+      mesh.scale.set(rp.sx, rp.sy, rp.sz);
       
       // Polished animation loop with organic movement
       function animate() {
@@ -1448,10 +1448,10 @@
         const primaryFloat = Math.sin(time) * 0.08;
         const secondaryFloat = Math.sin(time * 2.7) * 0.03;
         const tertiaryFloat = Math.sin(time * 4.1) * 0.015;
-        mesh.position.y = 3 + primaryFloat + secondaryFloat + tertiaryFloat;
+        mesh.position.y = meshBasePosition.y + primaryFloat + secondaryFloat + tertiaryFloat;
 
         // Subtle lateral drift for more dynamic movement
-        mesh.position.x = Math.sin(time * 0.7) * 0.05;
+        mesh.position.x = meshBasePosition.x + Math.sin(time * 0.7) * 0.05;
 
         // Background stars with gentle rotation and twinkling
         stars.rotation.y += 0.00008;
@@ -1462,17 +1462,18 @@
       
       animate();
       
-      // Handle window resize - maintains aspect ratio and full viewport coverage
-      // Required for responsive design - ensures 3D scene adapts to any screen size
       window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix(); // Must update after aspect change
+        camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
+
+        var rp = getResponsiveParams();
+        meshBasePosition.x = rp.x;
+        meshBasePosition.y = rp.y;
+        meshBasePosition.z = rp.z;
+        mesh.scale.set(rp.sx, rp.sy, rp.sz);
       });
     }
-    
-    // Initialize when page loads - ensures DOM is ready before accessing canvas element
-    window.addEventListener('load', initSpaceScene);
     
     // Utility: Centralize Google Form URL for easy updates
     // Replaces placeholder links throughout the page with actual form URL
@@ -1530,7 +1531,7 @@
     }
 
     // Tab switching functionality
-    function openTab(tabName) {
+    function openTab(button, tabName) {
       // Hide all tab contents
       document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
@@ -1543,7 +1544,7 @@
 
       // Show selected tab and mark button as active
       document.getElementById(tabName + 'Tab').classList.add('active');
-      event.target.classList.add('active');
+      button.classList.add('active');
 
       // Load content for the selected tab
       if (tabName === 'readme') {
@@ -1569,10 +1570,24 @@
         var projectId = card.getAttribute('data-project-id');
         if (!projectId) return;
         card.style.cursor = 'pointer';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        var projectTitle = card.querySelector('h3');
+        if (projectTitle && projectTitle.textContent) {
+          card.setAttribute('aria-label', 'Open details for ' + projectTitle.textContent.trim());
+        }
         card.onclick = function(e) {
+          if (e.target.closest('a, button')) return;
           e.preventDefault();
           e.stopPropagation();
           openProjectModal(projectId);
+        };
+        card.onkeydown = function(e) {
+          if (e.target.closest('a, button')) return;
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openProjectModal(projectId);
+          }
         };
       });
     }

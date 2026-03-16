@@ -40,11 +40,12 @@
 
     .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:32px;margin:60px 0;}
 
-    .blog-post{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;transition:all 0.3s ease;cursor:pointer;}
+    .blog-post{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;transition:all 0.3s ease;cursor:pointer;font:inherit;text-align:left;width:100%;color:inherit;}
     .blog-post:hover{transform:translateY(-4px);border-color:rgba(255,107,157,0.2);box-shadow:0 8px 32px rgba(45,27,105,0.3),0 0 30px rgba(255,107,157,0.15);}
     .blog-post.featured{border:2px solid var(--cosmic-pink);box-shadow:0 8px 32px rgba(45,27,105,0.4),0 0 60px rgba(255,107,157,0.3);}
     .blog-post.coming-soon{cursor:default;pointer-events:none;}
     .blog-post.coming-soon:hover{transform:none;}
+    .blog-post:focus-visible{outline:2px solid var(--aurora-green);outline-offset:3px;}
 
     .post-meta{margin-bottom:16px;font-size:12px;color:var(--aurora-green);text-transform:uppercase;letter-spacing:1px;}
     .post-title{margin:0 0 16px;color:var(--cosmic-pink);font-size:20px;line-height:1.3;}
@@ -86,7 +87,6 @@
       <nav>
         <a href="docs.html">Documentation</a>
         <a href="roadmaps.html">Roadmaps</a>
-        <a href="blog.html">Blog</a>
       </nav>
     </header>
 
@@ -94,7 +94,7 @@
 
       <section class="hero-section">
         <h1>What I Learned Today</h1>
-        <p>Technical insights, development lessons, and DevOps advocacy from real projects. Exploring the intersection of code, creativity, and strategic thinking.</p>
+        <p>Technical insights and development lessons from real projects. Exploring the intersection of code, creativity, and strategic thinking.</p>
       </section>
 
       <div class="blog-grid">
@@ -133,7 +133,7 @@
           </div>
         </div>
 
-        <div class="blog-post" onclick="openPost('ai-assisted-dev')">
+        <button type="button" class="blog-post" data-post-id="ai-assisted-dev" aria-label="Open post: AI-Assisted Development: Strategic Implementation">
           <div class="post-meta">ON GITHUB</div>
           <h2 class="post-title">AI-Assisted Development: Strategic Implementation</h2>
           <p class="post-excerpt">How Cursor AI transformed my 40k-word technical book project, demonstrating when to leverage AI tools and when to apply human judgment. Tutorial on GitHub; not yet on dev.to, Medium, or shared with Cursor.</p>
@@ -142,9 +142,9 @@
             <span class="post-tag">DevOps Advocacy</span>
             <span class="post-tag">Technical Writing</span>
           </div>
-        </div>
+        </button>
 
-        <div class="blog-post" onclick="openPost('voice-control-architecture')">
+        <button type="button" class="blog-post" data-post-id="voice-control-architecture" aria-label="Open post: Cross-Platform Voice Control: Architecture Decisions">
           <div class="post-meta">PUBLISHED</div>
           <h2 class="post-title">Cross-Platform Voice Control: Architecture Decisions</h2>
           <p class="post-excerpt">Balancing performance, user experience, and technical debt in PC/Mac voice control software development.</p>
@@ -153,7 +153,7 @@
             <span class="post-tag">Performance</span>
             <span class="post-tag">UX Design</span>
           </div>
-        </div>
+        </button>
       </div>
 
       <!-- Post Modal -->
@@ -299,6 +299,12 @@
     };
 
     let postModalPreviousFocus = null;
+
+    document.querySelectorAll('.blog-post[data-post-id]').forEach(function(card) {
+      card.addEventListener('click', function() {
+        openPost(card.getAttribute('data-post-id'));
+      });
+    });
 
     function postModalFocusable() {
       const modal = document.getElementById('postModal');
