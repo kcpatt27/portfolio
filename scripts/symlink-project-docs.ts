@@ -1,8 +1,9 @@
 // scripts/symlink-project-docs.ts
-// Creates symlinks from each project's README.md and ROADMAP.md (per config) into
-// _project-docs/<id>/ so the portfolio site can fetch and display them when a project card is clicked.
+// Copies project docs into _project-docs/<id>/ so the portfolio site can fetch and
+// display them when a project card is clicked. We intentionally copy instead of using
+// symlinks because GitHub Pages artifact uploads do not reliably preserve symlink targets.
 
-import { readFileSync, mkdirSync, symlinkSync, existsSync, unlinkSync } from 'fs'
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync } from 'fs'
 import { resolve, isAbsolute } from 'path'
 
 const root = process.cwd()
@@ -23,6 +24,7 @@ function run() {
   const config = JSON.parse(readFileSync(configPath, 'utf8')) as { projects: ProjectConfig[] }
   const docsDir = resolve(root, '_project-docs')
 
+  rmSync(docsDir, { recursive: true, force: true })
   mkdirSync(docsDir, { recursive: true })
 
   for (const project of config.projects) {
@@ -41,43 +43,36 @@ function run() {
     const readmeSrc = resolve(localBase, 'README.md')
     const readmeDst = resolve(projectDocsDir, 'README.md')
     if (existsSync(readmeSrc)) {
-      link(readmeSrc, readmeDst, folderName, 'README.md')
+      copy(readmeSrc, readmeDst, folderName, 'README.md')
     }
 
     // ROADMAP.md (or whatever roadmapFile is in config)
     const roadmapSrc = resolve(localBase, project.roadmapFile || 'ROADMAP.md')
     const roadmapDst = resolve(projectDocsDir, 'ROADMAP.md')
     if (existsSync(roadmapSrc)) {
-      link(roadmapSrc, roadmapDst, folderName, project.roadmapFile || 'ROADMAP.md')
+      copy(roadmapSrc, roadmapDst, folderName, project.roadmapFile || 'ROADMAP.md')
     }
 
     // specsFile
     const specsSrc = resolve(localBase, project.specsFile || 'project_specs.md')
     const specsDst = resolve(projectDocsDir, 'project_specs.md')
     if (existsSync(specsSrc)) {
-      link(specsSrc, specsDst, folderName, 'project_specs.md')
+      copy(specsSrc, specsDst, folderName, 'project_specs.md')
     }
 
     // architectureFile
     const archSrc = resolve(localBase, project.architectureFile || 'ARCHITECTURE.md')
     const archDst = resolve(projectDocsDir, 'ARCHITECTURE.md')
     if (existsSync(archSrc)) {
-      link(archSrc, archDst, folderName, 'ARCHITECTURE.md')
+      copy(archSrc, archDst, folderName, 'ARCHITECTURE.md')
     }
   }
-  console.log('[symlink-project-docs] Done. Docs are under _project-docs/<folder>/')
+  console.log('[symlink-project-docs] Done. Docs are copied under _project-docs/<folder>/')
 }
 
-function link(src: string, dst: string, projectId: string, label: string) {
+function copy(src: string, dst: string, projectId: string, label: string) {
   try {
-    if (existsSync(dst)) {
-      try {
-        unlinkSync(dst)
-      } catch {
-        // ignore
-      }
-    }
-    symlinkSync(src, dst, 'file')
+    copyFileSync(src, dst)
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
     console.warn(`[symlink-project-docs] ${projectId}/${label}: ${msg}`)
