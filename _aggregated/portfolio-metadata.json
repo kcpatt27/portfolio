@@ -1,26 +1,5 @@
 [
   {
-    "id": "global-info-portal",
-    "name": "Global Information Portal",
-    "description": "Interactive 2D map of the world, featuring CIA data visualization",
-    "status": "completed",
-    "completionPercent": 90,
-    "featured": true,
-    "localPath": "../2D Global Info Portal",
-    "specsFile": "project_specs.md",
-    "roadmapFile": "ROADMAP.md",
-    "architectureFile": "ARCHITECTURE.md",
-    "technologies": [
-      "D3.js",
-      "TopoJSON"
-    ],
-    "aiBuilt": true,
-    "specs": {},
-    "roadmap": {},
-    "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.673Z"
-  },
-  {
     "id": "nextdish",
     "name": "nextdish.app",
     "description": "Social media platform for recipes, featuring an AI to help create recipes, from an image or text",
@@ -38,50 +17,52 @@
       "OpenRouter API"
     ],
     "aiBuilt": true,
+    "liveUrl": "https://nextdish.app/",
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.677Z"
+    "lastAggregated": "2026-03-16T20:26:56.071Z"
   },
   {
-    "id": "card-game",
-    "name": "Mobile Card Game",
-    "description": "A browser and mobile card game about the creation of reality and the universe, where players battle each other using raw elements to create their ideal reality",
-    "status": "in-progress",
-    "completionPercent": 20,
+    "id": "global-info-portal",
+    "name": "Global Information Portal",
+    "description": "Interactive 2D map of the world, featuring CIA data visualization",
+    "status": "completed",
+    "completionPercent": 90,
     "featured": true,
-    "localPath": "../mobile-card-game",
+    "localPath": "../2D Global Info Portal",
     "specsFile": "project_specs.md",
     "roadmapFile": "ROADMAP.md",
     "architectureFile": "ARCHITECTURE.md",
     "technologies": [
-      "React Native"
+      "D3.js",
+      "TopoJSON"
     ],
     "aiBuilt": true,
+    "liveUrl": "https://kcpatt27.github.io/global-information-portal",
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.686Z"
+    "lastAggregated": "2026-03-16T20:26:56.077Z"
   },
   {
-    "id": "voice-control",
-    "name": "Meridian Whisper",
-    "description": "Cross-platform voice control software for hands-free operation, especially when typing",
-    "status": "in-progress",
-    "completionPercent": 60,
+    "id": "sqwease",
+    "name": "SQWease",
+    "description": "Speak Quite Well with Ease — language learning app combining comprehensive input, spaced repetition, and minimum effective dose learning",
+    "status": "completed",
+    "completionPercent": 90,
     "featured": true,
-    "localPath": "../meridian-whisper",
+    "localPath": "../japanese-learning-app",
     "specsFile": "project_specs.md",
     "roadmapFile": "ROADMAP.md",
     "architectureFile": "ARCHITECTURE.md",
-    "technologies": [
-      "OpenAI Whisper"
-    ],
+    "technologies": [],
     "aiBuilt": true,
+    "liveUrl": "https://kcpatt27.github.io/sqwease",
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.688Z"
+    "lastAggregated": "2026-03-16T20:26:56.079Z"
   },
   {
     "id": "memvid-mcp",
@@ -102,16 +83,58 @@
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.689Z"
+    "lastAggregated": "2026-03-16T20:26:56.081Z"
   },
   {
-    "id": "automated-finance-newsletter",
+    "id": "card-game",
+    "name": "Dusts of Reality",
+    "description": "A browser and mobile card game about the creation of reality and the universe, where players battle each other using raw elements to create their ideal reality",
+    "status": "in-progress",
+    "completionPercent": 20,
+    "featured": true,
+    "localPath": "../mobile-card-game",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "React Native"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-03-16T20:26:56.085Z"
+  },
+  {
+    "id": "meridian-whisper",
+    "name": "Meridian Whisper",
+    "description": "Cross-platform voice control software for hands-free operation, especially when typing",
+    "status": "in-progress",
+    "completionPercent": 60,
+    "featured": true,
+    "localPath": "../meridian-whisper",
+    "docsFolder": "meridian-whisper",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "OpenAI Whisper"
+    ],
+    "aiBuilt": true,
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-03-16T20:26:56.089Z"
+  },
+  {
+    "id": "savant-insights",
     "name": "Savant Insights",
     "description": "Automated newsletter sending daily updates on the stock market; All research, writing, editing and management is done via AI",
     "status": "in-progress",
     "completionPercent": 55,
     "featured": true,
-    "localPath": "../../business-projects/personal-finance-newsletter/savant-insights",
+    "localPath": "../../business-projects/personal-finance-newsletter",
+    "docsFolder": "savant-insights",
     "specsFile": "project_specs.md",
     "roadmapFile": "ROADMAP.md",
     "architectureFile": "ARCHITECTURE.md",
@@ -124,16 +147,17 @@
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.693Z"
+    "lastAggregated": "2026-03-16T20:26:56.092Z"
   },
   {
-    "id": "iq-trainer",
+    "id": "iq-up",
     "name": "IQ Up!",
     "description": "Practice tests for Mensa IQ assessment preparation, designed to improve IQ by atleast 10 points",
     "status": "in-progress",
     "completionPercent": 30,
     "featured": true,
     "localPath": "../10-up-IQ-booster",
+    "docsFolder": "iq-up",
     "specsFile": "project_specs.md",
     "roadmapFile": "ROADMAP.md",
     "architectureFile": "ARCHITECTURE.md",
@@ -144,37 +168,17 @@
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.695Z"
+    "lastAggregated": "2026-03-16T20:26:56.096Z"
   },
   {
-    "id": "3d-open-world-mech-game",
-    "name": "3D Open World Mech Game",
-    "description": "A 3D open world mech game set after the events of the book 'When Neptune Wakes', where the player explores an alien world, fights enemies, completes quests, and decides the fate of the planet while grappling with their own identity and purpose. The intention is to see if an AI can code an entire AAA game with guidance.",
-    "status": "in-progress",
-    "completionPercent": 20,
-    "featured": false,
-    "localPath": "../3d-open-world-mech-game/game-hollow-orbit-dev-docs",
-    "specsFile": "project_specs.md",
-    "roadmapFile": "ROADMAP.md",
-    "architectureFile": "ARCHITECTURE.md",
-    "technologies": [
-      "Unity",
-      "C#"
-    ],
-    "aiBuilt": true,
-    "specs": {},
-    "roadmap": {},
-    "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.697Z"
-  },
-  {
-    "id": "scifi-novel",
+    "id": "when-neptune-wakes",
     "name": "When Neptune Wakes",
     "description": "Speculative fiction exploring extreme AI specialization across planetary systems in 7200~AD",
     "status": "in-progress",
     "completionPercent": 45,
     "featured": true,
     "localPath": "../3d-open-world-mech-game/book-when-neptune-wakes",
+    "docsFolder": "when-neptune-wakes",
     "specsFile": "project_specs.md",
     "roadmapFile": "ROADMAP.md",
     "architectureFile": "ARCHITECTURE.md",
@@ -187,26 +191,28 @@
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.701Z"
+    "lastAggregated": "2026-03-16T20:26:56.097Z"
   },
   {
-    "id": "language-learning-app",
-    "name": "Language Learning App",
-    "description": "A language learning app that combines comprehensive input, spaced repetition and minimum effective dose learning to help people learn languages and maybe make the world a bit closer",
+    "id": "hollow-orbit",
+    "name": "Hollow Orbit",
+    "description": "A 3D open world mech game set after the events of the book 'When Neptune Wakes', where the player explores an alien world, fights enemies, completes quests, and decides the fate of the planet while grappling with their own identity and purpose. The intention is to see if an AI can code an entire AAA game with guidance.",
     "status": "in-progress",
     "completionPercent": 20,
-    "featured": true,
-    "localPath": "../language-learning-app",
+    "featured": false,
+    "localPath": "../3d-open-world-mech-game/book-when-neptune-wakes",
+    "docsFolder": "hollow-orbit",
     "specsFile": "project_specs.md",
     "roadmapFile": "ROADMAP.md",
     "architectureFile": "ARCHITECTURE.md",
     "technologies": [
-      "React Native"
+      "Unity",
+      "C#"
     ],
     "aiBuilt": true,
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-01-11T20:26:15.703Z"
+    "lastAggregated": "2026-03-16T20:26:56.099Z"
   }
 ]

@@ -74,8 +74,11 @@ function readProjectMetadata(filePath: string): Record<string, any> {
     // Only return frontmatter - body content not needed for aggregation
     return parsed.frontmatter
   } catch (error) {
-    // Warn but continue - allows aggregation to proceed even if some projects
-    // are missing documentation files (useful during development)
+    // Missing docs are expected for some projects; keep logs clean for routine runs.
+    if (error && typeof error === 'object' && 'code' in error && (error as { code?: string }).code === 'ENOENT') {
+      return {}
+    }
+    // Warn on non-ENOENT issues so malformed files still surface.
     console.warn(`Could not read metadata from ${filePath}:`, error)
     return {}
   }

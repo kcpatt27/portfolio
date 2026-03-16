@@ -38,7 +38,7 @@
 
     .projects-sidebar{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:24px;}
     .projects-sidebar h3{margin:0 0 20px;color:var(--cosmic-pink);font-size:18px;}
-    .project-item{margin-bottom:12px;padding:12px;border-radius:8px;cursor:pointer;transition:all 0.3s ease;border:1px solid transparent;}
+    .project-item{margin-bottom:12px;padding:12px;border-radius:8px;cursor:pointer;transition:all 0.3s ease;border:1px solid transparent;width:100%;text-align:left;background:transparent;font:inherit;}
     .project-item:hover{background:rgba(255,107,157,0.05);border-color:rgba(255,107,157,0.2);}
     .project-item.active{background:rgba(255,107,157,0.1);border-color:var(--cosmic-pink);}
     .project-item h4{margin:0 0 4px;font-size:14px;color:var(--cosmic-pink);}
@@ -58,8 +58,9 @@
     .docs-content pre code{background:none;padding:0;}
 
     .doc-sections{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
-    .doc-tab{padding:8px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,157,0.1);border-radius:6px;cursor:pointer;color:var(--starlight-pink);font-size:14px;transition:all 0.3s ease;}
+    .doc-tab{padding:8px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,157,0.1);border-radius:6px;cursor:pointer;color:var(--starlight-pink);font-size:14px;transition:all 0.3s ease;font:inherit;}
     .doc-tab.active{background:rgba(255,107,157,0.1);border-color:var(--cosmic-pink);color:var(--cosmic-pink);}
+    .project-item:focus-visible,.doc-tab:focus-visible{outline:2px solid var(--aurora-green);outline-offset:3px;}
 
     .doc-content{display:none;}
     .doc-content.active{display:block;}
@@ -85,7 +86,6 @@
       <nav>
         <a href="docs.html">Documentation</a>
         <a href="roadmaps.html">Roadmaps</a>
-        <a href="blog.html">Blog</a>
       </nav>
     </header>
 
@@ -106,9 +106,9 @@
           <div class="docs-title-image" id="docs-title-image" aria-hidden="true"></div>
 
           <div class="doc-sections">
-            <div class="doc-tab active" onclick="showDoc('overview')">Overview</div>
-            <div class="doc-tab" onclick="showDoc('specs')">Specs</div>
-            <div class="doc-tab" onclick="showDoc('architecture')">Architecture</div>
+            <button type="button" class="doc-tab active" data-doc="overview">Overview</button>
+            <button type="button" class="doc-tab" data-doc="specs">Specs</button>
+            <button type="button" class="doc-tab" data-doc="architecture">Architecture</button>
           </div>
 
           <div id="overview" class="doc-content active"></div>
@@ -155,9 +155,14 @@
         list.innerHTML = projectsConfig.map(function(p, i) {
           var active = p.id === firstId ? ' active' : '';
           var phase = (p.status === 'completed' || p.status === 'beta') ? ' mvp' : ' in-dev';
-          return '<div class="project-item' + active + phase + '" onclick="loadProject(\'' + p.id.replace(/'/g, "\\'") + '\')" data-project-id="' + escapeAttr(p.id) + '">' +
-            '<h4>' + escapeHtml(p.name) + '</h4><p>' + escapeHtml(p.description) + '</p></div>';
+          return '<button type="button" class="project-item' + active + phase + '" data-project-id="' + escapeAttr(p.id) + '">' +
+            '<h4>' + escapeHtml(p.name) + '</h4><p>' + escapeHtml(p.description) + '</p></button>';
         }).join('');
+        list.querySelectorAll('.project-item').forEach(function(item) {
+          item.addEventListener('click', function() {
+            loadProject(item.getAttribute('data-project-id'));
+          });
+        });
         if (firstId) loadProject(firstId);
       })
       .catch(function() {
@@ -246,13 +251,19 @@
 
     function showDoc(docType) {
       document.querySelectorAll('.doc-tab').forEach(function(tab) {
-        var isActive = (tab.getAttribute('onclick') || '').indexOf("'" + docType + "'") !== -1;
+        var isActive = tab.getAttribute('data-doc') === docType;
         tab.classList.toggle('active', isActive);
       });
       document.querySelectorAll('.doc-content').forEach(function(content) {
         content.classList.toggle('active', content.id === docType);
       });
     }
+
+    document.querySelectorAll('.doc-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        showDoc(tab.getAttribute('data-doc'));
+      });
+    });
   </script>
 </body>
 </html>

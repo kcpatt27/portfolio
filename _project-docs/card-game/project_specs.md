@@ -1,0 +1,1 @@
+D:/projects/personal-projects/mobile-card-game/project_specs.md
