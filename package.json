@@ -2,8 +2,8 @@
     "scripts": {
         "prebuild": "tsx scripts/aggregate-projects.ts",
         "symlink-docs": "tsx scripts/symlink-project-docs.ts",
-        "build": "npm run prebuild && [your-build-command]",
-        "dev": "npm run prebuild && [your-dev-command]"
+        "build": "npm run prebuild && npm run symlink-docs",
+        "dev": "npm run build"
     },
     "devDependencies": {
         "@types/node": "^25.2.0",
