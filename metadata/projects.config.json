@@ -13,7 +13,13 @@
         "architectureFile": "ARCHITECTURE.md",
         "technologies": ["D3.js", "TopoJSON"],
         "aiBuilt": true,
-        "liveUrl": "https://kcpatt27.github.io/global-information-portal"
+        "liveUrl": "https://kcpatt27.github.io/global-information-portal",
+        "release": {
+          "visibility": "public",
+          "commercial": false,
+          "publishable": ["README.md", "ARCHITECTURE.md"],
+          "never": ["ROADMAP.md", "project_specs.md"]
+        }
       },
       {
         "id": "sqwease",
@@ -28,7 +34,13 @@
         "architectureFile": "ARCHITECTURE.md",
         "technologies": [],
         "aiBuilt": true,
-        "liveUrl": "https://kcpatt27.github.io/sqwease"
+        "liveUrl": "https://kcpatt27.github.io/sqwease",
+        "release": {
+          "visibility": "public",
+          "commercial": false,
+          "publishable": ["README.md", "ARCHITECTURE.md"],
+          "never": ["ROADMAP.md", "project_specs.md"]
+        }
       },
       {
         "id": "memvid-mcp",
@@ -42,7 +54,13 @@
         "roadmapFile": "ROADMAP.md",
         "architectureFile": "ARCHITECTURE.md",
         "technologies": ["Model Context Protocol", "Memvid"],
-        "aiBuilt": true
+        "aiBuilt": true,
+        "release": {
+          "visibility": "public",
+          "commercial": false,
+          "publishable": ["README.md", "ARCHITECTURE.md"],
+          "never": ["ROADMAP.md", "project_specs.md"]
+        }
       }
     ]
   }

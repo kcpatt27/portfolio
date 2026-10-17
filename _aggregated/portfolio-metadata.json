@@ -16,10 +16,22 @@
     ],
     "aiBuilt": true,
     "liveUrl": "https://kcpatt27.github.io/global-information-portal",
+    "release": {
+      "visibility": "public",
+      "commercial": false,
+      "publishable": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ],
+      "never": [
+        "ROADMAP.md",
+        "project_specs.md"
+      ]
+    },
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-10-17T19:07:59.260Z"
+    "lastAggregated": "2026-10-17T21:54:45.395Z"
   },
   {
     "id": "sqwease",
@@ -35,10 +47,22 @@
     "technologies": [],
     "aiBuilt": true,
     "liveUrl": "https://kcpatt27.github.io/sqwease",
+    "release": {
+      "visibility": "public",
+      "commercial": false,
+      "publishable": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ],
+      "never": [
+        "ROADMAP.md",
+        "project_specs.md"
+      ]
+    },
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-10-17T19:07:59.262Z"
+    "lastAggregated": "2026-10-17T21:54:45.396Z"
   },
   {
     "id": "memvid-mcp",
@@ -56,9 +80,21 @@
       "Memvid"
     ],
     "aiBuilt": true,
+    "release": {
+      "visibility": "public",
+      "commercial": false,
+      "publishable": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ],
+      "never": [
+        "ROADMAP.md",
+        "project_specs.md"
+      ]
+    },
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-10-17T19:07:59.264Z"
+    "lastAggregated": "2026-10-17T21:54:45.398Z"
   }
 ]
