@@ -28,10 +28,46 @@
         "project_specs.md"
       ]
     },
+    "source": "shared-docs/gip/summary-for-career.md",
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-10-17T22:15:10.482Z"
+    "lastAggregated": "2026-10-17T23:08:25.906Z"
+  },
+  {
+    "id": "memvid-mcp",
+    "name": "MemVid MCP Server",
+    "description": "An MCP server that uses Memvid to condense text into searchable memory banks, giving AI assistants persistent context without consuming the context window (archived 2026)",
+    "status": "archived",
+    "completionPercent": 100,
+    "featured": true,
+    "localPath": "../memvid-mcp",
+    "specsFile": "project_specs.md",
+    "roadmapFile": "ROADMAP.md",
+    "architectureFile": "ARCHITECTURE.md",
+    "technologies": [
+      "Model Context Protocol",
+      "Memvid"
+    ],
+    "aiBuilt": true,
+    "liveUrl": "",
+    "release": {
+      "visibility": "public",
+      "commercial": false,
+      "publishable": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ],
+      "never": [
+        "ROADMAP.md",
+        "project_specs.md"
+      ]
+    },
+    "source": "shared-docs/memvid/summary-for-career.md",
+    "specs": {},
+    "roadmap": {},
+    "architecture": {},
+    "lastAggregated": "2026-10-17T23:08:25.908Z"
   },
   {
     "id": "sqwease",
@@ -59,42 +95,10 @@
         "project_specs.md"
       ]
     },
+    "source": "shared-docs/sqwease/summary-for-career.md",
     "specs": {},
     "roadmap": {},
     "architecture": {},
-    "lastAggregated": "2026-10-17T22:15:10.484Z"
-  },
-  {
-    "id": "memvid-mcp",
-    "name": "Memvid MCP Server",
-    "description": "An MCP server that uses Memvid to condense text into searchable memory banks, giving AI assistants persistent context without consuming the context window (archived 2026)",
-    "status": "archived",
-    "completionPercent": 100,
-    "featured": true,
-    "localPath": "../memvid-mcp",
-    "specsFile": "project_specs.md",
-    "roadmapFile": "ROADMAP.md",
-    "architectureFile": "ARCHITECTURE.md",
-    "technologies": [
-      "Model Context Protocol",
-      "Memvid"
-    ],
-    "aiBuilt": true,
-    "release": {
-      "visibility": "public",
-      "commercial": false,
-      "publishable": [
-        "README.md",
-        "ARCHITECTURE.md"
-      ],
-      "never": [
-        "ROADMAP.md",
-        "project_specs.md"
-      ]
-    },
-    "specs": {},
-    "roadmap": {},
-    "architecture": {},
-    "lastAggregated": "2026-10-17T22:15:10.484Z"
+    "lastAggregated": "2026-10-17T23:08:25.909Z"
   }
 ]
