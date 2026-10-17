@@ -16,7 +16,7 @@
       /* Original colors for fallback */
       --bg:#0f1724;--card:#0b1220;--accent:#ffcc33;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04);
       
-      /* Cyberpunk/Space Theme Colors */
+      /* Cosmic/Organic Theme Colors */
       --moonshadow: #2D1B69;        /* Deep purple */
       --cosmic-pink: #FF6B9D;        /* Hot pink */
       --sunset-orange: #FF8C42;      /* Warm orange */
@@ -32,7 +32,7 @@
       --space-gradient: linear-gradient(180deg, var(--void-black), var(--moonshadow));
       --cosmic-glow: radial-gradient(circle, var(--cosmic-pink), transparent);
       
-      /* Advanced Cyberpunk Effects */
+      /* Organic Motion Effects */
       --terminal-green: #00ff41;
       --matrix-rain: #00ff41;
       --hologram-blue: #00d4ff;
@@ -216,7 +216,7 @@
       line-height: 1.5;
     }
 
-    /* Portfolio Grid - Cyberpunk/Space Theme */
+    /* Portfolio Grid - Cosmic/Organic Theme */
     .grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
@@ -267,7 +267,7 @@
       line-height: 1.5;
     }
 
-    /* Portfolio Images - Cyberpunk/Space Theme */
+    /* Portfolio Images - Cosmic/Organic Theme */
     .portfolio{
       display:grid;
       grid-template-columns:repeat(3,1fr);
@@ -301,7 +301,7 @@
       border-color: rgba(255, 107, 157, 0.3);
     }
 
-    /* Pricing Cards - Cyberpunk/Space Theme */
+    /* Pricing Cards - Cosmic/Organic Theme */
     .pricing-card {
       position: relative;
       /* Enhanced glassmorphism for pricing */
@@ -313,7 +313,7 @@
     }
     
     .pricing-card.featured {
-      /* Cyberpunk Matrix: Enhanced glow for featured */
+      /* Cosmic glow: Enhanced glow for featured */
       border: 2px solid var(--cosmic-pink);
       box-shadow: 
         0 8px 32px rgba(45, 27, 105, 0.4),
@@ -338,7 +338,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      /* Cyberpunk Matrix: Glow effect */
+      /* Cosmic glow: Glow effect */
       box-shadow: 0 0 20px rgba(255, 107, 157, 0.6);
       z-index: 2;
     }
@@ -386,16 +386,16 @@
       font-weight: bold;
       position: absolute;
       left: -8px;
-      /* Cyberpunk Matrix: Subtle glow */
+      /* Cosmic glow: Subtle glow */
       text-shadow: 0 0 5px rgba(0, 212, 170, 0.5);
     }
     
     .pricing-card:hover .feature::before {
-      /* Cyberpunk Matrix: Enhanced glow on hover */
+      /* Cosmic glow: Enhanced glow on hover */
       text-shadow: 0 0 10px rgba(0, 212, 170, 0.8);
     }
 
-    /* Footer - Cyberpunk/Space Theme */
+    /* Footer - Cosmic/Organic Theme */
     footer{
       margin-top: 0;
       padding: 36px 0;
@@ -452,7 +452,7 @@
     }
     
     footer::before {
-      /* Cyberpunk Matrix: Subtle grid line */
+      /* Cosmic glow: Subtle grid line */
       content: '';
       position: absolute;
       top: 0;
@@ -476,7 +476,7 @@
     }
     
     footer a:hover {
-      /* Cyberpunk Matrix: Glow effect */
+      /* Cosmic glow: Glow effect */
       text-shadow: 0 0 10px rgba(255, 107, 157, 0.6);
       color: var(--starlight-pink);
     }
@@ -1051,7 +1051,7 @@
     let isSpaceSceneInitialized = false;
     
     // Shape mode selector - allows switching between different 3D geometries without code changes
-    // 'layered' is the default for the cyberpunk aesthetic with color gradients
+    // 'layered' is the default for the organic aesthetic with color gradients
     const SHAPE_MODE = 'layered'; // 'layered' | 'mobius' | 'manifold'
 
     /**
@@ -1154,7 +1154,7 @@
 
     /**
      * Builds the primary layered object - creates organic, flowing shapes with color gradients.
-     * This is the default shape that matches the cyberpunk/space aesthetic. Each layer uses
+     * This is the default shape that matches the cosmic/organic aesthetic. Each layer uses
      * CSS custom properties for colors, ensuring theme consistency across the site.
      * 
      * Uses wobble functions to create organic, non-geometric shapes that feel more natural
@@ -1245,11 +1245,11 @@
         // Premium material with sophisticated lighting properties
         const material = new THREE.MeshStandardMaterial({
           color: layerColor,
-          roughness: 0.45, // Slightly smoother for more polish
-          metalness: 0.08, // Subtle metallic sheen
+          roughness: 0.58, // Softer, less reflective — organic rather than neon
+          metalness: 0.04, // Very subtle sheen
           side: THREE.DoubleSide,
-          // Add slight emissive glow for cyberpunk aesthetic
-          emissive: layerColor.clone().multiplyScalar(0.02)
+          // Add slight emissive glow for organic aesthetic
+          emissive: layerColor.clone().multiplyScalar(0.008)
         });
 
         const mesh = new THREE.Mesh(geometry, material);
@@ -1285,7 +1285,7 @@
       // Choose shape based on mode - allows easy switching between visual styles
       let geometryObj = null;
       if (SHAPE_MODE === 'layered') {
-        // Default: layered object with color gradients (matches cyberpunk theme)
+        // Default: layered object with color gradients (matches organic theme)
         mesh = buildLayeredObject(27, 4.2, 5.7, 0.09, 170);
       } else if (SHAPE_MODE === 'mobius') {
         // Alternative: mathematical Möbius strip
@@ -1375,6 +1375,7 @@
       const meshBasePosition = { x: rp.x, y: rp.y, z: rp.z };
       mesh.position.set(rp.x, rp.y, rp.z);
       mesh.scale.set(rp.sx, rp.sy, rp.sz);
+      const meshBaseScale = { x: rp.sx, y: rp.sy, z: rp.sz };
       
       // Polished animation loop with organic movement
       function animate() {
@@ -1382,11 +1383,10 @@
 
         const time = Date.now() * 0.0005;
 
-        // Sophisticated multi-axis rotation with subtle variations
-        // Primary slow rotation for elegance
-        mesh.rotation.y += 0.00015;
-        mesh.rotation.x += 0.00008;
-        mesh.rotation.z += 0.00012;
+        // Slow, continuous drift — closer to something growing than a spinning object
+        mesh.rotation.y += 0.00009;
+        mesh.rotation.x += 0.00005;
+        mesh.rotation.z += 0.00007;
 
         // Add subtle sinusoidal variation to rotation speeds for organic feel
         const rotationVariation = Math.sin(time * 0.3) * 0.00002;
@@ -1400,6 +1400,14 @@
 
         // Subtle lateral drift for more dynamic movement
         mesh.position.x = meshBasePosition.x + Math.sin(time * 0.7) * 0.05;
+
+        // Very slow breathing: the form expands and settles like something alive
+        const breathe = 1 + Math.sin(time * 0.55) * 0.012;
+        mesh.scale.set(
+          meshBaseScale.x * breathe,
+          meshBaseScale.y * breathe,
+          meshBaseScale.z * breathe
+        );
 
         // Background stars with gentle rotation and twinkling
         stars.rotation.y += 0.00008;
