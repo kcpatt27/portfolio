@@ -1,23 +1,32 @@
 // scripts/symlink-project-docs.ts
-// Copies project docs into _project-docs/<id>/ so the portfolio site can fetch and
-// display them when a project card is clicked. We intentionally copy instead of using
-// symlinks because GitHub Pages artifact uploads do not reliably preserve symlink targets.
+// Copies *publishable* project docs into _project-docs/<id>/ for the public site.
+// Default-deny: a project with no release block, a non-public visibility, or a
+// commercial flag is skipped. Roadmap/PRD files are never copied — the site shows
+// a timeline, not a plan. (We copy rather than symlink: GitHub Pages does not
+// preserve symlink targets.)
 
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync } from 'fs'
-import { resolve, isAbsolute } from 'path'
+import { isAbsolute, resolve } from 'path'
 
-const root = process.cwd()
+interface Release {
+  visibility?: string
+  commercial?: boolean
+  publishable?: string[]
+}
 
 interface ProjectConfig {
   id: string
-  name: string
+  name?: string
   localPath: string
   roadmapFile?: string
   docsFolder?: string
   specsFile?: string
   architectureFile?: string
+  release?: Release
   [key: string]: unknown
 }
+
+const root = process.cwd()
 
 function run() {
   const configPath = resolve(root, 'metadata/projects.config.json')
@@ -28,55 +37,45 @@ function run() {
   mkdirSync(docsDir, { recursive: true })
 
   for (const project of config.projects) {
+    const release = project.release
+    if (!release || release.visibility !== 'public' || release.commercial) {
+      console.warn(`[docs] Skipping ${project.id}: not public (default-deny)`)
+      continue
+    }
+
+    const allow = new Set(release.publishable ?? [])
     const folderName = project.docsFolder || project.id
     const projectDocsDir = resolve(docsDir, folderName)
     const localBase = isAbsolute(project.localPath) ? project.localPath : resolve(root, project.localPath)
 
     if (!existsSync(localBase)) {
-      console.warn(`[symlink-project-docs] Skipping ${project.id}: localPath "${project.localPath}" not found`)
+      console.warn(`[docs] Skipping ${project.id}: localPath "${project.localPath}" not found`)
       continue
     }
 
     mkdirSync(projectDocsDir, { recursive: true })
 
-    // README.md (optional in many projects)
-    const readmeSrc = resolve(localBase, 'README.md')
-    const readmeDst = resolve(projectDocsDir, 'README.md')
-    if (existsSync(readmeSrc)) {
-      copy(readmeSrc, readmeDst, folderName, 'README.md')
-    }
+    const candidates: Array<[string, string]> = [
+      ['README.md', 'README.md'],
+      [project.roadmapFile || 'ROADMAP.md', 'ROADMAP.md'],
+      [project.specsFile || 'project_specs.md', 'project_specs.md'],
+      [project.architectureFile || 'ARCHITECTURE.md', 'ARCHITECTURE.md'],
+    ]
 
-    // ROADMAP.md (or whatever roadmapFile is in config)
-    const roadmapSrc = resolve(localBase, project.roadmapFile || 'ROADMAP.md')
-    const roadmapDst = resolve(projectDocsDir, 'ROADMAP.md')
-    if (existsSync(roadmapSrc)) {
-      copy(roadmapSrc, roadmapDst, folderName, project.roadmapFile || 'ROADMAP.md')
-    }
-
-    // specsFile
-    const specsSrc = resolve(localBase, project.specsFile || 'project_specs.md')
-    const specsDst = resolve(projectDocsDir, 'project_specs.md')
-    if (existsSync(specsSrc)) {
-      copy(specsSrc, specsDst, folderName, 'project_specs.md')
-    }
-
-    // architectureFile
-    const archSrc = resolve(localBase, project.architectureFile || 'ARCHITECTURE.md')
-    const archDst = resolve(projectDocsDir, 'ARCHITECTURE.md')
-    if (existsSync(archSrc)) {
-      copy(archSrc, archDst, folderName, 'ARCHITECTURE.md')
+    for (const [sourceName, targetName] of candidates) {
+      if (!allow.has(targetName)) continue
+      const src = resolve(localBase, sourceName)
+      if (!existsSync(src)) continue
+      try {
+        copyFileSync(src, resolve(projectDocsDir, targetName))
+      } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : String(e)
+        console.warn(`[docs] ${project.id}/${targetName}: ${msg}`)
+      }
     }
   }
-  console.log('[symlink-project-docs] Done. Docs are copied under _project-docs/<folder>/')
-}
 
-function copy(src: string, dst: string, projectId: string, label: string) {
-  try {
-    copyFileSync(src, dst)
-  } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : String(e)
-    console.warn(`[symlink-project-docs] ${projectId}/${label}: ${msg}`)
-  }
+  console.log('[docs] Done. Only files marked publishable were copied.')
 }
 
 run()
