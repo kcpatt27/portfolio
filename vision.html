@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vision — Kalen Patterson</title>
+  <meta name="description" content="What I'm building: systems where a model proposes, deterministic code verifies, and the result is something real." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --moonshadow:#2D1B69; --cosmic-pink:#FF6B9D; --sunset-orange:#FF8C42;
+      --space-blue:#4A90E2; --aurora-green:#00D4AA; --starlight-pink:#FFB6C1;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#e6eef6;
+      background:linear-gradient(180deg,#081027 0%,#071021 100%);scroll-behavior:smooth;}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:900px;margin:0 auto;padding:0 28px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2);}
+    .back{color:var(--aurora-green);font-weight:600;font-size:16px}
+    .back:hover{color:var(--cosmic-pink)}
+    nav a{margin-left:22px;color:var(--starlight-pink);font-weight:500;font-size:15px;transition:color .25s}
+    nav a:hover,nav a[aria-current="page"]{color:var(--cosmic-pink)}
+    main{padding:56px 0 80px}
+    .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--aurora-green);margin-bottom:14px}
+    h1{font-family:'Space Grotesk',sans-serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.2rem);margin:0 0 20px;color:#fff}
+    .lead{font-size:19px;line-height:1.65;color:rgba(255,255,255,0.82);max-width:720px;margin:0 0 44px}
+    section{margin:0 0 42px;padding:28px 30px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,107,157,0.12);border-radius:14px}
+    h2{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:1.35rem;margin:0 0 14px;color:var(--cosmic-pink)}
+    p{line-height:1.7;color:rgba(255,255,255,0.78);margin:0 0 12px}
+    ul{margin:0;padding-left:20px}
+    li{line-height:1.7;color:rgba(255,255,255,0.78);margin-bottom:8px}
+    strong{color:#fff}
+    footer{border-top:1px solid rgba(255,107,157,0.15);padding:26px 0 40px;color:rgba(255,255,255,0.55);font-size:14px}
+    footer a{color:var(--aurora-green)}
+    @media(max-width:640px){header{flex-direction:column;gap:12px;text-align:center}nav a{margin:0 10px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="back" href="index.html">← Kalen Patterson</a>
+      <nav>
+        <a href="index.html">Work</a>
+        <a href="docs.html">Documentation</a>
+        <a href="timeline.html">Timeline</a>
+        <a href="vision.html" aria-current="page">Vision</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="eyebrow">Vision</div>
+      <h1>Systems where the model proposes and the code decides.</h1>
+      <p class="lead">Most AI tools stop at a suggestion. The interesting half is what happens next: whether the action is safe, whether the result is correct, and whether it can be trusted with something real.</p>
+
+      <section>
+        <h2>The gap I work on</h2>
+        <p>Language models are good at proposing. They are not good at being trusted. The distance between "the model suggested it" and "the system can prove it" is where most useful AI work actually lives, and it is mostly engineering rather than research: constraints, verification, audit trails, and measurements.</p>
+      </section>
+
+      <section>
+        <h2>The shape of the work</h2>
+        <ul>
+          <li><strong>Local-first by default.</strong> Models should run on the machine that owns the data unless there is a reason not to.</li>
+          <li><strong>Deterministic boundaries.</strong> The model proposes; a schema, a policy, or a test decides. Named tools instead of arbitrary code.</li>
+          <li><strong>Evidence over claims.</strong> Benchmarks, logs, and regression gates — including the cases that fail.</li>
+          <li><strong>Small tools that compose.</strong> One job each, wired together, rather than one large opaque system.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Where it is going</h2>
+        <p>From software that suggests to software that acts on the physical world. That means AI that can drive real tools, produce geometry that can actually be manufactured, and operate infrastructure with the same evidence standard we expect from any other system. My own work is an early, small version of that loop: propose, verify, execute, measure, and publish what happened.</p>
+      </section>
+
+      <section>
+        <h2>What I am not claiming</h2>
+        <p>I am early-career. I am not a researcher, and these are solo projects rather than production systems at scale. The claims on this site are tied to code, benchmarks, and write-ups that state their limits. Where a number is an estimate, it says so; where a project is unfinished or retired, it says that too.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Kalen Patterson — <a href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div>
+    </footer>
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

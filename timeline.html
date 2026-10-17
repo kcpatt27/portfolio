@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timeline — Kalen Patterson</title>
+  <meta name="description" content="A record of shipped work — what is done, not what is planned." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--cosmic-pink:#FF6B9D;--sunset-orange:#FF8C42;--aurora-green:#00D4AA;--starlight-pink:#FFB6C1}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#e6eef6;
+      background:linear-gradient(180deg,#081027 0%,#071021 100%);scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:900px;margin:0 auto;padding:0 28px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2)}
+    .back{color:var(--aurora-green);font-weight:600;font-size:16px}.back:hover{color:var(--cosmic-pink)}
+    nav a{margin-left:22px;color:var(--starlight-pink);font-weight:500;font-size:15px}
+    nav a:hover,nav a[aria-current="page"]{color:var(--cosmic-pink)}
+    main{padding:56px 0 80px}
+    .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--aurora-green);margin-bottom:14px}
+    h1{font-family:'Space Grotesk',sans-serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.2rem);margin:0 0 16px;color:#fff}
+    .lead{font-size:18px;line-height:1.6;color:rgba(255,255,255,0.78);max-width:700px;margin:0 0 44px}
+    .timeline{position:relative;margin:0;padding:0 0 0 28px;list-style:none;border-left:1px solid rgba(255,107,157,0.3)}
+    .entry{position:relative;margin:0 0 34px;padding:22px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,107,157,0.12);border-radius:12px}
+    .entry::before{content:"";position:absolute;left:-35px;top:28px;width:11px;height:11px;border-radius:50%;background:var(--cosmic-pink);box-shadow:0 0 12px rgba(255,107,157,0.7)}
+    .date{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;color:var(--aurora-green);margin-bottom:6px}
+    h2{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:1.2rem;margin:0 0 8px;color:#fff}
+    p{margin:0;line-height:1.65;color:rgba(255,255,255,0.76);font-size:15px}
+    .tag{display:inline-block;margin-top:10px;padding:3px 9px;border-radius:999px;font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;color:var(--aurora-green);border:1px solid rgba(0,212,170,0.35)}
+    .tag.retired{color:var(--sunset-orange);border-color:rgba(255,140,66,0.35)}
+    footer{border-top:1px solid rgba(255,107,157,0.15);padding:26px 0 40px;color:rgba(255,255,255,0.55);font-size:14px}
+    footer a{color:var(--aurora-green)}
+    @media(max-width:640px){header{flex-direction:column;gap:12px;text-align:center}nav a{margin:0 10px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="back" href="index.html">← Kalen Patterson</a>
+      <nav>
+        <a href="index.html">Work</a>
+        <a href="docs.html">Documentation</a>
+        <a href="timeline.html" aria-current="page">Timeline</a>
+        <a href="vision.html">Vision</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="eyebrow">Timeline</div>
+      <h1>What is done.</h1>
+      <p class="lead">A record of shipped work and honest endings. No roadmaps, no promises — just the things that exist and what came of them.</p>
+
+      <ol class="timeline">
+        <li class="entry">
+          <div class="date">2026 · OCTOBER</div>
+          <h2>MemVid MCP — retired</h2>
+          <p>An MCP server that packaged text into searchable memory banks for AI assistants. Published to npm and benchmarked (57× faster startup, 1,900× faster cached search), then archived when the upstream MemVid format was deprecated. Kept as a case study rather than deleted.</p>
+          <span class="tag retired">ARCHIVED</span>
+        </li>
+        <li class="entry">
+          <div class="date">2026 · OCTOBER</div>
+          <h2>SQWease — shipped</h2>
+          <p>A zero-dependency language-learning web app with flashcards and spaced repetition. Five languages and roughly 11,500 words, built from a reproducible data pipeline, with Lighthouse accessibility 1.0 on all six pages.</p>
+          <span class="tag">LIVE</span>
+        </li>
+        <li class="entry">
+          <div class="date">2026 · MARCH</div>
+          <h2>This site — rebuilt as a documentation surface</h2>
+          <p>Moved from a single page to a multi-page static site with a config-driven content pipeline, then hardened after a GitHub Pages failure caused by committed symlinks.</p>
+          <span class="tag">LIVE</span>
+        </li>
+        <li class="entry">
+          <div class="date">2026 · JANUARY</div>
+          <h2>Global Information Portal — v1.0</h2>
+          <p>An interactive map of 240+ countries with 100+ metrics each from the CIA World Factbook, running entirely in the browser. Progressive caching cut the initial load in half and repeat visits to under a second.</p>
+          <span class="tag">LIVE</span>
+        </li>
+        <li class="entry">
+          <div class="date">2025 · PUBLISHED</div>
+          <h2>“Working with AI” — developer guide</h2>
+          <p>A 25,000-word tutorial on building software with AI coding assistants, with role-specific tracks and case studies drawn from production projects. The strongest technical-writing artifact in the portfolio.</p>
+          <span class="tag">PUBLISHED</span>
+        </li>
+      </ol>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Kalen Patterson — <a href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div>
+    </footer>
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
