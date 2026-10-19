@@ -797,18 +797,41 @@
 
 .botanical {
   position: absolute;
-  top: 74px;
-  right: 0;
-  width: 42px;
-  height: 26px;
-  display: block;
+  top: 70px;
+  right: 2px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
   color: var(--moss);
-  background: none;
-  border: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 50%;
   z-index: 1;
 }
-.botanical svg { display: block; width: 100%; height: 100%; }
+.botanical::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  width: 2px;
+  height: 1px;
+  background: currentColor;
+}
+.botanical svg { display: block; width: 20px; height: 20px; }
+.botanical .petal,
+.botanical .bud,
+.botanical .leaf,
+.botanical .sepal {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.botanical .center { fill: var(--clay); stroke: none; }
 .botanical--sprout { color: var(--clay); }
+.botanical--sprout .vein { fill: none; stroke: currentColor; stroke-width: .9; stroke-linecap: round; }
 .botanical--flower .bloom {
   transform-box: fill-box;
   transform-origin: center;
