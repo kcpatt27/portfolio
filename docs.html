@@ -1,270 +1,244 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project Documentation — Kalen Patterson</title>
-  <meta name="description" content="Comprehensive project documentation for Kalen Patterson's development projects." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      /* Cosmic/Organic Theme Colors */
-      --moonshadow: #2D1B69;        /* Deep purple */
-      --cosmic-pink: #FF6B9D;        /* Hot pink */
-      --sunset-orange: #FF8C42;      /* Warm orange */
-      --space-blue: #4A90E2;         /* Electric blue */
-      --nebula-purple: #8B5FBF;      /* Lighter purple */
-      --starlight-pink: #FFB6C1;     /* Soft pink */
-      --aurora-green: #00D4AA;       /* Cyber green */
-      --void-black: #0A0A0F;         /* Deep space */
-      --cloud-white: #F8F9FA;        /* Pure white */
-      --terminal-green: #00ff41;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#081027 0%, #071021 100%);scroll-behavior:smooth;}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1200px;margin:0 auto;padding:0 28px}
-
-    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(255,107,157,0.2);}
-    .back-to-portfolio{display:inline-flex;align-items:center;gap:8px;color:var(--aurora-green);font-weight:600;font-size:16px;}
-    .back-to-portfolio:hover{color:var(--cosmic-pink);}
-    nav a{margin-left:24px;color:var(--starlight-pink);font-weight:500;font-size:16px;transition:color 0.3s ease;display:inline-block;padding-bottom:6px;border-bottom:2px solid transparent;margin-bottom:-8px;}
-    nav a:hover{color:var(--cosmic-pink);}
-    body.page-docs nav a[href="docs.html"],body.page-roadmaps nav a[href="timeline.html"],body.page-blog nav a[href="blog.html"]{border-bottom-color:var(--cosmic-pink);color:var(--cosmic-pink);}
-
-    .docs-grid{display:grid;grid-template-columns:300px 1fr;gap:40px;margin-top:40px;}
-
-    .projects-sidebar{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:24px;}
-    .projects-sidebar h3{margin:0 0 20px;color:var(--cosmic-pink);font-size:18px;}
-    .project-item{margin-bottom:12px;padding:12px;border-radius:8px;cursor:pointer;transition:all 0.3s ease;border:1px solid transparent;width:100%;text-align:left;background:transparent;font:inherit;}
-    .project-item:hover{background:rgba(255,107,157,0.05);border-color:rgba(255,107,157,0.2);}
-    .project-item.active{background:rgba(255,107,157,0.1);border-color:var(--cosmic-pink);}
-    .project-item h4{margin:0 0 4px;font-size:14px;color:var(--cosmic-pink);}
-    .project-item p{margin:0;font-size:12px;color:var(--starlight-pink);opacity:0.8;}
-    .project-item.mvp h4{color:var(--aurora-green);}
-    .project-item.in-dev h4{color:var(--sunset-orange);}
-
-    .docs-content{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,107,157,0.1);border-radius:12px;padding:32px;min-width:0;overflow-x:hidden;}
-    .docs-content h1{margin:0 0 16px;color:#ffffff;font-size:2rem;}
-    .docs-content h2{margin:32px 0 16px;color:var(--cosmic-pink);font-size:1.5rem;border-bottom:1px solid rgba(255,107,157,0.2);padding-bottom:8px;}
-    .docs-content h3{margin:24px 0 12px;color:var(--sunset-orange);font-size:1.2rem;}
-    .docs-content p{margin:0 0 16px;color:var(--starlight-pink);line-height:1.6;}
-    .docs-content ul{margin:0 0 16px;padding-left:24px;}
-    .docs-content li{margin-bottom:8px;color:var(--starlight-pink);}
-    .docs-content code{background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--terminal-green);}
-    .docs-content pre{background:rgba(0,0,0,0.3);border:1px solid rgba(255,107,157,0.1);border-radius:8px;padding:16px;overflow-x:auto;margin:16px 0;}
-    .docs-content pre code{background:none;padding:0;}
-
-    .doc-sections{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
-    .doc-tab{padding:8px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,157,0.1);border-radius:6px;cursor:pointer;color:var(--starlight-pink);font-size:14px;transition:all 0.3s ease;font:inherit;}
-    .doc-tab.active{background:rgba(255,107,157,0.1);border-color:var(--cosmic-pink);color:var(--cosmic-pink);}
-    .project-item:focus-visible,.doc-tab:focus-visible{outline:2px solid var(--aurora-green);outline-offset:3px;}
-
-    .doc-content{display:none;}
-    .doc-content.active{display:block;}
-
-    .docs-title-image{margin:0 0 20px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#0f0f23);height:200px;max-height:200px;width:100%;min-width:0;}
-    .docs-title-image img{width:100%;max-width:100%;height:200px;object-fit:cover;object-position:top;display:block;}
-    .docs-title-image .card-placeholder{height:200px;display:flex;align-items:center;justify-content:center;color:var(--cosmic-pink);font-size:14px;}
-
-    @media (max-width:768px){
-      .docs-grid{grid-template-columns:1fr;}
-      .projects-sidebar{margin-bottom:20px;}
-      header{flex-direction:column;text-align:center;}
-      nav{margin-top:16px;}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Documentation — Kalen Patterson</title>
+<meta name="description" content="Public project documentation for Kalen Patterson's non-commercial projects.">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Karla:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
 </head>
-<body class="page-docs">
-  <div class="container">
-    <header>
-      <a href="index.html" class="back-to-portfolio">← Back to Home</a>
-      <nav>
-        <a href="docs.html">Documentation</a>
-        <a href="timeline.html">Timeline</a>
-        <a href="vision.html">Vision</a>
-      </nav>
-    </header>
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-    <main>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="index.html">
+      <span class="name">Kalen Patterson</span>
+      <span class="role">Software engineer and technical writer</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Work</a></li>
+        <li><a href="docs.html" aria-current="page">Documentation</a></li>
+        <li><a href="timeline.html">Timeline</a></li>
+        <li><a href="vision.html">Vision</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-      <h1 style="color:#ffffff;font-size:2.5rem;text-align:center;margin:40px 0;">Project Documentation</h1>
+<main id="main">
 
-      <div class="docs-grid">
-        <div class="projects-sidebar">
-          <h3>Projects</h3>
+  <section class="row row--hero page-intro" aria-labelledby="docs-title">
+    <div class="margin" aria-hidden="true">
+      <span class="k">Docs</span>
+      <span class="n">00</span>
+    </div>
+    <div class="body">
+      <p class="eyebrow">Documentation</p>
+      <h1 id="docs-title">Project documentation<span class="stop">.</span></h1>
+      <p class="lede">Public records for the work. Read the overview or the architecture; both are published from the same source that produces this site.</p>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="docs-projects-title">
+    <div class="margin" aria-hidden="true">
+      <span class="k">Public</span>
+      <span class="n">01</span>
+    </div>
+    <div class="body">
+      <div class="section-head">
+        <h2 id="docs-projects-title">The projects</h2>
+        <p class="section-note">Three public, non-commercial records</p>
+      </div>
+      <div class="docs-shell">
+        <aside class="docs-side" aria-label="Project list">
           <div id="docs-project-list">
-            <p style="color:var(--starlight-pink);">Loading projects…</p>
+            <p class="doc-loading">Loading projects…</p>
           </div>
-        </div>
+        </aside>
 
-        <div class="docs-content">
-          <h1 id="project-title">NextDish</h1>
-          <div class="docs-title-image" id="docs-title-image" aria-hidden="true"></div>
+        <div class="docs-main">
+          <h2 class="doc-loading" id="project-title" aria-live="polite">Loading…</h2>
 
-          <div class="doc-sections">
-            <button type="button" class="doc-tab active" data-doc="overview">Overview</button>
-            <button type="button" class="doc-tab" data-doc="specs">Specs</button>
-            <button type="button" class="doc-tab" data-doc="architecture">Architecture</button>
+          <div class="doc-tabs" role="tablist" aria-label="Document sections">
+            <button type="button" class="doc-tab active" data-doc="overview" role="tab" aria-selected="true" aria-controls="overview" id="tab-overview">Overview</button>
+            <button type="button" class="doc-tab" data-doc="architecture" role="tab" aria-selected="false" aria-controls="architecture" id="tab-architecture">Architecture</button>
           </div>
 
-          <div id="overview" class="doc-content active"></div>
-          <div id="specs" class="doc-content"></div>
-          <div id="architecture" class="doc-content"></div>
+          <div id="overview" class="doc-content active" role="tabpanel" aria-labelledby="tab-overview"></div>
+          <div id="architecture" class="doc-content" role="tabpanel" aria-labelledby="tab-architecture"></div>
+
+          <p class="docs-note">Only README and architecture files are published.</p>
         </div>
       </div>
-    </main>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-k">Contact</p>
+      <a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a>
+    </div>
+    <div class="foot-meta">
+      <nav class="foot-nav" aria-label="Footer">
+        <ul>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="docs.html">Documentation</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="vision.html">Vision</a></li>
+        </ul>
+      </nav>
+      <p class="copyright">© 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p>
+    </div>
   </div>
+</footer>
 
-  <script>
-    let projectsConfig = [];
-    let currentProject = '';
+<script>
+(function () {
+  var projects = [];
+  var currentId = '';
+  var listEl = document.getElementById('docs-project-list');
+  var titleEl = document.getElementById('project-title');
+  var overviewEl = document.getElementById('overview');
+  var architectureEl = document.getElementById('architecture');
 
-    var docContent = {
-      'nextdish': {
-        overview: '<h2>Project Overview</h2><p>NextDish is an AI-powered recipe platform born from a baking session—the idea that started my dev journey. Using ChatGPT to brainstorm flavor combinations while baking cakes led to the realization that this process could be systematized.</p><h3>Core Features</h3><ul><li>AI-powered recipe generation from text or images</li><li>Social features for recipe sharing</li><li>Advanced search and filtering</li><li>User-generated content platform</li></ul><h3>Technology Stack</h3><ul><li><strong>Frontend:</strong> Next.js, React</li><li><strong>Backend:</strong> Supabase</li><li><strong>AI:</strong> OpenRouter API</li><li><strong>Database:</strong> PostgreSQL</li></ul>',
-        specs: '<h2>Technical Specifications</h2><p>Detailed technical requirements and implementation details.</p><h3>API Endpoints</h3><pre><code>/api/recipes/generate - POST\n/api/recipes/search - GET\n/api/users/profile - GET\n/api/social/share - POST</code></pre><h3>Data Models</h3><ul><li>Recipe: title, ingredients[], instructions[], metadata</li><li>User: profile, preferences, social connections</li><li>AI Request: prompt, response, model used</li></ul>',
-        architecture: '<h2>System Architecture</h2><p>High-level system design and component relationships.</p><h3>Frontend Architecture</h3><ul><li>Next.js App Router for routing</li><li>React components with TypeScript</li><li>Tailwind CSS for styling</li><li>React Query for data fetching</li></ul><h3>Backend Architecture</h3><ul><li>Supabase for database and auth</li><li>Edge functions for API logic</li><li>OpenRouter for AI model access</li><li>PostgreSQL for data storage</li></ul>'
+  function escapeHtml(value) {
+    var div = document.createElement('div');
+    div.textContent = value == null ? '' : value;
+    return div.innerHTML;
+  }
+
+  function stripForbidden(holder) {
+    holder.querySelectorAll('h2').forEach(function (heading) {
+      if (!/roadmap|prd|project specs|specifications/i.test(heading.textContent)) return;
+      var node = heading.nextElementSibling;
+      while (node && node.tagName !== 'H2') {
+        var next = node.nextElementSibling;
+        node.remove();
+        node = next;
       }
-    };
-    var docPlaceholder = '<p>Documentation for this project is being prepared.</p>';
-
-    var projectImages = {
-        'nextdish': 'project-images/nextdish-front-page.png',
-        'global-info-portal': 'project-images/us-gip.png',
-        'sqwease': 'project-images/sqwease-mainMenu-darkMode.png',
-        'when-neptune-wakes': 'project-images/neptune-and-sun.png',
-        'iq-up': 'project-images/moonshadow-brain.png',
-        'savant-insights': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=60',
-        'meridian-whisper': '',
-        'memvid-mcp': '',
-        'hollow-orbit': 'project-images/blue-jewel-neptune.png'
-      };
-    fetch('metadata/projects.config.json')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        projectsConfig = data.projects || [];
-        var list = document.getElementById('docs-project-list');
-        var firstId = projectsConfig.length ? projectsConfig[0].id : '';
-        var hashId = location.hash ? location.hash.slice(1) : '';
-        if (hashId && projectsConfig.some(function(p) { return p.id === hashId; })) firstId = hashId;
-        currentProject = firstId;
-        list.innerHTML = projectsConfig.map(function(p, i) {
-          var active = p.id === firstId ? ' active' : '';
-          var phase = (p.status === 'completed' || p.status === 'beta') ? ' mvp' : ' in-dev';
-          return '<button type="button" class="project-item' + active + phase + '" data-project-id="' + escapeAttr(p.id) + '">' +
-            '<h4>' + escapeHtml(p.name) + '</h4><p>' + escapeHtml(p.description) + '</p></button>';
-        }).join('');
-        list.querySelectorAll('.project-item').forEach(function(item) {
-          item.addEventListener('click', function() {
-            loadProject(item.getAttribute('data-project-id'));
-          });
-        });
-        if (firstId) loadProject(firstId);
-      })
-      .catch(function() {
-        document.getElementById('docs-project-list').innerHTML = '<p style="color:var(--starlight-pink);">Could not load projects.</p>';
-      });
-
-    function escapeHtml(s) {
-      var div = document.createElement('div');
-      div.textContent = s;
-      return div.innerHTML;
-    }
-    function escapeAttr(s) {
-      return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
-    function loadProject(projectId) {
-      currentProject = projectId;
-      document.querySelectorAll('.project-item').forEach(function(item) {
-        item.classList.toggle('active', item.getAttribute('data-project-id') === projectId);
-      });
-      var proj = projectsConfig.find(function(p) { return p.id === projectId; });
-      document.getElementById('project-title').textContent = (proj && proj.name) || 'Project Documentation';
-      var titleImgEl = document.getElementById('docs-title-image');
-      if (titleImgEl) {
-        var imgSrc = projectImages[projectId];
-        var projName = (proj && proj.name) || '';
-        if (imgSrc) {
-          titleImgEl.innerHTML = '<img src="' + escapeAttr(imgSrc) + '" alt="">';
-        } else {
-          titleImgEl.innerHTML = '<div class="card-placeholder">' + escapeHtml(projName) + '</div>';
-        }
-      }
-      var content = docContent[projectId];
-      var docsFolder = (proj && proj.docsFolder) ? proj.docsFolder : projectId;
-      var overviewEl = document.getElementById('overview');
-      var specsEl = document.getElementById('specs');
-      var archEl = document.getElementById('architecture');
-      if (content && content.overview) {
-        overviewEl.innerHTML = content.overview;
-      } else {
-        overviewEl.innerHTML = '<p style="color:var(--starlight-pink);">Loading README…</p>';
-        fetch('_project-docs/' + encodeURIComponent(docsFolder) + '/README.md')
-          .then(function(r) { return r.ok ? r.text() : Promise.reject(); })
-          .then(function(md) {
-            var html = typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined'
-              ? DOMPurify.sanitize(marked.parse(md))
-              : '<pre style="white-space:pre-wrap;color:var(--starlight-pink);">' + escapeHtml(md) + '</pre>';
-            overviewEl.innerHTML = html;
-          })
-          .catch(function() { overviewEl.innerHTML = docPlaceholder; });
-      }
-      if (content && content.specs) {
-        specsEl.innerHTML = content.specs;
-      } else if (proj && proj.specsFile) {
-        specsEl.innerHTML = '<p style="color:var(--starlight-pink);">Loading specs…</p>';
-        fetch('_project-docs/' + encodeURIComponent(docsFolder) + '/' + encodeURIComponent(proj.specsFile))
-          .then(function(r) { return r.ok ? r.text() : Promise.reject(); })
-          .then(function(md) {
-            var html = typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined'
-              ? DOMPurify.sanitize(marked.parse(md))
-              : '<pre style="white-space:pre-wrap;color:var(--starlight-pink);">' + escapeHtml(md) + '</pre>';
-            specsEl.innerHTML = html;
-          })
-          .catch(function() { specsEl.innerHTML = docPlaceholder; });
-      } else {
-        specsEl.innerHTML = docPlaceholder;
-      }
-      if (content && content.architecture) {
-        archEl.innerHTML = content.architecture;
-      } else if (proj && proj.architectureFile) {
-        archEl.innerHTML = '<p style="color:var(--starlight-pink);">Loading architecture…</p>';
-        fetch('_project-docs/' + encodeURIComponent(docsFolder) + '/' + encodeURIComponent(proj.architectureFile))
-          .then(function(r) { return r.ok ? r.text() : Promise.reject(); })
-          .then(function(md) {
-            var html = typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined'
-              ? DOMPurify.sanitize(marked.parse(md))
-              : '<pre style="white-space:pre-wrap;color:var(--starlight-pink);">' + escapeHtml(md) + '</pre>';
-            archEl.innerHTML = html;
-          })
-          .catch(function() { archEl.innerHTML = docPlaceholder; });
-      } else {
-        archEl.innerHTML = docPlaceholder;
-      }
-      showDoc('overview');
-    }
-
-    function showDoc(docType) {
-      document.querySelectorAll('.doc-tab').forEach(function(tab) {
-        var isActive = tab.getAttribute('data-doc') === docType;
-        tab.classList.toggle('active', isActive);
-      });
-      document.querySelectorAll('.doc-content').forEach(function(content) {
-        content.classList.toggle('active', content.id === docType);
-      });
-    }
-
-    document.querySelectorAll('.doc-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        showDoc(tab.getAttribute('data-doc'));
-      });
+      heading.remove();
     });
-  </script>
+    holder.querySelectorAll('a').forEach(function (link) {
+      var href = (link.getAttribute('href') || '').toLowerCase();
+      if (href.indexOf('roadmap') === -1 && href.indexOf('project_specs') === -1 && href.indexOf('prd') === -1) return;
+      var item = link.closest('li');
+      if (item) item.remove();
+      else link.replaceWith(document.createTextNode(link.textContent));
+    });
+  }
+
+  function renderMarkdown(md) {
+    if (typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined') {
+      var holder = document.createElement('div');
+      holder.innerHTML = marked.parse(md);
+      var firstHeading = holder.querySelector('h1');
+      if (firstHeading) firstHeading.remove();
+      stripForbidden(holder);
+      return DOMPurify.sanitize(holder.innerHTML);
+    }
+    return '<pre>' + escapeHtml(md) + '</pre>';
+  }
+
+  function fetchDoc(path, target, label) {
+    target.innerHTML = '<p class="doc-loading">Loading ' + label + '…</p>';
+    fetch(path)
+      .then(function (response) {
+        if (!response.ok) throw new Error('not available');
+        return response.text();
+      })
+      .then(function (md) {
+        target.innerHTML = renderMarkdown(md);
+      })
+      .catch(function () {
+        target.innerHTML = '<p class="doc-loading">This ' + label + ' is not published yet. <a href="' + escapeHtml(path) + '">Open the file</a>.</p>';
+      });
+  }
+
+  function showTab(name) {
+    document.querySelectorAll('.doc-tab').forEach(function (tab) {
+      var selected = tab.getAttribute('data-doc') === name;
+      tab.classList.toggle('active', selected);
+      tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+      tab.setAttribute('tabindex', selected ? '0' : '-1');
+    });
+    document.querySelectorAll('.doc-content').forEach(function (panel) {
+      panel.classList.toggle('active', panel.id === name);
+    });
+  }
+
+  function loadProject(id) {
+    var project = projects.find(function (item) { return item.id === id; });
+    if (!project) return;
+    currentId = id;
+    var folder = project.docsFolder || project.id;
+    document.querySelectorAll('.docs-list button').forEach(function (button) {
+      var active = button.getAttribute('data-project-id') === id;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-current', active ? 'true' : 'false');
+    });
+    titleEl.textContent = project.name || 'Project documentation';
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    fetchDoc('_project-docs/' + encodeURIComponent(folder) + '/README.md', overviewEl, 'overview');
+    if (project.architectureFile) {
+      fetchDoc('_project-docs/' + encodeURIComponent(folder) + '/' + encodeURIComponent(project.architectureFile), architectureEl, 'architecture');
+    } else {
+      architectureEl.innerHTML = '<p class="doc-loading">No architecture file is published for this project.</p>';
+    }
+    showTab('overview');
+  }
+
+  fetch('metadata/projects.config.json')
+    .then(function (response) { return response.json(); })
+    .then(function (data) {
+      projects = data.projects || [];
+      if (!projects.length) {
+        listEl.innerHTML = '<p class="doc-loading">No public projects are listed.</p>';
+        titleEl.textContent = 'Project documentation';
+        return;
+      }
+      listEl.innerHTML = '<ul class="docs-list">' + projects.map(function (project) {
+        return '<li><button type="button" data-project-id="' + escapeHtml(project.id) + '">' +
+          '<strong>' + escapeHtml(project.name) + '</strong>' +
+          '<span>' + escapeHtml(project.description) + '</span></button></li>';
+      }).join('') + '</ul>';
+      listEl.querySelectorAll('button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          loadProject(button.getAttribute('data-project-id'));
+        });
+      });
+      var hashId = location.hash ? location.hash.slice(1) : '';
+      var initial = projects.some(function (project) { return project.id === hashId; }) ? hashId : projects[0].id;
+      loadProject(initial);
+    })
+    .catch(function () {
+      listEl.innerHTML = '<p class="doc-loading">Could not load the project list. <a href="metadata/projects.config.json">Open the metadata file</a>.</p>';
+      titleEl.textContent = 'Project documentation';
+    });
+
+  document.querySelectorAll('.doc-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () { showTab(tab.getAttribute('data-doc')); });
+    tab.addEventListener('keydown', function (event) {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.doc-tab'));
+      var index = tabs.indexOf(tab);
+      var next = event.key === 'ArrowRight' ? (index + 1) % tabs.length : (index - 1 + tabs.length) % tabs.length;
+      tabs[next].focus();
+      showTab(tabs[next].getAttribute('data-doc'));
+    });
+  });
+})();
+</script>
 </body>
 </html>
