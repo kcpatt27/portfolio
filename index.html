@@ -35,14 +35,7 @@
 <main id="main">
 
   <section class="row row--hero" aria-labelledby="thesis">
-    <svg class="hero-contour" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
-      <g fill="none" stroke="var(--rule)" stroke-width="1" stroke-linecap="round">
-        <path d="M700 -20 C650 80 780 140 730 240 C680 340 800 400 750 520"/>
-        <path d="M760 -20 C710 80 840 140 790 240 C740 340 860 400 810 520"/>
-        <path d="M820 -20 C770 80 900 140 850 240 C800 340 920 400 870 520"/>
-        <path d="M880 -20 C830 80 960 140 910 240 C860 340 980 400 930 520"/>
-      </g>
-    </svg>
+    <div class="hero-contour" aria-hidden="true"></div>
     <div class="margin" aria-hidden="true">
       <span class="k">Plate</span>
       <span class="n">00</span>
@@ -79,17 +72,21 @@
   <article class="row record" aria-labelledby="project-gip">
     <div class="margin accession" aria-hidden="true">
         <span class="accession-line"><span class="k">No.</span> <span class="n">01</span></span>
-        <span class="accession-label">Entry</span>
         <span class="botanical botanical--flower">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
-            <circle cx="12" cy="12" r="1.8"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(72 12 12)"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(144 12 12)"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(216 12 12)"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(288 12 12)"/>
-          </svg>
-        </span>
+      <svg viewBox="0 0 78 30" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M78 18C64 18 54 14 42 15C30 16 20 12 10 13"/>
+      <path d="M52 15C48 8 40 8 37 12C41 17 48 18 52 15Z"/>
+      <path d="M30 14C26 7 18 8 15 12C19 17 26 17 30 14Z"/>
+      <g class="bloom" transform="translate(10 13)">
+        <circle cx="0" cy="0" r="1.6" fill="var(--clay)" stroke="none"/>
+        <ellipse cx="0" cy="-5" rx="2.2" ry="3.2"/>
+        <ellipse cx="0" cy="-5" rx="2.2" ry="3.2" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-5" rx="2.2" ry="3.2" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-5" rx="2.2" ry="3.2" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-5" rx="2.2" ry="3.2" transform="rotate(288)"/>
+      </g>
+      </svg>
+    </span>
       </div>
     <div class="body">
       <div class="record-head">
@@ -125,24 +122,26 @@
   <article class="row record" aria-labelledby="project-sqwease">
     <div class="margin accession" aria-hidden="true">
         <span class="accession-line"><span class="k">No.</span> <span class="n">02</span></span>
-        <span class="accession-label">Entry</span>
-        <span class="botanical botanical--flower">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
-            <circle cx="12" cy="12" r="1.8"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(72 12 12)"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(144 12 12)"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(216 12 12)"/>
-            <ellipse cx="12" cy="6.4" rx="2" ry="3.2" transform="rotate(288 12 12)"/>
-          </svg>
-        </span>
+        <span class="botanical botanical--bud">
+      <svg viewBox="0 0 78 30" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M78 18C64 18 54 14 42 15C30 16 20 12 10 13"/>
+      <path d="M52 15C48 8 40 8 37 12C41 17 48 18 52 15Z"/>
+      <path d="M30 14C26 7 18 8 15 12C19 17 26 17 30 14Z"/>
+      <g transform="translate(10 13)">
+        <path d="M0 5C-4 2-4-5 0-8C4-5 4 2 0 5Z"/>
+        <path d="M0-8V-2"/>
+        <path d="M-3 3C-6 5-6 8-2 8C0 8 1 6 0 4Z"/>
+        <path d="M3 3C6 5 6 8 2 8C0 8-1 6 0 4Z"/>
+      </g>
+      </svg>
+    </span>
       </div>
     <div class="body">
       <div class="record-head">
         <h3 id="project-sqwease">SQWease</h3>
         <p class="status status--live">
           <span class="status-k">Status</span>
-          <span class="status-v"><span class="status-dot" aria-hidden="true"></span>Live · Completed</span>
+          <span class="status-v"><span class="status-dot" aria-hidden="true"></span>Live · Usable</span>
         </p>
       </div>
       <p class="desc">A zero-dependency language-learning app built on comprehensible input, spaced repetition and a minimum effective dose. Five languages, roughly 11,500 words, from a reproducible data pipeline.</p>
@@ -171,14 +170,18 @@
   <article class="row record" aria-labelledby="project-memvid">
     <div class="margin accession" aria-hidden="true">
         <span class="accession-line"><span class="k">No.</span> <span class="n">03</span></span>
-        <span class="accession-label">Entry</span>
         <span class="botanical botanical--sprout">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
-            <path d="M12 21V10"/>
-            <path d="M12 16c-3.8 0-5.6-2-5.6-4.4 3.2 0 5.6 1.6 5.6 4.4Z"/>
-            <path d="M12 12.5c3.3 0 5-1.9 5-4-2.9 0-5 1.5-5 4Z"/>
-          </svg>
-        </span>
+      <svg viewBox="0 0 78 30" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M78 18C64 18 54 14 42 15C30 16 20 12 10 13"/>
+      <path d="M52 15C48 8 40 8 37 12C41 17 48 18 52 15Z"/>
+      <path d="M30 14C26 7 18 8 15 12C19 17 26 17 30 14Z"/>
+      <g transform="translate(10 13)">
+        <path d="M0 5V-7"/>
+        <path d="M0-1C-5-1-7-3-7-6C-3-6 0-4 0-1Z"/>
+        <path d="M0-4C5-4 7-6 7-9C3-9 0-7 0-4Z"/>
+      </g>
+      </svg>
+    </span>
       </div>
     <div class="body">
       <div class="record-head">
