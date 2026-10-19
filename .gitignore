@@ -4,6 +4,9 @@ temp-docs/
 _old/
 example-ui-images/
 
+# Design bake-off artifacts (local review only; do not deploy)
+bakeoff/
+
 # Logs
 logs
 *.log
