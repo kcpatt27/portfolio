@@ -137,6 +137,17 @@
       if (item) item.remove();
       else link.replaceWith(document.createTextNode(link.textContent));
     });
+    var forbidden = /\b(roadmap|prds?|project specs|project_specs|specifications)\b/i;
+    var walker = document.createTreeWalker(holder, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) {
+      if (forbidden.test(walker.currentNode.nodeValue || '')) nodes.push(walker.currentNode);
+    }
+    nodes.forEach(function (node) {
+      var block = node.parentElement && node.parentElement.closest('p,li,td,th,tr,dd,pre,blockquote');
+      if (block) block.remove();
+      else if (node.nodeValue) node.nodeValue = node.nodeValue.replace(forbidden, '');
+    });
   }
 
   function renderMarkdown(md) {
