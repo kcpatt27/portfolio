@@ -207,15 +207,7 @@
   .row + .row > .body { position: relative; }
 
   .row + .row > .body::before {
-    content: "";
-    position: absolute;
-    top: clamp(52px, 5.8vw, 66px);
-    left: -4.5px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--paper);
-    border: 1px solid var(--moss);
+    display: none;
   }
 
   .row--hero .body {
@@ -797,11 +789,17 @@
 .record .margin.accession::after {
   content: "";
   position: absolute;
-  top: 38px;
-  right: 0;
-  width: 18px;
-  height: 1px;
-  background: var(--rule);
+  top: 58px;
+  right: -30px;
+  width: 64px;
+  height: 16px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1.2px solid var(--moss);
+  border-radius: 0 0 50% 50%;
+  transform: rotate(-4deg);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
 }
 
 @media (max-width: 820px) {
