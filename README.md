@@ -1,6 +1,6 @@
 # Kalen Patterson — portfolio
 
-A static hiring showcase for software engineering and technical-writing work. Four pages, no framework, no build step required to view.
+A static hiring showcase for AI systems engineering work, with the documentation that makes it checkable. Four pages, no framework, no build step required to view.
 
 - **Work** (`index.html`) — the three public projects, with status, evidence, stack, and links.
 - **Documentation** (`docs.html`) — public README and architecture files for those projects.
