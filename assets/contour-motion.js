@@ -110,8 +110,9 @@
     canvas.style.webkitMaskImage = canvas.style.maskImage;
     let visible = true, running = false, frame = 0, last = 0;
     let simTime = 0, previous = 0, gustUntil = 0, lastSpawn = -10, lastGust = -Infinity;
-    const GUST_MS = 432;
-    const GUST_COOLDOWN_MS = 43200;
+    const GUST_MS = 43200;
+    const GUST_SPEED = 2.2;
+    const GUST_COOLDOWN_MS = 432000;
     const peaks = [];
     let detach = null;
 
@@ -142,7 +143,7 @@
       last = now;
       const dt = previous ? Math.min(0.1, (now - previous) / 1000) : 0;
       previous = now;
-      simTime += dt * (now < gustUntil ? 6 : 1);
+      simTime += dt * (now < gustUntil ? GUST_SPEED : 1);
       const t = simTime;
       for (let j = 0; j < rows; j += 1) {
         for (let i = 0; i < cols; i += 1) {
@@ -221,7 +222,7 @@
           life: 2.2 + Math.random() * 0.8,
         });
         if (peaks.length > 5) peaks.shift();
-        // A rare, brief gust: 432 ms of faster field time, at most once per 43.2 s.
+        // A rare gust: 43.2 s of faster field time, at most once per 7.2 min.
         if (stamp - lastGust > GUST_COOLDOWN_MS && Math.random() < 0.45) {
           gustUntil = stamp + GUST_MS;
           lastGust = stamp;

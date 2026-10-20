@@ -67,7 +67,7 @@ Each surface gets a different topology from the same engine:
 - **Timeline** — horizontal strata, gently warped across the narrow spine.
 - **Vision** — vertical flow ribbons running the full page height, with the left fade intact.
 
-On Work, clicking or tapping the hero spawns a temporary peak that blooms and dissolves; a 432 ms burst of faster field time is available at most once per 43.2 s. This is decoration, not a required control, and it is absent under reduced motion.
+On Work, clicking or tapping the hero spawns a temporary peak that blooms and dissolves; a rare 43.2 s gust of faster field time is available at most once per 7.2 min. This is decoration, not a required control, and it is absent under reduced motion.
 
 ## Status rules
 
@@ -87,7 +87,7 @@ The footer carries a quiet static contour echo (`assets/contour-footer.svg`) at 
 - Hero entrance: 720 ms.
 - Link transitions: 500 ms.
 - Isolines: code-driven scalar fields, not a transform drift. Field cycles run roughly 25–50 s; contours redraw at 18 fps desktop / 12 fps mobile.
-- Work interaction: click/tap spawns a peak; the rare gust lasts 432 ms and is rate-limited to one per 43.2 s.
+- Work interaction: click/tap spawns a peak; the rare gust lasts 43.2 s and is rate-limited to one per 7.2 min.
 - No loops, parallax, autoplay, or scroll-jacking.
 - `prefers-reduced-motion: reduce` never starts the canvas; the static mask, interaction, and entrance animations are disabled.
 
