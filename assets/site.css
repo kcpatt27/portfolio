@@ -792,6 +792,10 @@
 .entries > li:first-child { border-top: 1px solid var(--rule); }
 .entry-when { color: var(--muted); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; }
 .entry-what h2, .entry-what h3 { margin: 0 0 6px; font-family: var(--serif); font-weight: 450; font-size: 1.25rem; line-height: 1.2; }
+.entry-what h2 a { color: inherit; text-decoration: none; }
+.entry-what h2 a::after { content: " →"; color: var(--muted); font-size: .72em; white-space: nowrap; }
+.entry-what h2 a:hover { color: var(--clay); text-decoration: underline; text-underline-offset: 4px; }
+.entry-what h2 a:hover::after { color: var(--clay); }
 .entry-what p { margin: 0; color: var(--muted); max-width: 68ch; }
 .entry-tag { display: inline-block; margin-top: 10px; font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--moss); border: 1px solid var(--rule); padding: 3px 8px; }
 .entry-tag--archived { color: var(--clay); }
