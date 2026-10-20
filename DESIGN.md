@@ -59,23 +59,24 @@ Minimum semantic contrast: **7.18 light / 7.45 dark** (tokens against paper). Do
 }
 ```
 
-The field is currently hidden on mobile (`max-width: 820px`). A lighter mobile variant is an open improvement.
+On mobile the field switches to a sparse 46-path variant at lower opacity instead of disappearing. The Vision page uses a right-edge strip with a left fade; the Timeline uses a margin spine. All three layers drift slowly (78–96 s), and all motion stops under `prefers-reduced-motion: reduce`.
 
 ## Botanical status
 
-The marker grows left from the rule and is also the project bullet:
+The marker grows left from the rule and is also the project bullet. It is line-drawn, no disc, in a uniform 32 px box:
 
-- **Flower** — completed and live (GIP).
-- **Bud** — live and usable but still growing (SQWease, `Live · Usable`).
-- **Sprout** — archived (MemVid, clay).
+- **Flower** — four petals and a centre; completed and live (GIP).
+- **Middle plant** — stem, leaf, and bud; live and usable but still growing (SQWease, `Live · Usable`).
+- **Bulb / sprout** — bulb, curved stem, and leaf; archived or beginning (MemVid, clay).
 
-The marker is inside a 28 px paper disc with a 2 px stem. Status text remains visible, so the botanical is never the only signal. Flowers use a 900 ms bloom; reduced-motion disables it.
+Status text remains visible, so the botanical is never the only signal. The flower has a 900 ms bloom; reduced-motion disables it.
 
 ## Motion
 
 - Hero entrance: 720 ms.
 - Link transitions: 500 ms.
 - Flower bloom: 900 ms.
+- Isoline drift: 78–96 s, tiny translate/scale; disabled under reduced motion.
 - No loops, parallax, autoplay, or scroll-jacking.
 - `prefers-reduced-motion: reduce` disables non-essential motion.
 
