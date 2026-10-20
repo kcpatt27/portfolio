@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQWease — case study — Kalen Patterson</title>
+<meta name="description" content="Case study: a zero-dependency language-learning app with comprehensible input, spaced repetition, and five languages.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="../index.html"><span class="name">Kalen Patterson</span><span class="role">AI systems engineer</span></a>
+    <nav class="site-nav" aria-label="Primary"><ul>
+      <li><a href="../index.html" aria-current="page">Work</a></li>
+      <li><a href="../timeline.html">Timeline</a></li>
+      <li><a href="../vision.html">Vision</a></li>
+      <li><a href="../resume.html">CV</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main" class="case">
+  <header class="case-head">
+    <p class="eyebrow">Case study · No. 02</p>
+    <h1>SQWease</h1>
+    <p class="case-meta"><span>Live · Usable</span><span>JavaScript · HTML · CSS</span></p>
+    <p class="lede">A zero-dependency language-learning app built on comprehensible input, spaced repetition and a minimum effective dose. Five languages, roughly 11,500 words, from a reproducible data pipeline.</p>
+  </header>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>Most study tools are heavy, account-driven, or built around a single language. SQWease is a small static app: open it, study a few cards, and stop. The constraint is the feature.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Constraints</h2>
+    <ul>
+      <li>No framework and no runtime dependencies.</li>
+      <li>Multiple languages and roughly 11,500 words without hand-maintaining every page.</li>
+      <li>Accessibility and keyboard use are part of the product, not a later pass.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Decisions</h2>
+    <ul>
+      <li><strong>Static app, generated content.</strong> HTML, CSS, and JavaScript with vocabulary produced by a reproducible data pipeline.</li>
+      <li><strong>Two study modes.</strong> Flashcards for recall and 1-2-3 boxes for conversation practice, plus Anki-compatible CSV export.</li>
+      <li><strong>Minimum effective dose.</strong> Short sessions, keyboard shortcuts, and progress tracking instead of a large course shell.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Evidence</h2>
+    <p>Lighthouse accessibility scored 1.0 on all six pages. The app ships five languages and roughly 11,500 words, and remains live and usable while it grows.</p>
+  </section>
+
+  <figure class="case-figure">
+    <section class="diagram-scroll" tabindex="0" aria-label="Architecture diagram">
+      <svg viewBox="0 0 820 280" role="img" aria-labelledby="sq-diagram-title sq-diagram-desc">
+        <title id="sq-diagram-title">SQWease container diagram</title>
+        <desc id="sq-diagram-desc">A browser loads the static HTML, CSS, and JavaScript app. The app reads generated vocabulary data and tracks study progress. There is no backend.</desc>
+        <defs><marker id="sq-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--muted)"></path></marker></defs>
+        <g class="d-box"><rect x="20" y="38" width="200" height="64" rx="2"></rect><text x="38" y="66" class="d-title">Browser</text><text x="38" y="88" class="d-label">static pages</text></g>
+        <g class="d-box"><rect x="280" y="20" width="240" height="116" rx="2"></rect><text x="298" y="48" class="d-title">Static app</text><text x="298" y="70">Flashcards</text><text x="298" y="88">1-2-3 boxes</text><text x="298" y="106" class="d-label">keyboard · progress</text></g>
+        <g class="d-box"><rect x="580" y="20" width="220" height="116" rx="2"></rect><text x="598" y="48" class="d-title">Generated data</text><text x="598" y="70">vocabulary + sentences</text><text x="598" y="88">five languages</text><text x="598" y="106" class="d-label">reproducible pipeline</text></g>
+        <g class="d-box"><rect x="280" y="190" width="240" height="58" rx="2"></rect><text x="298" y="218" class="d-title">Study progress</text><text x="298" y="238" class="d-label">session state</text></g>
+        <path class="d-arrow" d="M220 70H280" marker-end="url(#sq-arrow)"></path>
+        <path class="d-arrow" d="M520 72H580" marker-end="url(#sq-arrow)"></path>
+        <path class="d-arrow" d="M400 136V190" marker-end="url(#sq-arrow)"></path>
+        <text x="238" y="62" class="d-label">loads</text>
+        <text x="538" y="64" class="d-label">reads</text>
+        <text x="410" y="176" class="d-label">tracks</text>
+      </svg>
+    </section>
+    <figcaption>Everything is static. The data pipeline can regenerate the language sets; the browser only loads the app and its generated content. Scroll horizontally on narrow screens.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>Limits</h2>
+    <p>There is no account or cross-device sync. The app is still growing, which is why the status is <strong>Live · Usable</strong> rather than completed.</p>
+  </section>
+
+  <nav class="case-links" aria-label="Project links">
+    <a href="https://kcpatt27.github.io/sqwease">Live site</a>
+    <a href="https://github.com/kcpatt27/sqwease">GitHub</a>
+    <a href="../_project-docs/sqwease/README.md">Raw README</a>
+    <a href="../_project-docs/sqwease/ARCHITECTURE.md">Raw architecture</a>
+    <a href="../index.html#work">Back to work</a>
+  </nav>
+</main>
+
+<footer class="site-foot"><div class="wrap foot-inner"><div><p class="foot-k">Contact</p><a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div><div class="foot-meta"><nav class="foot-nav" aria-label="Footer"><ul><li><a href="../index.html">Work</a></li><li><a href="../timeline.html">Timeline</a></li><li><a href="../vision.html">Vision</a></li><li><a href="../resume.html">CV</a></li></ul></nav><p class="copyright">© 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p></div></div></footer>
+</body>
+</html>

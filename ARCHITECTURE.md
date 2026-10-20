@@ -8,7 +8,7 @@ This is a static site, not an application:
 index.html ─┐
 timeline.html ├─ assets/site.css
 vision.html  │  assets/favicon.svg
-docs.html ───┘  metadata/projects.config.json
+work/*.html ─┘  metadata/projects.config.json
                 _project-docs/<id>/{README,ARCHITECTURE}.md
 ```
 
@@ -21,7 +21,8 @@ There is no framework, bundler, client router, database, or server-side runtime.
 | `index.html` | Work: thesis, method note, working principles, three project records, a short record strip, direction link. |
 | `timeline.html` | The record of shipped and retired work. No future plans. |
 | `vision.html` | The conceptual direction: proposal versus proof, working principles, limits. |
-| `docs.html` | A reader for the public README and architecture files. The project list comes from `metadata/projects.config.json`; Markdown is rendered in the browser with `marked` and sanitised with `DOMPurify`. |
+| `work/*.html` | Project case studies: problem, constraints, decisions, evidence, inline SVG diagram, and links to the raw sanitized records. |
+| `docs.html` | A no-index redirect to the Work page; the old documentation URL stays alive. |
 | `resume.html` | Public-safe CV (no location or phone) with a print stylesheet and a PDF download. |
 | `404.html` | Branded not-found page served by GitHub Pages. |
 
@@ -48,7 +49,7 @@ There is no framework, bundler, client router, database, or server-side runtime.
 
 `scripts/symlink-project-docs.ts` copies only the whitelisted files into `_project-docs/` and scrubs roadmap/PRD/spec sections from the copied Markdown.
 
-The docs viewer repeats the content scrubbing at render time as a second guard. The build copy is the primary guard, because the raw Markdown is publicly served.
+The case studies link to the sanitized records; there is no client-side Markdown renderer or CDN dependency left.
 
 ## Publication rules
 

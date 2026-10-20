@@ -1,9 +1,9 @@
 # Kalen Patterson — portfolio
 
-A static hiring showcase for AI systems engineering work, with the documentation that makes it checkable. Six pages, no framework, no build step required to view.
+A static hiring showcase for AI systems engineering work, with the documentation that makes it checkable. No framework, no build step required to view.
 
 - **Work** (`index.html`) — the three public projects, with status, evidence, stack, and links.
-- **Documentation** (`docs.html`) — public README and architecture files for those projects.
+- **Case studies** (`work/*.html`) — one page per project: problem, constraints, decisions, evidence, architecture diagram, and raw records.
 - **Timeline** (`timeline.html`) — what is done, including retired work.
 - **Vision** (`vision.html`) — the direction behind the work.
 - **CV** (`resume.html`) — a public-safe two-page CV, with a PDF download.
@@ -20,7 +20,7 @@ python -m http.server 8089
 # http://127.0.0.1:8089/
 ```
 
-The site is plain HTML, CSS, and a small amount of JavaScript for the docs viewer. It works on GitHub Pages without a build.
+The site is plain HTML and CSS. It works on GitHub Pages without a build.
 
 ## Content pipeline
 
@@ -45,7 +45,7 @@ npm run smoke           # live-site smoke checks (after deployment)
 
 The gate default-denies any project without a `release` block, any non-public or commercial project, and any publishable list containing `ROADMAP.md` or `project_specs.md`.
 
-The build copy scrubs roadmap/PRD/spec sections and links before writing `_project-docs`; the docs viewer repeats the scrub as a second guard.
+The build copy scrubs roadmap/PRD/spec sections and links before writing `_project-docs`; the case studies link only to those sanitized records.
 
 ## Design
 

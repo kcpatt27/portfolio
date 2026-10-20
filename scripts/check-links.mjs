@@ -7,7 +7,7 @@ import { readFileSync, existsSync } from 'fs'
 import { dirname, join, resolve } from 'path'
 
 const root = process.cwd()
-const pages = ['index.html', 'timeline.html', 'vision.html', 'docs.html', 'resume.html', '404.html']
+const pages = ['index.html', 'timeline.html', 'vision.html', 'docs.html', 'resume.html', '404.html', 'work/global-info-portal.html', 'work/sqwease.html', 'work/memvid-mcp.html']
 const errors = []
 
 for (const page of pages) {
