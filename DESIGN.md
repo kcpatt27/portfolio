@@ -2,7 +2,7 @@
 
 ## Direction
 
-An evidence register, not a landing page. The work is the subject; every claim has a place to be checked. The visual signature is a dense **topographic isoline field** in the hero, with a warm paper/ink palette and a botanical status system growing from the register rule.
+An evidence register, not a landing page. The work is the subject; every claim has a place to be checked. The visual signature is a dense **topographic isoline field** in the hero — now redrawn in code so the lines themselves move — with a warm paper/ink palette and a drawn status-rule system in the margin.
 
 ## Tokens
 
@@ -41,12 +41,12 @@ Minimum semantic contrast: **7.18 light / 7.45 dark** (tokens against paper). Do
 
 - Work first: hero → work → method note/principles → record → direction.
 - A continuous left rule carries the page. Section and project numbers sit in the margin.
-- Project records use the accession stem: `No. 01`, a 2 px connector, then a botanical marker.
+- Project records use the accession stem: `No. 01`, a 2 px connector, then a drawn status rule.
 - Four pages share `assets/site.css`; no framework, no build step to view.
 
 ## Contour field
 
-`assets/contour.svg` is an alpha mask of 214 nested isolines, generated from domain-warped flow bands with a radial fade. It spans the whole hero and is masked into `--rule`:
+`assets/contour.svg` remains the static engraving: an alpha mask of 214 nested isolines, generated from domain-warped flow bands with a radial fade. It is the no-JavaScript and reduced-motion fallback:
 
 ```css
 .hero-contour {
@@ -59,33 +59,34 @@ Minimum semantic contrast: **7.18 light / 7.45 dark** (tokens against paper). Do
 }
 ```
 
-On mobile the field switches to a sparse 46-path variant at lower opacity instead of disappearing. The Vision page uses a right-edge strip with a left fade; the Timeline uses a margin spine. All three layers drift slowly (78–96 s), and all motion stops under `prefers-reduced-motion: reduce`.
+When motion is allowed, `assets/contour-motion.js` replaces the token layer with a canvas field: five slowly moving Gaussian hills, contoured every frame with marching squares, twelve levels, and a CSS gradient fade. The field is sampled from `--rule`, so dark mode is automatic. It pauses offscreen and on hidden tabs, caps at about 18 fps on desktop and 12 fps on phones, and never runs under `prefers-reduced-motion: reduce` — the static SVG mask stays in place instead.
 
-## Botanical status
+The Vision page uses a right-edge strip with a left fade and now runs the full height of the page; the Timeline uses a margin spine. Both use the same engine and the same static fallback.
 
-The marker grows left from the rule and is also the project bullet. It is line-drawn, no disc, in a uniform 32 px box:
+## Status rules
 
-- **Flower** — four petals and a centre; completed and live (GIP).
-- **Middle plant** — stem, leaf, and bud; live and usable but still growing (SQWease, `Live · Usable`).
-- **Bulb / sprout** — bulb, curved stem, and leaf; archived or beginning (MemVid, clay).
+The botanical drawings are retired. Status is a drawn rule in the margin, 32 × 11 px, not a badge:
 
-Status text remains visible, so the botanical is never the only signal. The flower has a 900 ms bloom; reduced-motion disables it.
+- **Completed / live** — solid rule with a terminal tick (GIP).
+- **Live / usable** — double rule (SQWease).
+- **Archived** — dashed rule in clay (MemVid).
+
+The status word remains in the record head, so the rule is never the only signal. The rule is decorative (`aria-hidden`); it does not replace the word. On phones the rule hides and the status word remains.
 
 ## Motion
 
 - Hero entrance: 720 ms.
 - Link transitions: 500 ms.
-- Flower bloom: 900 ms.
-- Isoline drift: 78–96 s, tiny translate/scale; disabled under reduced motion.
+- Isolines: a code-driven scalar field, not a transform drift. Field cycles run roughly 25–50 s; contours redraw at 18 fps desktop / 12 fps mobile.
 - No loops, parallax, autoplay, or scroll-jacking.
-- `prefers-reduced-motion: reduce` disables non-essential motion.
+- `prefers-reduced-motion: reduce` never starts the canvas; the static mask and entrance animations are disabled.
 
 ## Accessibility
 
 - Semantic landmarks, one `h1` per page, skip links.
 - `:focus-visible` outlines in clay.
 - WCAG 2.2 AA target: 24 px minimum; inline README links are exempt.
-- Axe (WCAG 2.2 AA) clean on all four pages, light and dark.
+- Axe (WCAG 2.2 AA) clean on all eight pages, including the three case studies, light and dark.
 - Dark mode follows the system; no toggle.
 
 ## Change rules
@@ -104,7 +105,8 @@ Observed owner preferences, 2026-10-19 → 20:
 - One dense isoline field as the signature; it must fade and never sit behind body copy.
 - Work first. The first screen must show real projects and hard evidence, not just a thesis.
 - Asymmetry is welcome when it balances and directs; it is not a cognitive-performance trick.
-- Botanical status is welcome, but it must read at actual size and the status word must remain.
-- Reject: card grids, badges, dashboard tiles, terminal cosplay, gradient hero, long decorative stems, hairlines below 1.5 px.
+- Abstract status rules are welcome as marginalia, but the word must remain; botanical drawings did not survive review.
+- Animated isolines must be code-driven, not a CSS drift; the static engraving is the fallback.
+- Reject: card grids, badges, dashboard tiles, terminal cosplay, gradient hero, botanical markers, transform-only drift, hairlines below 1.5 px.
 
 Future agents should start from this language, then vary one axis at a time. Do not re-derive the palette or the contour field from scratch.

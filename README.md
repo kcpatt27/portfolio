@@ -54,8 +54,9 @@ The visual system lives in `assets/site.css`:
 - warm paper, ink, moss and clay accents;
 - self-hosted Fraunces for display, Karla for text;
 - a continuous left rule with specimen numbers, project records with labelled evidence rows, and a three-row proof index above the fold;
-- a dense topographic isoline field in the hero, and bloom / bud / pressed-sprig status markers;
-- slow entrance motion only, fully disabled under `prefers-reduced-motion: reduce`;
+- a dense topographic isoline field, redrawn in code so the lines themselves move, with the static SVG as the no-JS/reduced-motion fallback;
+- drawn status rules in the margin (solid + terminal, double, dashed), always paired with the status word;
+- slow entrance motion and a slow contour field, fully disabled under `prefers-reduced-motion: reduce`;
 - visible focus styles, skip links, semantic headings, and 24 px minimum targets.
 
 The direction is an evidence register, not a landing page: the work is the subject, and every claim has a place to be checked.
