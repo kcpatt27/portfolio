@@ -1054,3 +1054,14 @@
 }
 
 
+
+
+/* Edition 2: unruled hero, expanded to the page edges */
+.row--hero { grid-template-columns: minmax(0, 1fr); }
+.row--hero .margin { display: none; }
+.row--hero .body {
+  border-left: 0;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+}
+.site-head .wrap { max-width: none; }
