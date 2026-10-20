@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Global Information Portal — case study — Kalen Patterson</title>
+<meta name="description" content="Case study: a client-side world map with 240+ countries and 100+ CIA Factbook metrics each.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="../index.html">
+      <span class="name">Kalen Patterson</span>
+      <span class="role">AI systems engineer</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="../index.html" aria-current="page">Work</a></li>
+        <li><a href="../timeline.html">Timeline</a></li>
+        <li><a href="../vision.html">Vision</a></li>
+        <li><a href="../resume.html">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="case">
+  <header class="case-head">
+    <p class="eyebrow">Case study · No. 01</p>
+    <h1>Global Information Portal</h1>
+    <p class="case-meta"><span>Live · Completed</span><span>D3.js · TopoJSON</span></p>
+    <p class="lede">An interactive 2D map of the world. 240+ countries, 100+ metrics each, drawn from the CIA World Factbook and rendered entirely in the browser.</p>
+  </header>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>Country data is usually spread across pages, tables, and PDFs. The portal puts the map first: select a country, then read its metrics, rankings, and comparisons without leaving the page.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Constraints</h2>
+    <ul>
+      <li>No backend: everything runs in the browser.</li>
+      <li>240+ countries with 100+ metrics each is too much to load at once.</li>
+      <li>The first country view has to feel immediate, including on repeat visits.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Decisions</h2>
+    <ul>
+      <li><strong>Static application, D3 map.</strong> A Webpack bundle ships the map, panels, and charts; there is no server to operate.</li>
+      <li><strong>Progressive pre-cache.</strong> Priority countries (G20, NATO, BRICS, and similar) are cached early; the rest load on demand.</li>
+      <li><strong>One state layer.</strong> Country selection, panels, and charts read from the same state, so a map click updates the whole view consistently.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Evidence</h2>
+    <p>Progressive caching halved the initial load; repeat visits land under a second. The record covers 240+ countries with 100+ metrics from the CIA World Factbook.</p>
+  </section>
+
+  <figure class="case-figure">
+    <section class="diagram-scroll" tabindex="0" aria-label="Architecture diagram">
+      <svg viewBox="0 0 820 300" role="img" aria-labelledby="gip-diagram-title gip-diagram-desc">
+        <title id="gip-diagram-title">Global Information Portal container diagram</title>
+        <desc id="gip-diagram-desc">The browser loads a Webpack bundle containing the D3 map, panels, and charts. A single state layer drives the UI. A data fetcher with a progressive cache reads CIA Factbook JSON over HTTPS.</desc>
+        <defs>
+          <marker id="gip-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0L10 5L0 10Z" fill="var(--muted)"></path>
+          </marker>
+        </defs>
+        <g class="d-box">
+          <rect x="20" y="40" width="220" height="76" rx="2"></rect>
+          <text x="38" y="68" class="d-title">Browser</text>
+          <text x="38" y="90">HTML + Webpack bundle</text>
+          <text x="38" y="106" class="d-label">map.js · panels · charts.js</text>
+        </g>
+        <g class="d-box">
+          <rect x="300" y="28" width="220" height="100" rx="2"></rect>
+          <text x="318" y="56" class="d-title">Application</text>
+          <text x="318" y="78">D3 world map</text>
+          <text x="318" y="96">Info / Stats / Rankings panels</text>
+          <text x="318" y="114" class="d-label">spider charts</text>
+        </g>
+        <g class="d-box">
+          <rect x="300" y="180" width="220" height="64" rx="2"></rect>
+          <text x="318" y="208" class="d-title">State + events</text>
+          <text x="318" y="230" class="d-label">selection · panel · chart state</text>
+        </g>
+        <g class="d-box">
+          <rect x="580" y="70" width="220" height="86" rx="2"></rect>
+          <text x="598" y="98" class="d-title">Data fetcher</text>
+          <text x="598" y="120">progressive pre-cache</text>
+          <text x="598" y="138" class="d-label">priority countries first</text>
+        </g>
+        <g class="d-box">
+          <rect x="580" y="205" width="220" height="58" rx="2"></rect>
+          <text x="598" y="233" class="d-title">CIA Factbook JSON</text>
+          <text x="598" y="251" class="d-label">HTTPS · GitHub raw</text>
+        </g>
+        <path class="d-arrow" d="M240 78H300" marker-end="url(#gip-arrow)"></path>
+        <path class="d-arrow" d="M410 128V180" marker-end="url(#gip-arrow)"></path>
+        <path class="d-arrow" d="M520 94H580" marker-end="url(#gip-arrow)"></path>
+        <path class="d-arrow" d="M690 156V205" marker-end="url(#gip-arrow)"></path>
+        <path class="d-arrow" d="M580 125H520" marker-end="url(#gip-arrow)"></path>
+        <text x="246" y="70" class="d-label">loads</text>
+        <text x="420" y="166" class="d-label">updates</text>
+        <text x="538" y="86" class="d-label">fetch</text>
+        <text x="700" y="196" class="d-label">HTTPS</text>
+      </svg>
+    </section>
+    <figcaption>Container view. The application, cache, and chart layer all run in the browser; the only network dependency is the public Factbook JSON. Scroll horizontally on narrow screens.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>Limits</h2>
+    <p>The portal is client-only and depends on the public Factbook JSON, so data freshness is tied to the upstream repository. There is no account layer or server-side aggregation.</p>
+  </section>
+
+  <nav class="case-links" aria-label="Project links">
+    <a href="https://kcpatt27.github.io/global-info-portal/">Live site</a>
+    <a href="https://github.com/kcpatt27/global-info-portal">GitHub</a>
+    <a href="../_project-docs/global-info-portal/README.md">Raw README</a>
+    <a href="../_project-docs/global-info-portal/ARCHITECTURE.md">Raw architecture</a>
+    <a href="../index.html#work">Back to work</a>
+  </nav>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div><p class="foot-k">Contact</p><a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div>
+    <div class="foot-meta">
+      <nav class="foot-nav" aria-label="Footer"><ul><li><a href="../index.html">Work</a></li><li><a href="../timeline.html">Timeline</a></li><li><a href="../vision.html">Vision</a></li><li><a href="../resume.html">CV</a></li></ul></nav>
+      <p class="copyright">© 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
