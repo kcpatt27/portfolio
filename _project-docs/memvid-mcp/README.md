@@ -15,7 +15,6 @@
 - [Architecture Overview](#architecture-overview)
 - [MCP Tools Documentation](#mcp-tools-documentation)
 - [Contributing](#contributing)
-- [Roadmap](#roadmap)
 - [License](#license)
 - [FAQ](#faq)
 
@@ -467,24 +466,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 **Stats:**
 - **Lines of code:** ~6,000+ (TypeScript/JavaScript)
 - **Test coverage:** 50+ test files (unit, integration, performance, MCP protocol)
-- **Documentation coverage:** 100% (README, ARCHITECTURE, ROADMAP, CONTRIBUTING)
 - **Last updated:** January 2025
-
-## Roadmap
-
-See [ROADMAP.md](ROADMAP.md) for the complete development roadmap.
-
-**Current Focus:**
-- Architecture optimization (direct Python integration)
-- Performance improvements (target: 3-5s memory bank creation)
-- Enhanced search capabilities
-- Better error handling and diagnostics
-
-**Upcoming:**
-- Real-time memory bank updates
-- Multi-user collaboration features
-- Advanced analytics and insights
-- Cloud deployment options
 
 ## License
 

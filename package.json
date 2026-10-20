@@ -3,7 +3,7 @@
         "check:publish": "tsx scripts/check-publish.ts",
         "check:output": "tsx scripts/check-publish.ts --scan-output",
         "sync": "tsx scripts/sync-from-shared-docs.ts",
-        "prebuild": "tsx scripts/sync-from-shared-docs.ts && tsx scripts/check-publish.ts && tsx scripts/aggregate-projects.ts",
+        "prebuild": "tsx scripts/sync-from-shared-docs.ts && tsx scripts/check-publish.ts",
         "symlink-docs": "tsx scripts/symlink-project-docs.ts",
         "build": "npm run prebuild && npm run symlink-docs && npm run check:output",
         "dev": "npm run build",

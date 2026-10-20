@@ -30,25 +30,25 @@ commercial: true | false
 portfolio_id: <id>
 ```
 
-`npm run build` runs the fail-closed publication gate, syncs the public project list, aggregates metadata, copies only whitelisted README/architecture files, and scans the output for forbidden filenames.
+`npm run build` runs the fail-closed publication gate, syncs the public project list, copies only whitelisted README/architecture files, scrubs roadmap/PRD/spec content, and scans the output for forbidden files and content.
 
 ```powershell
 npm ci
 npm run check:publish   # gate only
-npm run build           # sync + gate + aggregate + copy + output scan
+npm run build           # sync + gate + scrub + copy + output scan
 npm run smoke           # live-site smoke checks (after deployment)
 ```
 
 The gate default-denies any project without a `release` block, any non-public or commercial project, and any publishable list containing `ROADMAP.md` or `project_specs.md`.
 
-The docs viewer additionally removes roadmap/PRD/spec sections and links at render time, because a README can mention a roadmap even when the file itself is not copied.
+The build copy scrubs roadmap/PRD/spec sections and links before writing `_project-docs`; the docs viewer repeats the scrub as a second guard.
 
 ## Design
 
 The visual system lives in `assets/site.css`:
 
 - warm paper, ink, moss and clay accents;
-- Fraunces for display, Karla for text;
+- self-hosted Fraunces for display, Karla for text;
 - a continuous left rule with specimen numbers, and project records with labelled evidence rows;
 - slow entrance motion only, fully disabled under `prefers-reduced-motion: reduce`;
 - visible focus styles, skip links, semantic headings, and 24 px minimum targets.

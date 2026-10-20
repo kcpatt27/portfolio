@@ -27,6 +27,7 @@ const root = process.cwd()
 const configPath = resolve(root, 'metadata/projects.config.json')
 const docsDir = resolve(root, '_project-docs')
 const FORBIDDEN = ['ROADMAP.md', 'project_specs.md']
+const FORBIDDEN_CONTENT = /\b(roadmap|prds?|project[_ ]specs?|specifications)\b/i
 
 const config = JSON.parse(readFileSync(configPath, 'utf8')) as { projects: Project[] }
 const errors: string[] = []
@@ -68,6 +69,11 @@ if (process.argv.includes('--scan-output') && existsSync(docsDir)) {
       if (entry.isDirectory()) walk(full)
       else if (FORBIDDEN.includes(entry.name)) {
         errors.push(`built output contains forbidden file: ${full.replace(root + '\\', '').replace(root + '/', '')}`)
+      } else if (entry.name.endsWith('.md')) {
+        const text = readFileSync(full, 'utf8')
+        if (FORBIDDEN_CONTENT.test(text)) {
+          errors.push(`built output contains roadmap/PRD/spec content: ${full.replace(root + '\\', '').replace(root + '/', '')}`)
+        }
       }
     }
   }

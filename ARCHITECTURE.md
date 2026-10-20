@@ -30,7 +30,7 @@ There is no framework, bundler, client router, database, or server-side runtime.
 - **Primitives:** paper `#f3efe6`, ink `#201d19`, moss `#3c4932`, clay `#7a3d22`, rules, and a fluid gutter.
 - **Semantic roles:** page canvas, body text, muted annotations, links, status marks, hairlines.
 - **Components:** skip link, site header, row/register layout, section heads, project records, evidence fields, record log, prose, docs shell, tabs, footer.
-- **Type:** Fraunces (display), Karla (text), system mono for notation.
+- **Type:** self-hosted Fraunces 400/500/italic (display), Karla (text), system mono for notation.
 - **Motion:** one entrance pass (720 ms) and link transitions (500 ms); no loops, parallax, or scroll effects. `prefers-reduced-motion: reduce` reduces all durations to 0.01 ms.
 - **Accessibility:** semantic landmarks, one `h1` per page, skip links, `:focus-visible` outlines, 24 px minimum targets, and text contrast checked at 4.5:1 in the rendered pages.
 
@@ -42,11 +42,11 @@ There is no framework, bundler, client router, database, or server-side runtime.
 - `commercial` must be false;
 - a matching overlay must exist in `metadata/portfolio-overlay.json`.
 
-`scripts/check-publish.ts` is the fail-closed gate. It rejects projects with a missing release block, non-public visibility, commercial status, an empty publishable list, a file listed as both publishable and never, or any publishable `ROADMAP.md`/`project_specs.md`. With `--scan-output` it also walks `_project-docs` for forbidden filenames.
+`scripts/check-publish.ts` is the fail-closed gate. It rejects projects with a missing release block, non-public visibility, commercial status, an empty publishable list, a file listed as both publishable and never, or any publishable `ROADMAP.md`/`project_specs.md`. With `--scan-output` it also walks `_project-docs` for forbidden filenames and roadmap/PRD/spec content.
 
-`scripts/aggregate-projects.ts` writes `_aggregated/portfolio-metadata.json`; `scripts/symlink-project-docs.ts` copies only the whitelisted files into `_project-docs/`.
+`scripts/symlink-project-docs.ts` copies only the whitelisted files into `_project-docs/` and scrubs roadmap/PRD/spec sections from the copied Markdown.
 
-The docs viewer adds a second, content-level guard: it removes roadmap/PRD/spec headings, blocks, and links before rendering. The filename gate cannot see a roadmap section inside an otherwise publishable README.
+The docs viewer repeats the content scrubbing at render time as a second guard. The build copy is the primary guard, because the raw Markdown is publicly served.
 
 ## Publication rules
 
@@ -57,7 +57,7 @@ The docs viewer adds a second, content-level guard: it removes roadmap/PRD/spec 
 
 ## Deployment and checks
 
-- `npm run build` — sync, gate, aggregate, copy, output scan.
+- `npm run build` — sync, gate, scrub, copy, output scan.
 - `npm run smoke` — live GitHub Pages checks, including known private/roadmap paths that must return 404.
 - CI (`.github/workflows/ci.yml`) runs the gate and build on push and pull request.
 - The smoke workflow runs on demand and on a daily schedule.
