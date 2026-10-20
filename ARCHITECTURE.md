@@ -32,9 +32,9 @@ There is no framework, bundler, client router, database, or server-side runtime.
 
 - **Primitives:** paper `#f3efe6`, ink `#201d19`, moss `#3c4932`, clay `#7a3d22`, rules, and a fluid gutter.
 - **Semantic roles:** page canvas, body text, muted annotations, links, status marks, hairlines.
-- **Components:** skip link, site header, row/register layout, hero proof index, section heads, project records, evidence fields, botanical status markers, record log, prose, docs shell, tabs, CV, 404, footer.
+- **Components:** skip link, site header, row/register layout, hero proof index, section heads, project records, evidence fields, drawn status rules, record log, prose, docs shell, tabs, CV, 404, footer.
 - **Type:** self-hosted Fraunces 400/500/italic (display), Karla (text), system mono for notation.
-- **Motion:** one entrance pass (720 ms) and link transitions (500 ms); no loops, parallax, or scroll effects. `prefers-reduced-motion: reduce` reduces all durations to 0.01 ms.
+- **Motion:** one entrance pass (720 ms), link transitions (500 ms), and a slow code-driven contour field (`assets/contour-motion.js`, ~18 fps desktop / 12 fps mobile) that pauses offscreen and never starts under `prefers-reduced-motion: reduce`; the static SVG engraving is the fallback. No parallax or scroll effects.
 - **Accessibility:** semantic landmarks, one `h1` per page, skip links, `:focus-visible` outlines, 24 px minimum targets, and text contrast checked at 4.5:1 in the rendered pages.
 
 ## Content pipeline
