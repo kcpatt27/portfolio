@@ -14,7 +14,6 @@
 - [Architecture Overview](#architecture-overview)
 - [API Documentation](#api-documentation)
 - [Contributing](#contributing)
-- [Roadmap](#roadmap)
 - [License](#license)
 - [FAQ](#faq)
 
@@ -90,7 +89,7 @@ Traditional country data sources are often fragmented, hard to navigate, or requ
 
 The simplest way to use the Global Information Portal is to visit the live site on GitHub Pages. No installation required!
 
-**Live Site:** [https://kcpatt27.github.io/global-information-portal/](https://kcpatt27.github.io/global-information-portal/)
+**Live Site:** [https://kcpatt27.github.io/global-info-portal/](https://kcpatt27.github.io/global-info-portal/)
 
 If you want to run it locally, you'll need to build the project first (see Development Setup below) since the application uses Webpack for bundling.
 
@@ -100,8 +99,8 @@ For developers who want to modify or contribute to the project:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/kcpatt27/global-information-portal.git
-   cd global-information-portal
+   git clone https://github.com/kcpatt27/global-info-portal.git
+   cd global-info-portal
    ```
 
 2. **Install dependencies**
@@ -333,43 +332,6 @@ Contributions are welcome! This project was built as a learning exercise and cer
 - Mobile UX improvements
 - Documentation updates
 - Translation/localization support
-
----
-
-## Roadmap
-
-For detailed roadmap information, see [ROADMAP.md](ROADMAP.md).
-
-### Current Status: Major Features Complete (Jan 2026)
-
-**Completed (Major Milestone)**
-- ✅ Complete Rankings Tab with Global Superpower Leaderboard and interactive Metric Insights charts
-- ✅ Complete Statistics Tab with dynamic Factbook JSON category loading and global rankings
-- ✅ Complete Mobile Experience with unified D3 zoom/pan and responsive navigation
-- ✅ Complete Data Processing with robust numeric extraction and country code mapping
-- ✅ JavaScript Architecture consolidation and state management improvements
-
-**Now (Next Phase)**
-- Stability testing and performance optimization
-- Code consolidation and architectural cleanup
-- Enhanced error handling and edge case coverage
-- Documentation finalization and testing
-
-**Next (Future Enhancements)**
-- Advanced filtering and comparison tools
-- Resource efficiency metrics and production vs consumption ratios
-- Enhanced chart visualizations (bar charts, pie charts, choropleth maps)
-- Regional comparison tools and historical trends
-- Offline support with service workers
-- Data export functionality (CSV, JSON)
-- Embeddable widget mode and public API access
-
-### Success Metrics
-
-- Feature adoption rate
-- Performance improvements (load time, interaction responsiveness)
-- User retention and engagement
-- Cross-browser compatibility
 
 ---
 

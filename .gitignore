@@ -7,6 +7,9 @@ example-ui-images/
 # Design bake-off artifacts (local review only; do not deploy)
 bakeoff/
 
+# Generated aggregate output (unused by the current site)
+_aggregated/
+
 # Logs
 logs
 *.log

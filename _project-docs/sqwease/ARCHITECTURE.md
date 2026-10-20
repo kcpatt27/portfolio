@@ -425,7 +425,6 @@ In the future, SQWease will evolve into a full-stack application with a backend 
 
 ## Next Steps
 
-See [ROADMAP.md](ROADMAP.md) for detailed feature planning and timeline.
 
 **Immediate priorities:**
 1. Implement spaced repetition algorithm
