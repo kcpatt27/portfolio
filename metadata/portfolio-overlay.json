@@ -1,35 +1,50 @@
 {
   "global-info-portal": {
     "description": "Interactive 2D map of the world, featuring CIA data visualization",
-    "status": "completed",
-    "completionPercent": 90,
-    "featured": true,
     "localPath": "../2D Global Info Portal",
-    "technologies": ["D3.js", "TopoJSON"],
+    "technologies": [
+      "D3.js",
+      "TopoJSON"
+    ],
     "liveUrl": "https://kcpatt27.github.io/global-info-portal",
-    "publishable": ["README.md", "ARCHITECTURE.md"],
-    "never": ["ROADMAP.md", "project_specs.md"]
+    "publishable": [
+      "README.md",
+      "ARCHITECTURE.md"
+    ],
+    "never": [
+      "ROADMAP.md",
+      "project_specs.md"
+    ]
   },
   "sqwease": {
     "description": "Speak Quite Well with Ease — language learning app combining comprehensive input, spaced repetition, and minimum effective dose learning",
-    "status": "completed",
-    "completionPercent": 90,
-    "featured": true,
     "localPath": "../japanese-learning-app",
     "technologies": [],
     "liveUrl": "https://kcpatt27.github.io/sqwease",
-    "publishable": ["README.md", "ARCHITECTURE.md"],
-    "never": ["ROADMAP.md", "project_specs.md"]
+    "publishable": [
+      "README.md",
+      "ARCHITECTURE.md"
+    ],
+    "never": [
+      "ROADMAP.md",
+      "project_specs.md"
+    ]
   },
   "memvid-mcp": {
     "description": "An MCP server that uses Memvid to condense text into searchable memory banks, giving AI assistants persistent context without consuming the context window (archived 2026)",
-    "status": "archived",
-    "completionPercent": 100,
-    "featured": true,
     "localPath": "../memvid-mcp",
-    "technologies": ["Model Context Protocol", "Memvid"],
+    "technologies": [
+      "Model Context Protocol",
+      "Memvid"
+    ],
     "liveUrl": "",
-    "publishable": ["README.md", "ARCHITECTURE.md"],
-    "never": ["ROADMAP.md", "project_specs.md"]
+    "publishable": [
+      "README.md",
+      "ARCHITECTURE.md"
+    ],
+    "never": [
+      "ROADMAP.md",
+      "project_specs.md"
+    ]
   }
 }

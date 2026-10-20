@@ -272,6 +272,70 @@
     margin-top: clamp(32px, 4.6vw, 52px);
   }
 
+  .hero-proof {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: clamp(28px, 4vw, 46px);
+    border-top: 1px solid var(--rule);
+  }
+
+  .hero-proof a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "no name status"
+      "no metric status";
+    gap: 2px 14px;
+    align-content: start;
+    padding: 14px 18px 14px 0;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .hero-proof a + a {
+    border-left: 1px solid var(--rule-soft);
+    padding-left: 18px;
+  }
+
+  .hero-proof a:hover strong { color: var(--clay); }
+  .hero-proof a:focus-visible { outline-offset: -2px; }
+
+  .proof-k {
+    grid-area: no;
+    color: var(--muted);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+
+  .hero-proof strong {
+    grid-area: name;
+    font-family: var(--serif);
+    font-weight: 450;
+    font-size: 1.04rem;
+    line-height: 1.2;
+  }
+
+  .proof-m {
+    grid-area: metric;
+    color: var(--muted);
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .proof-s {
+    grid-area: status;
+    color: var(--moss);
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+
+  .proof-s--archived { color: var(--clay); }
+
   .lede {
     max-width: 54ch;
     margin: 0;
@@ -332,15 +396,6 @@
 
   .note-body p { margin: 0 0 1.05em; }
   .note-body p:last-child { margin-bottom: 0; }
-
-  .note-body p:first-of-type::first-letter {
-    float: left;
-    padding: 0.05em 0.12em 0 0;
-    color: var(--clay);
-    font-family: var(--serif);
-    font-size: 3.55em;
-    line-height: 0.82;
-  }
 
   .section-head {
     display: flex;
@@ -642,6 +697,24 @@
   }
 
   @media (max-width: 820px) {
+    .hero-foot { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+    .hero-proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-proof a:nth-child(3) {
+      grid-column: 1 / -1;
+      border-left: 0;
+      padding-left: 0;
+    }
+    .site-head { position: static; }
+    .head-inner { flex-wrap: wrap; gap: 0 20px; }
+    .site-nav { width: 100%; }
+    .site-nav ul { justify-content: space-between; }
+    .identity .role { display: none; }
+    .foot-inner { grid-template-columns: minmax(0, 1fr); }
+    .foot-meta { text-align: left; }
+    .foot-nav ul { justify-content: flex-start; gap: 0 20px; }
+  }
+
+  @media (max-width: 680px) {
     :root { --gutter: 0px; }
     .row { grid-template-columns: minmax(0, 1fr); }
     .row .margin {
@@ -664,15 +737,8 @@
     .row + .row > .body::before { display: none; }
     .row + .row { border-top: 1px solid var(--rule-soft); }
     .row--hero .body { padding-top: 12px; }
-    .hero-foot { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-    .site-head { position: static; }
-    .head-inner { flex-wrap: wrap; gap: 0 20px; }
-    .site-nav { width: 100%; }
-    .site-nav ul { justify-content: space-between; }
-    .identity .role { display: none; }
-    .foot-inner { grid-template-columns: minmax(0, 1fr); }
-    .foot-meta { text-align: left; }
-    .foot-nav ul { justify-content: flex-start; gap: 0 20px; }
+    .hero-proof { grid-template-columns: minmax(0, 1fr); }
+    .hero-proof a + a { border-left: 0; padding-left: 0; }
   }
 
   @media (max-width: 560px) {
@@ -819,41 +885,26 @@
 
 .botanical {
   position: absolute;
-  top: 70px;
-  right: 2px;
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
+  top: 72px;
+  right: 0;
+  width: 40px;
+  height: 24px;
+  display: block;
   color: var(--moss);
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 50%;
+  background: none;
+  border: 0;
   z-index: 1;
 }
-.botanical::after {
-  content: "";
-  position: absolute;
-  right: -2px;
-  top: 50%;
-  width: 2px;
-  height: 1px;
-  background: currentColor;
-}
-.botanical svg { display: block; width: 20px; height: 20px; }
+.botanical svg { display: block; width: 100%; height: 100%; }
 .botanical .petal,
 .botanical .bud,
-.botanical .leaf,
-.botanical .sepal {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.botanical .center { fill: var(--clay); stroke: none; }
-.botanical--sprout { color: var(--clay); }
-.botanical--sprout .vein { fill: none; stroke: currentColor; stroke-width: .9; stroke-linecap: round; }
+.botanical .leaf { fill: currentColor; stroke: none; }
+.botanical .stem { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.botanical .sepal { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+.botanical .center,
+.botanical .tip { fill: var(--clay); stroke: none; }
+.botanical--pressed { color: var(--clay); }
+.botanical--pressed .vein { fill: none; stroke: var(--paper); stroke-width: 1; stroke-linecap: round; }
 .botanical--flower .bloom {
   transform-box: fill-box;
   transform-origin: center;
@@ -864,7 +915,7 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 680px) {
   .hero-contour { display: none; }
   .record .margin.accession {
     padding-top: 24px;
@@ -880,9 +931,126 @@
   .botanical--flower svg { animation: none; }
 }
 
+/* ---------- 404 ---------- */
+.notfound {
+  width: min(100% - 2 * var(--pad), 900px);
+  margin: 0 auto;
+  padding: clamp(64px, 12vw, 150px) 0;
+}
+.notfound h1 {
+  margin: 0 0 18px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.notfound .lede { max-width: 54ch; margin: 0 0 28px; }
+.notfound .actions { margin-top: 0; }
+
+/* ---------- CV ---------- */
+.resume {
+  width: min(100% - 2 * var(--pad), 920px);
+  margin: 0 auto;
+  padding: clamp(38px, 6vw, 76px) 0 88px;
+}
+.resume-head {
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 34px;
+}
+.resume-head h1 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.7rem, 6vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+.resume-role {
+  margin: 0 0 14px;
+  font-family: var(--mono, "SFMono-Regular", Consolas, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--moss);
+}
+.resume-contact {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.resume-download { margin: 0; font-size: 0.82rem; }
+.resume-section { margin-top: 36px; }
+.resume-section h2 {
+  margin: 0 0 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ink);
+  font-family: var(--serif);
+  font-weight: 450;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+.resume-section p { margin: 0; max-width: 78ch; color: var(--muted); }
+.resume-skills { margin: 0; }
+.resume-skills > div {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 18px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.resume-skills dt { color: var(--ink); font-weight: 600; font-size: 0.82rem; }
+.resume-skills dd { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.resume-entry { margin-top: 22px; }
+.resume-entry:first-of-type { margin-top: 0; }
+.resume-entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 20px;
+}
+.resume-entry h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 450;
+  font-size: 1.12rem;
+}
+.resume-entry-head span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+.resume-stack { margin: 4px 0 8px; color: var(--moss); font-size: 0.82rem; }
+.resume-entry ul { margin: 8px 0 0; padding-left: 1.1em; }
+.resume-entry li { margin-bottom: 6px; color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+@media (max-width: 680px) {
+  .resume-skills > div { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; }
+}
+
+@media print {
+  .site-head, .site-foot, .skip, .resume-download { display: none !important; }
+  html, body { background: #fff !important; color: #111 !important; }
+  .resume { width: 100%; padding: 0; font-size: 13.5px; }
+  .resume-head { border-color: #bbb; }
+  .resume-head h1 { font-size: 2.5rem; }
+  .resume-section { margin-top: 18px; break-inside: auto; }
+  .resume-section h2 { margin-bottom: 8px; padding-top: 8px; font-size: 1rem; }
+  .resume-entry { margin-top: 12px; }
+  .resume-entry li { margin-bottom: 3px; font-size: 0.82rem; line-height: 1.45; }
+  .resume-contact, .resume-section p, .resume-entry li, .resume-skills dd, .resume-entry-head span { color: #222 !important; }
+  .resume-section h2 { border-color: #111; }
+  .resume-entry { break-inside: avoid; }
+  a { color: #111 !important; text-decoration: none !important; }
+}
+
 @media (prefers-color-scheme: dark) {
   .doc-content img { border: 1px solid var(--rule); opacity: .92; }
   .doc-content pre { background: var(--paper-deep); }
   .doc-tab.active { background: var(--paper-deep); color: var(--ink); border-color: var(--moss); }
 }
+
 

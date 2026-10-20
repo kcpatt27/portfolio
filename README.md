@@ -1,11 +1,13 @@
 # Kalen Patterson — portfolio
 
-A static hiring showcase for AI systems engineering work, with the documentation that makes it checkable. Four pages, no framework, no build step required to view.
+A static hiring showcase for AI systems engineering work, with the documentation that makes it checkable. Six pages, no framework, no build step required to view.
 
 - **Work** (`index.html`) — the three public projects, with status, evidence, stack, and links.
 - **Documentation** (`docs.html`) — public README and architecture files for those projects.
 - **Timeline** (`timeline.html`) — what is done, including retired work.
 - **Vision** (`vision.html`) — the direction behind the work.
+- **CV** (`resume.html`) — a public-safe two-page CV, with a PDF download.
+- **404** (`404.html`) — a branded not-found page.
 
 ## What this is not
 
@@ -36,6 +38,8 @@ portfolio_id: <id>
 npm ci
 npm run check:publish   # gate only
 npm run build           # sync + gate + scrub + copy + output scan
+npm run check:html      # HTML validation
+npm run check:links     # local link integrity
 npm run smoke           # live-site smoke checks (after deployment)
 ```
 
@@ -49,12 +53,17 @@ The visual system lives in `assets/site.css`:
 
 - warm paper, ink, moss and clay accents;
 - self-hosted Fraunces for display, Karla for text;
-- a continuous left rule with specimen numbers, and project records with labelled evidence rows;
+- a continuous left rule with specimen numbers, project records with labelled evidence rows, and a three-row proof index above the fold;
+- a dense topographic isoline field in the hero, and bloom / bud / pressed-sprig status markers;
 - slow entrance motion only, fully disabled under `prefers-reduced-motion: reduce`;
 - visible focus styles, skip links, semantic headings, and 24 px minimum targets.
 
 The direction is an evidence register, not a landing page: the work is the subject, and every claim has a place to be checked.
 
+## License
+
+Code is MIT (`LICENSE`). Written content is CC BY 4.0 (`LICENSE-CONTENT.md`). Fraunces is OFL (`assets/fonts/OFL.txt`).
+
 ## Deployment
 
-GitHub Pages serves the repository root. `.nojekyll` is present, so only the files in this repository are published. CI runs the publication gate and the content build; the smoke workflow checks the live pages and the known leak paths.
+GitHub Pages serves the repository root. `.nojekyll` is present, so only the files in this repository are published. CI runs the publication gate, the content build, HTML validation, and local link checks; the smoke workflow checks the live pages and the known leak paths.

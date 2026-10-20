@@ -19,9 +19,7 @@ interface ProjectConfig {
   id: string
   name?: string
   localPath: string
-  roadmapFile?: string
   docsFolder?: string
-  specsFile?: string
   architectureFile?: string
   release?: Release
   [key: string]: unknown
@@ -100,8 +98,6 @@ function run() {
 
     const candidates: Array<[string, string]> = [
       ['README.md', 'README.md'],
-      [project.roadmapFile || 'ROADMAP.md', 'ROADMAP.md'],
-      [project.specsFile || 'project_specs.md', 'project_specs.md'],
       [project.architectureFile || 'ARCHITECTURE.md', 'ARCHITECTURE.md'],
     ]
 

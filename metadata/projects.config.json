@@ -4,18 +4,12 @@
       "id": "global-info-portal",
       "name": "Global Information Portal",
       "description": "Interactive 2D map of the world, featuring CIA data visualization",
-      "status": "completed",
-      "completionPercent": 90,
-      "featured": true,
       "localPath": "../2D Global Info Portal",
-      "specsFile": "project_specs.md",
-      "roadmapFile": "ROADMAP.md",
       "architectureFile": "ARCHITECTURE.md",
       "technologies": [
         "D3.js",
         "TopoJSON"
       ],
-      "aiBuilt": true,
       "liveUrl": "https://kcpatt27.github.io/global-info-portal",
       "release": {
         "visibility": "public",
@@ -35,18 +29,12 @@
       "id": "memvid-mcp",
       "name": "MemVid MCP Server",
       "description": "An MCP server that uses Memvid to condense text into searchable memory banks, giving AI assistants persistent context without consuming the context window (archived 2026)",
-      "status": "archived",
-      "completionPercent": 100,
-      "featured": true,
       "localPath": "../memvid-mcp",
-      "specsFile": "project_specs.md",
-      "roadmapFile": "ROADMAP.md",
       "architectureFile": "ARCHITECTURE.md",
       "technologies": [
         "Model Context Protocol",
         "Memvid"
       ],
-      "aiBuilt": true,
       "liveUrl": "",
       "release": {
         "visibility": "public",
@@ -66,15 +54,9 @@
       "id": "sqwease",
       "name": "SQWease",
       "description": "Speak Quite Well with Ease — language learning app combining comprehensive input, spaced repetition, and minimum effective dose learning",
-      "status": "completed",
-      "completionPercent": 90,
-      "featured": true,
       "localPath": "../japanese-learning-app",
-      "specsFile": "project_specs.md",
-      "roadmapFile": "ROADMAP.md",
       "architectureFile": "ARCHITECTURE.md",
       "technologies": [],
-      "aiBuilt": true,
       "liveUrl": "https://kcpatt27.github.io/sqwease",
       "release": {
         "visibility": "public",
