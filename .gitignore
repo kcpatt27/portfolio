@@ -3,6 +3,7 @@ temp-docs/
 .taskmaster/
 _old/
 example-ui-images/
+project-images/
 
 # Design bake-off artifacts (local review only; do not deploy)
 bakeoff/

@@ -93,3 +93,17 @@ The marker is inside a 28 px paper disc with a 2 px stem. Status text remains vi
 - One pattern family: isolines. Echo it at different scale/density; do not mix contour, stipple, and flow lines in the same view.
 - Verify light and dark, 1440 and 390, and WebKit + Firefox + Chromium before shipping.
 - The publication gate is content-level as well as filename-level; raw docs must not contain roadmap/PRD/spec language.
+
+## Learned language (for future editions)
+
+Observed owner preferences, 2026-10-19 → 20:
+
+- Warm mineral paper, dark warm ink, moss/clay; no neon, cool blue, or pure black.
+- Editorial serif display with a technical sans; type carries identity, not decoration.
+- One dense isoline field as the signature; it must fade and never sit behind body copy.
+- Work first. The first screen must show real projects and hard evidence, not just a thesis.
+- Asymmetry is welcome when it balances and directs; it is not a cognitive-performance trick.
+- Botanical status is welcome, but it must read at actual size and the status word must remain.
+- Reject: card grids, badges, dashboard tiles, terminal cosplay, gradient hero, long decorative stems, hairlines below 1.5 px.
+
+Future agents should start from this language, then vary one axis at a time. Do not re-derive the palette or the contour field from scratch.

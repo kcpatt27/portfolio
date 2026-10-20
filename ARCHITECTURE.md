@@ -22,6 +22,8 @@ There is no framework, bundler, client router, database, or server-side runtime.
 | `timeline.html` | The record of shipped and retired work. No future plans. |
 | `vision.html` | The conceptual direction: proposal versus proof, working principles, limits. |
 | `docs.html` | A reader for the public README and architecture files. The project list comes from `metadata/projects.config.json`; Markdown is rendered in the browser with `marked` and sanitised with `DOMPurify`. |
+| `resume.html` | Public-safe CV (no location or phone) with a print stylesheet and a PDF download. |
+| `404.html` | Branded not-found page served by GitHub Pages. |
 
 ## Design system
 
@@ -29,7 +31,7 @@ There is no framework, bundler, client router, database, or server-side runtime.
 
 - **Primitives:** paper `#f3efe6`, ink `#201d19`, moss `#3c4932`, clay `#7a3d22`, rules, and a fluid gutter.
 - **Semantic roles:** page canvas, body text, muted annotations, links, status marks, hairlines.
-- **Components:** skip link, site header, row/register layout, section heads, project records, evidence fields, record log, prose, docs shell, tabs, footer.
+- **Components:** skip link, site header, row/register layout, hero proof index, section heads, project records, evidence fields, botanical status markers, record log, prose, docs shell, tabs, CV, 404, footer.
 - **Type:** self-hosted Fraunces 400/500/italic (display), Karla (text), system mono for notation.
 - **Motion:** one entrance pass (720 ms) and link transitions (500 ms); no loops, parallax, or scroll effects. `prefers-reduced-motion: reduce` reduces all durations to 0.01 ms.
 - **Accessibility:** semantic landmarks, one `h1` per page, skip links, `:focus-visible` outlines, 24 px minimum targets, and text contrast checked at 4.5:1 in the rendered pages.
@@ -59,7 +61,7 @@ The docs viewer repeats the content scrubbing at render time as a second guard. 
 
 - `npm run build` — sync, gate, scrub, copy, output scan.
 - `npm run smoke` — live GitHub Pages checks, including known private/roadmap paths that must return 404.
-- CI (`.github/workflows/ci.yml`) runs the gate and build on push and pull request.
+- CI (`.github/workflows/ci.yml`) runs the gate, build, HTML validation, and local link checks on push and pull request.
 - The smoke workflow runs on demand and on a daily schedule.
 
 Nothing in this repository requires a build to be viewed. The build exists to keep the published subset honest, not to render the site.

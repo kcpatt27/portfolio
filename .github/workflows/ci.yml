@@ -19,3 +19,7 @@ jobs:
         run: npm run check:publish
       - name: Build content pipeline
         run: npm run build
+      - name: HTML validation
+        run: npm run check:html
+      - name: Local link check
+        run: npm run check:links

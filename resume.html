@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV — Kalen Patterson</title>
+<meta name="description" content="One-page CV for Kalen Patterson, AI systems engineer.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+
+<link rel="canonical" href="https://kcpatt27.github.io/portfolio/resume.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kalen Patterson">
+<meta property="og:title" content="CV — Kalen Patterson">
+<meta property="og:description" content="One-page CV for Kalen Patterson, AI systems engineer.">
+<meta property="og:url" content="https://kcpatt27.github.io/portfolio/resume.html">
+<meta property="og:image" content="https://kcpatt27.github.io/portfolio/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kalen Patterson — AI systems engineer. Systems where the model proposes and the code decides.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CV — Kalen Patterson">
+<meta name="twitter:description" content="One-page CV for Kalen Patterson, AI systems engineer.">
+<meta name="twitter:image" content="https://kcpatt27.github.io/portfolio/assets/social-card.png">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="index.html">
+      <span class="name">Kalen Patterson</span>
+      <span class="role">AI systems engineer</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Work</a></li>
+        <li><a href="docs.html">Documentation</a></li>
+        <li><a href="timeline.html">Timeline</a></li>
+        <li><a href="vision.html">Vision</a></li>
+        <li><a href="resume.html" aria-current="page">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="resume">
+  <header class="resume-head">
+    <p class="eyebrow">Curriculum vitae</p>
+    <h1>Kalen Patterson</h1>
+    <p class="resume-role">AI systems engineer</p>
+    <p class="resume-contact">
+      <a href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a> ·
+      <a href="https://github.com/kcpatt27">github.com/kcpatt27</a> ·
+      <a href="https://kcpatt27.github.io/portfolio/">portfolio</a>
+    </p>
+    <p class="resume-download"><a href="assets/Kalen-Patterson-CV.pdf">Download PDF</a></p>
+  </header>
+
+  <section class="resume-section">
+    <h2>Summary</h2>
+    <p>AI systems engineer who builds local-first tools end to end: agent infrastructure, MCP tooling, decision engines, and grounded LLM pipelines. Strong TypeScript and Python, with a bias toward tests, evidence, and measurable results. Pursuing a B.S. in Computer Science at Western Governors University.</p>
+  </section>
+
+  <section class="resume-section">
+    <h2>Skills</h2>
+    <dl class="resume-skills">
+      <div><dt>Languages</dt><dd>TypeScript, Python, JavaScript, SQL, Go</dd></div>
+      <div><dt>Frontend</dt><dd>React, Next.js, Vite, Tailwind, D3.js, HTML/CSS</dd></div>
+      <div><dt>Backend and data</dt><dd>Node.js, FastAPI, PostgreSQL, SQLite, Prisma, Supabase, Cloudflare Workers</dd></div>
+      <div><dt>AI and agents</dt><dd>MCP, Ollama, OpenRouter, local inference (ONNX), agent orchestration, grounding and evaluation</dd></div>
+      <div><dt>Practices</dt><dd>Docker, GitHub Actions, Playwright, pytest, Vitest, Tailscale, Git</dd></div>
+    </dl>
+  </section>
+
+  <section class="resume-section">
+    <h2>Experience</h2>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>Software Engineer, NextDish</h3>
+        <span>2024–2026 · Private</span>
+      </div>
+      <p class="resume-stack">Next.js, TypeScript, Supabase, Cloudflare, OpenRouter</p>
+      <ul>
+        <li>Architected and solo-built a full-stack AI culinary platform: 131+ React components, ~40 API endpoints, a 20+ table schema, and 339 commits over 14 months.</li>
+        <li>Implemented hybrid AI generation: a client-side Llama 3.2 model (ONNX) for offline, zero-cost generation, plus an OpenRouter server tier with dynamic model discovery and automatic fallback.</li>
+        <li>Hardened the data layer by refactoring 50+ Supabase row-level-security policies across 20 tables and removing 12 unused indexes, clearing all performance-advisor warnings.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="resume-section">
+    <h2>Selected projects</h2>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>eyewright</h3>
+        <span>Python, MCP, local decision models</span>
+      </div>
+      <ul>
+        <li>Published a decision-engine package (PyPI v0.4.0) exposing a committee of local models behind one callable, reaching 88.9% acted accuracy at 22.5% coverage with all traffic local by default.</li>
+        <li>Ran a 2,000-decision model-selection replay across 5 models and 4 committee designs, proving naive majority voting underperforms the best single model; redesigned the committee as a calibrated confidence-and-consult cascade.</li>
+      </ul>
+    </article>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>AI Security Layer</h3>
+        <span>TypeScript, PostgreSQL, Ed25519</span>
+      </div>
+      <ul>
+        <li>Built a high-assurance agent-execution environment (~14k LOC, 716 tests) enforcing “no action without capability and policy”: 20/20 adversarial requests denied and 0/4 prompt-injection successes.</li>
+        <li>Designed a tamper-evident audit plane (SHA-256 hash chain, per-event Ed25519 signatures, external anchors) with capability delegation, Postgres-enforced tenant isolation, and a deterministic SBOM diff gate.</li>
+      </ul>
+    </article>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>control-plane</h3>
+        <span>TypeScript, SQLite, agent orchestration</span>
+      </div>
+      <ul>
+        <li>Designed and built an agent-orchestration system (459 tests) that runs coding agents across ~10 repositories behind one state layer: 296 commits in 5.5 weeks, verification-gated autonomy, per-dispatch and monthly budget ceilings, and a crash-safe supervisor loop.</li>
+        <li>Enforced a trust model where agent claims are never truth: external verification (tests, typecheck, lint, build) decides every task outcome, every merge to main is human-gated, and a deterministic model router records auditable reasons per dispatch.</li>
+      </ul>
+    </article>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>Living State Machine</h3>
+        <span>Python, FastAPI, Ollama, LanceDB</span>
+      </div>
+      <ul>
+        <li>Built a local-first LLM memory system implementing six ablatable biologically inspired mechanisms, reaching 1.000 vs 0.100 preference-recall accuracy over naive RAG at matched context budget (10× baseline across 3 seeds).</li>
+        <li>Added a deterministic verifier and a gated writer (F1 0.98) that proved critical under adversarial decoy load, with a 240+ test suite and a YAML-reproducible multi-seed ablation runner.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="resume-section">
+    <h2>Education</h2>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>Western Governors University</h3>
+        <span>B.S. Computer Science · Pursuing</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="resume-section">
+    <h2>Additional work</h2>
+    <p>Also built a daily-driver orchestration CLI for a fully local AI stack (907 tests; cut agent latency from ~25–60 s to ~2–5 s), a privacy-first AI code editor, a published CLI that audits MCP context-token cost (458 downloads in its first week), an interactive D3 dashboard covering 240+ countries, and an offline language-learning app with Lighthouse accessibility 1.0 across six pages. Author of a 25,000-word published guide on building software with AI. Built with AI assistance.</p>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-k">Contact</p>
+      <a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a>
+    </div>
+    <div class="foot-meta">
+      <nav class="foot-nav" aria-label="Footer">
+        <ul>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="docs.html">Documentation</a></li>
+          <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="vision.html">Vision</a></li>
+          <li><a href="resume.html">CV</a></li>
+        </ul>
+      </nav>
+      <p class="copyright">© 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
