@@ -59,9 +59,15 @@ Minimum semantic contrast: **7.18 light / 7.45 dark** (tokens against paper). Do
 }
 ```
 
-When motion is allowed, `assets/contour-motion.js` replaces the token layer with a canvas field: five slowly moving Gaussian hills, contoured every frame with marching squares, twelve levels, and a CSS gradient fade. The field is sampled from `--rule`, so dark mode is automatic. It pauses offscreen and on hidden tabs, caps at about 18 fps on desktop and 12 fps on phones, and never runs under `prefers-reduced-motion: reduce` — the static SVG mask stays in place instead.
+When motion is allowed, `assets/contour-motion.js` replaces the token layer with a canvas field, contoured every frame with marching squares and faded with a CSS gradient. The field is sampled from `--rule`, so dark mode is automatic. It pauses offscreen and on hidden tabs, caps at about 18 fps on desktop and 12 fps on phones, and never runs under `prefers-reduced-motion: reduce` — the static SVG mask stays in place instead.
 
-The Vision page uses a right-edge strip with a left fade and now runs the full height of the page; the Timeline uses a margin spine. Both use the same engine and the same static fallback.
+Each surface gets a different topology from the same engine:
+
+- **Work** — five slowly moving Gaussian hills; nested, breathing contours.
+- **Timeline** — horizontal strata, gently warped across the narrow spine.
+- **Vision** — vertical flow ribbons running the full page height, with the left fade intact.
+
+On Work, clicking or tapping the hero spawns a temporary peak that blooms and dissolves; a 432 ms burst of faster field time is available at most once per 43.2 s. This is decoration, not a required control, and it is absent under reduced motion.
 
 ## Status rules
 
@@ -69,17 +75,21 @@ The botanical drawings are retired. Status is a drawn rule in the margin, 32 × 
 
 - **Completed / live** — solid rule with a terminal tick (GIP).
 - **Live / usable** — double rule (SQWease).
-- **Archived** — dashed rule in clay (MemVid).
+- **In progress** — dashed rule in moss (future records).
+- **Archived** — clay rule with diagonal cuts, like a warehouse hazard mark (MemVid).
 
 The status word remains in the record head, so the rule is never the only signal. The rule is decorative (`aria-hidden`); it does not replace the word. On phones the rule hides and the status word remains.
+
+The footer carries a quiet static contour echo (`assets/contour-footer.svg`) at the right edge; it never sits behind the contact line.
 
 ## Motion
 
 - Hero entrance: 720 ms.
 - Link transitions: 500 ms.
-- Isolines: a code-driven scalar field, not a transform drift. Field cycles run roughly 25–50 s; contours redraw at 18 fps desktop / 12 fps mobile.
+- Isolines: code-driven scalar fields, not a transform drift. Field cycles run roughly 25–50 s; contours redraw at 18 fps desktop / 12 fps mobile.
+- Work interaction: click/tap spawns a peak; the rare gust lasts 432 ms and is rate-limited to one per 43.2 s.
 - No loops, parallax, autoplay, or scroll-jacking.
-- `prefers-reduced-motion: reduce` never starts the canvas; the static mask and entrance animations are disabled.
+- `prefers-reduced-motion: reduce` never starts the canvas; the static mask, interaction, and entrance animations are disabled.
 
 ## Accessibility
 
@@ -107,6 +117,7 @@ Observed owner preferences, 2026-10-19 → 20:
 - Asymmetry is welcome when it balances and directs; it is not a cognitive-performance trick.
 - Abstract status rules are welcome as marginalia, but the word must remain; botanical drawings did not survive review.
 - Animated isolines must be code-driven, not a CSS drift; the static engraving is the fallback.
+- Distinct surfaces may use different contour topologies: hills, strata, ribbons. They are one family, not one pattern repeated.
 - Reject: card grids, badges, dashboard tiles, terminal cosplay, gradient hero, botanical markers, transform-only drift, hairlines below 1.5 px.
 
 Future agents should start from this language, then vary one axis at a time. Do not re-derive the palette or the contour field from scratch.

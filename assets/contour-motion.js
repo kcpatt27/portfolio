@@ -1,4 +1,4 @@
-/* Animated isolines: a slowly evolving scalar field contoured with marching squares.
+/* Animated isolines: slowly evolving scalar fields contoured with marching squares.
    Static SVG masks remain the no-JS and reduced-motion fallback. */
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -15,7 +15,7 @@
     [0.92, 0.18, 0.15, 0.17, -0.22, 0.027, 0.036, 0.155, 0.160, 5.1],
   ];
 
-  function fieldValue(x, y, t) {
+  function heroField(x, y, t, peaks) {
     const xw = x + 0.020 * Math.sin(y * 5.0 + t * 0.22) + 0.011 * Math.sin((x + y) * 8.0 - t * 0.18);
     const yw = y + 0.020 * Math.cos(x * 4.5 - t * 0.19) + 0.011 * Math.cos((x - y) * 7.0 + t * 0.15);
     let value = 0;
@@ -25,7 +25,31 @@
       const breathe = 1 + 0.14 * Math.sin(t * 0.18 + phase);
       value += amp * breathe * Math.exp(-(((xw - px) / rx) ** 2 + ((yw - py) / ry) ** 2));
     }
+    for (const peak of peaks) {
+      const age = t - peak.born;
+      if (age < 0 || age > peak.life) continue;
+      const fade = 1 - age / peak.life;
+      value += peak.amp * fade * Math.exp(-(((xw - peak.x) / peak.rx) ** 2 + ((yw - peak.y) / peak.ry) ** 2));
+    }
     return value;
+  }
+
+  function timelineField(x, y, t) {
+    // Strata: nearly horizontal bands running across the narrow spine.
+    const sway = 0.008 * Math.sin(x * 6 + t * 0.10) + 0.004 * Math.sin(x * 13 - t * 0.07);
+    const yy = y + 0.006 * Math.sin(x * 7 + t * 0.08);
+    return Math.sin((yy + sway) * 22 + t * 0.20) + 0.28 * Math.sin(yy * 44 - t * 0.13);
+  }
+
+  function visionField(x, y, t) {
+    // Flow ribbons: contours run down the strip, distinct from the hero's hills.
+    const warp = 0.09 * Math.sin(y * 5.0 + t * 0.12) + 0.035 * Math.sin(y * 11.0 - t * 0.08);
+    const xx = x + warp;
+    return (
+      Math.sin(xx * 9 + t * 0.14) +
+      0.35 * Math.sin(xx * 17 - y * 3.5 + t * 0.09) +
+      0.20 * Math.cos(xx * 5 + y * 7 - t * 0.05)
+    );
   }
 
   function segments(field, cols, rows, level) {
@@ -73,6 +97,8 @@
     el.style.webkitMask = 'none';
 
     const ctx = canvas.getContext('2d');
+    const mode = el.dataset.contourMode || 'hero';
+    const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
     const fade = el.dataset.fade || 'right';
     const baseAlpha = clamp(parseFloat(el.dataset.alpha || '0.55'), 0.05, 1);
     let w = 0, h = 0, cols = 0, rows = 0, field = null;
@@ -83,7 +109,11 @@
         : 'linear-gradient(to right, transparent 38%, rgba(0,0,0,.8) 60%, #000 90%)';
     canvas.style.webkitMaskImage = canvas.style.maskImage;
     let visible = true, running = false, frame = 0, last = 0;
-    const start = performance.now();
+    let simTime = 0, previous = 0, gustUntil = 0, lastSpawn = -10, lastGust = -Infinity;
+    const GUST_MS = 432;
+    const GUST_COOLDOWN_MS = 43200;
+    const peaks = [];
+    let detach = null;
 
     function resize() {
       const rect = el.getBoundingClientRect();
@@ -110,10 +140,13 @@
         return;
       }
       last = now;
-      const t = (now - start) / 1000;
+      const dt = previous ? Math.min(0.1, (now - previous) / 1000) : 0;
+      previous = now;
+      simTime += dt * (now < gustUntil ? 6 : 1);
+      const t = simTime;
       for (let j = 0; j < rows; j += 1) {
         for (let i = 0; i < cols; i += 1) {
-          field[j * cols + i] = fieldValue(i / (cols - 1), j / (rows - 1), t);
+          field[j * cols + i] = fieldFn(i / (cols - 1), j / (rows - 1), t, peaks);
         }
       }
       let min = Infinity;
@@ -124,6 +157,9 @@
           if (v < min) min = v;
           if (v > max) max = v;
         }
+      }
+      for (let i = peaks.length - 1; i >= 0; i -= 1) {
+        if (t - peaks[i].born > peaks[i].life) peaks.splice(i, 1);
       }
       ctx.clearRect(0, 0, w, h);
       ctx.globalAlpha = baseAlpha * (window.innerWidth < 680 ? 0.55 : 1);
@@ -152,12 +188,49 @@
       if (running) return;
       running = true;
       last = 0;
+      previous = 0;
       frame = requestAnimationFrame(draw);
     }
 
     function stopLoop() {
       running = false;
       cancelAnimationFrame(frame);
+    }
+
+    if (mode === 'hero') {
+      const host = el.parentElement;
+      const onPointerDown = (event) => {
+        const target = event.target;
+        if (target && target.closest && target.closest('a')) return;
+        const rect = canvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        if (x < 0 || x > 1 || y < 0 || y > 1) return;
+        const stamp = performance.now();
+        if (stamp - lastSpawn < 1200) return;
+        lastSpawn = stamp;
+        const sign = Math.random() < 0.35 ? -1 : 1;
+        peaks.push({
+          x,
+          y,
+          amp: sign * (1.0 + Math.random() * 0.6),
+          rx: 0.15 + Math.random() * 0.07,
+          ry: 0.15 + Math.random() * 0.09,
+          born: simTime,
+          life: 2.2 + Math.random() * 0.8,
+        });
+        if (peaks.length > 5) peaks.shift();
+        // A rare, brief gust: 432 ms of faster field time, at most once per 43.2 s.
+        if (stamp - lastGust > GUST_COOLDOWN_MS && Math.random() < 0.45) {
+          gustUntil = stamp + GUST_MS;
+          lastGust = stamp;
+        }
+      };
+      if (host) {
+        host.addEventListener('pointerdown', onPointerDown, { passive: true });
+        detach = () => host.removeEventListener('pointerdown', onPointerDown);
+      }
     }
 
     resize();
@@ -177,7 +250,7 @@
       else if (visible) startLoop();
     });
     startLoop();
-    instances.push({ el, canvas, ro, io, stopLoop });
+    instances.push({ el, canvas, ro, io, stopLoop, detach });
   }
 
   function startAll() {
@@ -189,6 +262,7 @@
       item.stopLoop();
       item.ro.disconnect();
       item.io.disconnect();
+      if (item.detach) item.detach();
       item.canvas.remove();
       item.el.classList.remove('has-contour-motion');
       item.el.dataset.contourReady = 'false';
