@@ -73,10 +73,10 @@ On Work, clicking or tapping the hero spawns a temporary peak that blooms and di
 
 The botanical drawings are retired. Status is a drawn rule in the margin, 32 × 11 px, not a badge:
 
-- **Completed / live** — solid rule with a terminal tick (GIP).
+- **Completed / live** — solid rule with a terminal tick (published records).
 - **Live / usable** — double rule (SQWease).
-- **In progress** — dashed rule in moss (future records).
-- **Archived** — clay rule with diagonal cuts, like a warehouse hazard mark (MemVid).
+- **In progress** — dashed rule in moss (mcp-weight's Live · Growing).
+- **Archived** — clay rule with diagonal cuts, like a warehouse hazard mark (archive records).
 
 The status word remains in the record head, so the rule is never the only signal. The rule is decorative (`aria-hidden`); it does not replace the word. On phones the rule hides and the status word remains.
 

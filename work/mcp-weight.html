@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mcp-weight — case study — Kalen Patterson</title>
+<meta name="description" content="Case study: a read-only CLI that reports the context cost of MCP tool schemas with provenance and a snapshot diff gate.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="canonical" href="https://kcpatt27.github.io/portfolio/work/mcp-weight.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mcp-weight — case study — Kalen Patterson">
+<meta property="og:description" content="A read-only CLI that reports the context cost of MCP tool schemas with provenance and a snapshot diff gate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="../index.html"><span class="name">Kalen Patterson</span><span class="role">AI systems engineer</span></a>
+    <nav class="site-nav" aria-label="Primary"><ul>
+      <li><a href="../index.html" aria-current="page">Work</a></li>
+      <li><a href="../timeline.html">Timeline</a></li>
+      <li><a href="../vision.html">Vision</a></li>
+      <li><a href="../resume.html">CV</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main" class="case">
+  <header class="case-head">
+    <p class="eyebrow">Case study · No. 03</p>
+    <h1>mcp-weight</h1>
+    <p class="case-meta"><span>Live · Growing</span><span>TypeScript · MCP · Node</span></p>
+    <p class="lede">A read-only CLI that finds the MCP servers your agents load and puts a token number on every tool schema — per tool, per server, per client, with provenance.</p>
+  </header>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>Every MCP server injects its tool names, descriptions, and JSON schemas into context on every turn — before a user types anything. The cost is invisible, compounds with each server, and is spread across client-specific config files. mcp-weight makes that cost visible without writing to any config.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Constraints</h2>
+    <ul>
+      <li>Read-only: never write a client config, never print an environment or header value.</li>
+      <li>Measure the real servers through a <code>tools/list</code> handshake, not by parsing docs.</li>
+      <li>Label the tokenizer as a proxy; do not claim provider-native precision.</li>
+      <li>One broken or offline server is a row, never a failed scan.</li>
+      <li>Support the configs developers actually use, including JSONC and TOML.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Decisions</h2>
+    <ul>
+      <li><strong>Discover, do not guess.</strong> The scan walks known client paths, the working directory, and explicit <code>--config</code> paths.</li>
+      <li><strong>Probe the real handshake.</strong> Stdio and HTTP transports use the official MCP SDK with per-server timeouts; a failure stays attached to its row.</li>
+      <li><strong>Count with a labelled proxy.</strong> <code>cl100k_base</code> plus a chars/4 estimate makes servers comparable without pretending the number is provider-native.</li>
+      <li><strong>Snapshot and diff.</strong> <code>scan --out</code> and <code>diff --fail-over</code> turn context growth into a CI gate.</li>
+      <li><strong>Secrets stay out.</strong> Provenance includes the config path and transport, but never header or environment values.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Evidence</h2>
+    <p>Published to npm; 458 downloads in its first week. In the sample report, 20 tools across four servers came to 2,910 tokens — 1.5% of a 200,000-token window — with one failed server reported as a row. CI runs on Ubuntu and Windows across Node 20 and 24.</p>
+  </section>
+
+  <figure class="case-figure">
+    <section class="diagram-scroll" tabindex="0" aria-label="Architecture diagram">
+      <svg viewBox="0 0 820 280" role="img" aria-labelledby="mw-diagram-title mw-diagram-desc">
+        <title id="mw-diagram-title">mcp-weight scan pipeline</title>
+        <desc id="mw-diagram-desc">mcp-weight discovers client configs, probes the configured MCP servers with tools/list, counts tool schema tokens with a labelled proxy, and emits a report or a snapshot diff gate. The scan is read-only and failures remain per-row.</desc>
+        <defs><marker id="mw-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--muted)"></path></marker></defs>
+        <g class="d-box"><rect x="20" y="62" width="150" height="104" rx="2"></rect><text x="38" y="90" class="d-title">Configs</text><text x="38" y="112">six MCP clients</text><text x="38" y="132" class="d-label">JSONC · TOML</text></g>
+        <g class="d-box"><rect x="205" y="62" width="140" height="104" rx="2"></rect><text x="223" y="90" class="d-title">Discovery</text><text x="223" y="112">known paths</text><text x="223" y="132" class="d-label">explicit --config</text></g>
+        <g class="d-box"><rect x="380" y="62" width="140" height="104" rx="2"></rect><text x="398" y="90" class="d-title">Probe</text><text x="398" y="112">MCP SDK</text><text x="398" y="132" class="d-label">tools/list · timeout</text></g>
+        <g class="d-box"><rect x="555" y="62" width="130" height="104" rx="2"></rect><text x="573" y="90" class="d-title">Accounting</text><text x="573" y="112">cl100k proxy</text><text x="573" y="132" class="d-label">chars/4</text></g>
+        <g class="d-box"><rect x="720" y="62" width="80" height="104" rx="2"></rect><text x="738" y="90" class="d-title">Report</text><text x="738" y="112">tokens</text><text x="738" y="132" class="d-label">diff gate</text></g>
+        <path class="d-arrow" d="M170 114H205" marker-end="url(#mw-arrow)"></path>
+        <path class="d-arrow" d="M345 114H380" marker-end="url(#mw-arrow)"></path>
+        <path class="d-arrow" d="M520 114H555" marker-end="url(#mw-arrow)"></path>
+        <path class="d-arrow" d="M685 114H720" marker-end="url(#mw-arrow)"></path>
+        <text x="20" y="212" class="d-label">Read-only · secrets redacted · partial results stay per-row</text>
+        <text x="20" y="240" class="d-label">One broken server is a row, not a failed scan.</text>
+      </svg>
+    </section>
+    <figcaption>Five stages: discover the configs, probe the real servers, count the tool schemas, then emit a report or a snapshot diff. Nothing is written back to a client config. The diagram pans on narrow screens.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>Limits</h2>
+    <p>The tokenizer is a proxy (<code>cl100k_base</code> plus chars/4), not a provider-native count; the README labels the roughly 15% gap. It measures exposure, not actual usage. The package is still growing, and the roadmap is deliberately not linked from this record.</p>
+  </section>
+
+  <nav class="case-links" aria-label="Project links">
+    <a href="https://www.npmjs.com/package/mcp-weight">npm</a>
+    <a href="https://github.com/kcpatt27/mcp-weight">GitHub</a>
+    <a href="https://github.com/kcpatt27/mcp-weight#readme">README</a>
+    <a href="https://github.com/kcpatt27/mcp-weight/blob/main/ARCHITECTURE.md">Architecture</a>
+    <a href="../index.html#work">Back to work</a>
+  </nav>
+</main>
+
+<footer class="site-foot"><div class="wrap foot-inner"><div><p class="foot-k">Contact</p><a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div><div class="foot-meta"><nav class="foot-nav" aria-label="Footer"><ul><li><a href="../index.html">Work</a></li><li><a href="../timeline.html">Timeline</a></li><li><a href="../vision.html">Vision</a></li><li><a href="../resume.html">CV</a></li></ul></nav><p class="copyright">© 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p></div></div></footer>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eyewright — case study — Kalen Patterson</title>
+<meta name="description" content="Case study: a local-first decision core that packages a measured committee of local models behind one typed call.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="canonical" href="https://kcpatt27.github.io/portfolio/work/eyewright.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eyewright — case study — Kalen Patterson">
+<meta property="og:description" content="A local-first decision core: a measured committee of local models behind one typed call.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="../index.html"><span class="name">Kalen Patterson</span><span class="role">AI systems engineer</span></a>
+    <nav class="site-nav" aria-label="Primary"><ul>
+      <li><a href="../index.html" aria-current="page">Work</a></li>
+      <li><a href="../timeline.html">Timeline</a></li>
+      <li><a href="../vision.html">Vision</a></li>
+      <li><a href="../resume.html">CV</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main" class="case">
+  <header class="case-head">
+    <p class="eyebrow">Case study · No. 01</p>
+    <h1>eyewright</h1>
+    <p class="case-meta"><span>Published · Beta</span><span>Python · MCP · local models</span></p>
+    <p class="lede">A local-first decision core: a measured committee of local models behind one typed call, with the gate policy and decision trace attached.</p>
+  </header>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>Agent loops have to decide whether an artifact is done, which option is right, or whether to ask a human. A single small model is fast but weak; a strong cloud model sends the decision off the machine. eyewright packages that decision step as one typed call, with the policy and trace attached.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Constraints</h2>
+    <ul>
+      <li>The result must be a typed decision with an audit trail, not a free-form chat completion.</li>
+      <li>The default path stays local; a cloud eye is opt-in and its egress is labelled.</li>
+      <li>One package, four surfaces: Python, CLI, HTTP, and MCP.</li>
+      <li>The gate policy has to be measured on held-out decisions rather than asserted.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Decisions</h2>
+    <ul>
+      <li><strong>Three-eye gate.</strong> A main local eye decides; consult eyes enter only in the uncertain band. Accept, reject, and consult are explicit outcomes rather than a confidence score with no consequence.</li>
+      <li><strong>Agreement is not a vote.</strong> In the replay, naive majority voting underperformed the best single model. Agreement tiers became confidence labels, and the shipped design uses a consult cascade.</li>
+      <li><strong>One package, four surfaces.</strong> Python, CLI, HTTP, and MCP share one config and one typed result.</li>
+      <li><strong>Trace every decision.</strong> Policy and primary errors travel with the answer, so a degraded path never looks like a confident one.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Evidence</h2>
+    <p>v0.4.0 shipped to PyPI. The 2,000-decision replay covered five models and four committee designs; the selected policy reached 88.9% acted accuracy at 22.5% coverage. The default gate is fully local.</p>
+  </section>
+
+  <figure class="case-figure">
+    <section class="diagram-scroll" tabindex="0" aria-label="Architecture diagram">
+      <svg viewBox="0 0 820 300" role="img" aria-labelledby="ew-diagram-title ew-diagram-desc">
+        <title id="ew-diagram-title">eyewright decision flow</title>
+        <desc id="ew-diagram-desc">A caller reaches one gate through Python, CLI, HTTP, or MCP. The gate routes to a local main eye, and in the uncertain band to local consult eyes. Both paths return an accept, reject, or consult decision with a policy trace.</desc>
+        <defs><marker id="ew-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--muted)"></path></marker></defs>
+        <g class="d-box"><rect x="20" y="94" width="170" height="92" rx="2"></rect><text x="38" y="122" class="d-title">Caller</text><text x="38" y="144">Python · CLI · HTTP · MCP</text><text x="38" y="164" class="d-label">one typed call</text></g>
+        <g class="d-box"><rect x="250" y="84" width="180" height="112" rx="2"></rect><text x="268" y="112" class="d-title">Gate / ask</text><text x="268" y="134">typed schema</text><text x="268" y="154" class="d-label">policy + trace</text><text x="268" y="174" class="d-label">accept · reject · consult</text></g>
+        <g class="d-box"><rect x="510" y="34" width="150" height="82" rx="2"></rect><text x="528" y="62" class="d-title">Main eye</text><text x="528" y="84">local typed model</text><text x="528" y="102" class="d-label">confidence</text></g>
+        <g class="d-box"><rect x="510" y="174" width="150" height="82" rx="2"></rect><text x="528" y="202" class="d-title">Consult eyes</text><text x="528" y="224">local committee</text><text x="528" y="242" class="d-label">uncertain band</text></g>
+        <g class="d-box"><rect x="700" y="94" width="100" height="92" rx="2"></rect><text x="718" y="122" class="d-title">Decision</text><text x="718" y="144">accept</text><text x="718" y="162" class="d-label">reject · consult</text></g>
+        <path class="d-arrow" d="M190 140H250" marker-end="url(#ew-arrow)"></path>
+        <path class="d-arrow" d="M430 122H470V75H510" marker-end="url(#ew-arrow)"></path>
+        <path class="d-arrow" d="M430 160H470V215H510" marker-end="url(#ew-arrow)"></path>
+        <path class="d-arrow" d="M660 75H680V140H700" marker-end="url(#ew-arrow)"></path>
+        <path class="d-arrow" d="M660 215H680V140H700" marker-end="url(#ew-arrow)"></path>
+        <text x="204" y="132" class="d-label">call</text>
+        <text x="442" y="94" class="d-label">route</text>
+        <text x="438" y="234" class="d-label">uncertain</text>
+        <text x="20" y="280" class="d-label">Default path stays local · cloud eye is opt-in</text>
+      </svg>
+    </section>
+    <figcaption>One gate, one typed result. The main eye owns the decision; consults only fire in the uncertain band. Every path returns the policy trace with the answer. The diagram pans on narrow screens.</figcaption>
+  </figure>
+
+  <section class="case-section">
+    <h2>Limits</h2>
+    <p>The package is public on PyPI; the source repository is not public yet, so this record links to the package only. The benchmark is a screening result, not a production guarantee. A configured cloud eye sends decision state off the machine; the package labels that trade rather than hiding it.</p>
+  </section>
+
+  <nav class="case-links" aria-label="Project links">
+    <a href="https://pypi.org/project/eyewright/">PyPI</a>
+    <a href="../index.html#work">Back to work</a>
+  </nav>
+</main>
+
+<footer class="site-foot"><div class="wrap foot-inner"><div><p class="foot-k">Contact</p><a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div><div class="foot-meta"><nav class="foot-nav" aria-label="Footer"><ul><li><a href="../index.html">Work</a></li><li><a href="../timeline.html">Timeline</a></li><li><a href="../vision.html">Vision</a></li><li><a href="../resume.html">CV</a></li></ul></nav><p class="copyright">© 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p></div></div></footer>
+</body>
+</html>

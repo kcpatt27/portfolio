@@ -72,11 +72,11 @@
         </div>
       </div>
       <nav class="hero-proof enter enter--3" aria-label="Selected work">
-        <a href="work/global-info-portal.html">
+        <a href="work/eyewright.html">
           <span class="proof-k">No. 01</span>
-          <strong>Global Information Portal</strong>
-          <span class="proof-m">240+ countries · sub-second repeat load</span>
-          <span class="proof-s">Live</span>
+          <strong>eyewright</strong>
+          <span class="proof-m">v0.4.0 · 88.9% acted accuracy</span>
+          <span class="proof-s">Published</span>
         </a>
         <a href="work/sqwease.html">
           <span class="proof-k">No. 02</span>
@@ -84,11 +84,11 @@
           <span class="proof-m">5 languages · 11,500 words</span>
           <span class="proof-s">Usable</span>
         </a>
-        <a href="work/memvid-mcp.html">
+        <a href="work/mcp-weight.html">
           <span class="proof-k">No. 03</span>
-          <strong>MemVid MCP</strong>
-          <span class="proof-m">57× startup · 1,900× cached search</span>
-          <span class="proof-s proof-s--archived">Archived</span>
+          <strong>mcp-weight</strong>
+          <span class="proof-m">458 first-week downloads · 6 clients</span>
+          <span class="proof-s">Growing</span>
         </a>
       </nav>
     </div>
@@ -107,36 +107,35 @@
     </div>
   </section>
 
-  <article class="row record" aria-labelledby="project-gip">
+  <article class="row record" aria-labelledby="project-eyewright">
     <div class="margin accession" aria-hidden="true">
         <span class="accession-line"><span class="k">No.</span> <span class="n">01</span></span>
         <span class="status-mark status-mark--complete" aria-hidden="true"></span>
       </div>
     <div class="body">
       <div class="record-head">
-        <h3 id="project-gip">Global Information Portal</h3>
+        <h3 id="project-eyewright">eyewright</h3>
         <p class="status status--live">
           <span class="status-k">Status</span>
-          <span class="status-v"><span class="status-dot" aria-hidden="true"></span>Live · Completed</span>
+          <span class="status-v"><span class="status-dot" aria-hidden="true"></span>Published · Beta</span>
         </p>
       </div>
-      <p class="desc">An interactive 2D map of the world. 240+ countries, 100+ metrics each, drawn from the CIA World Factbook and rendered entirely in the browser.</p>
+      <p class="desc">A local-first decision core: a measured committee of local models behind one typed call, with the gate policy and decision trace attached.</p>
       <p class="caption">
         <span class="caption-k">Stack</span>
-        <span class="caption-v">D3.js · TopoJSON</span>
+        <span class="caption-v">Python · MCP · local models</span>
       </p>
       <dl class="fields">
         <div class="field">
           <dt>Evidence</dt>
-          <dd>Progressive caching halved the initial load; repeat visits land under a second.</dd>
+          <dd>v0.4.0 on PyPI. In a 2,000-decision replay, the selected policy reached 88.9% acted accuracy at 22.5% coverage; naive majority voting underperformed the best single model.</dd>
         </div>
         <div class="field">
           <dt>Links</dt>
           <dd>
             <ul class="field-links">
-              <li><a href="https://kcpatt27.github.io/global-info-portal" target="_blank" rel="noopener">View live <span class="arrow" aria-hidden="true">↗</span></a></li>
-              <li><a href="https://github.com/kcpatt27/global-info-portal" target="_blank" rel="noopener">GitHub <span class="arrow" aria-hidden="true">↗</span></a></li>
-              <li><a href="work/global-info-portal.html">Case study <span class="arrow" aria-hidden="true">→</span></a></li>
+              <li><a href="https://pypi.org/project/eyewright/" target="_blank" rel="noopener">PyPI <span class="arrow" aria-hidden="true">↗</span></a></li>
+              <li><a href="work/eyewright.html">Case study <span class="arrow" aria-hidden="true">→</span></a></li>
             </ul>
           </dd>
         </div>
@@ -181,34 +180,36 @@
     </div>
   </article>
 
-  <article class="row record" aria-labelledby="project-memvid">
+  <article class="row record" aria-labelledby="project-mcp-weight">
     <div class="margin accession" aria-hidden="true">
         <span class="accession-line"><span class="k">No.</span> <span class="n">03</span></span>
-        <span class="status-mark status-mark--archived" aria-hidden="true"></span>
+        <span class="status-mark status-mark--progress" aria-hidden="true"></span>
       </div>
     <div class="body">
       <div class="record-head">
-        <h3 id="project-memvid">MemVid MCP</h3>
-        <p class="status status--archived">
+        <h3 id="project-mcp-weight">mcp-weight</h3>
+        <p class="status status--live">
           <span class="status-k">Status</span>
-          <span class="status-v"><span class="status-dot" aria-hidden="true"></span>Archived 2026</span>
+          <span class="status-v"><span class="status-dot" aria-hidden="true"></span>Live · Growing</span>
         </p>
       </div>
-      <p class="desc">An MCP server that condensed text into searchable memory banks, giving AI assistants persistent context without spending the context window.</p>
+      <p class="desc">A read-only CLI that finds the MCP servers your agents load and puts a token number on every tool schema — per tool, per server, per client, with provenance.</p>
       <p class="caption">
         <span class="caption-k">Stack</span>
-        <span class="caption-v">Model Context Protocol · Memvid</span>
+        <span class="caption-v">TypeScript · MCP · Node</span>
       </p>
       <dl class="fields">
         <div class="field">
           <dt>Evidence</dt>
-          <dd>Published to npm and benchmarked at 57× faster startup and 1,900× faster cached search, then archived when the upstream MemVid format was deprecated. Kept as a case study rather than deleted.</dd>
+          <dd>458 downloads in its first week. Discovers six MCP clients, probes the real servers, and turns a broken server into a row rather than a failed scan.</dd>
         </div>
         <div class="field">
           <dt>Links</dt>
           <dd>
             <ul class="field-links">
-              <li><a href="work/memvid-mcp.html">Case study <span class="arrow" aria-hidden="true">→</span></a></li>
+              <li><a href="https://www.npmjs.com/package/mcp-weight" target="_blank" rel="noopener">npm <span class="arrow" aria-hidden="true">↗</span></a></li>
+              <li><a href="https://github.com/kcpatt27/mcp-weight" target="_blank" rel="noopener">GitHub <span class="arrow" aria-hidden="true">↗</span></a></li>
+              <li><a href="work/mcp-weight.html">Case study <span class="arrow" aria-hidden="true">→</span></a></li>
             </ul>
           </dd>
         </div>
@@ -263,12 +264,12 @@
       </div>
       <ol class="log">
         <li>
-          <span class="when">2026 · March</span>
-          <span class="what"><strong>This site, rebuilt as a static project site.</strong> Moved from a single page to a multi-page static site with a config-driven content pipeline, then hardened after a GitHub Pages failure caused by committed symlinks.</span>
+          <span class="when">2026 · October</span>
+          <span class="what"><strong>eyewright, v0.4.0.</strong> A local-first decision core published to PyPI: a measured committee of local models behind one typed call, with a 2,000-decision validation replay.</span>
         </li>
         <li>
-          <span class="when">2026 · January</span>
-          <span class="what"><strong>Global Information Portal, v1.0.</strong> An interactive map of 240+ countries with 100+ metrics each from the CIA World Factbook, running entirely in the browser.</span>
+          <span class="when">2026 · October</span>
+          <span class="what"><strong>mcp-weight, published to npm.</strong> A read-only CLI that reports the context cost of MCP tool schemas across six clients; 458 downloads in its first week.</span>
         </li>
         <li>
           <span class="when">2025 · Published</span>
