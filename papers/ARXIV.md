@@ -19,9 +19,9 @@ Verified against arXiv help on 2026-10-20:
 | --- | --- |
 | Claims reconciled with source | Partial — tables match the DT-001 phase reports; raw run artifacts still need a check |
 | Public code/artifact link | No — LSM repo currently 404 |
-| LaTeX source | No — HTML/PDF only |
-| Related work/citation pass | Thin — 7 references |
-| Author/source verification | No — draft says so |
+| LaTeX source | Yes — `papers/latex/main.tex`, compiled to 6 pages |
+| Related work/citation pass | Thin — 7 references; expand before submission |
+| Author/source verification | Partial — tables match the DT-001 phase reports; raw run artifacts pending |
 | AI-use disclosure | Yes, footnote; needs a proper statement |
 | License decision | Pending |
 | Endorsement | Not started |
