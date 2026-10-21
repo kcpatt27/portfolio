@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living State Machine — technical report draft</title>
+<meta name="author" content="Kalen Patterson">
+<meta name="description" content="Technical report draft: a gated, ablatable memory wrapper for long-horizon preference recall around a frozen local language model.">
+<meta name="robots" content="noindex">
+<style>
+  @page { size: Letter; margin: 0.78in 0.8in 0.72in; }
+  :root { --ink:#1d1a16; --muted:#5b544a; --rule:#cfc7b6; --soft:#e7dfd0; --paper:#fffdf8; --accent:#7a3d22; }
+  * { box-sizing: border-box; }
+  html { background:#eee9df; }
+  body {
+    margin: 0 auto; max-width: 8.5in; padding: 0.55in 0.65in 0.8in;
+    background: var(--paper); color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    font-size: 10.7pt; line-height: 1.5;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .draft {
+    display:flex; justify-content:space-between; gap:20px; align-items:baseline;
+    padding-bottom:8px; border-bottom:1px solid var(--rule);
+    color:var(--muted); font: 8pt/1.4 "Segoe UI", Arial, sans-serif;
+    letter-spacing:.13em; text-transform:uppercase;
+  }
+  .draft strong { color:var(--accent); font-weight:600; }
+  h1 { font-size: 23pt; line-height:1.08; font-weight: 500; margin: 28px 0 8px; letter-spacing:-.015em; }
+  .subtitle { margin:0 0 18px; color:var(--muted); font-size:11.5pt; font-style:italic; }
+  .byline { margin:0 0 22px; font: 9pt/1.5 "Segoe UI", Arial, sans-serif; color:var(--muted); }
+  .byline strong { color:var(--ink); font-weight:600; }
+  abstract { display:block; margin:0 0 22px; padding:14px 17px; border-left:2px solid var(--accent); background:#faf6ee; }
+  abstract p { margin:0; }
+  .keywords { margin:8px 0 0; font:8.5pt/1.5 "Segoe UI", Arial, sans-serif; color:var(--muted); }
+  h2 { font-size: 14pt; font-weight:600; margin: 26px 0 8px; page-break-after: avoid; }
+  h3 { font-size: 11.2pt; font-weight:600; margin: 17px 0 5px; page-break-after: avoid; }
+  p { margin: 0 0 9px; text-align: justify; hyphens: auto; }
+  ul, ol { margin: 4px 0 10px 20px; padding:0; }
+  li { margin: 0 0 5px; }
+  code { font-family: "Cascadia Mono", Consolas, monospace; font-size: .86em; background:#f3eee3; padding:0 3px; }
+  .small { font-size: 9pt; color:var(--muted); }
+  .callout { margin:14px 0; padding:10px 14px; border:1px solid var(--rule); background:#fbf7ef; font-size:9.6pt; }
+  table { width:100%; border-collapse:collapse; margin: 8px 0 14px; font: 8.8pt/1.35 "Segoe UI", Arial, sans-serif; page-break-inside: avoid; }
+  th, td { padding: 5px 6px; border-bottom:1px solid var(--soft); text-align:left; vertical-align:top; }
+  th { color:var(--muted); font-weight:600; border-bottom:1px solid var(--rule); }
+  td.num, th.num { text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
+  caption { caption-side:top; text-align:left; margin:0 0 5px; font:8.6pt/1.4 "Segoe UI", Arial, sans-serif; color:var(--muted); }
+  figure { margin: 18px 0 18px; page-break-inside: avoid; }
+  figure svg { display:block; width:100%; height:auto; border:1px solid var(--rule); background:#fffdf8; }
+  figcaption { margin-top:6px; font:8.6pt/1.45 "Segoe UI", Arial, sans-serif; color:var(--muted); }
+  .refs { font-size:8.8pt; line-height:1.42; }
+  .refs li { margin-bottom:5px; }
+  .footnote { border-top:1px solid var(--rule); margin-top:24px; padding-top:9px; font-size:8.3pt; color:var(--muted); }
+  a { color:var(--ink); text-decoration-color:var(--rule); text-underline-offset:2px; }
+  @media print {
+    html { background:#fff; }
+    body { max-width:none; padding:0; background:#fff; font-size:10.6pt; }
+    a { text-decoration:none; }
+    .no-print { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="draft"><span><strong>Draft</strong> · technical report</span><span>October 2026 · not peer reviewed</span></div>
+
+<h1>Living State Machine</h1>
+<p class="subtitle">Gated, ablatable memory for long-horizon preference recall around a frozen language model</p>
+<p class="byline"><strong>Kalen Patterson</strong> · Independent research · <span>kcpatterson27@gmail.com</span></p>
+
+<abstract>
+<p>Long-horizon assistants need memory that is cheap, inspectable, and resistant to drift. This report describes <strong>Living State Machine (LSM)</strong>, a local-first wrapper around a frozen language model that combines a compact dual state, tiered episodic memory, habituation, Hebbian association, gated writes, a deterministic verifier, and surprise-modulated plasticity. Every mechanism is ablatable through configuration. On a matched-budget preference-recall benchmark, LSM scored <strong>1.000</strong> against <strong>0.100</strong> for naive retrieval-augmented generation across three seeds; a harder decoy-heavy stress benchmark was treated as a stress test rather than a success metric. The gated writer reached an F1 of <strong>0.98</strong> and was necessary under decoy load, where always-store collapsed to zero. The report also documents three substantive negative results — a multi-timescale memory variant, an encoder verifier, and a Stentor-style recurrent core — plus one evaluation-harness fault that initially looked like a model regression. The central claim is deliberately narrow: under a matched context budget, structured, gated memory can outperform naive retrieval. It is not a claim that the wrapper beats a full-context model on every long transcript.</p>
+<p class="keywords">Keywords: long-horizon memory · retrieval-augmented generation · gated writes · state-space models · local-first AI · evaluation hygiene</p>
+</abstract>
+
+<h2>1. Introduction</h2>
+<p>A frozen language model is stateless between calls. The common workarounds are prompt stuffing, retrieval-augmented generation, or a separate memory service. Each buys context at a cost: full history grows without bound, retrieved snippets are brittle under decoys, and an LLM-written summary can quietly turn an assistant's guess into a persistent fact. On consumer hardware the constraint is sharper: a 12 GB inference budget leaves little room for a second model to manage memory.</p>
+<p>LSM studies a narrower question: can a compact set of inspectable, biologically inspired rules around a frozen model improve long-horizon preference recall at a <em>matched context budget</em>? The system is a wrapper, not a fine-tune. It keeps a small working state <code>s_t</code>, a durable episodic store, and a per-turn control loop. The research track closed in July 2026; this report is a technical account of the evidence, including what failed.</p>
+<p>The contributions are:</p>
+<ul>
+  <li>A wrapper architecture in which every memory mechanism has a <code>Null*</code> implementation, so ablations are configuration changes rather than rewrites.</li>
+  <li>A deterministic facts-backed projection that replaces LLM-authored state after paraphrase errors were observed in live sessions.</li>
+  <li>A gated writer and verifier layer, plus evidence that gating is what survives a decoy-heavy stress bench.</li>
+  <li>A reproducible benchmark suite and a deliberately honest negative-results record, including a diagnosis of a false regression caused by one embedder choice.</li>
+</ul>
+
+<h2>2. Related work</h2>
+<p>Retrieval-augmented generation (RAG) conditions a model on retrieved passages rather than the full corpus [1]. It is effective when retrieval is clean, but it assumes the retrieved unit is useful in isolation. LSM instead retrieves from an episodic memory that has been filtered by a writer gate and scored by several signals.</p>
+<p>Memory-augmented agents such as MemGPT treat the context window as a managed resource and move information between working and external memory [2]. Generative Agents maintain a memory stream with reflection and retrieval [3]. LSM shares the tiered-memory premise but differs in two ways: the language model is frozen and local, and the persistent state is rendered deterministically from structured facts rather than authored by the model.</p>
+<p>Long-context transformers reduce the need for retrieval by extending attention [4], while state-space models offer linear-time sequence mixing [5]. LSM's Phase 2 explored a small state-space core, but the production path remained a wrapper; the trained core had to clear a no-regression gate rather than replace the baseline.</p>
+<p>Habituation and associative learning are classic biological mechanisms [6], and regularization methods for sequential learning address a related stability problem [7]. LSM borrows the vocabulary — habituation, association, surprise, plasticity — but evaluates each mechanism as an engineering component, not as a biological claim.</p>
+
+<h2>3. System</h2>
+<h3>3.1 Per-turn loop</h3>
+<p>Each turn follows a fixed control loop: embed the turn; score memory candidates with cosine similarity, habituation damping, association boost, and trust; retrieve the top <em>k</em>; update the working state; compose a prompt from the state projection and retrieved snippets; call the frozen model; score the outcome; run the verifier; write only what passes the gate; and update plasticity signals. The loop is deliberately small enough to inspect in logs.</p>
+
+<figure>
+<svg viewBox="0 0 940 300" role="img" aria-labelledby="fig1-title fig1-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="fig1-title">LSM per-turn control loop</title>
+<desc id="fig1-desc">A user turn is embedded and scored against durable memory. The top results and the compact state compose a prompt for a frozen language model. The reply is scored and verified before a gated write updates durable memory and state.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5b544a"/></marker></defs>
+<g fill="none" stroke="#8a8174" stroke-width="1.1">
+  <rect x="14" y="36" width="116" height="52" rx="2"/><rect x="160" y="36" width="90" height="52" rx="2"/><rect x="280" y="36" width="142" height="52" rx="2"/><rect x="452" y="36" width="112" height="52" rx="2"/><rect x="594" y="36" width="132" height="52" rx="2"/><rect x="756" y="36" width="110" height="52" rx="2"/>
+  <rect x="14" y="178" width="176" height="62" rx="2"/><rect x="220" y="178" width="230" height="62" rx="2"/><rect x="480" y="178" width="196" height="62" rx="2"/><rect x="706" y="178" width="160" height="62" rx="2"/>
+</g>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="10.5" fill="#1d1a16">
+  <text x="30" y="58" font-weight="600">User turn</text><text x="30" y="75" font-size="9" fill="#5b544a">observe</text>
+  <text x="176" y="58" font-weight="600">Embed</text><text x="176" y="75" font-size="9" fill="#5b544a">CPU vector</text>
+  <text x="296" y="58" font-weight="600">Score + retrieve</text><text x="296" y="75" font-size="9" fill="#5b544a">cosine · habituation · association</text>
+  <text x="468" y="58" font-weight="600">Compose</text><text x="468" y="75" font-size="9" fill="#5b544a">state + top-k</text>
+  <text x="610" y="58" font-weight="600">Frozen LLM</text><text x="610" y="75" font-size="9" fill="#5b544a">local inference</text>
+  <text x="772" y="58" font-weight="600">Reply</text><text x="772" y="75" font-size="9" fill="#5b544a">then verify</text>
+  <text x="30" y="200" font-weight="600">Working state s_t</text><text x="30" y="218" font-size="9" fill="#5b544a">text + dense vector · facts-backed</text>
+  <text x="236" y="200" font-weight="600">Durable memory</text><text x="236" y="218" font-size="9" fill="#5b544a">LanceDB episodes + SQLite log</text>
+  <text x="496" y="200" font-weight="600">Verifier + gated writer</text><text x="496" y="218" font-size="9" fill="#5b544a">score · reject · re-prompt · store</text>
+  <text x="722" y="200" font-weight="600">Surprise / plasticity</text><text x="722" y="218" font-size="9" fill="#5b544a">correction-sensitive update</text>
+</g>
+<g fill="none" stroke="#5b544a" stroke-width="1.1" marker-end="url(#a)">
+  <path d="M130 62H160"/><path d="M250 62H280"/><path d="M422 62H452"/><path d="M564 62H594"/><path d="M726 62H756"/>
+  <path d="M811 88V178"/><path d="M706 209H676"/><path d="M480 209H450"/><path d="M220 209H190"/><path d="M102 178V88"/>
+</g>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="8.5" fill="#5b544a">
+  <text x="190" y="120">prompt context</text><text x="805" y="147">score</text><text x="675" y="172">gated write</text><text x="450" y="172">state update</text><text x="192" y="172">retrieve</text>
+</g>
+</svg>
+<figcaption><strong>Figure 1.</strong> The LSM control loop. The durable store is read through the scored retriever and written only through the verifier and gate. The working state is a compact projection, not a transcript.</figcaption>
+</figure>
+
+<h3>3.2 State and memory tiers</h3>
+<p><code>s_t</code> is a dual representation: a short text projection injected into the prompt (roughly 400–600 characters) and a dense vector used for retrieval conditioning. Durable memory holds verbatim atoms in LanceDB plus an episodic SQLite log. Fast, session, and durable tiers are connected by promotion, hit-count, vitality decay, and a background consolidator. The mental model is explicit: the state is a compressed, inspectable summary; durable memory holds the evidence.</p>
+
+<h3>3.3 Mechanisms</h3>
+<p>Habituation damps repeated low-value input; association boosts memories that co-occur with the current turn; trust carries outcome history; surprise-modulated plasticity amplifies the learning rate on correction-like turns. The facts-backed updater renders <code>s_t.text</code> deterministically from structured facts with recency, correction-aware slot ordering, and budget trimming. The LLM-authored summarizer remains only as an ablation. This change followed a live failure in which a vocative was absorbed into state as a game title and then inherited by every later turn.</p>
+
+<h3>3.4 Gated writing and verification</h3>
+<p>The verifier scores candidates rather than authoring text. Its five weighted components cover fact contradiction, identity drift, correction violation, list-merge errors, and length overflow. The score gates three surfaces: the writer (rejected text never becomes durable memory), the reply (one re-prompt with fix hints, then the lower-energy draft), and the legacy summarizer. The verifier is deterministic by default; a linear/hybrid learned head was evaluated, while an encoder variant was logged as a negative.</p>
+
+<h3>3.5 Ablation as dependency injection</h3>
+<p>Every mechanism sits behind a small Protocol with a <code>Null*</code> implementation. The eight benchmark configurations, the verifier family, and the state-updater family are therefore configuration flips. A run copies its YAML into the run directory with <code>metrics.json</code>, raw outputs, and logs; a run without its config is not treated as a run.</p>
+
+<h2>4. Experimental setup</h2>
+<p>The evaluation suite contains eight tasks: matched-budget preference recall (<code>recall_pref_v1</code>), a harder decoy/long-gap stress task (<code>recall_pref_v2</code>), habituation and association signal benches, memory-write precision, multi-session consistency, fact correction, and verifier calibration. Headline claims use seeds 0, 1, and 2; Phase 2 integration checks are seed 0 only and are labelled as such.</p>
+<p>The primary baselines are naive RAG and a raw LLM with a matched context budget. A full-transcript raw LLM is reported separately because it is not matched: it sees the entire history and therefore answers a different resource question. Hardware was a single RTX 5060 Ti (16 GB VRAM, 32 GB RAM) running a frozen local model through Ollama. A one-time cloud burst on a RunPod L40S cost approximately <strong>$8.04</strong> and consumed about 9.3 hours for QLoRA and small-core training. The local test suite finished at 241 passed and 3 skipped.</p>
+
+<h2>5. Results</h2>
+<table>
+<caption><strong>Table 1.</strong> Preference recall (accuracy; seeds 0–2). v2 is a stress bench, not the headline success metric.</caption>
+<thead><tr><th>System</th><th class="num">recall_pref_v1</th><th class="num">recall_pref_v2</th></tr></thead>
+<tbody>
+<tr><td>Naive RAG</td><td class="num">0.100 ± 0.100</td><td class="num">0.044 ± 0.038</td></tr>
+<tr><td>Raw LLM, matched budget</td><td class="num">0.000 ± 0.000</td><td class="num">0.000 ± 0.000</td></tr>
+<tr><td>Raw LLM, full transcript</td><td class="num">1.000 ± 0.000</td><td class="num">0.911 ± 0.038</td></tr>
+<tr><td><strong>LSM full</strong></td><td class="num"><strong>1.000 ± 0.000</strong></td><td class="num">0.089 ± 0.038</td></tr>
+</tbody>
+</table>
+<p>On the matched-budget headline task, LSM reached the ceiling while naive RAG remained at 0.100. The full-context baseline also reached 1.000 on v1, so the result is not evidence that LSM beats full context on that task. On the harder v2 stress bench, the full-context model remained strong at 0.911 while LSM fell to 0.089; the matched raw baseline was 0.000. The honest reading is that v2 measures the value of full-history access, not a wrapper failure, and it is reported to keep the headline claim in bounds.</p>
+
+<table>
+<caption><strong>Table 2.</strong> Ablations on <code>recall_pref_v1</code> (seed 0–2 means). Δ is relative to LSM full.</caption>
+<thead><tr><th>Ablation</th><th class="num">Accuracy</th><th class="num">Δ</th><th>Reading</th></tr></thead>
+<tbody>
+<tr><td>LSM full</td><td class="num">1.000 ± 0.000</td><td class="num">—</td><td>Ceiling</td></tr>
+<tr><td>No habituation</td><td class="num">0.967 ± 0.058</td><td class="num">−0.033</td><td>Measured contribution</td></tr>
+<tr><td>No writer gate</td><td class="num">0.933 ± 0.115</td><td class="num">−0.067</td><td>Writer matters</td></tr>
+<tr><td>Flat memory</td><td class="num">0.933 ± 0.058</td><td class="num">−0.067</td><td>Tiering matters</td></tr>
+<tr><td>No association</td><td class="num">1.000 ± 0.000</td><td class="num">0.000</td><td>Bench too easy</td></tr>
+<tr><td>Multi-memory</td><td class="num">1.000 ± 0.000</td><td class="num">0.000</td><td>Negative/no separation</td></tr>
+</tbody>
+</table>
+
+<table>
+<caption><strong>Table 3.</strong> Component evidence: writer precision, retrieval MRR, and verifier calibration.</caption>
+<thead><tr><th>Component</th><th class="num">Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Writer — always</td><td class="num">F1 0.67</td><td>Precision 0.50, FPR 1.00</td></tr>
+<tr><td>Writer — rules</td><td class="num">F1 0.98</td><td>Precision 1.00, recall 0.97, FPR 0.00</td></tr>
+<tr><td>Writer — learned</td><td class="num">F1 1.00</td><td>On 60 signal / 60 filler turns</td></tr>
+<tr><td>Habituation signal</td><td class="num">+0.068 MRR</td><td>0.314 → 0.382</td></tr>
+<tr><td>Association signal</td><td class="num">+0.317 MRR</td><td>0.454 → 0.772</td></tr>
+<tr><td>Verifier — rule</td><td class="num">0.556 macro-F1</td><td>Default V.1</td></tr>
+<tr><td>Verifier — linear / hybrid</td><td class="num">0.771 macro-F1</td><td>n=13; directional only</td></tr>
+<tr><td>Verifier — encoder</td><td class="num">0.211 macro-F1</td><td>Reject-all collapse; negative</td></tr>
+</tbody>
+</table>
+
+<p>The Phase 2 integration gate held the headline benchmark at 1.000 when the trained hybrid SSM updater was projected into <code>s_t</code>, and both the Transformers base and the QLoRA adapter reached 1.000 after the harness fix described below. The trained core was therefore accepted as an optional state updater, not as a replacement for the wrapper.</p>
+
+<h2>6. Negative results and failure analysis</h2>
+<h3>6.1 Multi-timescale memory did not separate</h3>
+<p>A multi-timescale memory variant produced a small negative effect (Δ ≈ −0.05). The result was kept rather than tuned into the headline: on this bench, additional tiers added complexity without a measurable gain.</p>
+<h3>6.2 The encoder verifier collapsed</h3>
+<p>The MiniLM cross-encoder verifier scored 0.211 macro-F1 at n=13, effectively rejecting everything. With a small labeled set, the encoder had no room to learn the decision boundary. The linear and hybrid heads were retained as directional evidence; the encoder result is a named negative, not a hidden hyperparameter search.</p>
+<h3>6.3 Stentor-style recurrence lost to a minimal SSM</h3>
+<p>The ambitious Phase 2 hypothesis — that a Stentor-inspired recurrent core would beat a minimal diagonal SSM on language-modeling loss — failed: final loss was 5.21 versus 2.95 on TinyStories. The comparison was not clean: step counts and sequence lengths were unequal, and the association-trace update was sequential. The minimal core was promoted because it passed the no-regression gate, and the negative was logged with its confounds. The honest next experiment is a parallelized association scan at matched compute.</p>
+<h3>6.4 A false regression caused by the evaluation harness</h3>
+<p>After QLoRA training, the adapter path appeared broken: base 0.100 and +LoRA 0.200. The model was not the problem. A hash embedder combined with a minimum score of 0.15 filtered out the preference line, returning zero memories; switching the eval embedder to fastembed restored both paths to 1.000. The correction was written into the phase report. The lesson is now a first-class check: inspect retrieved-item counts before interpreting an end-to-end score.</p>
+
+<h2>7. Limitations and threats to validity</h2>
+<ul>
+  <li><strong>Small, synthetic benchmarks.</strong> The preference tasks are controlled and synthetic. They test a narrow memory behavior, not general assistant quality.</li>
+  <li><strong>No external users.</strong> Daily utility is a qualitative single-user observation; there is no retention or satisfaction study.</li>
+  <li><strong>Seed asymmetry.</strong> Headline results use three seeds; Phase 2 integration checks are seed 0 only. A skeptical reviewer should treat those as directional.</li>
+  <li><strong>Small verifier labels.</strong> The learned/hybrid verifier result is n=13 and is not paper-grade. The encoder negative is similarly small.</li>
+  <li><strong>Matched-budget scope.</strong> The headline claim is about naive RAG at a matched budget. Full-context raw LLMs remain stronger on the harder stress bench.</li>
+  <li><strong>Hardware and cost.</strong> Results come from one consumer GPU and one ~$8 cloud burst; no multi-hardware replication.</li>
+  <li><strong>Privacy boundary.</strong> The system is local by default and supports optional encryption at rest, but the encryption path has not been independently audited.</li>
+  <li><strong>Source verification.</strong> This draft was prepared from the staged research record; every table should be reconciled against the repository and run directories before publication.</li>
+</ul>
+
+<h2>8. Conclusion</h2>
+<p>LSM shows that a compact, inspectable memory wrapper can produce a large gain over naive RAG at a matched context budget, and that the writer gate is the component most likely to matter when memory is under decoy pressure. The result is deliberately bounded: it does not claim to beat full-context models, and its negative results are part of the contribution. The next steps are matched-compute recurrence experiments, a larger verifier corpus, multi-seed Phase 2 integration, and a public, reproducible release of the code and run artifacts.</p>
+
+<h2>Appendix A. Evidence map</h2>
+<ul class="small">
+  <li><strong>Headline and ablations:</strong> staged Phase 1 report and exit checklist; <code>recall_pref_v1</code> seeds 0–2.</li>
+  <li><strong>Stress bench:</strong> <code>recall_pref_v2</code> findings; full-transcript and matched-budget baselines reported separately.</li>
+  <li><strong>Writer precision and retrieval MRR:</strong> Phase 1 component benches; 60 signal / 60 filler turns for writer precision.</li>
+  <li><strong>Verifier:</strong> calibration bench, n=13; linear/hybrid directional, encoder negative.</li>
+  <li><strong>Phase 2:</strong> integration and training reports; seed 0; one RunPod L40S burst (~$8.04, ~9.3 h).</li>
+  <li><strong>Artifacts:</strong> YAML configs, <code>metrics.json</code>, raw outputs, logs, negative-results log, exit checklists, paper abstract, and 241-test suite (3 skipped).</li>
+</ul>
+
+<h2>References</h2>
+<ol class="refs">
+  <li>Lewis, P., et al. “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.” NeurIPS 2020. arXiv:2005.11401.</li>
+  <li>Packer, C., et al. “MemGPT: Towards LLMs as Operating Systems.” 2023. arXiv:2310.08560.</li>
+  <li>Park, J. S., et al. “Generative Agents: Interactive Simulacra of Human Behavior.” UIST 2023. arXiv:2304.03442.</li>
+  <li>Beltagy, I., Peters, M. E., and Cohan, A. “Longformer: The Long-Document Transformer.” 2020. arXiv:2004.05150.</li>
+  <li>Gu, A., and Dao, T. “Mamba: Linear-Time Sequence Modeling with Selective State Spaces.” 2023. arXiv:2312.00752.</li>
+  <li>Thompson, R. F., and Spencer, W. A. “Habituation: A Model Phenomenon for the Study of Neuronal Substrates of Behavior.” Psychological Review 73(1):16–43, 1966.</li>
+  <li>Kirkpatrick, J., et al. “Overcoming Catastrophic Forgetting in Neural Networks.” PNAS 114(13):3521–3526, 2017.</li>
+</ol>
+
+<p class="footnote">Draft status: prepared from the staged LSM research record for portfolio and review use. Not peer reviewed. Claims, citations, and source references require reconciliation against the repository before public release. Prepared with AI assistance; author remains responsible for every claim.</p>
+</body>
+</html>
