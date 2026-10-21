@@ -2,6 +2,7 @@
 
 - **Draft:** `living-state-machine.html`
 - **PDF:** `living-state-machine.pdf` (7 pages, Letter)
+- **LaTeX submission source:** `latex/main.tex` + `latex/figure1.png`; `latex/main.pdf` (6 pages, compiled)
 - **Status:** technical report draft, not peer reviewed
 - **Source basis:** the staged LSM research record in `shared-docs/living-state-machine/` (`summary-for-career.md`, `key-metrics.md`, `retrospective.md`), reconciled on 2026-10-20 against the Phase 1/Phase 2 reports in the DT-001 checkout (`C:\Users\kcpat\projects\personal-projects\living-state-machine`)
 

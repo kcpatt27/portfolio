@@ -39,7 +39,8 @@ Updated 2026-10-20. This is the working backlog for the portfolio and the job-se
 - [x] Eyewright recording kit: `video/eyewright-demo/` (script, commands, checklist).
 - [x] LSM table reconciliation against the `phase1_report.md` / `phase2_report.md` in the DT-001 checkout (2026-10-20).
 - [ ] Recheck the tables against raw run IDs/artifacts; not all run directories are present in the checkout.
-- [ ] Convert the LSM report to LaTeX and run the arXiv checklist in `papers/ARXIV.md`.
+- [x] Convert the LSM report to LaTeX (`papers/latex/main.tex`, compiled to 6 pages).
+- [ ] Run the arXiv checklist in `papers/ARXIV.md`; expand citations and verify raw run artifacts.
 - [ ] Get an arXiv endorsement (first paper/new category).
 - [ ] Citation pass and related-work expansion.
 - [ ] Paper figure(s) and a clean PDF/arXiv-style layout.
