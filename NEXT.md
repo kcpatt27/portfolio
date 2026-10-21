@@ -11,8 +11,9 @@ Updated 2026-10-20. This is the working backlog for the portfolio and the job-se
 
 ## Job-search system
 
-- [ ] **Cover letter generator.** Inputs: job description, CV, selected project evidence, tone. Outputs: one-page letter, Markdown + PDF, and a claim ledger that refuses unsupported assertions.
-- [ ] **Application tracker.** Local-first table for role, company, source, date, status, contact, next action, and follow-up. No accounts, no telemetry.
+- [x] **Cover letter quality engine.** Dedicated prompt, job-priority extraction, evidence selection, quality gate, and UI warning in `get-hired` (`91927a1`).
+- [ ] **Cover letter iteration UI.** Per-application angle/tone and a “rewrite cover letter” action; review issues in place.
+- [ ] **Application tracker audit.** It already exists in `get-hired`; improve it rather than rebuilding it. Full test run needs Node 22.
 - [ ] **Application kit.** Reusable answers for “tell me about yourself,” project STAR stories, salary/availability language, and a short portfolio walkthrough.
 - [ ] **Weekly review.** A small CLI/report that surfaces stale applications, upcoming follow-ups, and which project evidence is being used.
 
