@@ -37,7 +37,8 @@ Updated 2026-10-20. This is the working backlog for the portfolio and the job-se
 
 - [x] LSM technical report draft from the staged docs: `papers/living-state-machine.pdf` (7 pages).
 - [x] Eyewright recording kit: `video/eyewright-demo/` (script, commands, checklist).
-- [ ] LSM source verification on dt-001: reconcile every table with `docs/phase1_report.md`, `phase2_report.md`, and run directories.
+- [x] LSM table reconciliation against the `phase1_report.md` / `phase2_report.md` in the DT-001 checkout (2026-10-20).
+- [ ] Recheck the tables against raw run IDs/artifacts; not all run directories are present in the checkout.
 - [ ] Convert the LSM report to LaTeX and run the arXiv checklist in `papers/ARXIV.md`.
 - [ ] Get an arXiv endorsement (first paper/new category).
 - [ ] Citation pass and related-work expansion.

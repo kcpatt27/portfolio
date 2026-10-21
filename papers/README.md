@@ -3,7 +3,7 @@
 - **Draft:** `living-state-machine.html`
 - **PDF:** `living-state-machine.pdf` (7 pages, Letter)
 - **Status:** technical report draft, not peer reviewed
-- **Source basis:** the staged LSM research record in `shared-docs/living-state-machine/` (`summary-for-career.md`, `key-metrics.md`, `retrospective.md`)
+- **Source basis:** the staged LSM research record in `shared-docs/living-state-machine/` (`summary-for-career.md`, `key-metrics.md`, `retrospective.md`), reconciled on 2026-10-20 against the Phase 1/Phase 2 reports in the DT-001 checkout (`C:\Users\kcpat\projects\personal-projects\living-state-machine`)
 
 ## What the draft covers
 
@@ -15,7 +15,7 @@
 
 ## Still needed before public release
 
-- Reconcile every number against the repository's `docs/phase1_report.md`, `docs/phase2_report.md`, exit checklists, and run directories.
+- Recheck every number against the run IDs and raw artifacts (the phase-report tables now match the draft; the raw run directories were not all present in the checkout).
 - Confirm the exact repository URL and license; the staged summary names `github.com/kcpatt27/living-state-machine`, which currently returns 404.
 - Expand and verify the related-work citations; the current list is intentionally narrow.
 - Decide on a target format (technical report, workshop paper, or blog companion) and add venue-specific figures.
