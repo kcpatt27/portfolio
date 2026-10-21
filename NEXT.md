@@ -47,6 +47,19 @@ Updated 2026-10-20. This is the working backlog for the portfolio and the job-se
 - [ ] LSM repository public + paper link in the case study.
 - [ ] Optional: parallelize the association-trace scan and rerun the Stentor-vs-minimal comparison on matched compute.
 
+## Workspace recommendation (2026-10-21)
+
+Keep the repositories separate. A combined career repo would mix a public Pages site, a private research tree, and a local hiring app, with different CI, licenses, and remotes.
+
+Use `D:\projects\career\` as a **workspace**, not a repository:
+
+- `lsm-paper/` — worktree of `living-state-machine`, branch `paper/arxiv`; canonical paper source lives beside the code and runs.
+- `portfolio/` — worktree of `portfolio-page`, branch `edition-3`; the public site.
+- `hiring/` — worktree of `get-hired`, branch for cover-letter/tracker improvements.
+- `README.md` — only a map and commands. No symlinks, no nested repos.
+
+`get-hired` already contains the hiring app, cover-letter flow, browser assist, and tracker; audit and improve it rather than creating another generator. The portfolio keeps a built PDF/link, not a second editable paper.
+
 ## Definition of done for launch
 
 - Public, inspectable artifact for every featured record.
