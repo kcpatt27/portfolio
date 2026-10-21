@@ -17,7 +17,7 @@ Verified against arXiv help on 2026-10-20:
 
 | Requirement | Status |
 | --- | --- |
-| Claims reconciled with source and run artifacts | No — staged docs only |
+| Claims reconciled with source | Partial — tables match the DT-001 phase reports; raw run artifacts still need a check |
 | Public code/artifact link | No — LSM repo currently 404 |
 | LaTeX source | No — HTML/PDF only |
 | Related work/citation pass | Thin — 7 references |
