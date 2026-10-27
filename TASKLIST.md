@@ -10,6 +10,12 @@ One tasklist per repo (like README / ROADMAP / tickets). Move finished items to 
       Prompt: `notes-vault/ideas/2026-10-17-portfolio-bakeoff-prompt.md`.
       Current look (colours, layout, word choice, project showcase) does not
       represent the operator's current skills.
+- [ ] **Do not commit a PC build's `_project-docs`** - the copy step wipes and
+      re-copies from each project's `localPath`. On the PC, `sqwease` is not
+      checked out, so its README/ARCHITECTURE are dropped (the script warns).
+      Build and deploy from the laptop, or vendor the allowed docs. Verified
+      2026-10-27: `npm run build` passes the publication gate, but rewrites four
+      tracked generated files.
 - [ ] **Purge `.taskmaster/` from history** — contains the old services PRD and
       pricing ($2k/$3.5k/$5k). Needs an explicit go for a second history rewrite.
 
