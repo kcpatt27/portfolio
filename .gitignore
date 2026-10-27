@@ -29,3 +29,7 @@ node_modules/
 
 # OS specific
 .DS_Store
+
+# TaskMaster scratch (contained the old services PRD/pricing); never publish
+.taskmaster/
+
