@@ -4,12 +4,9 @@ One tasklist per repo (like README / ROADMAP / tickets). Move finished items to 
 
 ## Now
 
-- [ ] **Design bake-off** — replace the current visual design via independent
-      directions from local models (`rq10b`, `gemma4:12b`, `astrea`, `hivemind`,
-      `psyonic cetacean`), judged per-criterion by **eyewright**.
-      Prompt: `notes-vault/ideas/2026-10-17-portfolio-bakeoff-prompt.md`.
-      Current look (colours, layout, word choice, project showcase) does not
-      represent the operator's current skills.
+- [ ] **Final launch pass** - deploy the chosen direction and re-run the live
+      smoke suite. The design bake-off is complete (operator, 2026-10-27) and
+      will recur periodically; it is not a blocker.
 - [ ] **Do not commit a PC build's `_project-docs`** - the copy step wipes and
       re-copies from each project's `localPath`. On the PC, `sqwease` is not
       checked out, so its README/ARCHITECTURE are dropped (the script warns).
