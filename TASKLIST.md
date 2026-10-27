@@ -13,8 +13,11 @@ One tasklist per repo (like README / ROADMAP / tickets). Move finished items to 
       Build and deploy from the laptop, or vendor the allowed docs. Verified
       2026-10-27: `npm run build` passes the publication gate, but rewrites four
       tracked generated files.
-- [ ] **Purge `.taskmaster/` from history** — contains the old services PRD and
+- [ ] **Purge `.taskmaster/` from history** - contains the old services PRD and
       pricing ($2k/$3.5k/$5k). Needs an explicit go for a second history rewrite.
+      **Live exposure closed 2026-10-27**: the directory was tracked and Pages
+      serves dot-directories, so `/.taskmaster/tasks/tasks.json` returned 200.
+      Removed from HEAD and verified 404 (`eb5adb5`); the files remain in history.
 
 ## Done (2026-10-15 → 17)
 
