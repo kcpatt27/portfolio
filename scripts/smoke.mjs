@@ -13,6 +13,7 @@ const checks = [
   { name: 'leak check: savant-insights PRD', url: 'https://kcpatt27.github.io/portfolio/_project-docs/savant-insights/project_specs.md', expect: 404 },
   { name: 'leak check: nextdish roadmap', url: 'https://kcpatt27.github.io/portfolio/_project-docs/nextdish/ROADMAP.md', expect: 404 },
   { name: 'leak check: meridian-whisper roadmap', url: 'https://kcpatt27.github.io/portfolio/_project-docs/meridian-whisper/ROADMAP.md', expect: 404 },
+  { name: 'leak check: taskmaster scratch', url: 'https://kcpatt27.github.io/portfolio/.taskmaster/tasks/tasks.json', expect: 404 },
 ]
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
