@@ -65,7 +65,7 @@ The pipeline is intentionally copy-based, not symlink-based. Earlier symlinks br
 | `check:output` | Same gate over `_project-docs/` after copying |
 | `check:html` | `html-validate` on every page |
 | `check:links` | Relative `href`/`src` targets and same-page anchors |
-| `smoke` | Live status codes, including probes that retired pages and private docs stay 404 |
+| `smoke` | Live status codes, including probes confirming retired pages and private docs stay 404 |
 
 ## CI and deploy
 

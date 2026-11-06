@@ -13,7 +13,7 @@ A static site built as an evidence register: each project record says what shipp
 | `vision.html` | Direction and the principles behind the work |
 | `resume.html` | HTML CV; downloads `assets/Kalen-Patterson-CV.pdf` |
 | `work/*.html` | Case studies: Fixture, Living State Machine, mcp-weight, eyewright, Global Information Portal, MemVid |
-| `papers/*.html` | Living State Machine technical report and arXiv notes |
+| `papers/` | Living State Machine technical report (HTML, PDF, LaTeX) and arXiv notes |
 | `404.html`, `docs.html` | Fallback and a pointer to the case studies |
 
 ## Stack
