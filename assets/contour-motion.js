@@ -131,20 +131,7 @@
       field = new Float32Array(cols * rows);
     }
 
-    function draw(now) {
-      if (!visible || document.hidden) {
-        running = false;
-        return;
-      }
-      if (now - last < (window.innerWidth < 680 ? 80 : 55)) {
-        requestAnimationFrame(draw);
-        return;
-      }
-      last = now;
-      const dt = previous ? Math.min(0.1, (now - previous) / 1000) : 0;
-      previous = now;
-      simTime += dt * (now < gustUntil ? GUST_SPEED : 1);
-      const t = simTime;
+    function renderFrame(t) {
       for (let j = 0; j < rows; j += 1) {
         for (let i = 0; i < cols; i += 1) {
           field[j * cols + i] = fieldFn(i / (cols - 1), j / (rows - 1), t, peaks);
@@ -182,6 +169,22 @@
         }
         ctx.stroke();
       }
+    }
+
+    function draw(now) {
+      if (!visible || document.hidden) {
+        running = false;
+        return;
+      }
+      if (now - last < (window.innerWidth < 680 ? 80 : 55)) {
+        requestAnimationFrame(draw);
+        return;
+      }
+      last = now;
+      const dt = previous ? Math.min(0.1, (now - previous) / 1000) : 0;
+      previous = now;
+      simTime += dt * (now < gustUntil ? GUST_SPEED : 1);
+      renderFrame(simTime);
       if (reduce.matches) {
         running = false;
         return;
@@ -239,8 +242,10 @@
     }
 
     resize();
+    if (reduce.matches) renderFrame(0.6);
     const ro = new ResizeObserver(() => {
       resize();
+      if (reduce.matches) renderFrame(0.6);
       if (visible) startLoop();
     });
     ro.observe(el);
