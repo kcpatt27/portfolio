@@ -3,6 +3,13 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const instances = [];
+  const STORAGE_KEY = 'contour-motion';
+  let motionSetting = 'system';
+  try {
+    const stored = window.localStorage?.getItem(STORAGE_KEY);
+    if (stored === 'on' || stored === 'off') motionSetting = stored;
+  } catch (_) { /* localStorage may be unavailable */ }
+  const motionEnabled = () => motionSetting === 'on' || (motionSetting !== 'off' && !reduce.matches);
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -185,7 +192,7 @@
       previous = now;
       simTime += dt * (now < gustUntil ? GUST_SPEED : 1);
       renderFrame(simTime);
-      if (reduce.matches) {
+      if (!motionEnabled()) {
         running = false;
         return;
       }
@@ -242,29 +249,68 @@
     }
 
     resize();
-    if (reduce.matches) renderFrame(0.6);
+    if (!motionEnabled()) renderFrame(0.6);
     const ro = new ResizeObserver(() => {
       resize();
-      if (reduce.matches) renderFrame(0.6);
-      if (visible) startLoop();
+      if (!motionEnabled()) renderFrame(0.6);
+      if (visible && motionEnabled()) startLoop();
     });
     ro.observe(el);
     const io = new IntersectionObserver((entries) => {
       visible = entries.some((e) => e.isIntersecting);
-      if (visible) startLoop();
+      if (visible && motionEnabled()) startLoop();
       else stopLoop();
     }, { threshold: 0.01 });
     io.observe(el);
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopLoop();
-      else if (visible) startLoop();
+      else if (visible && motionEnabled()) startLoop();
     });
-    startLoop();
-    instances.push({ el, canvas, ro, io, stopLoop, startLoop, detach });
+    if (motionEnabled()) startLoop();
+    instances.push({ el, canvas, ro, io, stopLoop, startLoop, renderFrame, detach });
   }
 
   function startAll() {
     document.querySelectorAll('[data-contour-motion]').forEach(init);
+  }
+
+  function updateMotionToggle() {
+    const button = document.querySelector('[data-motion-toggle]');
+    if (!button) return;
+    button.setAttribute('aria-pressed', String(motionEnabled()));
+    button.textContent = motionEnabled() ? 'Isoline motion: on' : 'Isoline motion: off';
+  }
+
+  function syncMotion() {
+    for (const item of instances) {
+      if (motionEnabled()) {
+        item.startLoop();
+      } else {
+        item.stopLoop();
+        item.renderFrame(0.6);
+      }
+    }
+    updateMotionToggle();
+  }
+
+  function setMotionSetting(next) {
+    motionSetting = next;
+    try {
+      window.localStorage?.setItem(STORAGE_KEY, next);
+    } catch (_) { /* localStorage may be unavailable */ }
+    syncMotion();
+  }
+
+  function mountMotionToggle() {
+    if (!document.querySelector('[data-contour-motion]')) return;
+    if (document.querySelector('[data-motion-toggle]')) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'motion-toggle';
+    button.dataset.motionToggle = '';
+    button.addEventListener('click', () => setMotionSetting(motionEnabled() ? 'off' : 'on'));
+    document.body.appendChild(button);
+    updateMotionToggle();
   }
 
   function stopAll() {
@@ -283,10 +329,7 @@
     }
   }
 
-  // Draw a static frame even when motion is reduced; animate when it is not.
   startAll();
-  reduce.addEventListener('change', (event) => {
-    if (event.matches) return;
-    for (const item of instances) item.startLoop();
-  });
+  mountMotionToggle();
+  reduce.addEventListener('change', syncMotion);
 })();
