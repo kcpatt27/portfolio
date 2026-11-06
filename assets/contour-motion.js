@@ -3,7 +3,15 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const instances = [];
-  const motionEnabled = () => !reduce.matches;
+  const STORAGE_KEY = 'contour-motion';
+  let motionOverride = null;
+  try {
+    const stored = window.localStorage?.getItem(STORAGE_KEY);
+    if (stored === 'on' || stored === 'off') motionOverride = stored;
+  } catch (_) { /* localStorage may be unavailable */ }
+  const motionEnabled = () => motionOverride
+    ? motionOverride === 'on'
+    : !reduce.matches;
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -268,6 +276,13 @@
     document.querySelectorAll('[data-contour-motion]').forEach(init);
   }
 
+  function updateMotionToggle() {
+    document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(motionEnabled()));
+      button.textContent = motionEnabled() ? 'Motion: on' : 'Motion: off';
+    });
+  }
+
   function syncMotion() {
     for (const item of instances) {
       if (motionEnabled()) {
@@ -277,9 +292,22 @@
         item.renderFrame(0.6);
       }
     }
+    updateMotionToggle();
+  }
+
+  function setMotionSetting(next) {
+    motionOverride = next;
+    try {
+      window.localStorage?.setItem(STORAGE_KEY, next);
+    } catch (_) { /* localStorage may be unavailable */ }
+    syncMotion();
   }
 
   startAll();
+  document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
+    button.addEventListener('click', () => setMotionSetting(motionEnabled() ? 'off' : 'on'));
+  });
+  updateMotionToggle();
   reduce.addEventListener('change', syncMotion);
 })();
 
