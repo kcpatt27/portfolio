@@ -1,5 +1,10 @@
 # Project Brief: Portfolio Website with Web Dev Pricing Form
 
+> **Archived 2026-11-06.** This file describes the retired 3D cyberpunk/space
+> portfolio concept (pricing, lead-gen forms, Three.js). It is kept for history
+> only. Canonical docs: `README.md`, `ARCHITECTURE.md`, `DESIGN.md`,
+> `ROADMAP.md`, `NEXT.md`.
+
 ## Project Overview
 Building a 3D cyberpunk/space-themed portfolio website that serves as both a showcase of web development work and a lead generation tool for potential clients. The site combines futuristic aesthetics with professional functionality, featuring a pricing form that allows visitors to place orders for website development services.
 

@@ -17,10 +17,10 @@
 ## Still needed before public release
 
 - Recheck every number against the run IDs and raw artifacts (the phase-report tables now match the draft; the raw run directories were not all present in the checkout).
-- Confirm the exact repository URL and license; the staged summary names `github.com/kcpatt27/living-state-machine`, which currently returns 404.
+- Repository is public at `github.com/kcpatt27/living-state-machine` (MIT); confirm the license and reproduction commands in its README before linking the paper from the case study.
 - Expand and verify the related-work citations; the current list is intentionally narrow.
 - Decide on a target format (technical report, workshop paper, or blog companion) and add venue-specific figures.
-- Add source/LOC/test-run metadata once the repo is available.
-- Optional: convert the HTML to LaTeX or a venue template after the content review.
+- Add source/LOC/test-run metadata from the public repo.
+- Optional: rebuild the LaTeX after the content review.
 
 The draft is deliberately written as a technical report rather than a claim of publication. It keeps the negative results and non-claims visible.

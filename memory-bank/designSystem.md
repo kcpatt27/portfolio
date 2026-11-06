@@ -1,5 +1,10 @@
 # Design System: Cosmic Cyberpunk Portfolio
 
+> **Archived 2026-11-06.** This file describes the retired 3D cyberpunk/space
+> portfolio concept (pricing, lead-gen forms, Three.js). It is kept for history
+> only. Canonical docs: `README.md`, `ARCHITECTURE.md`, `DESIGN.md`,
+> `ROADMAP.md`, `NEXT.md`.
+
 ## Theme Overview
 A 3D cyberpunk/space-themed portfolio website that combines futuristic aesthetics with professional functionality. The design system emphasizes memorable experiences, artistic presentation, and unique market positioning.
 

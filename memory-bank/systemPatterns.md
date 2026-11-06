@@ -1,5 +1,10 @@
 # System Patterns: Portfolio Website Architecture
 
+> **Archived 2026-11-06.** This file describes the retired 3D cyberpunk/space
+> portfolio concept (pricing, lead-gen forms, Three.js). It is kept for history
+> only. Canonical docs: `README.md`, `ARCHITECTURE.md`, `DESIGN.md`,
+> `ROADMAP.md`, `NEXT.md`.
+
 ## Overall Architecture
 Single-page application (SPA) built with vanilla HTML/CSS/JavaScript + Three.js for 3D elements. The architecture prioritizes maintainability, performance, and memorable user experiences.
 

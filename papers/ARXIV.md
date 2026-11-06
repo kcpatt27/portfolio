@@ -18,7 +18,7 @@ Verified against arXiv help on 2026-10-20:
 | Requirement | Status |
 | --- | --- |
 | Claims reconciled with source | Partial — tables match the DT-001 phase reports; raw run artifacts still need a check |
-| Public code/artifact link | No — LSM repo currently 404 |
+| Public code/artifact link | Yes — `github.com/kcpatt27/living-state-machine` (MIT) |
 | LaTeX source | Yes — `papers/latex/main.tex`, compiled to 6 pages |
 | Related work/citation pass | Thin — 7 references; expand before submission |
 | Author/source verification | Partial — tables match the DT-001 phase reports; raw run artifacts pending |
@@ -32,7 +32,7 @@ The draft is a good **technical report**. It is not yet a manuscript that should
 ## What to fix before submitting
 
 1. **Reconcile every number.** Compare each table against the repo's `docs/phase1_report.md`, `docs/phase2_report.md`, exit checklists, and run directories. Remove any number that cannot be traced to a run.
-2. **Make the repo public** or provide an artifact package. Include a README, license, reproduction commands, configs, and a map from each table to its run.
+2. **Confirm the artifact package.** The repo is public; verify its README, license, reproduction commands, configs, and a map from each table to its run.
 3. **Convert to LaTeX.** Use a clean article template, vector figures, `booktabs` tables, a real bibliography, and page numbers. Remove the draft banner and portfolio language.
 4. **Expand related work.** Build a citation matrix around RAG, memory-augmented agents, long-context models, state-space models, habituation, and catastrophic forgetting. Verify every reference; do not rely on generated citations.
 5. **Add the AI-assistance statement.** State that AI tools assisted with drafting/analysis and that the author verified claims and takes responsibility.
