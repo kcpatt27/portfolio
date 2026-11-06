@@ -1,5 +1,10 @@
 # Product Context: Portfolio Website
 
+> **Archived 2026-11-06.** This file describes the retired 3D cyberpunk/space
+> portfolio concept (pricing, lead-gen forms, Three.js). It is kept for history
+> only. Canonical docs: `README.md`, `ARCHITECTURE.md`, `DESIGN.md`,
+> `ROADMAP.md`, `NEXT.md`.
+
 ## Why This Project Exists
 The portfolio website serves as a digital business card and lead generation tool for web development services with a unique cyberpunk/space aesthetic. It addresses the need for a memorable, artistic online presence that attracts clients who appreciate innovative design while maintaining professional functionality.
 

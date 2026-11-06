@@ -1,5 +1,10 @@
 # Progress: Portfolio Website Development
 
+> **Archived 2026-11-06.** This file describes the retired 3D cyberpunk/space
+> portfolio concept (pricing, lead-gen forms, Three.js). It is kept for history
+> only. Canonical docs: `README.md`, `ARCHITECTURE.md`, `DESIGN.md`,
+> `ROADMAP.md`, `NEXT.md`.
+
 ## What Works
 - ✅ **File Organization**: Successfully separated monolithic assets file into focused documents
 - ✅ **Memory Bank**: Core documentation structure established with comprehensive project context

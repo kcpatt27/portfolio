@@ -1,5 +1,10 @@
 # Technical Context: Portfolio Website
 
+> **Archived 2026-11-06.** This file describes the retired 3D cyberpunk/space
+> portfolio concept (pricing, lead-gen forms, Three.js). It is kept for history
+> only. Canonical docs: `README.md`, `ARCHITECTURE.md`, `DESIGN.md`,
+> `ROADMAP.md`, `NEXT.md`.
+
 ## Technology Stack
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+) + Three.js
 - **Styling**: Vanilla CSS with cosmic custom properties
