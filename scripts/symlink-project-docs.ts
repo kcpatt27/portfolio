@@ -73,23 +73,25 @@ function run() {
   const configPath = resolve(root, 'metadata/projects.config.json')
   const config = JSON.parse(readFileSync(configPath, 'utf8')) as { projects: ProjectConfig[] }
   const docsDir = resolve(root, '_project-docs')
-
-  rmSync(docsDir, { recursive: true, force: true })
   mkdirSync(docsDir, { recursive: true })
 
   for (const project of config.projects) {
     const release = project.release
+    const folderName = project.docsFolder || project.id
+    const projectDocsDir = resolve(docsDir, folderName)
+
     if (!release || release.visibility !== 'public' || release.commercial) {
+      // Default-deny: drop any previously published docs for this project.
+      rmSync(projectDocsDir, { recursive: true, force: true })
       console.warn(`[docs] Skipping ${project.id}: not public (default-deny)`)
       continue
     }
 
     const allow = new Set(release.publishable ?? [])
-    const folderName = project.docsFolder || project.id
-    const projectDocsDir = resolve(docsDir, folderName)
     const localBase = isAbsolute(project.localPath) ? project.localPath : resolve(root, project.localPath)
 
     if (!existsSync(localBase)) {
+      // No local checkout (CI, fresh clone): keep the committed copy.
       console.warn(`[docs] Skipping ${project.id}: localPath "${project.localPath}" not found`)
       continue
     }
