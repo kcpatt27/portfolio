@@ -3,6 +3,8 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const instances = [];
+  const holes = [];
+  let sharedTime = 0;
   const STORAGE_KEY = 'contour-motion';
   let motionOverride = null;
   try {
@@ -193,6 +195,7 @@
       const dt = previous ? Math.min(0.1, (now - previous) / 1000) : 0;
       previous = now;
       simTime += dt * (now < gustUntil ? GUST_SPEED : 1);
+      sharedTime = simTime;
       renderFrame(simTime);
       if (!motionEnabled()) {
         running = false;
@@ -279,7 +282,7 @@
   function updateMotionToggle() {
     document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
       button.setAttribute('aria-pressed', String(motionEnabled()));
-      button.textContent = 'MOTION';
+      button.title = motionEnabled() ? 'Isoline animation on' : 'Isoline animation off';
     });
   }
 
@@ -292,6 +295,7 @@
         item.renderFrame(0.6);
       }
     }
+    for (const hole of holes) hole.sync();
     updateMotionToggle();
   }
 
@@ -303,7 +307,149 @@
     syncMotion();
   }
 
+  function setupHole(button) {
+    if (button.querySelector('.motion-hole')) return;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'motion-hole';
+    canvas.setAttribute('aria-hidden', 'true');
+    button.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    const source = document.querySelector('[data-contour-motion]');
+    const mode = source?.dataset.contourMode || 'hero';
+    const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
+    const center = mode === 'hero' ? [0.86, 0.12] : [0.5, 0.5];
+    const span = mode === 'hero' ? 0.16 : 0.24;
+    const cols = 30;
+    const rows = 30;
+    let w = 44;
+    let h = 44;
+    let hover = false;
+    let running = false;
+    let frame = 0;
+    let last = 0;
+    let holeTime = 0;
+    let view = { cx: 0.86, cy: 0.12, span: 0.16 };
+
+    function updateView() {
+      const rect = button.getBoundingClientRect();
+      const hero = document.querySelector('[data-contour-motion]');
+      const hrect = hero ? hero.getBoundingClientRect() : null;
+      if (!hrect || !hrect.width || !hrect.height) {
+        view = { cx: 0.86, cy: 0.12, span: 0.16 };
+        return;
+      }
+      view = {
+        cx: (rect.left + rect.width / 2 - hrect.left) / hrect.width,
+        cy: (rect.top + rect.height / 2 - hrect.top) / hrect.height,
+        span: Math.max(0.06, (rect.width / hrect.width) * 2.4),
+      };
+    }
+
+    function resize() {
+      const rect = button.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = Math.max(1, Math.round(rect.width));
+      h = Math.max(1, Math.round(rect.height));
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      updateView();
+    }
+
+    function render(t) {
+      const field = new Float32Array(cols * rows);
+      const x0 = view.cx - view.span / 2;
+      const y0 = view.cy - view.span / 2;
+      let min = Infinity;
+      let max = -Infinity;
+      for (let j = 0; j < rows; j += 1) {
+        for (let i = 0; i < cols; i += 1) {
+          const v = fieldFn(x0 + (i / (cols - 1)) * view.span, y0 + (j / (rows - 1)) * view.span, t, []);
+          field[j * cols + i] = v;
+          if (v < min) min = v;
+          if (v > max) max = v;
+        }
+      }
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalAlpha = 0.85;
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
+      ctx.lineWidth = 1;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      const lo = min + (max - min) * 0.12;
+      const hi = max - (max - min) * 0.12;
+      for (let k = 0; k < 5; k += 1) {
+        const level = lo + ((hi - lo) * k) / 4;
+        const segs = segments(field, cols, rows, level);
+        if (!segs.length) continue;
+        ctx.beginPath();
+        for (const [a, b] of segs) {
+          ctx.moveTo((a[0] / (cols - 1)) * w, (a[1] / (rows - 1)) * h);
+          ctx.lineTo((b[0] / (cols - 1)) * w, (b[1] / (rows - 1)) * h);
+        }
+        ctx.stroke();
+      }
+    }
+
+    function loop(now) {
+      if (!hover && !motionEnabled()) {
+        running = false;
+        render(holeTime || sharedTime);
+        return;
+      }
+      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
+      last = now;
+      if (motionEnabled()) holeTime = sharedTime;
+      else holeTime = (holeTime || sharedTime) + dt;
+      render(holeTime);
+      frame = requestAnimationFrame(loop);
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      last = 0;
+      frame = requestAnimationFrame(loop);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(frame);
+    }
+
+    function sync() {
+      if (motionEnabled() || hover) {
+        start();
+      } else {
+        stop();
+        render(holeTime || sharedTime);
+      }
+    }
+
+    button.addEventListener('pointerenter', () => { hover = true; start(); });
+    button.addEventListener('pointerleave', () => {
+      hover = false;
+      if (!motionEnabled()) {
+        stop();
+        render(holeTime || sharedTime);
+      }
+    });
+    button.addEventListener('focus', () => { hover = true; start(); });
+    button.addEventListener('blur', () => {
+      hover = false;
+      if (!motionEnabled()) {
+        stop();
+        render(holeTime || sharedTime);
+      }
+    });
+
+    resize();
+    render(sharedTime || 0.6);
+    holes.push({ sync, start, stop });
+  }
+
   startAll();
+  document.querySelectorAll('[data-motion-toggle]').forEach(setupHole);
   document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
     button.addEventListener('click', () => setMotionSetting(motionEnabled() ? 'off' : 'on'));
   });

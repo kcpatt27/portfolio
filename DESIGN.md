@@ -41,15 +41,17 @@ Breakpoints:
 - **820px** - entries and principles collapse to one column.
 - **680px** - the margin column becomes a horizontal label bar; hero proof cards stack; the gutter is zero.
 - **560px** - tighter head spacing; field rows stack.
-- **380px** - compact nav (smaller type, tighter gaps) so all four links plus `MOTION` stay on one row.
+- **380px** - compact nav (smaller type, tighter gaps) so all four links plus the motion control stay on one row.
 
 ## Motion
 
-The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`.
+The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 38px circle with no visible label: it is a hole through the header, sampling the field at the button's position in the hero plane, so the lines inside line up with the plane rather than being a separate icon.
 
-- `prefers-reduced-motion: reduce` → one synchronous static frame, no animation loop.
-- Otherwise → slow animation, paused when the tab is hidden or the element is off-screen.
-- The navbar `MOTION` pill is the explicit per-site override. It is gray when off and moss green with a soft 12px glow when on. It is the only control that writes a preference; everything else follows the system.
+- `prefers-reduced-motion: reduce`: one synchronous static frame, no animation loop.
+- Otherwise: slow animation, paused when the tab is hidden or the element is off-screen.
+- Off state: gray ring, static hole. On state: moss ring with a soft 12px glow.
+- Hover: the hole animates under the pointer even when the site is off, and the ring grows from 0 to 4px with a faint gray or white glow. When the site is on, the hole animates continuously and hover only adds the ring.
+- The circle is the only control that writes a preference; everything else follows the system.
 
 Motion must never be required to read content. The `.contour*.svg` masks remain the no-JS fallback.
 
