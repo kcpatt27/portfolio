@@ -182,6 +182,10 @@
         }
         ctx.stroke();
       }
+      if (reduce.matches) {
+        running = false;
+        return;
+      }
       frame = requestAnimationFrame(draw);
     }
 
@@ -251,7 +255,7 @@
       else if (visible) startLoop();
     });
     startLoop();
-    instances.push({ el, canvas, ro, io, stopLoop, detach });
+    instances.push({ el, canvas, ro, io, stopLoop, startLoop, detach });
   }
 
   function startAll() {
@@ -274,9 +278,10 @@
     }
   }
 
-  if (!reduce.matches) startAll();
+  // Draw a static frame even when motion is reduced; animate when it is not.
+  startAll();
   reduce.addEventListener('change', (event) => {
-    if (event.matches) stopAll();
-    else startAll();
+    if (event.matches) return;
+    for (const item of instances) item.startLoop();
   });
 })();
