@@ -279,7 +279,7 @@
   function updateMotionToggle() {
     document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
       button.setAttribute('aria-pressed', String(motionEnabled()));
-      button.textContent = motionEnabled() ? 'Motion: on' : 'Motion: off';
+      button.textContent = 'MOTION';
     });
   }
 
