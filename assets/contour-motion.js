@@ -3,13 +3,7 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const instances = [];
-  const STORAGE_KEY = 'contour-motion';
-  let motionSetting = 'system';
-  try {
-    const stored = window.localStorage?.getItem(STORAGE_KEY);
-    if (stored === 'on' || stored === 'off') motionSetting = stored;
-  } catch (_) { /* localStorage may be unavailable */ }
-  const motionEnabled = () => motionSetting === 'on' || (motionSetting !== 'off' && !reduce.matches);
+  const motionEnabled = () => !reduce.matches;
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -274,13 +268,6 @@
     document.querySelectorAll('[data-contour-motion]').forEach(init);
   }
 
-  function updateMotionToggle() {
-    const button = document.querySelector('[data-motion-toggle]');
-    if (!button) return;
-    button.setAttribute('aria-pressed', String(motionEnabled()));
-    button.textContent = motionEnabled() ? 'Isoline motion: on' : 'Isoline motion: off';
-  }
-
   function syncMotion() {
     for (const item of instances) {
       if (motionEnabled()) {
@@ -290,46 +277,9 @@
         item.renderFrame(0.6);
       }
     }
-    updateMotionToggle();
-  }
-
-  function setMotionSetting(next) {
-    motionSetting = next;
-    try {
-      window.localStorage?.setItem(STORAGE_KEY, next);
-    } catch (_) { /* localStorage may be unavailable */ }
-    syncMotion();
-  }
-
-  function mountMotionToggle() {
-    if (!document.querySelector('[data-contour-motion]')) return;
-    if (document.querySelector('[data-motion-toggle]')) return;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'motion-toggle';
-    button.dataset.motionToggle = '';
-    button.addEventListener('click', () => setMotionSetting(motionEnabled() ? 'off' : 'on'));
-    document.body.appendChild(button);
-    updateMotionToggle();
-  }
-
-  function stopAll() {
-    for (const item of instances.splice(0)) {
-      item.stopLoop();
-      item.ro.disconnect();
-      item.io.disconnect();
-      if (item.detach) item.detach();
-      item.canvas.remove();
-      item.el.classList.remove('has-contour-motion');
-      item.el.dataset.contourReady = 'false';
-      item.el.style.background = '';
-      item.el.style.opacity = '';
-      item.el.style.mask = '';
-      item.el.style.webkitMask = '';
-    }
   }
 
   startAll();
-  mountMotionToggle();
   reduce.addEventListener('change', syncMotion);
 })();
+

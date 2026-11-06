@@ -1201,31 +1201,3 @@
   pointer-events: none;
 }
 .has-contour-motion { animation: none !important; }
-
-.motion-toggle {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 20;
-  padding: 0.45rem 0.72rem;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  color: var(--muted);
-  font: 600 0.68rem var(--sans);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-}
-.motion-toggle:hover {
-  color: var(--ink);
-  border-color: var(--moss);
-}
-.motion-toggle[aria-pressed="true"] {
-  color: var(--moss);
-  border-color: var(--moss);
-}
-@media print {
-  .motion-toggle { display: none; }
-}
