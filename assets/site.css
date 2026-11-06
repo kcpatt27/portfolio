@@ -170,18 +170,22 @@
   .site-nav .motion-toggle {
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    padding: 6px 12px;
+    justify-content: center;
+    min-height: 32px;
+    margin: 6px 0;
+    padding: 4px 12px;
     border: 1px solid var(--rule);
     border-radius: 999px;
     background: transparent;
     color: var(--muted);
-    font: 600 0.64rem var(--sans);
-    letter-spacing: 0.18em;
-    line-height: 1;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    line-height: 1.2;
     text-transform: uppercase;
     cursor: pointer;
     white-space: nowrap;
+    box-sizing: border-box;
   }
   .site-nav .motion-toggle:hover {
     border-color: var(--clay);
@@ -191,8 +195,8 @@
     color: var(--moss);
     border-color: var(--moss);
     box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--moss) 38%, transparent),
-      0 0 16px color-mix(in srgb, var(--moss) 32%, transparent);
+      0 0 0 1px color-mix(in srgb, var(--moss) 25%, transparent),
+      0 0 12px color-mix(in srgb, var(--moss) 21%, transparent);
   }
   .site-nav .motion-toggle:focus-visible { outline: 2px solid var(--moss); outline-offset: 4px; }
   @media (max-width: 680px) {
@@ -817,7 +821,8 @@
 /* ---------- Shared page extensions (timeline, vision, docs) ---------- */
 .page-intro { padding-bottom: clamp(30px, 4vw, 46px); }
 .page-intro .lede { max-width: 62ch; margin-top: 1.15rem; }
-.site-nav a, .foot-nav a, .mail { display: inline-block; padding-top: 4px; padding-bottom: 4px; }
+.site-nav a { display: inline-flex; align-items: center; min-height: 44px; padding-top: 4px; padding-bottom: 4px; }
+.foot-nav a, .mail { display: inline-block; padding-top: 4px; padding-bottom: 4px; }
 @media (max-width: 380px) {
   .site-head { padding: 10px 0; }
   .head-inner { padding-top: 8px; padding-bottom: 2px; }
