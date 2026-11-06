@@ -167,6 +167,23 @@
 
   .site-nav a:hover { border-bottom-color: var(--clay); color: var(--clay); }
   .site-nav a[aria-current="page"] { border-bottom-color: var(--ink); }
+  .site-nav .motion-toggle {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 2px;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    font-size: 0.7rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .site-nav .motion-toggle:hover { border-bottom-color: var(--clay); color: var(--clay); }
+  .site-nav .motion-toggle[aria-pressed="true"] { color: var(--moss); border-bottom-color: var(--moss); }
+  .site-nav .motion-toggle:focus-visible { outline: 2px solid var(--moss); outline-offset: 4px; }
 
   .identity,
   .site-nav a,
