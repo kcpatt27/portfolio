@@ -26,9 +26,6 @@ interface Frontmatter {
 
 interface Overlay {
   description?: string
-  status?: string
-  completionPercent?: number
-  featured?: boolean
   localPath?: string
   technologies?: string[]
   liveUrl?: string
@@ -81,15 +78,9 @@ for (const entry of readdirSync(sharedDocs, { withFileTypes: true })) {
     id,
     name: fm.title || entry.name,
     description: presentation.description ?? '',
-    status: presentation.status ?? 'completed',
-    completionPercent: presentation.completionPercent ?? null,
-    featured: presentation.featured ?? false,
     localPath: presentation.localPath ?? '',
-    specsFile: 'project_specs.md',
-    roadmapFile: 'ROADMAP.md',
     architectureFile: 'ARCHITECTURE.md',
     technologies: presentation.technologies ?? [],
-    aiBuilt: true,
     liveUrl: presentation.liveUrl ?? '',
     release: {
       visibility: fm.publish,
@@ -101,10 +92,7 @@ for (const entry of readdirSync(sharedDocs, { withFileTypes: true })) {
   })
 }
 
-projects.sort((a, b) => {
-  const featured = Number(b.featured) - Number(a.featured)
-  return featured !== 0 ? featured : String(a.name).localeCompare(String(b.name))
-})
+projects.sort((a, b) => String(a.name).localeCompare(String(b.name)))
 
 writeFileSync(configPath, `${JSON.stringify({ projects }, null, 2)}\n`)
 console.log(`[sync] wrote ${projects.length} public project(s) to metadata/projects.config.json`)

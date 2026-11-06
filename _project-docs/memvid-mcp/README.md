@@ -3,6 +3,8 @@
 [![npm version](https://badge.fury.io/js/@kcpatt27%2Fmemvid-mcp.svg)](https://badge.fury.io/js/@kcpatt27%2Fmemvid-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+> **⚠️ Archived / Deprecated (October 2026).** This server is built on MemVid v1 (MP4 videos + QR codes), which upstream has deprecated: QR codes are no longer part of MemVid, replaced by the `.mv2` single-file format. See the [MemVid v1 deprecation notice](https://docs.memvid.com/memvid-v1-deprecation). This repository is kept as a learning archive — see [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md) for what was built, measured results, and why it was retired.
+
 **Transform your files into searchable AI memory banks using MP4 videos and vector embeddings. Seamlessly integrates with Cursor and Claude Desktop via the Model Context Protocol (MCP).**
 
 ## Table of Contents
@@ -15,7 +17,6 @@
 - [Architecture Overview](#architecture-overview)
 - [MCP Tools Documentation](#mcp-tools-documentation)
 - [Contributing](#contributing)
-- [Roadmap](#roadmap)
 - [License](#license)
 - [FAQ](#faq)
 
@@ -46,7 +47,7 @@ MemVid MCP solves the problem of making large codebases, documentation, and proj
 
 ## Tech Stack
 
-- **Runtime**: Node.js 18+ (TypeScript)
+- **Runtime**: Node.js 20+ (TypeScript) — see [`.nvmrc`](.nvmrc)
 - **Protocol**: Model Context Protocol (MCP) - JSON-RPC over stdio
 - **Python Integration**: Python 3.8+ with MemVid library
 - **Core Libraries**:
@@ -63,7 +64,7 @@ MemVid MCP solves the problem of making large codebases, documentation, and proj
 
 Before installing, ensure you have:
 
-- **Node.js 18+** - [Download here](https://nodejs.org/)
+- **Node.js 20+** — [Download here](https://nodejs.org/) (LTS recommended)
 - **Python 3.8+** - [Download here](https://python.org/)
 - **Cursor** (optional) - [Download here](https://cursor.sh/) - Required for Cursor integration
 
@@ -121,21 +122,66 @@ npm install
 # Build the project
 npm run build
 
-# Install Python dependencies
-pip install memvid
+# Install Python deps (pinned) + memvid submodule
+python -m venv memvid-env
+.\memvid-env\Scripts\pip install -r python\requirements.txt
+.\memvid-env\Scripts\pip install -e .\memvid
 
-# Test locally
+# Build and verify
+npm install && npm run build
+$env:PYTHON_EXECUTABLE = ".\memvid-env\Scripts\python.exe"
+npm test
 node dist/cli.js --check
+
+# Wire Cursor MCP config (~/.cursor/mcp.json)
+node dist/cli.js
 ```
 
 ### Environment Variables
 
-Optional environment variables for custom configuration:
+| Variable | Purpose |
+|----------|---------|
+| `PYTHON_EXECUTABLE` | Path to Python with `memvid` installed (required for npx installs) |
+| `MEMORY_BANKS_DIR` | Where `.mp4` / `.faiss` / `.json` banks are stored (default: `./memory-banks`) |
+| `MEMVID_WORKSPACE_ROOT` | Extra allowed root for `file` / `directory` sources |
+| `MEMVID_ALLOWED_PATHS` | Path-delimited list of additional allowed read roots |
+| `MEMVID_ALLOW_URL_SOURCES` | Set `true` to enable URL sources (HTTPS only; SSRF protections apply) |
+| `MEMVID_CONFIG_PATH` | Custom server config JSON path |
+| `LOG_LEVEL` | `info`, `warn`, `error`, `debug` |
 
-- `MEMORY_BANKS_DIR` - Custom directory for memory banks (default: `./memory-banks`)
-- `PYTHON_EXECUTABLE` - Custom Python executable path (default: auto-detected)
-- `MEMVID_CONFIG_PATH` - Custom configuration file path
-- `LOG_LEVEL` - Logging level: `info`, `warn`, `error`, `debug` (default: `info`)
+See [`config/mcp.example.json`](config/mcp.example.json) and [`docs/SECURITY.md`](docs/SECURITY.md) for the trust model.
+
+### Cursor MCP configuration
+
+Cursor reads global MCP servers from **`~/.cursor/mcp.json`** (Windows: `%USERPROFILE%\.cursor\mcp.json`).
+
+**Automatic setup** (merges with existing servers):
+
+```bash
+npx @kcpatt27/memvid-mcp
+# or from a local clone:
+node dist/cli.js
+```
+
+**Manual example** (npx + venv Python):
+
+```json
+{
+  "mcpServers": {
+    "memvid": {
+      "command": "npx",
+      "args": ["-y", "@kcpatt27/memvid-mcp", "--server"],
+      "env": {
+        "PYTHON_EXECUTABLE": "C:\\path\\to\\memvid-env\\Scripts\\python.exe",
+        "MEMORY_BANKS_DIR": "C:\\path\\to\\memory-banks",
+        "MEMVID_WORKSPACE_ROOT": "C:\\path\\to\\your\\project"
+      }
+    }
+  }
+}
+```
+
+Restart Cursor after editing MCP config.
 
 ## Usage / Getting Started
 
@@ -238,8 +284,8 @@ MemVid MCP Server acts as a bridge between AI assistants (via MCP protocol) and 
 │  └──────────┬───────────────┘ │
 │             │                  │
 │  ┌──────────▼───────────────┐ │
-│  │  MemVid Bridge            │ │  Python subprocess communication
-│  │  (Python Integration)    │ │
+│  │  MemVid Bridge            │ │  Persistent Python JSON-RPC (memvid-bridge.py)
+│  │  (Direct Integration)    │ │
 │  └──────────┬───────────────┘ │
 └────────────┼──────────────────┘
               │ Python subprocess
@@ -297,10 +343,9 @@ MemVid MCP Server acts as a bridge between AI assistants (via MCP protocol) and 
 - Bridges to Python MemVid library
 
 **MemVid Bridge (Python)**
-- Spawns Python subprocess with MemVid library loaded
-- Marshals data between Node.js and Python
-- Handles Python environment detection
-- Manages subprocess lifecycle
+- Persistent Python process with MemVid loaded (`memvid-bridge.py`)
+- JSON-RPC over stdin/stdout
+- Path allowlist and URL policy enforced at read time
 
 **MemVid Library (Python)**
 - Encodes text as MP4 videos with QR codes
@@ -444,47 +489,21 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 
 ## Project Status
 
-**Status:** 75% Complete (Core features shipped, working on performance optimization & UX improvements)
+**Status:** **Archived** (October 2026). Final development state: v1.2.0 (June 2026, git only — npm latest is v1.1.15).
 
-**Progress:** `████████████████████░░░░` 75%
+**Why archived:**
+- Upstream MemVid deprecated v1 (MP4 + QR codes) in favor of the Rust-based `.mv2` single-file format — see the [deprecation notice](https://docs.memvid.com/memvid-v1-deprecation).
+- The ecosystem for coding-agent context moved to just-in-time agentic search (grep), AST/knowledge-graph code intelligence, and harness-native memory (e.g. Claude Code auto memory) — see [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md).
 
-**Completed Features:**
-- ✅ Core MCP infrastructure and protocol implementation
-- ✅ Enhanced semantic search with filtering and sorting
-- ✅ Memory bank creation and management (7 MCP tools)
-- ✅ Search result caching (1,900x speedup for cached queries)
-- ✅ Production reliability and error handling
-- ✅ Health monitoring and diagnostics
-- ✅ Cross-platform support (Windows, macOS, Linux)
-- ✅ One-command installation via npx
+**What was delivered (2024–2026):**
+- ✅ Direct Python bridge — persistent `memvid-bridge.py`, lazy-loaded ML dependencies
+- ✅ Security hardening passes 2–5 — path policy, SSRF guards, supply chain CI ([`docs/SECURITY.md`](docs/SECURITY.md))
+- ✅ Cross-platform build + `npm ci` on GitHub Actions
+- ✅ 7 MCP tools, enhanced search, caching, health monitoring
+- ✅ Cursor `~/.cursor/mcp.json` auto-configuration
+- ✅ Published to npm (`@kcpatt27/memvid-mcp`, versions 1.1.11–1.1.15)
 
-**In Progress:**
-- 🔄 Direct Python integration (ETA: 2-3 weeks) - Critical performance fix
-- 🔄 Enhanced error recovery (ETA: 1 week)
-- 🔄 Documentation improvements (ETA: 1 week)
-- 🔄 Performance monitoring dashboard (ETA: 1 week)
-
-**Stats:**
-- **Lines of code:** ~6,000+ (TypeScript/JavaScript)
-- **Test coverage:** 50+ test files (unit, integration, performance, MCP protocol)
-- **Documentation coverage:** 100% (README, ARCHITECTURE, ROADMAP, CONTRIBUTING)
-- **Last updated:** January 2025
-
-## Roadmap
-
-See [ROADMAP.md](ROADMAP.md) for the complete development roadmap.
-
-**Current Focus:**
-- Architecture optimization (direct Python integration)
-- Performance improvements (target: 3-5s memory bank creation)
-- Enhanced search capabilities
-- Better error handling and diagnostics
-
-**Upcoming:**
-- Real-time memory bank updates
-- Multi-user collaboration features
-- Advanced analytics and insights
-- Cloud deployment options
+**Last updated:** October 2026
 
 ## License
 

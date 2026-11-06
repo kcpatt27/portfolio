@@ -742,7 +742,6 @@ Each memory bank consists of three files stored in the `memory-banks/` directory
 
 ## Next Steps
 
-See [ROADMAP.md](ROADMAP.md) for detailed development roadmap and priorities.
 
 **Immediate Priorities:**
 1. Implement direct Python integration (Phase 3a)

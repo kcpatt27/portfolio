@@ -295,7 +295,6 @@ The Global Information Portal is a fully-featured client-side web application th
 
 ## Future Improvements
 
-See [ROADMAP.md](ROADMAP.md) for planned enhancements:
 - Historical trends visualization (requires time-series data source)
 - Regional comparison tools
 - Custom weighting for influence scores

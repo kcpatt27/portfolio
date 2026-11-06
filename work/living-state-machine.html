@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living State Machine - case study - Kalen Patterson</title>
+<meta name="description" content="Case study: a local-first LLM memory system with six ablatable mechanisms, a deterministic verifier, and a gated writer.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="canonical" href="https://kcpatt27.github.io/portfolio/work/living-state-machine.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Living State Machine - case study - Kalen Patterson">
+<meta property="og:description" content="A local-first LLM memory system with six ablatable mechanisms, deterministic verification, and a gated writer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="../index.html"><span class="name">Kalen Patterson</span><span class="role">AI systems engineer</span></a>
+    <nav class="site-nav" aria-label="Primary"><ul>
+      <li><a href="../index.html" aria-current="page">Work</a></li>
+      <li><a href="../timeline.html">Timeline</a></li>
+      <li><a href="../vision.html">Vision</a></li>
+      <li><a href="../resume.html">CV</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main" class="case">
+  <header class="case-head">
+    <p class="eyebrow">Case study - No. 02</p>
+    <h1>Living State Machine</h1>
+    <p class="case-meta"><span>Public - Preprint</span><span>Python - FastAPI - Ollama - LanceDB</span></p>
+    <p class="lede">A local-first LLM memory system that asks whether a small set of biological memory dynamics can make long-horizon preference recall measurably better than naive retrieval.</p>
+  </header>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>Most "memory" in local assistants is prompt stuffing or naive RAG. They do not habituate repeated low-value input, associate co-occurring facts, gate what gets written, or treat memory as something with trust and decay. LSM makes those mechanisms explicit and ablatable.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Constraints</h2>
+    <ul>
+      <li>Local-first; all user data stays on the machine.</li>
+      <li>Every mechanism has a <code>Null</code> or baseline implementation so it can be ablated by YAML config.</li>
+      <li>A run without its YAML, metrics, and raw outputs is not a run.</li>
+      <li>Negative results are kept, including the Stentor recurrence result.</li>
+      <li>The verifier scores; it never authors or rewrites content.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Evidence</h2>
+    <p>On matched-budget <code>recall_pref_v1</code> across 3 seeds, LSM scored 1.000 vs 0.100 for naive RAG. The gated writer reached F1 0.98 on the rules path and proved critical under decoy load. The suite grew to 240+ tests, with pyright/ruff/pre-commit as gates.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>What I own</h2>
+    <p>Architecture, pipeline, benchmarks, training runs, verifier, and paper trail. The project is solo-built and deliberately documents what did not work: the Stentor-vs-minimal negative, the matched-budget v2 stress gap, and the encoder verifier collapse.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Limits</h2>
+    <p>The headline recall result is a matched-budget benchmark, not a production memory guarantee. The research track is closed; the paper is in preprint. The v2 stress bench is a stress test, not the headline metric. The encryption-at-rest path exists but is not security-audited.</p>
+  </section>
+
+  <nav class="case-links" aria-label="Project links">
+    <a href="https://github.com/kcpatt27/living-state-machine">GitHub</a>
+    <a href="../papers/living-state-machine.html">Paper</a>
+    <a href="../papers/living-state-machine.pdf">PDF</a>
+    <a href="../index.html#work">Back to work</a>
+  </nav>
+</main>
+
+<footer class="site-foot"><div class="wrap foot-inner"><div><p class="foot-k">Contact</p><a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div><div class="foot-meta"><nav class="foot-nav" aria-label="Footer"><ul><li><a href="../index.html">Work</a></li><li><a href="../timeline.html">Timeline</a></li><li><a href="../vision.html">Vision</a></li><li><a href="../resume.html">CV</a></li></ul></nav><p class="copyright">&copy; 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p></div></div></footer>
+</body>
+</html>

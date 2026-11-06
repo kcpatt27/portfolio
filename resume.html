@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV — Kalen Patterson</title>
+<meta name="description" content="CV for Kalen Patterson, AI systems engineer.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+
+<link rel="canonical" href="https://kcpatt27.github.io/portfolio/resume.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kalen Patterson">
+<meta property="og:title" content="CV — Kalen Patterson">
+<meta property="og:description" content="One-page CV for Kalen Patterson, AI systems engineer.">
+<meta property="og:url" content="https://kcpatt27.github.io/portfolio/resume.html">
+<meta property="og:image" content="https://kcpatt27.github.io/portfolio/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kalen Patterson — AI systems engineer. Systems where the model proposes and the code decides.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CV — Kalen Patterson">
+<meta name="twitter:description" content="One-page CV for Kalen Patterson, AI systems engineer.">
+<meta name="twitter:image" content="https://kcpatt27.github.io/portfolio/assets/social-card.png">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="index.html">
+      <span class="name">Kalen Patterson</span>
+      <span class="role">AI systems engineer</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Work</a></li>
+        <li><a href="timeline.html">Timeline</a></li>
+        <li><a href="vision.html">Vision</a></li>
+        <li><a href="resume.html" aria-current="page">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="resume">
+  <header class="resume-head">
+    <p class="eyebrow">Curriculum vitae</p>
+    <h1>Kalen Patterson</h1>
+    <p class="resume-role">AI systems engineer</p>
+    <p class="resume-contact">
+      <a href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a> ·
+      <a href="https://github.com/kcpatt27">github.com/kcpatt27</a> ·
+      <a href="https://kcpatt27.github.io/portfolio/">portfolio</a>
+    </p>
+    <p class="resume-download"><a href="assets/Kalen-Patterson-CV.pdf">Download PDF</a></p>
+  </header>
+
+  <section class="resume-section">
+    <h2>Summary</h2>
+    <p>AI systems engineer building constrained AI systems that act on physical design data. Built Fixture, a local-first harness that drives FreeCAD and Blender through a schema-validated tool contract, benchmarks planner models on a 60-case suite, and exports STEP/STL parts. Also published a local decision engine on PyPI and built a local-first LLM memory system; strongest where models, geometry APIs, and verification meet. Pursuing a B.S. in Computer Science at Western Governors University.</p>
+  </section>
+
+  <section class="resume-section">
+    <h2>Skills</h2>
+    <dl class="resume-skills">
+      <div><dt>CAD and geometry</dt><dd>FreeCAD (Part/PartDesign), Blender (bpy), scripted and parametric CAD, STEP/STL, glTF, headless geometry evaluation</dd></div>
+      <div><dt>AI and models</dt><dd>PyTorch, Ollama, OpenRouter, local inference (ONNX), JSON Schema, tool calling, planner benchmarking, model calibration, evaluation and grounding, MCP</dd></div>
+      <div><dt>Languages</dt><dd>Python, Rust, TypeScript, JavaScript, Go, SQL</dd></div>
+      <div><dt>Backend and web</dt><dd>FastAPI, Node.js, React, Next.js, PostgreSQL, SQLite, LanceDB, Prisma, Supabase, Cloudflare Workers</dd></div>
+      <div><dt>Practices</dt><dd>pytest, Docker, GitHub Actions, PyPI packaging, CLI tooling, Git</dd></div>
+    </dl>
+  </section>
+
+  <section class="resume-section">
+    <h2>Experience</h2>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>Software Engineer, NextDish</h3>
+        <span>2024–2026 · Private</span>
+      </div>
+      <p class="resume-stack">Next.js, TypeScript, Supabase, Cloudflare, OpenRouter</p>
+      <ul>
+        <li>Architected and solo-built a full-stack AI culinary platform: 131+ React components, ~40 API endpoints, a 20+ table schema, and 339 commits over 14 months.</li>
+        <li>Implemented hybrid AI generation: a client-side Llama 3.2 model (ONNX) for offline, zero-cost generation, plus an OpenRouter server tier with dynamic model discovery and automatic fallback.</li>
+        <li>Hardened the data layer by refactoring 50+ Supabase row-level-security policies across 20 tables and removing 12 unused indexes, clearing all performance-advisor warnings.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="resume-section">
+    <h2>Selected projects</h2>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3><a href="work/fixture-cad.html">Fixture (formerly freeAICAD)</a></h3>
+        <span>Python, FastAPI, FreeCAD, Blender, Ollama</span>
+      </div>
+      <ul>
+        <li>Built a local-first harness that turns chat into programmatic CAD operations in FreeCAD and Blender through one JSON-schema tool contract: named tools only, confirm-before-mutate, undo-wrapped changes, and no model-written code execution.</li>
+        <li>Benchmarked 13+ local planners and 4 cloud models on a 60-case suite; Fixture passed 96.7-98.3% vs 57.6-74.6% for the closest open-source assistant. Gate PASS: pytest 140, FreeCAD 92/0, Blender 29/0.</li>
+        <li>Built STEP/STL desk cases (4-piece laptop cradle, 2-piece under-desk shelf) and a Blender scan-cleanup tool that exports watertight STL; the keyboard case stays private.</li>
+      </ul>
+    </article>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3><a href="work/eyewright.html">eyewright</a></h3>
+        <span>Python, MCP, local decision models</span>
+      </div>
+      <ul>
+        <li>Published a decision-engine package (PyPI v0.4.0) exposing a committee of local models behind one callable, reaching 88.9% acted accuracy at 22.5% coverage with all traffic local by default.</li>
+        <li>Ran a 2,000-decision model-selection replay across 5 models and 4 committee designs, showing naive majority voting underperforms the best single model; redesigned the committee as a calibrated confidence-and-consult cascade.</li>
+      </ul>
+    </article>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3><a href="work/living-state-machine.html">Living State Machine</a></h3>
+        <span>Python, FastAPI, Ollama, LanceDB</span>
+      </div>
+      <ul>
+        <li>Built a local-first LLM memory system with six ablatable biologically inspired mechanisms, reaching 1.000 vs 0.100 preference-recall accuracy over naive RAG at matched context budget across 3 seeds.</li>
+        <li>Added a deterministic verifier and a gated writer (F1 0.98), with a 240+ test suite and a YAML-reproducible multi-seed ablation runner.</li>
+      </ul>
+    </article>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3><a href="work/mcp-weight.html">mcp-weight</a></h3>
+        <span>TypeScript, MCP, Node</span>
+      </div>
+      <ul>
+        <li>Published a read-only CLI that reports the context cost of MCP tool schemas across six clients; 517 downloads in its first month.</li>
+        <li>Labels the tokenizer as a proxy, keeps a broken server as a row instead of failing the scan, and adds a snapshot diff gate for CI.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="resume-section">
+    <h2>Education</h2>
+    <article class="resume-entry">
+      <div class="resume-entry-head">
+        <h3>Western Governors University</h3>
+        <span>B.S. Computer Science · Pursuing</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="resume-section">
+    <h2>Additional work</h2>
+    <p>Also built a daily-driver orchestration CLI for a fully local AI stack (907 tests; cut agent latency from ~25–60 s to ~2–5 s), a privacy-first AI code editor, a published CLI that audits MCP context-token cost (458 downloads in its first week), an interactive D3 dashboard covering 240+ countries, and an offline language-learning app with Lighthouse accessibility 1.0 across six pages. Author of a 25,000-word published guide on building software with AI. Built with AI assistance.</p>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-k">Contact</p>
+      <a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a>
+    </div>
+    <div class="foot-meta">
+      <nav class="foot-nav" aria-label="Footer">
+        <ul>
+          <li><a href="index.html">Work</a></li>
+            <li><a href="timeline.html">Timeline</a></li>
+          <li><a href="vision.html">Vision</a></li>
+          <li><a href="resume.html">CV</a></li>
+        </ul>
+      </nav>
+      <p class="copyright">© 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

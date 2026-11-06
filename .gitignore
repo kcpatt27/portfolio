@@ -3,6 +3,13 @@ temp-docs/
 .taskmaster/
 _old/
 example-ui-images/
+project-images/
+
+# Design bake-off artifacts (local review only; do not deploy)
+bakeoff/
+
+# Generated aggregate output (unused by the current site)
+_aggregated/
 
 # Logs
 logs
@@ -33,3 +40,6 @@ node_modules/
 # TaskMaster scratch (contained the old services PRD/pricing); never publish
 .taskmaster/
 
+
+# local helper scripts
+build/

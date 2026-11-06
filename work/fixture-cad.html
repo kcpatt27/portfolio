@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture (formerly freeAICAD) - case study - Kalen Patterson</title>
+<meta name="description" content="Case study: a local-first harness that drives FreeCAD and Blender through a schema-validated tool contract, with named tools, confirm-before-mutate, and STEP/STL output.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1815">
+<link rel="canonical" href="https://kcpatt27.github.io/portfolio/work/fixture-cad.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fixture - case study - Kalen Patterson">
+<meta property="og:description" content="A local-first harness for FreeCAD and Blender with named tools, confirm-before-mutate, undo, and STEP/STL output.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="identity" href="../index.html"><span class="name">Kalen Patterson</span><span class="role">AI systems engineer</span></a>
+    <nav class="site-nav" aria-label="Primary"><ul>
+      <li><a href="../index.html" aria-current="page">Work</a></li>
+      <li><a href="../timeline.html">Timeline</a></li>
+      <li><a href="../vision.html">Vision</a></li>
+      <li><a href="../resume.html">CV</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main" class="case">
+  <header class="case-head">
+    <p class="eyebrow">Case study - No. 01</p>
+    <h1>Fixture (formerly freeAICAD)</h1>
+    <p class="case-meta"><span>Release candidate - Private</span><span>Python - FastAPI - FreeCAD - Blender</span></p>
+    <p class="lede">A local-first harness that turns chat into programmatic CAD operations. The model proposes named tools; the client confirms, executes, and undo-wraps them.</p>
+  </header>
+
+  <section class="case-section">
+    <h2>The problem</h2>
+    <p>CAD scripting is powerful but brittle. Letting a model write Python into FreeCAD or Blender makes the failure mode arbitrary code with no contract, no confirmation, and no reliable undo. Fixture keeps the model inside a registered tool catalog: every mutation has a JSON schema, a permission tier, and an undo transaction.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Constraints</h2>
+    <ul>
+      <li>No model-written code execution. Python actions are stripped.</li>
+      <li>Named tools only; unknown tools and invalid arguments are dropped.</li>
+      <li>Confirm-tier mutations stay pending until Apply.</li>
+      <li>Every mutating runner is undo-wrapped in FreeCAD or Blender.</li>
+      <li>Local by default; the OpenRouter lane is opt-in and sends no document bytes.</li>
+    </ul>
+  </section>
+
+  <section class="case-section">
+    <h2>Evidence</h2>
+    <p>Gate PASS: 140 pytest, FreeCAD 92/0, Blender 29/0. On a 60-case planner suite, Fixture passed 96.7-98.3% of cases against 57.6-74.6% for the closest open-source assistant, with the failure analysis kept alongside the result. The release tree includes two scripted STEP/STL desk cases: a 4-piece laptop cradle and a 2-piece under-desk shelf. The keyboard design is private and appears only in the demo.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>What I own</h2>
+    <p>Architecture, harness, both clients, the tool contract, the benchmark, the release gate, and the scripted desk designs. The project is solo-built; the claim I care about is the invariant: the model proposes, the infrastructure decides.</p>
+  </section>
+
+  <section class="case-section">
+    <h2>Limits</h2>
+    <p>Fixture is a release candidate, not a public repo yet. The keyboard CAD files stay private. The benchmark measures the planner turn, not a full multi-turn product comparison. There is no production NURBS/B-Rep or DFM claim here; the geometry work is FreeCAD Part/PartDesign, scripted solids, and STEP/STL.</p>
+  </section>
+
+  <nav class="case-links" aria-label="Project links">
+    <span>Private today; walkthrough available</span>
+    <a href="../index.html#work">Back to work</a>
+  </nav>
+</main>
+
+<footer class="site-foot"><div class="wrap foot-inner"><div><p class="foot-k">Contact</p><a class="mail" href="mailto:kcpatterson27@gmail.com">kcpatterson27@gmail.com</a></div><div class="foot-meta"><nav class="foot-nav" aria-label="Footer"><ul><li><a href="../index.html">Work</a></li><li><a href="../timeline.html">Timeline</a></li><li><a href="../vision.html">Vision</a></li><li><a href="../resume.html">CV</a></li></ul></nav><p class="copyright">&copy; 2026 Kalen Patterson. Static HTML. No trackers, no frameworks.</p></div></div></footer>
+</body>
+</html>
