@@ -1,4 +1,4 @@
-# Getting LSM onto arXiv — and repeating the process
+# Getting LSM onto arXiv - and repeating the process
 
 Status: **draft only**. The current PDF is a 7-page technical report prepared from the staged research record. It is not yet an arXiv-ready manuscript.
 
@@ -17,11 +17,11 @@ Verified against arXiv help on 2026-10-20:
 
 | Requirement | Status |
 | --- | --- |
-| Claims reconciled with source | Partial — tables match the DT-001 phase reports; raw run artifacts still need a check |
-| Public code/artifact link | Yes — `github.com/kcpatt27/living-state-machine` (MIT) |
-| LaTeX source | Yes — `papers/latex/main.tex`, compiled to 6 pages |
-| Related work/citation pass | Thin — 7 references; expand before submission |
-| Author/source verification | Partial — tables match the DT-001 phase reports; raw run artifacts pending |
+| Claims reconciled with source | Partial - tables match the DT-001 phase reports; raw run artifacts still need a check |
+| Public code/artifact link | Yes - `github.com/kcpatt27/living-state-machine` (MIT) |
+| LaTeX source | Yes - `papers/latex/main.tex`, compiled to 6 pages |
+| Related work/citation pass | Thin - 7 references; expand before submission |
+| Author/source verification | Partial - tables match the DT-001 phase reports; raw run artifacts pending |
 | AI-use disclosure | Yes, footnote; needs a proper statement |
 | License decision | Pending |
 | Endorsement | Not started |
@@ -38,7 +38,7 @@ The draft is a good **technical report**. It is not yet a manuscript that should
 5. **Add the AI-assistance statement.** State that AI tools assisted with drafting/analysis and that the author verified claims and takes responsibility.
 6. **Internal red-team review.** Check the statistics, seed counts, baseline fairness, negative-result framing, and the v2 “stress test, not success metric” claim.
 7. **Choose the category and license.** Likely primary `cs.LG`; cross-list `cs.CL` or `cs.AI` only if the moderators agree. Choose CC BY 4.0 or the arXiv license deliberately.
-8. **Get an endorsement.** If you have an institutional email or a prior arXiv paper, use that path. Otherwise ask an arXiv author who knows the area — one or two people, not a mass email. A workshop submission can also create a review record and a natural endorsement path.
+8. **Get an endorsement.** If you have an institutional email or a prior arXiv paper, use that path. Otherwise ask an arXiv author who knows the area - one or two people, not a mass email. A workshop submission can also create a review record and a natural endorsement path.
 9. **Submit, compile, inspect, and announce.** Upload TeX, check the compiled PDF, enter metadata, then submit. The announcement is not peer review.
 
 ## Endorsement, plainly

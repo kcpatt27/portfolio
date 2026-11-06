@@ -32,10 +32,10 @@ Shared chrome lives in each page: `.site-head`, `.site-nav`, `.site-foot`. There
 
 ## Assets
 
-- `assets/site.css` — one stylesheet. Tokens are CSS custom properties on `:root`, with a dark palette under `prefers-color-scheme: dark`. Layout is a two-column register (`.margin` + `.body`) inside `.row`, collapsing to one column under 680px.
-- `assets/contour-motion.js` — marching-squares isolines on a canvas. Three field modes (`hero`, `timeline`, `vision`) share one renderer. It reads `prefers-reduced-motion`, paints one synchronous frame when motion is reduced, and animates otherwise. The navbar `MOTION` button overrides the system setting per browser via `localStorage`.
-- `assets/contour*.svg` — static masks used as the no-JS and reduced-motion fallback.
-- `assets/fonts/` — self-hosted Fraunces (OFL). Karla comes from Google Fonts.
+- `assets/site.css` - one stylesheet. Tokens are CSS custom properties on `:root`, with a dark palette under `prefers-color-scheme: dark`. Layout is a two-column register (`.margin` + `.body`) inside `.row`, collapsing to one column under 680px.
+- `assets/contour-motion.js` - marching-squares isolines on a canvas. Three field modes (`hero`, `timeline`, `vision`) share one renderer. It reads `prefers-reduced-motion`, paints one synchronous frame when motion is reduced, and animates otherwise. The navbar `MOTION` button overrides the system setting per browser via `localStorage`.
+- `assets/contour*.svg` - static masks used as the no-JS and reduced-motion fallback.
+- `assets/fonts/` - self-hosted Fraunces (OFL). Karla comes from Google Fonts.
 
 ## Content pipeline
 
@@ -69,9 +69,9 @@ The pipeline is intentionally copy-based, not symlink-based. Earlier symlinks br
 
 ## CI and deploy
 
-- `.github/workflows/ci.yml` — on push/PR: install, publish gate, build, HTML validation, local links.
-- `.github/workflows/pages.yml` — on push to `main`: upload the repository root as the Pages artifact, deploy with `actions/deploy-pages`.
-- `.github/workflows/smoke.yml` — scheduled live check of the deployed site.
+- `.github/workflows/ci.yml` - on push/PR: install, publish gate, build, HTML validation, local links.
+- `.github/workflows/pages.yml` - on push to `main`: upload the repository root as the Pages artifact, deploy with `actions/deploy-pages`.
+- `.github/workflows/smoke.yml` - scheduled live check of the deployed site.
 
 Pages must stay on the Actions source. The legacy branch builder repeatedly cancelled its own deployments on this repository.
 

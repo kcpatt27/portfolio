@@ -1,4 +1,4 @@
-// scripts/smoke.mjs — post-deploy smoke check.
+// scripts/smoke.mjs - post-deploy smoke check.
 // Verifies the live site serves, and that private-project PRDs stay gone.
 // Uses GET (HEAD is flaky on GitHub Pages) with a small retry.
 

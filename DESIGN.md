@@ -37,11 +37,11 @@ The page is a register: a narrow margin column (`.margin`) beside a wide body (`
 
 Breakpoints:
 
-- **900px** — hide the vision contour strip.
-- **820px** — entries and principles collapse to one column.
-- **680px** — the margin column becomes a horizontal label bar; hero proof cards stack; the gutter is zero.
-- **560px** — tighter head spacing; field rows stack.
-- **380px** — compact nav (smaller type, tighter gaps) so all four links plus `MOTION` stay on one row.
+- **900px** - hide the vision contour strip.
+- **820px** - entries and principles collapse to one column.
+- **680px** - the margin column becomes a horizontal label bar; hero proof cards stack; the gutter is zero.
+- **560px** - tighter head spacing; field rows stack.
+- **380px** - compact nav (smaller type, tighter gaps) so all four links plus `MOTION` stay on one row.
 
 ## Motion
 

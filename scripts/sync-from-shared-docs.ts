@@ -39,7 +39,7 @@ const overlayPath = resolve(root, 'metadata/portfolio-overlay.json')
 const configPath = resolve(root, 'metadata/projects.config.json')
 
 if (!existsSync(sharedDocs)) {
-  console.warn(`[sync] shared-docs not found at ${sharedDocs} — keeping the committed config.`)
+  console.warn(`[sync] shared-docs not found at ${sharedDocs} - keeping the committed config.`)
   process.exit(0)
 }
 
@@ -60,7 +60,7 @@ for (const entry of readdirSync(sharedDocs, { withFileTypes: true })) {
   try {
     fm = (yaml.load(match[1]) ?? {}) as Frontmatter
   } catch {
-    console.warn(`[sync] ${entry.name}: unreadable frontmatter — skipped`)
+    console.warn(`[sync] ${entry.name}: unreadable frontmatter - skipped`)
     continue
   }
 
@@ -70,7 +70,7 @@ for (const entry of readdirSync(sharedDocs, { withFileTypes: true })) {
   const id = fm.portfolio_id || entry.name
   const presentation = overlay[id]
   if (!presentation) {
-    console.warn(`[sync] ${entry.name}: public but no overlay entry for "${id}" — skipped`)
+    console.warn(`[sync] ${entry.name}: public but no overlay entry for "${id}" - skipped`)
     continue
   }
 

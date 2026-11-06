@@ -1,4 +1,4 @@
-# Kalen Patterson — portfolio
+# Kalen Patterson - portfolio
 
 **Live:** https://kcpatt27.github.io/portfolio/
 

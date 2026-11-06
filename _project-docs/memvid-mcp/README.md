@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/@kcpatt27%2Fmemvid-mcp.svg)](https://badge.fury.io/js/@kcpatt27%2Fmemvid-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **⚠️ Archived / Deprecated (October 2026).** This server is built on MemVid v1 (MP4 videos + QR codes), which upstream has deprecated: QR codes are no longer part of MemVid, replaced by the `.mv2` single-file format. See the [MemVid v1 deprecation notice](https://docs.memvid.com/memvid-v1-deprecation). This repository is kept as a learning archive — see [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md) for what was built, measured results, and why it was retired.
+> **⚠️ Archived / Deprecated (October 2026).** This server is built on MemVid v1 (MP4 videos + QR codes), which upstream has deprecated: QR codes are no longer part of MemVid, replaced by the `.mv2` single-file format. See the [MemVid v1 deprecation notice](https://docs.memvid.com/memvid-v1-deprecation). This repository is kept as a learning archive - see [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md) for what was built, measured results, and why it was retired.
 
 **Transform your files into searchable AI memory banks using MP4 videos and vector embeddings. Seamlessly integrates with Cursor and Claude Desktop via the Model Context Protocol (MCP).**
 
@@ -49,7 +49,7 @@ MemVid MCP solves the problem of making large codebases, documentation, and proj
 
 ## Tech Stack
 
-- **Runtime**: Node.js 20+ (TypeScript) — see [`.nvmrc`](.nvmrc)
+- **Runtime**: Node.js 20+ (TypeScript) - see [`.nvmrc`](.nvmrc)
 - **Protocol**: Model Context Protocol (MCP) - JSON-RPC over stdio
 - **Python Integration**: Python 3.8+ with MemVid library
 - **Core Libraries**:
@@ -66,7 +66,7 @@ MemVid MCP solves the problem of making large codebases, documentation, and proj
 
 Before installing, ensure you have:
 
-- **Node.js 20+** — [Download here](https://nodejs.org/) (LTS recommended)
+- **Node.js 20+** - [Download here](https://nodejs.org/) (LTS recommended)
 - **Python 3.8+** - [Download here](https://python.org/)
 - **Cursor** (optional) - [Download here](https://cursor.sh/) - Required for Cursor integration
 
@@ -491,15 +491,15 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 
 ## Project Status
 
-**Status:** **Archived** (October 2026). Final development state: v1.2.0 (June 2026, git only — npm latest is v1.1.15).
+**Status:** **Archived** (October 2026). Final development state: v1.2.0 (June 2026, git only - npm latest is v1.1.15).
 
 **Why archived:**
-- Upstream MemVid deprecated v1 (MP4 + QR codes) in favor of the Rust-based `.mv2` single-file format — see the [deprecation notice](https://docs.memvid.com/memvid-v1-deprecation).
-- The ecosystem for coding-agent context moved to just-in-time agentic search (grep), AST/knowledge-graph code intelligence, and harness-native memory (e.g. Claude Code auto memory) — see [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md).
+- Upstream MemVid deprecated v1 (MP4 + QR codes) in favor of the Rust-based `.mv2` single-file format - see the [deprecation notice](https://docs.memvid.com/memvid-v1-deprecation).
+- The ecosystem for coding-agent context moved to just-in-time agentic search (grep), AST/knowledge-graph code intelligence, and harness-native memory (e.g. Claude Code auto memory) - see [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md).
 
 **What was delivered (2024–2026):**
-- ✅ Direct Python bridge — persistent `memvid-bridge.py`, lazy-loaded ML dependencies
-- ✅ Security hardening passes 2–5 — path policy, SSRF guards, supply chain CI ([`docs/SECURITY.md`](docs/SECURITY.md))
+- ✅ Direct Python bridge - persistent `memvid-bridge.py`, lazy-loaded ML dependencies
+- ✅ Security hardening passes 2–5 - path policy, SSRF guards, supply chain CI ([`docs/SECURITY.md`](docs/SECURITY.md))
 - ✅ Cross-platform build + `npm ci` on GitHub Actions
 - ✅ 7 MCP tools, enhanced search, caching, health monitoring
 - ✅ Cursor `~/.cursor/mcp.json` auto-configuration
