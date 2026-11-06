@@ -3,7 +3,7 @@
 //
 // Default-deny: a project with no `release` block, a non-public visibility, or
 // any commercial flag never reaches the public site. Roadmap/PRD files are never
-// published — the site shows a timeline, not a plan.
+// published - the site shows a timeline, not a plan.
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs'
 import { join, resolve } from 'path'
@@ -39,10 +39,10 @@ for (const project of config.projects ?? []) {
     continue
   }
   if (rel.visibility !== 'public') {
-    errors.push(`${project.id}: visibility="${rel.visibility}" — only "public" projects may appear`)
+    errors.push(`${project.id}: visibility="${rel.visibility}" - only "public" projects may appear`)
   }
   if (rel.commercial) {
-    errors.push(`${project.id}: commercial=true — must not be published`)
+    errors.push(`${project.id}: commercial=true - must not be published`)
   }
 
   const publishable = rel.publishable ?? []
@@ -57,7 +57,7 @@ for (const project of config.projects ?? []) {
     }
   }
   if (publishable.length === 0) {
-    errors.push(`${project.id}: publishable is empty — nothing may be copied`)
+    errors.push(`${project.id}: publishable is empty - nothing may be copied`)
   }
 }
 

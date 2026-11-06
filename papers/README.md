@@ -1,4 +1,4 @@
-# Living State Machine — paper/report
+# Living State Machine - paper/report
 
 - **Draft:** `living-state-machine.html`
 - **PDF:** `living-state-machine.pdf` (7 pages, Letter)

@@ -1,7 +1,7 @@
 # Content license
 
-The written content of this portfolio — page copy, project descriptions, the CV,
-and the supporting documentation — is licensed under the Creative Commons
+The written content of this portfolio - page copy, project descriptions, the CV,
+and the supporting documentation - is licensed under the Creative Commons
 Attribution 4.0 International License (CC BY 4.0).
 
 You may share and adapt the content for any purpose, including commercial use,

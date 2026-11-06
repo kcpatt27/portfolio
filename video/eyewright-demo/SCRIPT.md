@@ -1,14 +1,14 @@
-# eyewright demo — 75-second script
+# eyewright demo - 75-second script
 
 Tone: calm, technical, no hype. The product is a decision layer, not a chatbot.
 
-## 0:00–0:08 — Cold open
+## 0:00–0:08 - Cold open
 
 **Visual:** case-study hero or a clean terminal.
 
 **Narration:** “An agent can propose an action. The harder question is whether the system should trust it. eyewright is the decision step: a local committee behind one typed call.”
 
-## 0:08–0:20 — The surface
+## 0:08–0:20 - The surface
 
 **Visual:** terminal.
 
@@ -19,7 +19,7 @@ eyewright --help
 
 **Narration:** “It ships as one Python package with four surfaces: Python, CLI, HTTP, and MCP. Same policy, same typed result.”
 
-## 0:20–0:40 — A real gate
+## 0:20–0:40 - A real gate
 
 **Visual:** run the real gate against a disposable artifact.
 
@@ -34,7 +34,7 @@ eyewright gate `
 
 **Visual:** highlight `p_done`, `decision`, and `trace.consults`; keep the window still for two seconds.
 
-## 0:40–0:55 — A typed decision
+## 0:40–0:55 - A typed decision
 
 **Visual:** a choice question with two options.
 
@@ -48,13 +48,13 @@ eyewright ask `
 
 **Narration:** “The output is typed, not a paragraph. The caller gets a decision, a confidence, and the trace. A schema, a policy, or a test still decides what happens next.”
 
-## 0:55–1:05 — Local-first boundary
+## 0:55–1:05 - Local-first boundary
 
 **Visual:** show the config with the main eye local; if a cloud eye is present, show it is opt-in and labelled.
 
 **Narration:** “The default path is local. A cloud eye is an explicit opt-in, and the egress trade is in the docs. The point is not to hide the judgment in a model; it is to make the judgment inspectable.”
 
-## 1:05–1:15 — Close
+## 1:05–1:15 - Close
 
 **Visual:** PyPI page, then the case study/diagram.
 

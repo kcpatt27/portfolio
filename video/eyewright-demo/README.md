@@ -1,4 +1,4 @@
-# eyewright demo — recording kit
+# eyewright demo - recording kit
 
 Status: **not recorded on this machine**. The installed PyPI package is present (`eyewright 0.4.0`), but the demo needs the private source tree's `examples/gate.json`, the local `laya-serve` endpoint, and the configured decision models. This machine has generic Ollama models only, no `laya` service, and no source checkout, so a genuine run cannot be captured here.
 
@@ -43,6 +43,6 @@ Replace any personal path in the terminal title/prompt. Use a disposable workspa
 
 ## Files
 
-- `SCRIPT.md` — 75-second shot list and narration.
-- `commands.ps1` — rehearsal commands; edit the config path to the real demo config.
-- `CHECKLIST.md` — pre/post recording checks.
+- `SCRIPT.md` - 75-second shot list and narration.
+- `commands.ps1` - rehearsal commands; edit the config path to the real demo config.
+- `CHECKLIST.md` - pre/post recording checks.

@@ -112,10 +112,10 @@ The Global Information Portal is a fully-featured client-side web application th
 - **Purpose:** Display country information and data visualizations
 - **Technology:** Vanilla JavaScript DOM manipulation
 - **Key Components:**
-  - `dataPanels.js` — Main panel controller
-  - `statsPanel.js` — Statistics tab with search
-  - `rankingsPanel.js` — Rankings tab with leaderboard
-  - `leaderboard/` — Global Superpower Leaderboard components
+  - `dataPanels.js` - Main panel controller
+  - `statsPanel.js` - Statistics tab with search
+  - `rankingsPanel.js` - Rankings tab with leaderboard
+  - `leaderboard/` - Global Superpower Leaderboard components
 - **Dependencies:** state.js, charts.js, dataFetcher.js
 - **Failure Mode:** Panel shows "Loading..." or error message
 

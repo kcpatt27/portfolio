@@ -53,7 +53,7 @@
     {
       "id": "sqwease",
       "name": "SQWease",
-      "description": "Speak Quite Well with Ease — language learning app combining comprehensive input, spaced repetition, and minimum effective dose learning",
+      "description": "Speak Quite Well with Ease - language learning app combining comprehensive input, spaced repetition, and minimum effective dose learning",
       "localPath": "../japanese-learning-app",
       "architectureFile": "ARCHITECTURE.md",
       "technologies": [],
