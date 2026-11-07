@@ -66,6 +66,6 @@ Pages source is the Actions workflow, not a branch. Do not switch it back to the
 
 ## Motion and accessibility
 
-The isolines honor `prefers-reduced-motion`. When motion is allowed they animate; when it is reduced they render one static frame. The circular control in the navbar is a hole through the header: it samples the same field and clock as the page, so the lines under the button belong to the same plane. It is static when motion is off, animates under the pointer, and animates continuously when on. The choice is remembered per browser.
+The isolines honor `prefers-reduced-motion`. When motion is allowed they animate; when it is reduced they render one static frame. The header carries a plane canvas sampled from the same field and clock as the hero, and its paper layer is 90% opaque with a circular mask at the button. The circle is static when motion is off, animates under the pointer, and animates continuously when on. The choice is remembered per browser.
 
 Pages are readable with JavaScript off. Keyboard focus is visible, the skip link is first in the tab order, and status is written in text as well as shown in the margin marks.

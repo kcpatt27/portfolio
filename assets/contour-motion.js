@@ -3,7 +3,7 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const instances = [];
-  const holes = [];
+  const planes = [];
   let sharedTime = 0;
   const STORAGE_KEY = 'contour-motion';
   let motionOverride = null;
@@ -295,7 +295,7 @@
         item.renderFrame(0.6);
       }
     }
-    for (const hole of holes) hole.sync();
+    for (const plane of planes) plane.sync();
     updateMotionToggle();
   }
 
@@ -307,64 +307,63 @@
     syncMotion();
   }
 
-  function setupHole(button) {
-    if (button.querySelector('.motion-hole')) return;
-    const canvas = document.createElement('canvas');
-    canvas.className = 'motion-hole';
-    canvas.setAttribute('aria-hidden', 'true');
-    button.appendChild(canvas);
-    const ctx = canvas.getContext('2d');
+  function setupHeaderPlane() {
+    const header = document.querySelector('.site-head');
+    const button = document.querySelector('[data-motion-toggle]');
     const source = document.querySelector('[data-contour-motion]');
-    const mode = source?.dataset.contourMode || 'hero';
+    if (!header || !button || !source) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'header-plane';
+    canvas.setAttribute('aria-hidden', 'true');
+    header.prepend(canvas);
+    const ctx = canvas.getContext('2d');
+    const mode = source.dataset.contourMode || 'hero';
     const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
-    const center = mode === 'hero' ? [0.86, 0.12] : [0.5, 0.5];
-    const span = mode === 'hero' ? 0.16 : 0.24;
-    const cols = 30;
-    const rows = 30;
-    let w = 44;
-    let h = 44;
+
+    let w = 1;
+    let h = 1;
     let hover = false;
     let running = false;
     let frame = 0;
     let last = 0;
-    let holeTime = 0;
-    let view = { cx: 0.86, cy: 0.12, span: 0.16 };
+    let planeTime = 0;
 
-    function updateView() {
-      const rect = button.getBoundingClientRect();
-      const hero = document.querySelector('[data-contour-motion]');
-      const hrect = hero ? hero.getBoundingClientRect() : null;
-      if (!hrect || !hrect.width || !hrect.height) {
-        view = { cx: 0.86, cy: 0.12, span: 0.16 };
-        return;
-      }
-      view = {
-        cx: (rect.left + rect.width / 2 - hrect.left) / hrect.width,
-        cy: (rect.top + rect.height / 2 - hrect.top) / hrect.height,
-        span: Math.max(0.06, (rect.width / hrect.width) * 2.4),
-      };
+    function updateHole() {
+      const br = button.getBoundingClientRect();
+      const hr = header.getBoundingClientRect();
+      header.style.setProperty('--hole-x', (br.left + br.width / 2 - hr.left) + 'px');
+      header.style.setProperty('--hole-y', (br.top + br.height / 2 - hr.top) + 'px');
+      header.style.setProperty('--hole-r', (br.width / 2) + 'px');
     }
 
     function resize() {
-      const rect = button.getBoundingClientRect();
+      const rect = header.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = Math.max(1, Math.round(rect.width));
       h = Math.max(1, Math.round(rect.height));
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      updateView();
+      updateHole();
     }
 
     function render(t) {
+      const hr = header.getBoundingClientRect();
+      const sr = source.getBoundingClientRect();
+      if (!sr.width || !sr.height) return;
+      const cols = Math.max(40, Math.min(180, Math.round(w / 8)));
+      const rows = Math.max(6, Math.min(24, Math.round(h / 6)));
       const field = new Float32Array(cols * rows);
-      const x0 = view.cx - view.span / 2;
-      const y0 = view.cy - view.span / 2;
       let min = Infinity;
       let max = -Infinity;
       for (let j = 0; j < rows; j += 1) {
         for (let i = 0; i < cols; i += 1) {
-          const v = fieldFn(x0 + (i / (cols - 1)) * view.span, y0 + (j / (rows - 1)) * view.span, t, []);
+          const px = hr.left + (i / (cols - 1)) * hr.width;
+          const py = hr.top + (j / (rows - 1)) * hr.height;
+          const v = fieldFn((px - sr.left) / sr.width, (py - sr.top) / sr.height, t, []);
           field[j * cols + i] = v;
           if (v < min) min = v;
           if (v > max) max = v;
@@ -376,10 +375,10 @@
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
-      const lo = min + (max - min) * 0.12;
-      const hi = max - (max - min) * 0.12;
-      for (let k = 0; k < 5; k += 1) {
-        const level = lo + ((hi - lo) * k) / 4;
+      const lo = min + (max - min) * 0.1;
+      const hi = max - (max - min) * 0.1;
+      for (let k = 0; k < 9; k += 1) {
+        const level = lo + ((hi - lo) * k) / 8;
         const segs = segments(field, cols, rows, level);
         if (!segs.length) continue;
         ctx.beginPath();
@@ -394,14 +393,14 @@
     function loop(now) {
       if (!hover && !motionEnabled()) {
         running = false;
-        render(holeTime || sharedTime);
+        render(planeTime || sharedTime);
         return;
       }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      if (motionEnabled()) holeTime = sharedTime;
-      else holeTime = (holeTime || sharedTime) + dt;
-      render(holeTime);
+      if (motionEnabled()) planeTime = sharedTime;
+      else planeTime = (planeTime || sharedTime) + dt;
+      render(planeTime);
       frame = requestAnimationFrame(loop);
     }
 
@@ -422,7 +421,7 @@
         start();
       } else {
         stop();
-        render(holeTime || sharedTime);
+        render(planeTime || sharedTime);
       }
     }
 
@@ -431,7 +430,7 @@
       hover = false;
       if (!motionEnabled()) {
         stop();
-        render(holeTime || sharedTime);
+        render(planeTime || sharedTime);
       }
     });
     button.addEventListener('focus', () => { hover = true; start(); });
@@ -439,21 +438,27 @@
       hover = false;
       if (!motionEnabled()) {
         stop();
-        render(holeTime || sharedTime);
+        render(planeTime || sharedTime);
       }
     });
 
+    const ro = new ResizeObserver(() => {
+      resize();
+      if (!running) render(planeTime || sharedTime);
+    });
+    ro.observe(header);
+    ro.observe(button);
+
     resize();
     render(sharedTime || 0.6);
-    holes.push({ sync, start, stop });
+    planes.push({ sync, start, stop });
   }
 
   startAll();
-  document.querySelectorAll('[data-motion-toggle]').forEach(setupHole);
+  setupHeaderPlane();
   document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
     button.addEventListener('click', () => setMotionSetting(motionEnabled() ? 'off' : 'on'));
   });
   updateMotionToggle();
   reduce.addEventListener('change', syncMotion);
 })();
-
