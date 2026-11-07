@@ -45,7 +45,7 @@ Breakpoints:
 
 ## Motion
 
-The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label. The header carries its own plane canvas, sampled from the same field and clock as the hero, and the paper layer is 90% opaque with a circular mask cut at the button. The result is one plane that reads through the overhang and opens at the button.
+The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label and a small isoline glyph drawn from the same field. The header stays solid; the glyph is the only animated element in it.
 
 - `prefers-reduced-motion: reduce`: one synchronous static frame, no animation loop.
 - Otherwise: slow animation, paused when the tab is hidden or the element is off-screen.

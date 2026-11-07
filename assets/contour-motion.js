@@ -3,7 +3,7 @@
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const instances = [];
-  const planes = [];
+  const icons = [];
   let sharedTime = 0;
   const STORAGE_KEY = 'contour-motion';
   let motionOverride = null;
@@ -295,7 +295,7 @@
         item.renderFrame(0.6);
       }
     }
-    for (const plane of planes) plane.sync();
+    for (const icon of icons) icon.sync();
     updateMotionToggle();
   }
 
@@ -307,84 +307,70 @@
     syncMotion();
   }
 
-  function setupHeaderPlane() {
-    const header = document.querySelector('.site-head');
-    const button = document.querySelector('[data-motion-toggle]');
-    const source = document.querySelector('[data-contour-motion]');
-    if (!header || !button || !source) return;
-
+  function setupIcon(button) {
+    if (button.querySelector('.motion-icon')) return;
     const canvas = document.createElement('canvas');
-    canvas.className = 'header-plane';
+    canvas.className = 'motion-icon';
     canvas.setAttribute('aria-hidden', 'true');
-    header.prepend(canvas);
+    button.appendChild(canvas);
     const ctx = canvas.getContext('2d');
-    const mode = source.dataset.contourMode || 'hero';
+    const source = document.querySelector('[data-contour-motion]');
+    const mode = source?.dataset.contourMode || 'hero';
     const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
+    const view = { cx: 0.86, cy: 0.12, span: 0.18 };
 
-    let w = 1;
-    let h = 1;
+    let w = 28;
+    let h = 28;
     let hover = false;
     let running = false;
     let frame = 0;
     let last = 0;
-    let planeTime = 0;
-
-    function updateHole() {
-      const br = button.getBoundingClientRect();
-      const hr = header.getBoundingClientRect();
-      header.style.setProperty('--hole-x', (br.left + br.width / 2 - hr.left) + 'px');
-      header.style.setProperty('--hole-y', (br.top + br.height / 2 - hr.top) + 'px');
-      header.style.setProperty('--hole-r', (br.width / 2) + 'px');
-    }
+    let iconTime = 0;
 
     function resize() {
-      const rect = header.getBoundingClientRect();
+      const rect = button.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = Math.max(1, Math.round(rect.width));
-      h = Math.max(1, Math.round(rect.height));
+      w = Math.max(1, Math.round(rect.width - 6));
+      h = Math.max(1, Math.round(rect.height - 6));
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      updateHole();
     }
 
-    function render(t) {
-      const hr = header.getBoundingClientRect();
-      const sr = source.getBoundingClientRect();
-      if (!sr.width || !sr.height) return;
-      const cols = Math.max(40, Math.min(180, Math.round(w / 8)));
-      const rows = Math.max(6, Math.min(24, Math.round(h / 6)));
-      const field = new Float32Array(cols * rows);
+    function paint(t) {
+      const fcols = 24;
+      const frows = 24;
+      const field = new Float32Array(fcols * frows);
+      const x0 = view.cx - view.span / 2;
+      const y0 = view.cy - view.span / 2;
       let min = Infinity;
       let max = -Infinity;
-      for (let j = 0; j < rows; j += 1) {
-        for (let i = 0; i < cols; i += 1) {
-          const px = hr.left + (i / (cols - 1)) * hr.width;
-          const py = hr.top + (j / (rows - 1)) * hr.height;
-          const v = fieldFn((px - sr.left) / sr.width, (py - sr.top) / sr.height, t, []);
-          field[j * cols + i] = v;
+      for (let j = 0; j < frows; j += 1) {
+        for (let i = 0; i < fcols; i += 1) {
+          const v = fieldFn(x0 + (i / (fcols - 1)) * view.span, y0 + (j / (frows - 1)) * view.span, t, []);
+          field[j * fcols + i] = v;
           if (v < min) min = v;
           if (v > max) max = v;
         }
       }
       ctx.clearRect(0, 0, w, h);
-      ctx.globalAlpha = 0.85;
+      ctx.globalAlpha = 0.9;
       ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
-      const lo = min + (max - min) * 0.1;
-      const hi = max - (max - min) * 0.1;
-      for (let k = 0; k < 9; k += 1) {
-        const level = lo + ((hi - lo) * k) / 8;
-        const segs = segments(field, cols, rows, level);
+      const lo = min + (max - min) * 0.12;
+      const hi = max - (max - min) * 0.12;
+      for (let k = 0; k < 4; k += 1) {
+        const level = lo + ((hi - lo) * k) / 3;
+        const segs = segments(field, fcols, frows, level);
         if (!segs.length) continue;
         ctx.beginPath();
         for (const [a, b] of segs) {
-          ctx.moveTo((a[0] / (cols - 1)) * w, (a[1] / (rows - 1)) * h);
-          ctx.lineTo((b[0] / (cols - 1)) * w, (b[1] / (rows - 1)) * h);
+          ctx.moveTo((a[0] / (fcols - 1)) * w, (a[1] / (frows - 1)) * h);
+          ctx.lineTo((b[0] / (fcols - 1)) * w, (b[1] / (frows - 1)) * h);
         }
         ctx.stroke();
       }
@@ -393,14 +379,14 @@
     function loop(now) {
       if (!hover && !motionEnabled()) {
         running = false;
-        render(planeTime || sharedTime);
+        paint(iconTime || sharedTime);
         return;
       }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      if (motionEnabled()) planeTime = sharedTime;
-      else planeTime = (planeTime || sharedTime) + dt;
-      render(planeTime);
+      if (motionEnabled()) iconTime = sharedTime;
+      else iconTime = (iconTime || sharedTime) + dt;
+      paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
 
@@ -421,7 +407,7 @@
         start();
       } else {
         stop();
-        render(planeTime || sharedTime);
+        paint(iconTime || sharedTime);
       }
     }
 
@@ -430,7 +416,7 @@
       hover = false;
       if (!motionEnabled()) {
         stop();
-        render(planeTime || sharedTime);
+        paint(iconTime || sharedTime);
       }
     });
     button.addEventListener('focus', () => { hover = true; start(); });
@@ -438,24 +424,23 @@
       hover = false;
       if (!motionEnabled()) {
         stop();
-        render(planeTime || sharedTime);
+        paint(iconTime || sharedTime);
       }
     });
 
     const ro = new ResizeObserver(() => {
       resize();
-      if (!running) render(planeTime || sharedTime);
+      if (!running) paint(iconTime || sharedTime);
     });
-    ro.observe(header);
     ro.observe(button);
 
     resize();
-    render(sharedTime || 0.6);
-    planes.push({ sync, start, stop });
+    paint(sharedTime || 0.6);
+    icons.push({ sync, start, stop });
   }
 
   startAll();
-  setupHeaderPlane();
+  document.querySelectorAll('[data-motion-toggle]').forEach(setupIcon);
   document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
     button.addEventListener('click', () => setMotionSetting(motionEnabled() ? 'off' : 'on'));
   });
