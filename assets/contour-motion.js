@@ -187,7 +187,7 @@
         running = false;
         return;
       }
-      if (now - last < (window.innerWidth < 680 ? 80 : 55)) {
+      if (now - last < (window.innerWidth < 680 ? 50 : 33)) {
         requestAnimationFrame(draw);
         return;
       }
@@ -343,8 +343,10 @@
       const fcols = 24;
       const frows = 24;
       const field = new Float32Array(fcols * frows);
-      const x0 = view.cx - view.span / 2;
-      const y0 = view.cy - view.span / 2;
+      const driftX = 0.032 * Math.sin(t * 2.1);
+      const driftY = 0.022 * Math.cos(t * 1.7);
+      const x0 = view.cx + driftX - view.span / 2;
+      const y0 = view.cy + driftY - view.span / 2;
       let min = Infinity;
       let max = -Infinity;
       for (let j = 0; j < frows; j += 1) {
@@ -357,14 +359,21 @@
       }
       ctx.clearRect(0, 0, w, h);
       ctx.globalAlpha = 0.9;
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
+      const rule = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
+      const flow = (Math.sin(t * 1.4) + 1) / 2;
+      const grad = ctx.createLinearGradient(-w * 0.2, 0, w * (0.7 + flow * 0.5), h);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(0.45, rule);
+      grad.addColorStop(1, rule);
+      ctx.strokeStyle = grad;
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
       const lo = min + (max - min) * 0.12;
       const hi = max - (max - min) * 0.12;
+      const shift = (max - min) * 0.05 * Math.sin(t * 1.9);
       for (let k = 0; k < 4; k += 1) {
-        const level = lo + ((hi - lo) * k) / 3;
+        const level = lo + ((hi - lo) * k) / 3 + shift;
         const segs = segments(field, fcols, frows, level);
         if (!segs.length) continue;
         ctx.beginPath();
