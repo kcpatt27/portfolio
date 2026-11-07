@@ -330,8 +330,6 @@
     const frows = 20;
     const field = new Float32Array(fcols * frows);
     let fractions = [0.18, 0.4, 0.62, 0.84];
-    let targetFractions = fractions.slice();
-    let nextPick = 0;
     let baseLo = 0;
     let baseHi = 1;
     let offsetX = 0;
@@ -430,33 +428,6 @@
         offsetX = Math.max(-w * 0.1, Math.min(w * 0.1, w / 2 - (minX + maxX) / 2));
         offsetY = Math.max(-h * 0.1, Math.min(h * 0.1, h / 2 - (minY + maxY) / 2));
       }
-      targetFractions = fractions.slice();
-    }
-
-    function chooseTargets(t) {
-      sampleField(t);
-      const lo = baseLo;
-      const hi = baseHi;
-      const cx = w / 2;
-      const cy = h / 2;
-      const candidates = [];
-      for (let k = 0; k < 13; k += 1) {
-        const level = lo + ((hi - lo) * k) / 12;
-        const segs = segments(field, fcols, frows, level);
-        if (!segs.length) continue;
-        const visible = segs.some(([a, b]) => {
-          const mx = ((a[0] + b[0]) / 2 / (fcols - 1)) * w;
-          const my = ((a[1] + b[1]) / 2 / (frows - 1)) * h;
-          return Math.hypot(mx - cx, my - cy) < 15;
-        });
-        if (visible) candidates.push((level - lo) / (hi - lo));
-      }
-      if (candidates.length >= 4) {
-        const start = Math.floor((candidates.length - 4) / 2);
-        targetFractions = candidates.slice(start, start + 4);
-      } else if (candidates.length) {
-        targetFractions = candidates.slice(0, 4);
-      }
     }
 
     function paint(t) {
@@ -506,8 +477,8 @@
         ctx.beginPath();
         for (let i = 0; i < smoke.length; i += 1) {
           const [x1, y1, x2, y2] = smoke[i];
-          const jx = Math.sin(i * 12.9898 + t * 2.2) * 1.6;
-          const jy = Math.cos(i * 7.233 + t * 1.7) * 1.6;
+          const jx = Math.sin(i * 12.9898) * 1.6;
+          const jy = Math.cos(i * 7.233) * 1.6;
           ctx.moveTo(x1 + dx + jx, y1 + dy + jy);
           ctx.lineTo(x2 + dx + jy, y2 + dy + jx);
         }
@@ -538,18 +509,6 @@
         speed = ramp * ramp * (3 - 2 * ramp);
       }
       iconTime += dt * speed;
-      if (now >= nextPick) {
-        chooseTargets(iconTime);
-        nextPick = now + 300;
-      }
-      if (targetFractions.length !== fractions.length) {
-        fractions = targetFractions.slice();
-      } else {
-        const ease = Math.min(1, dt * 5);
-        for (let i = 0; i < fractions.length; i += 1) {
-          fractions[i] += (targetFractions[i] - fractions[i]) * ease;
-        }
-      }
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
