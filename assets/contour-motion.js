@@ -307,19 +307,6 @@
     syncMotion();
   }
 
-  function iconField(x, y, t) {
-    const peaks = [
-      [0.34 + 0.14 * Math.sin(t * 0.8), 0.42 + 0.12 * Math.cos(t * 0.6), 0.30, 1.0],
-      [0.72 + 0.10 * Math.cos(t * 0.7), 0.66 + 0.12 * Math.sin(t * 0.9), 0.24, -0.9],
-      [0.52 + 0.18 * Math.sin(t * 0.5 + 2), 0.30 + 0.10 * Math.cos(t * 0.8), 0.20, 0.8],
-    ];
-    let value = 0.12 * Math.sin(x * 5.0 + t * 0.5) + 0.10 * Math.cos(y * 6.0 - t * 0.4);
-    for (const [px, py, radius, amp] of peaks) {
-      value += amp * Math.exp(-(((x - px) ** 2 + (y - py) ** 2) / (radius * radius)));
-    }
-    return value;
-  }
-
   function setupIcon(button) {
     if (button.querySelector('.motion-icon')) return;
     const canvas = document.createElement('canvas');
@@ -327,8 +314,11 @@
     canvas.setAttribute('aria-hidden', 'true');
     button.appendChild(canvas);
     const ctx = canvas.getContext('2d');
-    const STATIC_T = 1.1;
-    const view = { cx: 0.5, cy: 0.5, span: 1.0 };
+    const source = document.querySelector('[data-contour-motion]');
+    const mode = source?.dataset.contourMode || 'hero';
+    const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
+    const STATIC_T = 2.4;
+    const view = { cx: 0.82, cy: 0.24, span: 0.42 };
 
     let w = 44;
     let h = 44;
@@ -360,7 +350,7 @@
       let max = -Infinity;
       for (let j = 0; j < frows; j += 1) {
         for (let i = 0; i < fcols; i += 1) {
-          const v = iconField(x0 + (i / (fcols - 1)) * view.span, y0 + (j / (frows - 1)) * view.span, t);
+          const v = fieldFn(x0 + (i / (fcols - 1)) * view.span, y0 + (j / (frows - 1)) * view.span, t, []);
           field[j * fcols + i] = v;
           if (v < min) min = v;
           if (v > max) max = v;
@@ -395,7 +385,7 @@
       }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      iconTime += dt;
+      iconTime += dt * 1.5;
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }

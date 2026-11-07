@@ -33,7 +33,7 @@ Shared chrome lives in each page: `.site-head`, `.site-nav`, `.site-foot`. There
 ## Assets
 
 - `assets/site.css` - one stylesheet. Tokens are CSS custom properties on `:root`, with a dark palette under `prefers-color-scheme: dark`. Layout is a two-column register (`.margin` + `.body`) inside `.row`, collapsing to one column under 680px.
-- `assets/contour-motion.js` - marching-squares isolines on a canvas. Three field modes (`hero`, `timeline`, `vision`) share one renderer, and the navbar icon uses a small three-peak field. It reads `prefers-reduced-motion`, paints one synchronous frame when motion is reduced, and animates otherwise. The circular navbar control overrides the system setting per browser via `localStorage`.
+- `assets/contour-motion.js` - marching-squares isolines on a canvas. Three field modes (`hero`, `timeline`, `vision`) share one renderer, and the navbar icon previews the page field through a small window. It reads `prefers-reduced-motion`, paints one synchronous frame when motion is reduced, and animates otherwise. The circular navbar control overrides the system setting per browser via `localStorage`.
 - `assets/contour*.svg` - static masks used as the no-JS and reduced-motion fallback.
 - `assets/fonts/` - self-hosted Fraunces (OFL). Karla comes from Google Fonts.
 

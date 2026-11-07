@@ -50,7 +50,7 @@ The hero, timeline spine, and vision strip use canvas isolines from `assets/cont
 - `prefers-reduced-motion: reduce`: one synchronous static frame, no animation loop.
 - Otherwise: slow animation, paused when the tab is hidden or the element is off-screen.
 - Off state: gray ring, glyph at rest. On state: moss ring with a soft 12px glow, glyph still.
-- Hover, when the site is off: the glyph's contour loops drift and reshape inside the circle. The glyph canvas is larger than the ring and masked, so the lines read as continuing past it. Hover does nothing when the site is on.
+- Hover, when the site is off: the page's contour lines drift through the circle. The glyph canvas is larger than the ring and masked, so the lines read as continuing past it. Hover does nothing when the site is on.
 - The ring grows from 0 to 4px with a faint gray or white glow on hover.
 - Field canvases animate at about 30fps on desktop and 20fps on small screens.
 - The circle is the only control that writes a preference; everything else follows the system.
