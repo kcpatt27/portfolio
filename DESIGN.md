@@ -45,7 +45,7 @@ Breakpoints:
 
 ## Motion
 
-The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label and a small vertical isoline glyph, oriented as flowing strata rather than the hero's diagonal arcs.
+The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label and a small diagonal isoline glyph, oriented from top left to bottom right.
 
 - `prefers-reduced-motion: reduce`: one synchronous static frame, no animation loop.
 - Otherwise: slow animation, paused when the tab is hidden or the element is off-screen.

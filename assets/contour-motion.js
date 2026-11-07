@@ -360,11 +360,18 @@
     function sampleField(t) {
       const x0 = view.cx - view.span / 2;
       const y0 = view.cy - view.span / 2;
+      const angle = Math.PI / 4;
+      const ca = Math.cos(angle);
+      const sa = Math.sin(angle);
       let min = Infinity;
       let max = -Infinity;
       for (let j = 0; j < frows; j += 1) {
         for (let i = 0; i < fcols; i += 1) {
-          const v = fieldFn(x0 + (i / (fcols - 1)) * view.span, y0 + (j / (frows - 1)) * view.span, t, []);
+          const fx = x0 + (i / (fcols - 1)) * view.span;
+          const fy = y0 + (j / (frows - 1)) * view.span;
+          const dx = fx - 0.5;
+          const dy = fy - 0.5;
+          const v = fieldFn(0.5 + dx * ca - dy * sa, 0.5 + dx * sa + dy * ca, t, []);
           field[j * fcols + i] = v;
           if (v < min) min = v;
           if (v > max) max = v;
@@ -487,7 +494,7 @@
       }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      ramp = Math.min(1, ramp + dt / 0.5);
+      ramp = Math.min(1, ramp + dt / 0.432);
       const eased = ramp * ramp * (3 - 2 * ramp);
       iconTime += dt * 0.35 * eased;
       paint(iconTime);
