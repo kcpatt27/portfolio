@@ -101,11 +101,35 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
+    background: transparent;
   }
-
+  .site-head::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: color-mix(in srgb, var(--paper) 90%, transparent);
+    border-bottom: 1px solid var(--rule);
+    -webkit-mask: radial-gradient(
+      circle at var(--hole-x, -100px) var(--hole-y, 0px),
+      transparent 0 var(--hole-r, 0px),
+      #000 calc(var(--hole-r, 0px) + 1.5px)
+    );
+    mask: radial-gradient(
+      circle at var(--hole-x, -100px) var(--hole-y, 0px),
+      transparent 0 var(--hole-r, 0px),
+      #000 calc(var(--hole-r, 0px) + 1.5px)
+    );
+  }
+  .header-plane {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
   .head-inner {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -172,8 +196,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     margin: 0;
     padding: 0;
     border: 1px solid var(--rule);
@@ -184,14 +208,6 @@
     box-sizing: border-box;
     overflow: visible;
     transform: translateY(2px);
-  }
-  .site-nav .motion-toggle .motion-hole {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    pointer-events: none;
   }
   .site-nav .motion-toggle::after {
     content: "";
@@ -215,7 +231,7 @@
   }
   .site-nav .motion-toggle:focus-visible { outline: 2px solid var(--moss); outline-offset: 4px; }
   @media (max-width: 380px) {
-    .site-nav .motion-toggle { width: 38px; height: 38px; }
+    .site-nav .motion-toggle { width: 34px; height: 34px; }
   }
 
   .identity,
@@ -844,7 +860,7 @@
   .identity .name { font-size: 1.05rem; }
   .site-nav ul { gap: 2px 4px; }
   .site-nav a { padding-top: 2px; padding-bottom: 2px; font-size: 0.54rem; letter-spacing: 0.1em; }
-  .site-nav .motion-toggle { width: 38px; height: 38px; min-height: 0; padding: 0; }
+  .site-nav .motion-toggle { width: 34px; height: 34px; min-height: 0; padding: 0; }
 }
 .entries { margin: 0; padding: 0; list-style: none; }
 .entries > li { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); padding: 26px 0; border-top: 1px solid var(--rule-soft); }
