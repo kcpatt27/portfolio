@@ -400,8 +400,9 @@
         });
         if (visible) candidates.push((level - lo) / (hi - lo));
       }
-      if (candidates.length >= 3) {
-        fractions = [candidates[0], candidates[Math.floor((candidates.length - 1) / 2)], candidates[candidates.length - 1]];
+      if (candidates.length >= 4) {
+        const last = candidates.length - 1;
+        fractions = [candidates[0], candidates[Math.round(last / 3)], candidates[Math.round((last * 2) / 3)], candidates[last]];
       } else if (candidates.length) {
         fractions = candidates;
       }
@@ -487,29 +488,37 @@
     }
 
     function loop(now) {
-      if (!hover || motionEnabled() || document.hidden) {
+      const on = motionEnabled();
+      if ((!on && !hover) || document.hidden) {
         running = false;
         paint(iconTime);
         return;
       }
+      if (on && last && now - last < 48) {
+        frame = requestAnimationFrame(loop);
+        return;
+      }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      ramp = Math.min(1, ramp + dt / 0.432);
-      const eased = ramp * ramp * (3 - 2 * ramp);
-      iconTime += dt * eased;
+      let speed;
+      if (on) {
+        ramp = 1;
+        speed = 1 / 16;
+      } else {
+        ramp = Math.min(1, ramp + dt / 0.432);
+        speed = ramp * ramp * (3 - 2 * ramp);
+      }
+      iconTime += dt * speed;
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
 
     function start() {
-      if (motionEnabled()) {
-        paint(iconTime);
-        return;
-      }
       if (running) return;
+      if (!hover && !motionEnabled()) return;
       running = true;
       last = 0;
-      ramp = 0;
+      if (!motionEnabled()) ramp = 0;
       frame = requestAnimationFrame(loop);
     }
 
@@ -521,8 +530,9 @@
 
     function sync() {
       if (motionEnabled()) {
-        stop();
+        start();
       } else if (hover) {
+        ramp = 0;
         start();
       } else {
         stop();
@@ -530,9 +540,15 @@
     }
 
     button.addEventListener('pointerenter', () => { hover = true; start(); });
-    button.addEventListener('pointerleave', () => { hover = false; stop(); });
+    button.addEventListener('pointerleave', () => {
+      hover = false;
+      if (!motionEnabled()) stop();
+    });
     button.addEventListener('focus', () => { hover = true; start(); });
-    button.addEventListener('blur', () => { hover = false; stop(); });
+    button.addEventListener('blur', () => {
+      hover = false;
+      if (!motionEnabled()) stop();
+    });
 
     const ro = new ResizeObserver(() => {
       resize();
@@ -542,6 +558,7 @@
 
     resize();
     paint(STATIC_T);
+    if (motionEnabled()) start();
     icons.push({ sync, start, stop });
   }
 
