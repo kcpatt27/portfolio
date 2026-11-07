@@ -45,12 +45,12 @@ Breakpoints:
 
 ## Motion
 
-The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label and a small isoline glyph drawn from the same field. The header stays solid; the glyph is the only animated element in it.
+The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label and a small vertical isoline glyph, oriented as flowing strata rather than the hero's diagonal arcs.
 
 - `prefers-reduced-motion: reduce`: one synchronous static frame, no animation loop.
 - Otherwise: slow animation, paused when the tab is hidden or the element is off-screen.
 - Off state: gray ring, glyph at rest. On state: moss ring with a soft 12px glow, glyph still.
-- Hover, when the site is off: three contour levels from the page field drift through the circle. The glyph canvas is larger than the ring and masked, and its edge segments get one soft blurred pass, so the lines dissolve into wisps just past the ring. Hover does nothing when the site is on.
+- Hover, when the site is off: three contour levels from the vertical flow field drift through the circle. The glyph canvas is larger than the ring and masked, and its edge segments get one soft blurred pass, so the lines dissolve into wisps just past the ring. Hover does nothing when the site is on.
 - The ring grows from 0 to 4px with a faint gray or white glow on hover.
 - Field canvases animate at about 30fps on desktop and 20fps on small screens.
 - The circle is the only control that writes a preference; everything else follows the system.

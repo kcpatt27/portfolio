@@ -323,11 +323,17 @@
     canvas.setAttribute('aria-hidden', 'true');
     button.appendChild(canvas);
     const ctx = canvas.getContext('2d');
-    const source = document.querySelector('[data-contour-motion]');
-    const mode = source?.dataset.contourMode || 'hero';
-    const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
+    const fieldFn = visionField;
     const STATIC_T = 2.4;
-    const view = { cx: 0.80, cy: 0.28, span: 0.60 };
+    const view = { cx: 0.78, cy: 0.34, span: 0.5 };
+    const fcols = 20;
+    const frows = 20;
+    const field = new Float32Array(fcols * frows);
+    let fractions = [0.22, 0.5, 0.78];
+    let baseLo = 0;
+    let baseHi = 1;
+    let offsetX = 0;
+    let offsetY = 0;
 
     let w = 44;
     let h = 44;
@@ -336,9 +342,7 @@
     let frame = 0;
     let last = 0;
     let iconTime = STATIC_T;
-    const fcols = 20;
-    const frows = 20;
-    const field = new Float32Array(fcols * frows);
+    let ramp = 0;
 
     function resize() {
       const rect = button.getBoundingClientRect();
@@ -350,9 +354,10 @@
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      pickLevels(STATIC_T);
     }
 
-    function paint(t) {
+    function sampleField(t) {
       const x0 = view.cx - view.span / 2;
       const y0 = view.cy - view.span / 2;
       let min = Infinity;
@@ -365,21 +370,20 @@
           if (v > max) max = v;
         }
       }
-      ctx.clearRect(0, 0, w, h);
-      ctx.globalAlpha = 0.62;
-      ctx.strokeStyle = inkMuted;
-      ctx.lineWidth = 1;
-      ctx.lineJoin = 'round';
-      ctx.lineCap = 'round';
+      return [min, max];
+    }
+
+    function pickLevels(t) {
+      const [min, max] = sampleField(t);
       const lo = min + (max - min) * 0.04;
       const hi = max - (max - min) * 0.04;
+      baseLo = lo;
+      baseHi = hi;
       const cx = w / 2;
       const cy = h / 2;
-      const edge = w * 0.27;
-      const smoke = [];
       const candidates = [];
-      for (let k = 0; k < 15; k += 1) {
-        const level = lo + ((hi - lo) * k) / 14;
+      for (let k = 0; k < 13; k += 1) {
+        const level = lo + ((hi - lo) * k) / 12;
         const segs = segments(field, fcols, frows, level);
         if (!segs.length) continue;
         const visible = segs.some(([a, b]) => {
@@ -387,26 +391,77 @@
           const my = ((a[1] + b[1]) / 2 / (frows - 1)) * h;
           return Math.hypot(mx - cx, my - cy) < 15;
         });
-        if (visible) candidates.push(segs);
+        if (visible) candidates.push((level - lo) / (hi - lo));
       }
-      const picked = candidates.length >= 3
-        ? [candidates[0], candidates[Math.floor((candidates.length - 1) / 2)], candidates[candidates.length - 1]]
-        : candidates;
-      for (const segs of picked) {
-        ctx.beginPath();
+      if (candidates.length >= 3) {
+        fractions = [candidates[0], candidates[Math.floor((candidates.length - 1) / 2)], candidates[candidates.length - 1]];
+      } else if (candidates.length) {
+        fractions = candidates;
+      }
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+      for (const fraction of fractions) {
+        const level = lo + (hi - lo) * fraction;
+        const segs = segments(field, fcols, frows, level);
         for (const [a, b] of segs) {
           const x1 = (a[0] / (fcols - 1)) * w;
           const y1 = (a[1] / (frows - 1)) * h;
           const x2 = (b[0] / (fcols - 1)) * w;
           const y2 = (b[1] / (frows - 1)) * h;
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
+          minX = Math.min(minX, x1, x2);
+          maxX = Math.max(maxX, x1, x2);
+          minY = Math.min(minY, y1, y2);
+          maxY = Math.max(maxY, y1, y2);
+        }
+      }
+      if (Number.isFinite(minX)) {
+        offsetX = Math.max(-w * 0.1, Math.min(w * 0.1, w / 2 - (minX + maxX) / 2));
+        offsetY = Math.max(-h * 0.1, Math.min(h * 0.1, h / 2 - (minY + maxY) / 2));
+      }
+    }
+
+    function paint(t) {
+      sampleField(t);
+      const lo = baseLo;
+      const hi = baseHi;
+      const cx = w / 2;
+      const cy = h / 2;
+      const edge = w * 0.27;
+      const smoke = [];
+      const paths = [];
+      for (let fi = 0; fi < fractions.length; fi += 1) {
+        const breathe = 0.02 * Math.sin(t * 1.6 + fi * 1.7);
+        const level = lo + (hi - lo) * (fractions[fi] + breathe);
+        const segs = segments(field, fcols, frows, level);
+        if (!segs.length) continue;
+        for (const [a, b] of segs) {
+          const x1 = (a[0] / (fcols - 1)) * w;
+          const y1 = (a[1] / (frows - 1)) * h;
+          const x2 = (b[0] / (fcols - 1)) * w;
+          const y2 = (b[1] / (frows - 1)) * h;
+          paths.push([x1, y1, x2, y2]);
           if (Math.hypot((x1 + x2) / 2 - cx, (y1 + y2) / 2 - cy) > edge) {
             smoke.push([x1, y1, x2, y2]);
           }
         }
-        ctx.stroke();
       }
+      if (!paths.length) return;
+      const dx = offsetX;
+      const dy = offsetY;
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalAlpha = 0.62;
+      ctx.strokeStyle = inkMuted;
+      ctx.lineWidth = 1;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      for (const [x1, y1, x2, y2] of paths) {
+        ctx.moveTo(x1 + dx, y1 + dy);
+        ctx.lineTo(x2 + dx, y2 + dy);
+      }
+      ctx.stroke();
       if (smoke.length) {
         ctx.save();
         ctx.globalAlpha = 0.24;
@@ -416,8 +471,8 @@
           const [x1, y1, x2, y2] = smoke[i];
           const jx = Math.sin(i * 12.9898 + t * 2.2) * 1.6;
           const jy = Math.cos(i * 7.233 + t * 1.7) * 1.6;
-          ctx.moveTo(x1 + jx, y1 + jy);
-          ctx.lineTo(x2 + jy, y2 + jx);
+          ctx.moveTo(x1 + dx + jx, y1 + dy + jy);
+          ctx.lineTo(x2 + dx + jy, y2 + dy + jx);
         }
         ctx.stroke();
         ctx.restore();
@@ -425,34 +480,36 @@
     }
 
     function loop(now) {
-      if (!hover || motionEnabled()) {
+      if (!hover || motionEnabled() || document.hidden) {
         running = false;
-        paint(STATIC_T);
+        paint(iconTime);
         return;
       }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      iconTime += dt * 1.5;
+      ramp = Math.min(1, ramp + dt / 0.5);
+      const eased = ramp * ramp * (3 - 2 * ramp);
+      iconTime += dt * 0.35 * eased;
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
 
     function start() {
       if (motionEnabled()) {
-        paint(STATIC_T);
+        paint(iconTime);
         return;
       }
       if (running) return;
       running = true;
       last = 0;
-      iconTime = STATIC_T;
+      ramp = 0;
       frame = requestAnimationFrame(loop);
     }
 
     function stop() {
       running = false;
       cancelAnimationFrame(frame);
-      paint(STATIC_T);
+      paint(iconTime);
     }
 
     function sync() {
@@ -472,7 +529,7 @@
 
     const ro = new ResizeObserver(() => {
       resize();
-      if (!running) paint(STATIC_T);
+      paint(iconTime);
     });
     ro.observe(button);
 
