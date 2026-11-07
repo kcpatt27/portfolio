@@ -358,7 +358,7 @@
       }
       ctx.clearRect(0, 0, w, h);
       ctx.globalAlpha = 0.85;
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() || '#544e44';
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';

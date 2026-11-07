@@ -175,7 +175,7 @@
     height: 34px;
     margin: 0;
     padding: 0;
-    border: 1px solid var(--rule);
+    border: 1px solid color-mix(in srgb, var(--rule) 50%, var(--muted));
     border-radius: 50%;
     background: transparent;
     color: var(--muted);
