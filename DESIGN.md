@@ -72,6 +72,7 @@ Margin marks are decorative (`aria-hidden`); status is always written in text.
 - Links: moss, underline offset 4px, hover to clay.
 - Nav links: uppercase, 0.7rem, bottom border on hover and on the current page.
 - Touch targets: nav links and the pill keep a 44px minimum height.
+- The motion control gets a slow conic shine around its ring on hover, only while the site is off.
 
 ## Rules
 

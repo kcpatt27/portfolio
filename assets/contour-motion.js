@@ -327,7 +327,7 @@
     const mode = source?.dataset.contourMode || 'hero';
     const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
     const STATIC_T = 2.4;
-    const view = { cx: 0.82, cy: 0.24, span: 0.42 };
+    const view = { cx: 0.80, cy: 0.28, span: 0.60 };
 
     let w = 44;
     let h = 44;
@@ -371,16 +371,28 @@
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
-      const lo = min + (max - min) * 0.1;
-      const hi = max - (max - min) * 0.1;
+      const lo = min + (max - min) * 0.04;
+      const hi = max - (max - min) * 0.04;
       const cx = w / 2;
       const cy = h / 2;
       const edge = w * 0.27;
       const smoke = [];
-      for (let k = 0; k < 3; k += 1) {
-        const level = lo + ((hi - lo) * k) / 2;
+      const candidates = [];
+      for (let k = 0; k < 15; k += 1) {
+        const level = lo + ((hi - lo) * k) / 14;
         const segs = segments(field, fcols, frows, level);
         if (!segs.length) continue;
+        const visible = segs.some(([a, b]) => {
+          const mx = ((a[0] + b[0]) / 2 / (fcols - 1)) * w;
+          const my = ((a[1] + b[1]) / 2 / (frows - 1)) * h;
+          return Math.hypot(mx - cx, my - cy) < 15;
+        });
+        if (visible) candidates.push(segs);
+      }
+      const picked = candidates.length >= 3
+        ? [candidates[0], candidates[Math.floor((candidates.length - 1) / 2)], candidates[candidates.length - 1]]
+        : candidates;
+      for (const segs of picked) {
         ctx.beginPath();
         for (const [a, b] of segs) {
           const x1 = (a[0] / (fcols - 1)) * w;
