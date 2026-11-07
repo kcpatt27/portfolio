@@ -401,8 +401,8 @@
         if (visible) candidates.push((level - lo) / (hi - lo));
       }
       if (candidates.length >= 4) {
-        const last = candidates.length - 1;
-        fractions = [candidates[0], candidates[Math.round(last / 3)], candidates[Math.round((last * 2) / 3)], candidates[last]];
+        const start = Math.floor((candidates.length - 4) / 2);
+        fractions = candidates.slice(start, start + 4);
       } else if (candidates.length) {
         fractions = candidates;
       }
