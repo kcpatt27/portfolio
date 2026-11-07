@@ -364,16 +364,56 @@
       ctx.lineCap = 'round';
       const lo = min + (max - min) * 0.1;
       const hi = max - (max - min) * 0.1;
+      const cx = w / 2;
+      const cy = h / 2;
+      const edge = w * 0.27;
+      const smoke = [];
       for (let k = 0; k < 5; k += 1) {
         const level = lo + ((hi - lo) * k) / 4;
         const segs = segments(field, fcols, frows, level);
         if (!segs.length) continue;
         ctx.beginPath();
         for (const [a, b] of segs) {
-          ctx.moveTo((a[0] / (fcols - 1)) * w, (a[1] / (frows - 1)) * h);
-          ctx.lineTo((b[0] / (fcols - 1)) * w, (b[1] / (frows - 1)) * h);
+          const x1 = (a[0] / (fcols - 1)) * w;
+          const y1 = (a[1] / (frows - 1)) * h;
+          const x2 = (b[0] / (fcols - 1)) * w;
+          const y2 = (b[1] / (frows - 1)) * h;
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          if (Math.hypot((x1 + x2) / 2 - cx, (y1 + y2) / 2 - cy) > edge) {
+            smoke.push([x1, y1, x2, y2]);
+          }
         }
         ctx.stroke();
+      }
+      if (smoke.length) {
+        ctx.save();
+        ctx.globalAlpha = 0.3;
+        ctx.filter = 'blur(1.2px)';
+        ctx.beginPath();
+        for (let i = 0; i < smoke.length; i += 1) {
+          const [x1, y1, x2, y2] = smoke[i];
+          const jx = Math.sin(i * 12.9898 + t * 2.2) * 1.4;
+          const jy = Math.cos(i * 7.233 + t * 1.7) * 1.4;
+          ctx.moveTo(x1 + jx, y1 + jy);
+          ctx.lineTo(x2 + jy, y2 + jx);
+        }
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.save();
+        ctx.globalAlpha = 0.16;
+        ctx.filter = 'blur(2.4px)';
+        ctx.beginPath();
+        for (let i = 0; i < smoke.length; i += 1) {
+          const [x1, y1, x2, y2] = smoke[i];
+          const jx = Math.sin(i * 5.71 + t * 1.3) * 2.8;
+          const jy = Math.cos(i * 3.17 + t * 1.1) * 2.8;
+          ctx.moveTo(x1 + jx, y1 + jy);
+          ctx.lineTo(x2 + jy, y2 + jx);
+        }
+        ctx.stroke();
+        ctx.restore();
       }
     }
 
