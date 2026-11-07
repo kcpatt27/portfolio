@@ -5,6 +5,8 @@
   const instances = [];
   const icons = [];
   let sharedTime = 0;
+  let inkRule = '#cfc7b6';
+  let inkMuted = '#544e44';
   const STORAGE_KEY = 'contour-motion';
   let motionOverride = null;
   try {
@@ -14,6 +16,14 @@
   const motionEnabled = () => motionOverride
     ? motionOverride === 'on'
     : !reduce.matches;
+
+  function readInk() {
+    const styles = getComputedStyle(document.documentElement);
+    inkRule = styles.getPropertyValue('--rule').trim() || inkRule;
+    inkMuted = styles.getPropertyValue('--muted').trim() || inkMuted;
+  }
+  readInk();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readInk);
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -162,7 +172,7 @@
       }
       ctx.clearRect(0, 0, w, h);
       ctx.globalAlpha = baseAlpha * (window.innerWidth < 680 ? 0.55 : 1);
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
+      ctx.strokeStyle = inkRule;
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
@@ -282,7 +292,6 @@
   function updateMotionToggle() {
     document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
       button.setAttribute('aria-pressed', String(motionEnabled()));
-      button.title = motionEnabled() ? 'Isoline animation on' : 'Isoline animation off';
     });
   }
 
@@ -327,6 +336,9 @@
     let frame = 0;
     let last = 0;
     let iconTime = STATIC_T;
+    const fcols = 20;
+    const frows = 20;
+    const field = new Float32Array(fcols * frows);
 
     function resize() {
       const rect = button.getBoundingClientRect();
@@ -341,9 +353,6 @@
     }
 
     function paint(t) {
-      const fcols = 26;
-      const frows = 26;
-      const field = new Float32Array(fcols * frows);
       const x0 = view.cx - view.span / 2;
       const y0 = view.cy - view.span / 2;
       let min = Infinity;
@@ -357,8 +366,8 @@
         }
       }
       ctx.clearRect(0, 0, w, h);
-      ctx.globalAlpha = 0.85;
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() || '#544e44';
+      ctx.globalAlpha = 0.62;
+      ctx.strokeStyle = inkMuted;
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
@@ -368,8 +377,8 @@
       const cy = h / 2;
       const edge = w * 0.27;
       const smoke = [];
-      for (let k = 0; k < 5; k += 1) {
-        const level = lo + ((hi - lo) * k) / 4;
+      for (let k = 0; k < 3; k += 1) {
+        const level = lo + ((hi - lo) * k) / 2;
         const segs = segments(field, fcols, frows, level);
         if (!segs.length) continue;
         ctx.beginPath();
@@ -388,27 +397,13 @@
       }
       if (smoke.length) {
         ctx.save();
-        ctx.globalAlpha = 0.3;
-        ctx.filter = 'blur(1.2px)';
+        ctx.globalAlpha = 0.24;
+        ctx.filter = 'blur(1.5px)';
         ctx.beginPath();
         for (let i = 0; i < smoke.length; i += 1) {
           const [x1, y1, x2, y2] = smoke[i];
-          const jx = Math.sin(i * 12.9898 + t * 2.2) * 1.4;
-          const jy = Math.cos(i * 7.233 + t * 1.7) * 1.4;
-          ctx.moveTo(x1 + jx, y1 + jy);
-          ctx.lineTo(x2 + jy, y2 + jx);
-        }
-        ctx.stroke();
-        ctx.restore();
-
-        ctx.save();
-        ctx.globalAlpha = 0.16;
-        ctx.filter = 'blur(2.4px)';
-        ctx.beginPath();
-        for (let i = 0; i < smoke.length; i += 1) {
-          const [x1, y1, x2, y2] = smoke[i];
-          const jx = Math.sin(i * 5.71 + t * 1.3) * 2.8;
-          const jy = Math.cos(i * 3.17 + t * 1.1) * 2.8;
+          const jx = Math.sin(i * 12.9898 + t * 2.2) * 1.6;
+          const jy = Math.cos(i * 7.233 + t * 1.7) * 1.6;
           ctx.moveTo(x1 + jx, y1 + jy);
           ctx.lineTo(x2 + jy, y2 + jx);
         }
