@@ -66,6 +66,6 @@ Pages source is the Actions workflow, not a branch. Do not switch it back to the
 
 ## Motion and accessibility
 
-The isolines honor `prefers-reduced-motion`. When motion is allowed they animate; when it is reduced they render one static frame. The circular control in the navbar shows a small isoline glyph from the same field: static when motion is off, animating under the pointer, and animating continuously when on. The header itself stays solid. The choice is remembered per browser.
+The isolines honor `prefers-reduced-motion`. When motion is allowed they animate; when it is reduced they render one static frame. The circular control in the navbar shows a small three-peak contour glyph whose lines run past the ring. It animates only while the site is off and the control is hovered; when the site is on, the glyph stays still. The choice is remembered per browser.
 
 Pages are readable with JavaScript off. Keyboard focus is visible, the skip link is first in the tab order, and status is written in text as well as shown in the margin marks.

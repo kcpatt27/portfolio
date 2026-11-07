@@ -307,6 +307,19 @@
     syncMotion();
   }
 
+  function iconField(x, y, t) {
+    const peaks = [
+      [0.34 + 0.14 * Math.sin(t * 0.8), 0.42 + 0.12 * Math.cos(t * 0.6), 0.30, 1.0],
+      [0.72 + 0.10 * Math.cos(t * 0.7), 0.66 + 0.12 * Math.sin(t * 0.9), 0.24, -0.9],
+      [0.52 + 0.18 * Math.sin(t * 0.5 + 2), 0.30 + 0.10 * Math.cos(t * 0.8), 0.20, 0.8],
+    ];
+    let value = 0.12 * Math.sin(x * 5.0 + t * 0.5) + 0.10 * Math.cos(y * 6.0 - t * 0.4);
+    for (const [px, py, radius, amp] of peaks) {
+      value += amp * Math.exp(-(((x - px) ** 2 + (y - py) ** 2) / (radius * radius)));
+    }
+    return value;
+  }
+
   function setupIcon(button) {
     if (button.querySelector('.motion-icon')) return;
     const canvas = document.createElement('canvas');
@@ -314,24 +327,22 @@
     canvas.setAttribute('aria-hidden', 'true');
     button.appendChild(canvas);
     const ctx = canvas.getContext('2d');
-    const source = document.querySelector('[data-contour-motion]');
-    const mode = source?.dataset.contourMode || 'hero';
-    const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
-    const view = { cx: 0.86, cy: 0.12, span: 0.18 };
+    const STATIC_T = 1.1;
+    const view = { cx: 0.5, cy: 0.5, span: 1.0 };
 
-    let w = 28;
-    let h = 28;
+    let w = 44;
+    let h = 44;
     let hover = false;
     let running = false;
     let frame = 0;
     let last = 0;
-    let iconTime = 0;
+    let iconTime = STATIC_T;
 
     function resize() {
       const rect = button.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = Math.max(1, Math.round(rect.width - 6));
-      h = Math.max(1, Math.round(rect.height - 6));
+      w = Math.max(1, Math.round(rect.width + 10));
+      h = Math.max(1, Math.round(rect.height + 10));
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = w + 'px';
@@ -340,40 +351,31 @@
     }
 
     function paint(t) {
-      const fcols = 24;
-      const frows = 24;
+      const fcols = 26;
+      const frows = 26;
       const field = new Float32Array(fcols * frows);
-      const driftX = 0.032 * Math.sin(t * 2.1);
-      const driftY = 0.022 * Math.cos(t * 1.7);
-      const x0 = view.cx + driftX - view.span / 2;
-      const y0 = view.cy + driftY - view.span / 2;
+      const x0 = view.cx - view.span / 2;
+      const y0 = view.cy - view.span / 2;
       let min = Infinity;
       let max = -Infinity;
       for (let j = 0; j < frows; j += 1) {
         for (let i = 0; i < fcols; i += 1) {
-          const v = fieldFn(x0 + (i / (fcols - 1)) * view.span, y0 + (j / (frows - 1)) * view.span, t, []);
+          const v = iconField(x0 + (i / (fcols - 1)) * view.span, y0 + (j / (frows - 1)) * view.span, t);
           field[j * fcols + i] = v;
           if (v < min) min = v;
           if (v > max) max = v;
         }
       }
       ctx.clearRect(0, 0, w, h);
-      ctx.globalAlpha = 0.9;
-      const rule = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
-      const flow = (Math.sin(t * 1.4) + 1) / 2;
-      const grad = ctx.createLinearGradient(-w * 0.2, 0, w * (0.7 + flow * 0.5), h);
-      grad.addColorStop(0, 'rgba(0,0,0,0)');
-      grad.addColorStop(0.45, rule);
-      grad.addColorStop(1, rule);
-      ctx.strokeStyle = grad;
+      ctx.globalAlpha = 0.85;
+      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
-      const lo = min + (max - min) * 0.12;
-      const hi = max - (max - min) * 0.12;
-      const shift = (max - min) * 0.05 * Math.sin(t * 1.9);
-      for (let k = 0; k < 4; k += 1) {
-        const level = lo + ((hi - lo) * k) / 3 + shift;
+      const lo = min + (max - min) * 0.1;
+      const hi = max - (max - min) * 0.1;
+      for (let k = 0; k < 5; k += 1) {
+        const level = lo + ((hi - lo) * k) / 4;
         const segs = segments(field, fcols, frows, level);
         if (!segs.length) continue;
         ctx.beginPath();
@@ -386,65 +388,59 @@
     }
 
     function loop(now) {
-      if (!hover && !motionEnabled()) {
+      if (!hover || motionEnabled()) {
         running = false;
-        paint(iconTime || sharedTime);
+        paint(STATIC_T);
         return;
       }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      if (motionEnabled()) iconTime = sharedTime;
-      else iconTime = (iconTime || sharedTime) + dt;
+      iconTime += dt;
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
 
     function start() {
+      if (motionEnabled()) {
+        paint(STATIC_T);
+        return;
+      }
       if (running) return;
       running = true;
       last = 0;
+      iconTime = STATIC_T;
       frame = requestAnimationFrame(loop);
     }
 
     function stop() {
       running = false;
       cancelAnimationFrame(frame);
+      paint(STATIC_T);
     }
 
     function sync() {
-      if (motionEnabled() || hover) {
+      if (motionEnabled()) {
+        stop();
+      } else if (hover) {
         start();
       } else {
         stop();
-        paint(iconTime || sharedTime);
       }
     }
 
     button.addEventListener('pointerenter', () => { hover = true; start(); });
-    button.addEventListener('pointerleave', () => {
-      hover = false;
-      if (!motionEnabled()) {
-        stop();
-        paint(iconTime || sharedTime);
-      }
-    });
+    button.addEventListener('pointerleave', () => { hover = false; stop(); });
     button.addEventListener('focus', () => { hover = true; start(); });
-    button.addEventListener('blur', () => {
-      hover = false;
-      if (!motionEnabled()) {
-        stop();
-        paint(iconTime || sharedTime);
-      }
-    });
+    button.addEventListener('blur', () => { hover = false; stop(); });
 
     const ro = new ResizeObserver(() => {
       resize();
-      if (!running) paint(iconTime || sharedTime);
+      if (!running) paint(STATIC_T);
     });
     ro.observe(button);
 
     resize();
-    paint(sharedTime || 0.6);
+    paint(STATIC_T);
     icons.push({ sync, start, stop });
   }
 
