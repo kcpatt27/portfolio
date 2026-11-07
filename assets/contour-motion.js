@@ -329,7 +329,9 @@
     const fcols = 20;
     const frows = 20;
     const field = new Float32Array(fcols * frows);
-    let fractions = [0.22, 0.5, 0.78];
+    let fractions = [0.18, 0.4, 0.62, 0.84];
+    let targetFractions = fractions.slice();
+    let nextPick = 0;
     let baseLo = 0;
     let baseHi = 1;
     let offsetX = 0;
@@ -428,6 +430,33 @@
         offsetX = Math.max(-w * 0.1, Math.min(w * 0.1, w / 2 - (minX + maxX) / 2));
         offsetY = Math.max(-h * 0.1, Math.min(h * 0.1, h / 2 - (minY + maxY) / 2));
       }
+      targetFractions = fractions.slice();
+    }
+
+    function chooseTargets(t) {
+      sampleField(t);
+      const lo = baseLo;
+      const hi = baseHi;
+      const cx = w / 2;
+      const cy = h / 2;
+      const candidates = [];
+      for (let k = 0; k < 13; k += 1) {
+        const level = lo + ((hi - lo) * k) / 12;
+        const segs = segments(field, fcols, frows, level);
+        if (!segs.length) continue;
+        const visible = segs.some(([a, b]) => {
+          const mx = ((a[0] + b[0]) / 2 / (fcols - 1)) * w;
+          const my = ((a[1] + b[1]) / 2 / (frows - 1)) * h;
+          return Math.hypot(mx - cx, my - cy) < 15;
+        });
+        if (visible) candidates.push((level - lo) / (hi - lo));
+      }
+      if (candidates.length >= 4) {
+        const start = Math.floor((candidates.length - 4) / 2);
+        targetFractions = candidates.slice(start, start + 4);
+      } else if (candidates.length) {
+        targetFractions = candidates.slice(0, 4);
+      }
     }
 
     function paint(t) {
@@ -503,12 +532,24 @@
       let speed;
       if (on) {
         ramp = 1;
-        speed = 1 / 16;
+        speed = 1 / 8;
       } else {
         ramp = Math.min(1, ramp + dt / 0.432);
         speed = ramp * ramp * (3 - 2 * ramp);
       }
       iconTime += dt * speed;
+      if (now >= nextPick) {
+        chooseTargets(iconTime);
+        nextPick = now + 300;
+      }
+      if (targetFractions.length !== fractions.length) {
+        fractions = targetFractions.slice();
+      } else {
+        const ease = Math.min(1, dt * 5);
+        for (let i = 0; i < fractions.length; i += 1) {
+          fractions[i] += (targetFractions[i] - fractions[i]) * ease;
+        }
+      }
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
