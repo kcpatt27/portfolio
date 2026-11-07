@@ -496,7 +496,7 @@
       last = now;
       ramp = Math.min(1, ramp + dt / 0.432);
       const eased = ramp * ramp * (3 - 2 * ramp);
-      iconTime += dt * 0.35 * eased;
+      iconTime += dt * eased;
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
