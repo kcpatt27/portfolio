@@ -45,12 +45,14 @@ Breakpoints:
 
 ## Motion
 
-The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label and a small isoline glyph drawn from the same field. The header stays solid; the glyph is the only animated element in it.
+The hero, timeline spine, and vision strip use canvas isolines from `assets/contour-motion.js`. The navbar control is a 34px circle with no visible label and a small diagonal isoline glyph, oriented from top left to bottom right.
 
 - `prefers-reduced-motion: reduce`: one synchronous static frame, no animation loop.
 - Otherwise: slow animation, paused when the tab is hidden or the element is off-screen.
-- Off state: gray ring, static hole. On state: moss ring with a soft 12px glow.
-- Hover: the hole animates under the pointer even when the site is off, and the ring grows from 0 to 4px with a faint gray or white glow. When the site is on, the hole animates continuously and hover only adds the ring.
+- Off state: gray ring, glyph at rest. On state: moss ring with a soft 12px glow, glyph drifting at 1/8 speed.
+- Hover, when the site is off: four contour levels from the diagonal flow field drift through the circle. The glyph canvas is larger than the ring and masked, and its edge segments get one soft blurred pass, so the lines dissolve into wisps just past the ring. When the site is on, hover only adds the ring; the drift stays at 1/8.
+- The ring grows from 0 to 3px with a faint gray or white glow on hover.
+- Field canvases animate at about 30fps on desktop and 20fps on small screens.
 - The circle is the only control that writes a preference; everything else follows the system.
 
 Motion must never be required to read content. The `.contour*.svg` masks remain the no-JS fallback.
@@ -70,6 +72,7 @@ Margin marks are decorative (`aria-hidden`); status is always written in text.
 - Links: moss, underline offset 4px, hover to clay.
 - Nav links: uppercase, 0.7rem, bottom border on hover and on the current page.
 - Touch targets: nav links and the pill keep a 44px minimum height.
+- The motion control gets a slow conic shine around its ring on hover, only while the site is off.
 
 ## Rules
 

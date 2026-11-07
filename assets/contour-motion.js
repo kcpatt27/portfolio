@@ -5,6 +5,8 @@
   const instances = [];
   const icons = [];
   let sharedTime = 0;
+  let inkRule = '#cfc7b6';
+  let inkMuted = '#544e44';
   const STORAGE_KEY = 'contour-motion';
   let motionOverride = null;
   try {
@@ -14,6 +16,14 @@
   const motionEnabled = () => motionOverride
     ? motionOverride === 'on'
     : !reduce.matches;
+
+  function readInk() {
+    const styles = getComputedStyle(document.documentElement);
+    inkRule = styles.getPropertyValue('--rule').trim() || inkRule;
+    inkMuted = styles.getPropertyValue('--muted').trim() || inkMuted;
+  }
+  readInk();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readInk);
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -162,7 +172,7 @@
       }
       ctx.clearRect(0, 0, w, h);
       ctx.globalAlpha = baseAlpha * (window.innerWidth < 680 ? 0.55 : 1);
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
+      ctx.strokeStyle = inkRule;
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
@@ -187,7 +197,7 @@
         running = false;
         return;
       }
-      if (now - last < (window.innerWidth < 680 ? 80 : 55)) {
+      if (now - last < (window.innerWidth < 680 ? 50 : 33)) {
         requestAnimationFrame(draw);
         return;
       }
@@ -282,7 +292,6 @@
   function updateMotionToggle() {
     document.querySelectorAll('[data-motion-toggle]').forEach((button) => {
       button.setAttribute('aria-pressed', String(motionEnabled()));
-      button.title = motionEnabled() ? 'Isoline animation on' : 'Isoline animation off';
     });
   }
 
@@ -314,128 +323,242 @@
     canvas.setAttribute('aria-hidden', 'true');
     button.appendChild(canvas);
     const ctx = canvas.getContext('2d');
-    const source = document.querySelector('[data-contour-motion]');
-    const mode = source?.dataset.contourMode || 'hero';
-    const fieldFn = mode === 'timeline' ? timelineField : mode === 'vision' ? visionField : heroField;
-    const view = { cx: 0.86, cy: 0.12, span: 0.18 };
+    const fieldFn = visionField;
+    const STATIC_T = 2.4;
+    const view = { cx: 0.78, cy: 0.34, span: 0.5 };
+    const fcols = 20;
+    const frows = 20;
+    const field = new Float32Array(fcols * frows);
+    let fractions = [0.18, 0.4, 0.62, 0.84];
+    let baseLo = 0;
+    let baseHi = 1;
+    let offsetX = 0;
+    let offsetY = 0;
 
-    let w = 28;
-    let h = 28;
+    let w = 44;
+    let h = 44;
     let hover = false;
     let running = false;
     let frame = 0;
     let last = 0;
-    let iconTime = 0;
+    let iconTime = STATIC_T;
+    let ramp = 0;
 
     function resize() {
       const rect = button.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = Math.max(1, Math.round(rect.width - 6));
-      h = Math.max(1, Math.round(rect.height - 6));
+      w = Math.max(1, Math.round(rect.width + 10));
+      h = Math.max(1, Math.round(rect.height + 10));
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      pickLevels(STATIC_T);
     }
 
-    function paint(t) {
-      const fcols = 24;
-      const frows = 24;
-      const field = new Float32Array(fcols * frows);
+    function sampleField(t) {
       const x0 = view.cx - view.span / 2;
       const y0 = view.cy - view.span / 2;
+      const angle = Math.PI / 4;
+      const ca = Math.cos(angle);
+      const sa = Math.sin(angle);
       let min = Infinity;
       let max = -Infinity;
       for (let j = 0; j < frows; j += 1) {
         for (let i = 0; i < fcols; i += 1) {
-          const v = fieldFn(x0 + (i / (fcols - 1)) * view.span, y0 + (j / (frows - 1)) * view.span, t, []);
+          const fx = x0 + (i / (fcols - 1)) * view.span;
+          const fy = y0 + (j / (frows - 1)) * view.span;
+          const dx = fx - 0.5;
+          const dy = fy - 0.5;
+          const v = fieldFn(0.5 + dx * ca - dy * sa, 0.5 + dx * sa + dy * ca, t, []);
           field[j * fcols + i] = v;
           if (v < min) min = v;
           if (v > max) max = v;
         }
       }
+      return [min, max];
+    }
+
+    function pickLevels(t) {
+      const [min, max] = sampleField(t);
+      const lo = min + (max - min) * 0.04;
+      const hi = max - (max - min) * 0.04;
+      baseLo = lo;
+      baseHi = hi;
+      const cx = w / 2;
+      const cy = h / 2;
+      const candidates = [];
+      for (let k = 0; k < 13; k += 1) {
+        const level = lo + ((hi - lo) * k) / 12;
+        const segs = segments(field, fcols, frows, level);
+        if (!segs.length) continue;
+        const visible = segs.some(([a, b]) => {
+          const mx = ((a[0] + b[0]) / 2 / (fcols - 1)) * w;
+          const my = ((a[1] + b[1]) / 2 / (frows - 1)) * h;
+          return Math.hypot(mx - cx, my - cy) < 15;
+        });
+        if (visible) candidates.push((level - lo) / (hi - lo));
+      }
+      if (candidates.length >= 4) {
+        const start = Math.floor((candidates.length - 4) / 2);
+        fractions = candidates.slice(start, start + 4);
+      } else if (candidates.length) {
+        fractions = candidates;
+      }
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+      for (const fraction of fractions) {
+        const level = lo + (hi - lo) * fraction;
+        const segs = segments(field, fcols, frows, level);
+        for (const [a, b] of segs) {
+          const x1 = (a[0] / (fcols - 1)) * w;
+          const y1 = (a[1] / (frows - 1)) * h;
+          const x2 = (b[0] / (fcols - 1)) * w;
+          const y2 = (b[1] / (frows - 1)) * h;
+          minX = Math.min(minX, x1, x2);
+          maxX = Math.max(maxX, x1, x2);
+          minY = Math.min(minY, y1, y2);
+          maxY = Math.max(maxY, y1, y2);
+        }
+      }
+      if (Number.isFinite(minX)) {
+        offsetX = Math.max(-w * 0.1, Math.min(w * 0.1, w / 2 - (minX + maxX) / 2));
+        offsetY = Math.max(-h * 0.1, Math.min(h * 0.1, h / 2 - (minY + maxY) / 2));
+      }
+    }
+
+    function paint(t) {
+      sampleField(t);
+      const lo = baseLo;
+      const hi = baseHi;
+      const cx = w / 2;
+      const cy = h / 2;
+      const edge = w * 0.27;
+      const smoke = [];
+      const paths = [];
+      for (let fi = 0; fi < fractions.length; fi += 1) {
+        const breathe = 0.02 * Math.sin(t * 1.6 + fi * 1.7);
+        const level = lo + (hi - lo) * (fractions[fi] + breathe);
+        const segs = segments(field, fcols, frows, level);
+        if (!segs.length) continue;
+        for (const [a, b] of segs) {
+          const x1 = (a[0] / (fcols - 1)) * w;
+          const y1 = (a[1] / (frows - 1)) * h;
+          const x2 = (b[0] / (fcols - 1)) * w;
+          const y2 = (b[1] / (frows - 1)) * h;
+          paths.push([x1, y1, x2, y2]);
+          if (Math.hypot((x1 + x2) / 2 - cx, (y1 + y2) / 2 - cy) > edge) {
+            smoke.push([x1, y1, x2, y2]);
+          }
+        }
+      }
+      if (!paths.length) return;
+      const dx = offsetX;
+      const dy = offsetY;
       ctx.clearRect(0, 0, w, h);
-      ctx.globalAlpha = 0.9;
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--rule').trim() || '#cfc7b6';
+      ctx.globalAlpha = 0.62;
+      ctx.strokeStyle = inkMuted;
       ctx.lineWidth = 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
-      const lo = min + (max - min) * 0.12;
-      const hi = max - (max - min) * 0.12;
-      for (let k = 0; k < 4; k += 1) {
-        const level = lo + ((hi - lo) * k) / 3;
-        const segs = segments(field, fcols, frows, level);
-        if (!segs.length) continue;
+      ctx.beginPath();
+      for (const [x1, y1, x2, y2] of paths) {
+        ctx.moveTo(x1 + dx, y1 + dy);
+        ctx.lineTo(x2 + dx, y2 + dy);
+      }
+      ctx.stroke();
+      if (smoke.length) {
+        ctx.save();
+        ctx.globalAlpha = 0.24;
+        ctx.filter = 'blur(1.5px)';
         ctx.beginPath();
-        for (const [a, b] of segs) {
-          ctx.moveTo((a[0] / (fcols - 1)) * w, (a[1] / (frows - 1)) * h);
-          ctx.lineTo((b[0] / (fcols - 1)) * w, (b[1] / (frows - 1)) * h);
+        for (let i = 0; i < smoke.length; i += 1) {
+          const [x1, y1, x2, y2] = smoke[i];
+          const jx = Math.sin(i * 12.9898) * 1.6;
+          const jy = Math.cos(i * 7.233) * 1.6;
+          ctx.moveTo(x1 + dx + jx, y1 + dy + jy);
+          ctx.lineTo(x2 + dx + jy, y2 + dy + jx);
         }
         ctx.stroke();
+        ctx.restore();
       }
     }
 
     function loop(now) {
-      if (!hover && !motionEnabled()) {
+      const on = motionEnabled();
+      if ((!on && !hover) || document.hidden) {
         running = false;
-        paint(iconTime || sharedTime);
+        paint(iconTime);
+        return;
+      }
+      if (on && last && now - last < 48) {
+        frame = requestAnimationFrame(loop);
         return;
       }
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
       last = now;
-      if (motionEnabled()) iconTime = sharedTime;
-      else iconTime = (iconTime || sharedTime) + dt;
+      let speed;
+      if (on) {
+        ramp = 1;
+        speed = 1 / 8;
+      } else {
+        ramp = Math.min(1, ramp + dt / 0.432);
+        speed = ramp * ramp * (3 - 2 * ramp);
+      }
+      iconTime += dt * speed;
       paint(iconTime);
       frame = requestAnimationFrame(loop);
     }
 
     function start() {
       if (running) return;
+      if (!hover && !motionEnabled()) return;
       running = true;
       last = 0;
+      if (!motionEnabled()) ramp = 0;
       frame = requestAnimationFrame(loop);
     }
 
     function stop() {
       running = false;
       cancelAnimationFrame(frame);
+      paint(iconTime);
     }
 
     function sync() {
-      if (motionEnabled() || hover) {
+      if (motionEnabled()) {
+        start();
+      } else if (hover) {
+        ramp = 0;
         start();
       } else {
         stop();
-        paint(iconTime || sharedTime);
       }
     }
 
     button.addEventListener('pointerenter', () => { hover = true; start(); });
     button.addEventListener('pointerleave', () => {
       hover = false;
-      if (!motionEnabled()) {
-        stop();
-        paint(iconTime || sharedTime);
-      }
+      if (!motionEnabled()) stop();
     });
     button.addEventListener('focus', () => { hover = true; start(); });
     button.addEventListener('blur', () => {
       hover = false;
-      if (!motionEnabled()) {
-        stop();
-        paint(iconTime || sharedTime);
-      }
+      if (!motionEnabled()) stop();
     });
 
     const ro = new ResizeObserver(() => {
       resize();
-      if (!running) paint(iconTime || sharedTime);
+      paint(iconTime);
     });
     ro.observe(button);
 
     resize();
-    paint(sharedTime || 0.6);
+    paint(STATIC_T);
+    if (motionEnabled()) start();
     icons.push({ sync, start, stop });
   }
 

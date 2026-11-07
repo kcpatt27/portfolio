@@ -175,7 +175,7 @@
     height: 34px;
     margin: 0;
     padding: 0;
-    border: 1px solid var(--rule);
+    border: 1px solid color-mix(in srgb, var(--rule) 72%, var(--muted));
     border-radius: 50%;
     background: transparent;
     color: var(--muted);
@@ -186,9 +186,43 @@
   }
   .site-nav .motion-toggle .motion-icon {
     position: absolute;
-    inset: 3px;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     pointer-events: none;
+    opacity: 0.9;
+    -webkit-mask: radial-gradient(circle at 50% 50%, #000 0 17px, transparent 22px);
+    mask: radial-gradient(circle at 50% 50%, #000 0 17px, transparent 22px);
+  }
+  .site-nav .motion-toggle::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    padding: 1px;
+    background: conic-gradient(from 0deg, transparent 0 250deg, color-mix(in srgb, var(--clay) 48%, var(--moss)) 300deg, transparent 330deg 360deg);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    animation: shine 5s linear infinite;
+    animation-play-state: paused;
+  }
+  .site-nav .motion-toggle[aria-pressed="false"]:hover::before {
+    opacity: 0.78;
+    animation-play-state: running;
+  }
+  @keyframes shine {
+    to { transform: rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav .motion-toggle[aria-pressed="false"]:hover::before { animation: none; }
   }
   .site-nav .motion-toggle::after {
     content: "";
@@ -201,14 +235,14 @@
   }
   .site-nav .motion-toggle:hover::after {
     box-shadow:
-      0 0 0 4px color-mix(in srgb, var(--ink) 7%, transparent),
-      0 0 10px color-mix(in srgb, var(--paper) 55%, transparent);
+      0 0 0 3px color-mix(in srgb, var(--ink) 6%, transparent),
+      0 0 9px color-mix(in srgb, var(--paper) 48%, transparent);
   }
   .site-nav .motion-toggle[aria-pressed="true"] {
     border-color: var(--moss);
     box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--moss) 25%, transparent),
-      0 0 12px color-mix(in srgb, var(--moss) 21%, transparent);
+      0 0 0 1px color-mix(in srgb, var(--moss) 20%, transparent),
+      0 0 10px color-mix(in srgb, var(--moss) 17%, transparent);
   }
   .site-nav .motion-toggle:focus-visible { outline: 2px solid var(--moss); outline-offset: 4px; }
   @media (max-width: 380px) {
