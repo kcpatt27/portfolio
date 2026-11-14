@@ -31,14 +31,19 @@ const root = process.cwd()
 const path = resolve(root, 'metadata/projects.json')
 
 const today = new Date().toISOString().slice(0, 10)
-const headers: Record<string, string> = {
-  accept: 'application/vnd.github+json',
-  'user-agent': 'portfolio-refresh',
+const userAgent = { 'user-agent': 'portfolio-refresh' }
+
+function headersFor(url: string): Record<string, string> {
+  const headers: Record<string, string> = { ...userAgent }
+  if (new URL(url).hostname === 'api.github.com') {
+    headers.accept = 'application/vnd.github+json'
+    if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`
+  }
+  return headers
 }
-if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`
 
 async function getJson(url: string): Promise<{ status: number; data: any }> {
-  const response = await fetch(url, { headers })
+  const response = await fetch(url, { headers: headersFor(url) })
   if (response.status === 404) return { status: 404, data: null }
   if (!response.ok) throw new Error(`${response.status} ${response.statusText} for ${url}`)
   return { status: response.status, data: await response.json() }
