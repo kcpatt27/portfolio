@@ -35,6 +35,7 @@ Shared chrome lives in each page: `.site-head`, `.site-nav`, `.site-foot`. There
 
 - `assets/site.css` - one stylesheet. Tokens are CSS custom properties on `:root`, with a dark palette under `prefers-color-scheme: dark`. Layout is a two-column register (`.margin` + `.body`) inside `.row`, collapsing to one column under 680px.
 - `assets/contour-motion.js` - marching-squares isolines on a canvas. Three field modes (`hero`, `timeline`, `vision`) share one renderer, and the navbar icon uses the vision field rotated 45 degrees. It reads `prefers-reduced-motion`, paints one synchronous frame when motion is reduced, and animates otherwise. The circular navbar control overrides the system setting per browser via `localStorage`.
+- `assets/downloads.js` - refreshes the all-time npm download count from `api.npmjs.org`. The committed number is the no-JS and failure fallback; the weekly refresh keeps that fallback close.
 - `assets/contour*.svg` - static masks used as the no-JS and reduced-motion fallback.
 - `assets/fonts/` - self-hosted Fraunces (OFL). Karla comes from Google Fonts.
 
@@ -110,4 +111,4 @@ Pages must stay on the Actions source. The legacy branch builder repeatedly canc
 
 - `check:links` only validates local targets; external URLs are covered by the scheduled smoke run.
 - `smoke.mjs` hardcodes leak probes for retired paths. Add one when a project is retired.
-- The case studies are static prose. Project facts refresh weekly; summaries, metrics, and claims are still hand-written and reviewed.
+- The case studies are static prose. Project facts refresh weekly; summaries, metrics, and claims are still hand-written and reviewed. The npm count is refreshed live in the browser, with the last weekly value as the fallback.
