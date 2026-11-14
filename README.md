@@ -18,7 +18,7 @@ A static site built as an evidence register: each project record says what shipp
 
 ## Stack
 
-- Hand-written HTML and CSS. One optional script, `assets/contour-motion.js`, draws the animated isolines.
+- Hand-written HTML and CSS. Two optional scripts: `assets/contour-motion.js` draws the animated isolines; `assets/downloads.js` refreshes the npm download count. Both keep the static HTML as the fallback.
 - Node 20+ for the content pipeline and checks; `tsx` runs the TypeScript scripts. No runtime dependencies.
 - GitHub Actions runs checks and deploys Pages.
 - Fonts: Fraunces is self-hosted in `assets/fonts/`; Karla loads from Google Fonts.
