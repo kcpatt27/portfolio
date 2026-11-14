@@ -54,7 +54,8 @@ function withV(value: string): string {
 }
 
 async function main(): Promise<void> {
-  const data = JSON.parse(readFileSync(path, 'utf8')) as { projects: Project[] }
+  const raw = readFileSync(path, 'utf8')
+  const data = JSON.parse(raw) as { projects: Project[] }
   const changes: string[] = []
 
   for (const project of data.projects) {
@@ -120,7 +121,8 @@ async function main(): Promise<void> {
     if (changed.length > 0) project.checked = today
   }
 
-  writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`)
+  const text = `${JSON.stringify(data, null, 2)}\n`
+  writeFileSync(path, raw.includes('\r\n') ? text.replace(/\r?\n/g, '\r\n') : text)
 
   if (changes.length === 0) {
     console.log('Refresh: no fact changes')
