@@ -2,14 +2,17 @@
     "scripts": {
         "check:publish": "tsx scripts/check-publish.ts",
         "check:output": "tsx scripts/check-publish.ts --scan-output",
+        "render": "tsx scripts/render.ts",
+        "check:render": "tsx scripts/render.ts --check",
+        "refresh": "tsx scripts/refresh-status.ts && tsx scripts/render.ts",
         "sync": "tsx scripts/sync-from-shared-docs.ts",
-        "prebuild": "tsx scripts/sync-from-shared-docs.ts && tsx scripts/check-publish.ts",
+        "prebuild": "tsx scripts/render.ts && tsx scripts/sync-from-shared-docs.ts && tsx scripts/check-publish.ts",
         "symlink-docs": "tsx scripts/symlink-project-docs.ts",
         "build": "npm run prebuild && npm run symlink-docs && npm run check:output",
         "dev": "npm run build",
-        "check:html": "html-validate index.html timeline.html vision.html docs.html resume.html 404.html work/fixture-cad.html work/living-state-machine.html work/mcp-weight.html work/eyewright.html work/global-info-portal.html work/memvid-mcp.html",
+        "check:html": "html-validate index.html timeline.html vision.html docs.html resume.html 404.html work/fixture-cad.html work/living-state-machine.html work/mcp-weight.html work/eyewright.html work/vkeys.html work/global-info-portal.html work/memvid-mcp.html",
         "check:links": "node scripts/check-links.mjs",
-        "check:static": "npm run check:publish && npm run check:html && npm run check:links",
+        "check:static": "npm run check:render && npm run check:publish && npm run check:html && npm run check:links",
         "smoke": "node scripts/smoke.mjs"
     },
     "devDependencies": {

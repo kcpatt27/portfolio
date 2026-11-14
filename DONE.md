@@ -4,6 +4,8 @@ Completed work that used to sit in `NEXT.md`. Kept so the backlog stays short; n
 
 ## 2026-11
 
+- Added vkeys to the timeline and the Work page as No. 04, with a case study covering the v0.1.0 evidence and the boundary limits.
+- Moved timeline entries and project facts into `metadata/timeline.json` and `metadata/projects.json`; `scripts/render.ts` generates the timeline and the latest-six log, and the weekly `refresh-status` workflow opens a fact-refresh pull request.
 - Moved Pages from the legacy branch builder to `.github/workflows/pages.yml`; legacy deploys were cancelling themselves.
 - Rebuilt the `index.html` "What is done" block to match `timeline.html` (six latest, newest first).
 - Added AISL and allSoft to the timeline; eight entries total, chronological.
