@@ -23,7 +23,7 @@ interface Project {
   release: string
   pypiVersion: string
   npmVersion: string
-  npmDownloads: number | null
+  npmDownloadsAllTime: number | null
   checked: string
 }
 
@@ -63,7 +63,7 @@ async function main(): Promise<void> {
     let release = project.release
     let pypiVersion = project.pypiVersion
     let npmVersion = project.npmVersion
-    let npmDownloads = project.npmDownloads
+    let npmDownloadsAllTime = project.npmDownloadsAllTime
 
     try {
       if (project.repo) {
@@ -87,8 +87,8 @@ async function main(): Promise<void> {
       if (project.npm) {
         const npm = await getJson(`https://registry.npmjs.org/${project.npm}/latest`)
         npmVersion = String(npm.data.version)
-        const downloads = await getJson(`https://api.npmjs.org/downloads/point/last-month/${project.npm}`)
-        npmDownloads = Number(downloads.data.downloads)
+        const downloads = await getJson(`https://api.npmjs.org/downloads/point/2015-01-10:${today}/${project.npm}`)
+        npmDownloadsAllTime = Number(downloads.data.downloads)
       }
     } catch (error) {
       console.warn(`[refresh] ${project.id}: ${(error as Error).message}; keeping previous facts`)
@@ -104,8 +104,8 @@ async function main(): Promise<void> {
           : project.status
     const version = pypiVersion ? withV(pypiVersion) : npmVersion ? withV(npmVersion) : release || project.version
 
-    const before = { status: project.status, version: project.version, visibility: project.visibility, release: project.release, pypiVersion: project.pypiVersion, npmVersion: project.npmVersion, npmDownloads: project.npmDownloads }
-    const after = { status, version, visibility, release, pypiVersion, npmVersion, npmDownloads }
+    const before = { status: project.status, version: project.version, visibility: project.visibility, release: project.release, pypiVersion: project.pypiVersion, npmVersion: project.npmVersion, npmDownloadsAllTime: project.npmDownloadsAllTime }
+    const after = { status, version, visibility, release, pypiVersion, npmVersion, npmDownloadsAllTime }
     const changed = Object.keys(after).filter((key) => before[key as keyof typeof before] !== after[key as keyof typeof after])
     if (changed.length > 0) {
       changes.push(`${project.id}: ${changed.map((key) => `${key} ${JSON.stringify(before[key as keyof typeof before])} -> ${JSON.stringify(after[key as keyof typeof after])}`).join(', ')}`)
@@ -117,7 +117,7 @@ async function main(): Promise<void> {
     project.release = release
     project.pypiVersion = pypiVersion
     project.npmVersion = npmVersion
-    project.npmDownloads = npmDownloads
+    project.npmDownloadsAllTime = npmDownloadsAllTime
     if (changed.length > 0) project.checked = today
   }
 

@@ -45,7 +45,7 @@ function fact(id: string, field: string): string {
   if (value === undefined || value === null || value === '') {
     throw new Error(`${id}.${field} is empty; refresh metadata/projects.json first`)
   }
-  return String(value)
+  return typeof value === 'number' ? value.toLocaleString('en-US') : String(value)
 }
 
 function resolveTokens(text: string): string {
