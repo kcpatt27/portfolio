@@ -12,14 +12,15 @@ A static portfolio with a fail-closed content pipeline. The pages are plain HTML
 ## Page map
 
 ```
-index.html          hero, 3 featured records, field note, 6 timeline entries
-timeline.html       8 dated entries, newest first
+index.html          hero, 4 featured records, field note, 6 timeline entries
+timeline.html       9 dated entries, newest first
 vision.html         direction + principles
 resume.html         HTML CV, links the PDF in assets/
 work/               case studies (one file per record)
    fixture-cad.html
    living-state-machine.html
    mcp-weight.html
+   vkeys.html
    eyewright.html
    global-info-portal.html   (noindex archive)
    memvid-mcp.html           (noindex archive)
@@ -28,7 +29,7 @@ docs.html           pointer to the case studies
 404.html            static fallback
 ```
 
-Shared chrome lives in each page: `.site-head`, `.site-nav`, `.site-foot`. There is no templating layer, so a nav or footer change is a multi-file edit. That is deliberate: the site has no build step for HTML and no runtime dependency.
+Shared chrome lives in each page: `.site-head`, `.site-nav`, `.site-foot`. There is no general templating layer, and only the timeline lists are generated from data. That is deliberate: the rest of the page stays a file copy and the site has no runtime dependency.
 
 ## Assets
 
@@ -40,6 +41,15 @@ Shared chrome lives in each page: `.site-head`, `.site-nav`, `.site-foot`. There
 ## Content pipeline
 
 ```
+metadata/timeline.json   dated entries, newest first
+        │
+        ├─ scripts/render.ts  → timeline.html  (<ol class="entries">)
+        │                     → index.html     (<ol class="log">, latest 6)
+        │
+        └─ metadata/projects.json  ← scripts/refresh-status.ts (GitHub, PyPI, npm)
+                 │
+                 └─ {{project.field}} tokens and data-fact spans
+
 shared-docs/<project>/summary-for-career.md   (frontmatter: publish, commercial, portfolio_id)
         │
         ├─ scripts/sync-from-shared-docs.ts  → metadata/projects.config.json
@@ -53,6 +63,8 @@ shared-docs/<project>/summary-for-career.md   (frontmatter: publish, commercial,
         └─ scripts/check-publish.ts --scan-output → re-check the copied output
 ```
 
+`metadata/projects.json` is the live fact sheet: repository visibility, latest release, package versions, and npm downloads. `refresh-status.ts` updates it from GitHub, PyPI, and npm; the weekly `refresh.yml` workflow runs it and opens a pull request. `render.ts` substitutes those facts into timeline entries and marked spans, so status and version text do not drift by hand.
+
 `metadata/portfolio-overlay.json` holds presentation-only fields (description, local path, technologies, live URL) so shared-docs stays the evidence source. `metadata/projects.config.json` is generated and committed so CI and deploys have a stable config.
 
 The pipeline is intentionally copy-based, not symlink-based. Earlier symlinks broke the GitHub Pages build; the copy step plus `.nojekyll` is the fix.
@@ -61,6 +73,7 @@ The pipeline is intentionally copy-based, not symlink-based. Earlier symlinks br
 
 | Check | Scope |
 | --- | --- |
+| `check:render` | The committed timeline and index log match `metadata/timeline.json` and `metadata/projects.json` |
 | `check:publish` | Metadata gate: public, non-commercial, allowed files only |
 | `check:output` | Same gate over `_project-docs/` after copying |
 | `check:html` | `html-validate` on every page |
@@ -69,9 +82,10 @@ The pipeline is intentionally copy-based, not symlink-based. Earlier symlinks br
 
 ## CI and deploy
 
-- `.github/workflows/ci.yml` - on push/PR: install, publish gate, build, HTML validation, local links.
+- `.github/workflows/ci.yml` - on push/PR: install, render check, publish gate, build, HTML validation, local links.
 - `.github/workflows/pages.yml` - on push to `main`: upload the repository root as the Pages artifact, deploy with `actions/deploy-pages`.
 - `.github/workflows/smoke.yml` - scheduled live check of the deployed site.
+- `.github/workflows/refresh.yml` - weekly fact refresh from GitHub, PyPI, and npm; opens a pull request.
 
 Pages must stay on the Actions source. The legacy branch builder repeatedly cancelled its own deployments on this repository.
 
@@ -88,11 +102,12 @@ Pages must stay on the Actions source. The legacy branch builder repeatedly canc
 1. Add or update the project summary in shared-docs with `publish: public` frontmatter.
 2. Add an overlay entry in `metadata/portfolio-overlay.json`.
 3. Run `npm run build`; confirm `_project-docs/<id>/` contains only allowed files.
-4. Add `work/<id>.html`, a record on `index.html`, an entry on `timeline.html`, and a `sitemap.xml` URL.
-5. Add the page to `check:html` and `check:links`; run `npm run check:static` and `npm run smoke`.
+4. Add the project to `metadata/projects.json`, add its entry to `metadata/timeline.json`, then run `npm run render`.
+5. Add `work/<id>.html`, a record on `index.html`, and a `sitemap.xml` URL.
+6. Add the page to the `check:html` script and the `check:links` page list; run `npm run check:static` and `npm run smoke`.
 
 ## Known limits
 
 - `check:links` only validates local targets; external URLs are covered by the scheduled smoke run.
 - `smoke.mjs` hardcodes leak probes for retired paths. Add one when a project is retired.
-- The case studies are static prose. There is no per-project data feed and no CMS.
+- The case studies are static prose. Project facts refresh weekly; summaries, metrics, and claims are still hand-written and reviewed.

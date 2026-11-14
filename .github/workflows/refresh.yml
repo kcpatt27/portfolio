@@ -1,0 +1,48 @@
+name: refresh-status
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 13 * * 1' # weekly, Monday 13:00 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Refresh project facts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run refresh
+      - name: Verify the rendered site
+        run: npm run check:static
+      - name: Open a pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet; then
+            echo "No fact changes."
+            exit 0
+          fi
+          branch="status/refresh"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add -A
+          git commit -m "chore: refresh project facts"
+          # Automation-owned branch: force keeps one open PR per cycle instead of a stack.
+          git push --force origin "$branch"
+          if [ -z "$(gh pr list --head "$branch" --json number --jq '.[0].number // empty')" ]; then
+            gh pr create --base main --head "$branch" \
+              --title "chore: refresh project facts" \
+              --body "Automated refresh of repository visibility, release, package version, and npm download facts. Review the diff; merge to redeploy the site."
+          fi

@@ -1,0 +1,67 @@
+{
+  "entries": [
+    {
+      "when": "2026 · November",
+      "title": "vkeys - public, {{vkeys.version}}",
+      "href": "work/vkeys.html",
+      "summary": "A Rust key store where named profiles inject credentials into a fixed command, with no command that prints a value. Tier 2 is a local OpenRouter broker behind a use-only token. 30 tests pass; the Windows SYSTEM and Linux ARM64 boundaries were both verified.",
+      "status": "{{vkeys.status}}"
+    },
+    {
+      "when": "2026 · November",
+      "title": "Fixture - live",
+      "href": "work/fixture-cad.html",
+      "summary": "A local-first harness that drives FreeCAD and Blender through one schema-validated tool contract. Gate PASS at 140 pytest, FreeCAD 92/0, Blender 29/0; two scripted STEP/STL desk cases.",
+      "status": "{{fixture-cad.status}}"
+    },
+    {
+      "when": "2026 · October",
+      "title": "AI Security Layer (AISL) - agent execution runtime",
+      "href": "",
+      "summary": "A capability-gated execution layer where the model cannot grant itself authority. Policy evaluation, taint tracking, egress DLP, and a signed hash-chained audit log, documented as 39 security claims, 32 ADRs, and 716 tests.",
+      "status": "{{ai-security-layer.status}}"
+    },
+    {
+      "when": "2026 · October",
+      "title": "eyewright - {{eyewright.version}}",
+      "href": "work/eyewright.html",
+      "summary": "A local-first decision core published to PyPI: a measured committee of local models behind one typed call. In a 2,000-decision replay, the selected policy reached 88.9% acted accuracy at 22.5% coverage.",
+      "status": "{{eyewright.status}}"
+    },
+    {
+      "when": "2026 · October",
+      "title": "mcp-weight - published to npm",
+      "href": "work/mcp-weight.html",
+      "summary": "A read-only CLI that reports the context cost of MCP tool schemas across six clients. 517 downloads in its first month; a broken server stays a row instead of failing the scan.",
+      "status": "{{mcp-weight.status}}"
+    },
+    {
+      "when": "2026 · July",
+      "title": "Living State Machine - research closure",
+      "href": "work/living-state-machine.html",
+      "summary": "A local-first LLM memory system with six ablatable mechanisms, 1.000 vs 0.100 preference recall at matched budget, and 240+ tests. Paper in preparation.",
+      "status": "{{living-state-machine.status}}"
+    },
+    {
+      "when": "2026 · June",
+      "title": "allSoft - robot simulation validation",
+      "href": "",
+      "summary": "A YAML-driven simulation-in-the-loop harness: PX4 SITL and Gazebo in Docker, MAVSDK missions, and JSON plus SQLite artifacts for regression comparison. 4/4 reference scenarios pass live.",
+      "status": "{{allsoft.status}}"
+    },
+    {
+      "when": "2026 · March",
+      "title": "This site - rebuilt as a static project site",
+      "href": "",
+      "summary": "Moved from a single page to a multi-page static site with a config-driven content pipeline, then hardened after a GitHub Pages failure caused by committed symlinks.",
+      "status": "Live"
+    },
+    {
+      "when": "2025 · Published",
+      "title": "Developer guide - building software with AI",
+      "href": "",
+      "summary": "A 25,000-word tutorial on building software with AI coding assistants, with role-specific tracks and case studies drawn from production projects. The strongest technical-writing artifact in the portfolio.",
+      "status": "Published"
+    }
+  ]
+}

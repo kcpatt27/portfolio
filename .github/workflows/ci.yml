@@ -15,6 +15,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Rendered pages are current
+        run: npm run check:render
       - name: Publication gate (fail-closed)
         run: npm run check:publish
       - name: Build content pipeline

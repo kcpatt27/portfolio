@@ -8,11 +8,11 @@ A static site built as an evidence register: each project record says what shipp
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Thesis, three featured records, field note, six latest timeline entries |
-| `timeline.html` | The full record: eight dated entries, newest first |
+| `index.html` | Thesis, four featured records, field note, six latest timeline entries |
+| `timeline.html` | The full record: nine dated entries, newest first |
 | `vision.html` | Direction and the principles behind the work |
 | `resume.html` | HTML CV; downloads `assets/Kalen-Patterson-CV.pdf` |
-| `work/*.html` | Case studies: Fixture, Living State Machine, mcp-weight, eyewright, Global Information Portal, MemVid |
+| `work/*.html` | Case studies: Fixture, Living State Machine, mcp-weight, vkeys, eyewright, Global Information Portal, MemVid |
 | `papers/` | Living State Machine technical report (HTML, PDF, LaTeX) and arXiv notes |
 | `404.html`, `docs.html` | Fallback and a pointer to the case studies |
 
@@ -41,6 +41,9 @@ Open `http://127.0.0.1:8000/`. There is no dev server and no hot reload; refresh
 
 | Command | Does |
 | --- | --- |
+| `npm run render` | Renders the timeline and the latest-six log from `metadata/timeline.json` |
+| `npm run check:render` | Fails when the committed HTML is stale against the data files |
+| `npm run refresh` | Refreshes repository, release, and package facts in `metadata/projects.json`, then renders |
 | `npm run sync` | Rebuilds `metadata/projects.config.json` from the shared-docs evidence store |
 | `npm run check:publish` | Fail-closed publication gate over project metadata |
 | `npm run symlink-docs` | Copies the publishable docs into `_project-docs/` and scrubs roadmap/PRD text |
@@ -60,7 +63,7 @@ Roadmap, PRD, and specification files are never published. If a forbidden headin
 
 ## Deploy
 
-`.github/workflows/pages.yml` uploads the repository root as the Pages artifact and deploys it on every push to `main`. `.github/workflows/ci.yml` runs the publish gate, build, HTML validation, and local link check on pushes and pull requests. `smoke.yml` checks the live site on a schedule.
+`.github/workflows/pages.yml` uploads the repository root as the Pages artifact and deploys it on every push to `main`. `.github/workflows/ci.yml` runs the publish gate, build, HTML validation, and local link check on pushes and pull requests. `smoke.yml` checks the live site on a schedule. `refresh.yml` refreshes project facts weekly and opens a pull request for review.
 
 Pages source is the Actions workflow, not a branch. Do not switch it back to the legacy builder; that path cancels its own deploys.
 
