@@ -140,12 +140,14 @@ const outputs: Array<{ file: string; html: string }> = [
 let stale = 0
 for (const output of outputs) {
   const current = readFileSync(resolve(root, output.file), 'utf8')
-  if (current === output.html) continue
+  const eol = current.includes('\r\n') ? '\r\n' : '\n'
+  const rendered = output.html.replace(/\r?\n/g, eol)
+  if (current === rendered) continue
   if (check) {
     console.error(`STALE ${output.file} (run: npm run render)`)
     stale += 1
   } else {
-    writeFileSync(resolve(root, output.file), output.html)
+    writeFileSync(resolve(root, output.file), rendered)
     console.log(`rendered ${output.file}`)
   }
 }
