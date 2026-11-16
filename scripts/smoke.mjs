@@ -7,6 +7,7 @@ const checks = [
   { name: 'docs viewer', url: 'https://kcpatt27.github.io/portfolio/docs.html', expect: 200 },
   { name: 'vision page', url: 'https://kcpatt27.github.io/portfolio/vision.html', expect: 200 },
   { name: 'timeline page', url: 'https://kcpatt27.github.io/portfolio/timeline.html', expect: 200 },
+  { name: 'vkeys case study', url: 'https://kcpatt27.github.io/portfolio/work/vkeys.html', expect: 200 },
   { name: 'services surface removed', url: 'https://kcpatt27.github.io/portfolio/web-dev/', expect: 404 },
   { name: 'roadmaps page removed', url: 'https://kcpatt27.github.io/portfolio/roadmaps.html', expect: 404 },
   { name: 'public doc serves', url: 'https://kcpatt27.github.io/portfolio/_project-docs/global-info-portal/README.md', expect: 200 },
