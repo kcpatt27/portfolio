@@ -65,13 +65,13 @@
       "release": "v0.2.0",
       "pypiVersion": "",
       "npmVersion": "0.2.3",
-      "npmDownloadsAllTime": 1017,
-      "checked": "2026-11-14"
+      "npmDownloadsAllTime": 1023,
+      "checked": "2026-11-16"
     },
     {
       "id": "eyewright",
       "name": "eyewright",
-      "repo": "kcpatt27/eyewright",
+      "repo": "eyewright/eyewright",
       "pypi": "eyewright",
       "npm": "",
       "statusOverride": "Published",
